@@ -9,6 +9,7 @@ const RegisterComponent = ({ bloc }) => {
   const { doRegister } = bloc();
   const formik = useFormik({
     initialValues: {
+      fullname: "",
       email: "",
       password: "",
     },
@@ -17,6 +18,9 @@ const RegisterComponent = ({ bloc }) => {
         .required("This field is required")
         .email("Invalid email format"),
       password: Yup.string()
+        .required("This field is required")
+        .min(5, "minimum 6 characters"),
+      fullname: Yup.string()
         .required("This field is required")
         .min(5, "minimum 6 characters"),
     }),
@@ -34,11 +38,27 @@ const RegisterComponent = ({ bloc }) => {
     <div className="formBody">
       <div>
         <div className="card cardForm">
-          <div className="box">
-          </div>
+          <div className="box"></div>
           <div className="card-body">
             <div>
               <form onSubmit={formik.handleSubmit}>
+                <label>Full Name </label>
+                <input
+                  className="form-control cardForm text-center"
+                  type="text"
+                  name="fullname"
+                  placeholder="fullname"
+                  value={formik.values.fullname || ""}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <p className="warning">
+                  {formik.errors.fullname && formik.touched.fullname ? (
+                    <small className="text-danger">
+                      {formik.errors.fullname}
+                    </small>
+                  ) : null}
+                </p>
                 <label>Email </label>
                 <input
                   className="form-control cardForm text-center"
