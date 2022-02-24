@@ -2,7 +2,7 @@ import { client } from "../../../../http-client/Client"
 
 const LoginService = () =>{
     const postLogin = async(params)=>{
-        const response = await client.post("/login",params)
+        const response = await client.post("/login",{},{auth:params})
         return response
     }
     const postLogout = async(params)=>{
