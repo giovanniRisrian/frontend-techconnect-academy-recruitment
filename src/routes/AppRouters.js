@@ -15,6 +15,11 @@ import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import RegisterRecruiter from "../pages/administrator/registerRecruiter/RegisterRecruiter";
+import ApplicantList from "../pages/applicant/applicant-list/component/ApplicantList";
+import ApplicantListBloc from "../pages/applicant/applicant-list/bloc/ApplicantListBloc";
+import UseApplicantList from "../pages/applicant/applicant-list/bloc/UseApplicantList";
+import ApplicantService from "../pages/applicant/applicant-list/service/ApplicantService";
+import RouteNavigation from "./RouteNavigation";
 const AppRouters = () => {
   const data = useContext(RootContext);
   const navigate = useNavigate()
@@ -89,6 +94,9 @@ const AppRouters = () => {
             </>
           }
         />
+        <Route path="applicants" element={<Outlet />}>
+        <Route index element={<ApplicantList bloc={() => ApplicantListBloc(UseApplicantList,ApplicantService,RouteNavigation)}/>}/>
+        </Route>
       </Routes>
     </>
   );
