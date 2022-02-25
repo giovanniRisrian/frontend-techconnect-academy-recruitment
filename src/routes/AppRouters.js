@@ -16,9 +16,12 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import RegisterRecruiter from "../pages/administrator/registerRecruiter/RegisterRecruiter";
 import Homepage from "../pages/homepage/Homepage";
+import NotFoundPage from "../pages/404/NotFoundPage";
+import Profile from "../pages/applicant/profile/Profile";
+
 const AppRouters = () => {
   const data = useContext(RootContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   let Role = null;
   let addressing;
   if (data.userInfo !== null) {
@@ -35,18 +38,24 @@ const AppRouters = () => {
   return (
     <>
       <Routes>
-
-      <Route
+        <Route
           path="/"
-          element={<><Homepage />
-          {/* <button onClick={()=>navigate('/login')}>Login</button><button onClick={()=>navigate('/register')}>Register</button> */}
-          </>}/>
-          
+          element={
+            <>
+              <Homepage />
+              {/* <button onClick={()=>navigate('/login')}>Login</button><button onClick={()=>navigate('/register')}>Register</button> */}
+            </>
+          }
+        />
+
         <Route
           path="/login"
           element={Role === null ? <Login /> : <Navigate to={addressing} />}
         />
-        <Route path="/register" element={Role === null ? <Registers /> : <Navigate to={addressing} />} />
+        <Route
+          path="/register"
+          element={Role === null ? <Registers /> : <Navigate to={addressing} />}
+        />
         <Route path="/dashboard" element={<MiddlewareAuth />}>
           <Route index element={<Dashboard />} />
           <Route
@@ -57,6 +66,16 @@ const AppRouters = () => {
               </>
             }
           />
+        </Route>
+        <Route path="/applicant" element={<MiddlewareAuth />}>
+          <Route
+            path="profile"
+            element={
+              <>
+                <Profile />
+              </>
+            }
+          ></Route>
         </Route>
 
         <Route path="/recruiter" element={<MiddlewareAuthRecruiter />}>
@@ -89,6 +108,14 @@ const AppRouters = () => {
           element={
             <>
               <VacancyDetail />
+            </>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <>
+              <NotFoundPage />
             </>
           }
         />
