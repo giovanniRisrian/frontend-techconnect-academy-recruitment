@@ -18,6 +18,7 @@ import RegisterRecruiter from "../pages/administrator/registerRecruiter/Register
 import Homepage from "../pages/homepage/Homepage";
 import NotFoundPage from "../pages/404/NotFoundPage";
 import Profile from "../pages/applicant/profile/Profile";
+import { Navbar } from "../pages/globalComponent/navbar/Navbar";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -37,6 +38,7 @@ const AppRouters = () => {
   }
   return (
     <>
+    <Navbar/>
       <Routes>
         <Route
           path="/"
