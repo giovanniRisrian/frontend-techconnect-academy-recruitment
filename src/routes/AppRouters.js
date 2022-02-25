@@ -15,6 +15,11 @@ import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import RegisterRecruiter from "../pages/administrator/registerRecruiter/RegisterRecruiter";
+import ProgramForm from "../pages/program/program-posting/component/ProgramForm";
+import ProgramFormBloc from "../../../mini-project/src/pages/program/bloc/ProgramPostingBloc";
+import UseProgramForm from "../pages/program/program-posting/component/UseProgramForm";
+import ProgramService from "../pages/program/program-posting/service/ProgramService";
+import RouteNavigation from "./RouteNavigation";
 const AppRouters = () => {
   const data = useContext(RootContext);
   const navigate = useNavigate()
@@ -89,6 +94,9 @@ const AppRouters = () => {
             </>
           }
         />
+        <Route path="programs" element={<Outlet />}>
+        <Route index element={<ProgramForm bloc={() =>ProgramFormBloc(UseProgramForm, ProgramService, RouteNavigation)}></ProgramForm>}></Route>
+      </Route>
       </Routes>
     </>
   );
