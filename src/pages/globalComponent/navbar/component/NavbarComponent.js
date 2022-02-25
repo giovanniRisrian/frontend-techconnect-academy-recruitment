@@ -20,11 +20,16 @@ const pages = ['Home', 'About Us', 'Program / Certificate'];
 const pageLink = ['/','/about','/program']
 const settings = ['Profile', 'Dashboard', 'Logout'];
 const settingsLink = ['/profil' , '/dashboard', '/logout'];
+const settingsRecruiter = ['Recruiter Page', 'Dashboard', 'Logout'];
+const settingsLinkRecruiter = ['/recruiter' , '/dashboard', '/logout'];
 
 const NavbarCompontent = () => {
 
 const data =React.useContext(RootContext)
+
 if(data.userInfo){
+    settings[0]=settingsRecruiter[0]
+    settingsLink[0] = settingsLinkRecruiter[0]
 let userInfo = jwt_decode(data.userInfo);}
 const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
