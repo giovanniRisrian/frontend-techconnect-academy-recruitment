@@ -15,6 +15,7 @@ import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import RegisterRecruiter from "../pages/administrator/registerRecruiter/RegisterRecruiter";
+import About from "../pages/about/About";
 const AppRouters = () => {
   const data = useContext(RootContext);
   const navigate = useNavigate()
@@ -55,6 +56,8 @@ const AppRouters = () => {
             }
           />
         </Route>
+
+        <Route path="/about" element={<About />}/>
 
         <Route path="/recruiter" element={<MiddlewareAuthRecruiter />}>
           <Route index element={<RecruiterHome />} />
