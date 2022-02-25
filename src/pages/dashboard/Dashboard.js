@@ -2,6 +2,7 @@
 // import { useNavigate } from "react-router-dom";
 // import { RootContext } from "../../App";
 import LogoutButton from "../globalComponent/logout/LogoutButton";
+import UploadButton from "../globalComponent/uploadButton/UploadButton";
 
 const Dashboard = () => {
 //   const data = useContext(RootContext);
@@ -13,8 +14,9 @@ const Dashboard = () => {
 //   };
   return (
     <div>
+    <LogoutButton/><br/>
       ini Dashboard
-      <LogoutButton/>
+      <UploadButton/>
     </div>
   );
 };
