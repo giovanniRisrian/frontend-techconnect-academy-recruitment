@@ -15,6 +15,7 @@ import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import RegisterRecruiter from "../pages/administrator/registerRecruiter/RegisterRecruiter";
+import Homepage from "../pages/homepage/Homepage";
 const AppRouters = () => {
   const data = useContext(RootContext);
   const navigate = useNavigate()
@@ -37,7 +38,9 @@ const AppRouters = () => {
 
       <Route
           path="/"
-          element={<><button onClick={()=>navigate('/login')}>Login</button><button onClick={()=>navigate('/register')}>Register</button></>}/>
+          element={<><Homepage />
+          {/* <button onClick={()=>navigate('/login')}>Login</button><button onClick={()=>navigate('/register')}>Register</button> */}
+          </>}/>
           
         <Route
           path="/login"
