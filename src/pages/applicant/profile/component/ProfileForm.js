@@ -172,7 +172,7 @@ const ProfileForm = ({ bloc }) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           values.file = file;
-          console.log("context data",data);
+          
           handleSubmit(values, data);
         }}
       >
@@ -429,7 +429,7 @@ const ProfileForm = ({ bloc }) => {
                             type="button"
                             variant="outlined"
                             color="secondary"
-                            disabled={values.skill.length >= 3}
+                            disabled={values.skill.length >= 10}
                             onClick={() =>
                               push({
                                 name: "",
