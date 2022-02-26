@@ -231,7 +231,7 @@ const AboutContent = () => {
             sx={{
               borderRadius: "15px",
               width: "225px",
-              height: "285px",
+              height: "250px",
             }}
           >
             <CardMedia
@@ -265,7 +265,7 @@ const AboutContent = () => {
             sx={{
               borderRadius: "15px",
               width: "225px",
-              height: "285px",
+              height: "250px",
             }}
           >
             <CardMedia
@@ -298,7 +298,7 @@ const AboutContent = () => {
             sx={{
               borderRadius: "15px",
               width: "225px",
-              height: "285px",
+              height: "250px",
             }}
           >
             <CardMedia
@@ -331,7 +331,7 @@ const AboutContent = () => {
             sx={{
               borderRadius: "15px",
               width: "225px",
-              height: "285px",
+              height: "250px",
             }}
           >
             <CardMedia
@@ -370,7 +370,7 @@ const AboutContent = () => {
             sx={{
               borderRadius: "15px",
               width: "225px",
-              height: "285px",
+              height: "250px",
             }}
           >
             <CardMedia
@@ -404,7 +404,7 @@ const AboutContent = () => {
             sx={{
               borderRadius: "15px",
               width: "225px",
-              height: "285px",
+              height: "250px",
             }}
           >
             <CardMedia
@@ -437,7 +437,7 @@ const AboutContent = () => {
             sx={{
               borderRadius: "15px",
               width: "225px",
-              height: "285px",
+              height: "250px",
             }}
           >
             <CardMedia
@@ -470,7 +470,7 @@ const AboutContent = () => {
             sx={{
               borderRadius: "15px",
               width: "225px",
-              height: "285px",
+              height: "250px",
             }}
           >
             <CardMedia
