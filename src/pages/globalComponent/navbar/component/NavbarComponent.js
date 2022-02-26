@@ -19,7 +19,7 @@ import LogoutButton from "../../logout/LogoutButton";
 const pages = ["Home", "About Us", "Program / Certificate"];
 const pageLink = ["/", "/about", "/vacancy"];
 let settings = ["Profile", "Upload CV", "Status", "Logout"];
-let settingsLink = ["/profil", "/dashboard", "/status", "/logout"];
+let settingsLink = ["/applicant/profile", "/dashboard", "/applicant/status", "/logout"];
 let settingsRecruiter = ["Recruiter Page", "Dashboard", "Logout"];
 let settingsLinkRecruiter = ["/recruiter", "/dashboard", "/logout"];
 const NavbarCompontent = () => {
