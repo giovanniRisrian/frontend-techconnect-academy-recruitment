@@ -1,4 +1,5 @@
-import client from "../../../shared/http-client/Client";
+import { client } from "../../../../http-client/Client";
+
 
 const ProgramService = () => {
   const createProgram = async (program) => {
