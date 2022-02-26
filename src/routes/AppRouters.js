@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { RootContext } from "../App";
 import MiddlewareAuth from "../middleware/middlewareAuth";
@@ -38,6 +38,7 @@ const AppRouters = () => {
   }
   return (
     <>
+
     <Navbar/>
       <Routes>
         <Route

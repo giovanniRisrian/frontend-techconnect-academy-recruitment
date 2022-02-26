@@ -4,6 +4,7 @@ import Footer from '../globalComponent/footer/Footer';
 // import ResponsiveAppBar from '../globalComponent/navbar/Appbar';
 import Content from './Content';
 import MyComponent from './BackgroundImage';
+import { Navbar } from '../globalComponent/navbar/Navbar';
 
 
 
