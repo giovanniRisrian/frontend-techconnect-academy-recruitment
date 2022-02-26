@@ -7,15 +7,17 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import MyComponent from "../../../homepage/BackgroundImage";
 import Box from "@mui/material/Box";
-import location from "../../../../asset/icon/location.svg"
+import location from "../../../../asset/icon/location.svg";
+import { useContext } from "react";
+import { RootContext } from "../../../../App";
 
 const JobInformationDetail = ({ bloc }) => {
-  const { programDetail, navigate, getProgrambyId } = bloc();
+  const { programDetail, navigate, getProgrambyId, doApplyProgram } = bloc();
+  const data = useContext(RootContext);
 
   useEffect(() => {
     getProgrambyId();
   }, []);
-  console.log("detail", programDetail);
 
   return (
     <>
@@ -75,8 +77,7 @@ const JobInformationDetail = ({ bloc }) => {
                     variant="h6"
                     component="div"
                     fontFamily="Montserrat"
-                  >
-                  </Typography>
+                  ></Typography>
                 </div>
               </CardContent>
 
@@ -96,12 +97,23 @@ const JobInformationDetail = ({ bloc }) => {
                 >
                   Back
                 </Button>
-                <Button
-                  variant="contained"
-                  sx={{ backgroundColor: "#521582", marginRight: "15px" }}
-                >
-                  Apply
-                </Button>
+                {data.userInfo ? (
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: "#521582", marginRight: "15px" }}
+                    onClick={doApplyProgram(data)}
+                  >
+                    Apply
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    sx={{ backgroundColor: "#521582", marginRight: "15px" }}
+                    onClick={() => navigate('/login')}
+                  >
+                    Apply
+                  </Button>
+                )}
               </Box>
             </Card>
           )}

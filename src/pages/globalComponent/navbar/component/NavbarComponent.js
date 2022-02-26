@@ -14,7 +14,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { RootContext } from "../../../../App";
 import logo from "../../../../asset/icon/logo.svg";
-
 import jwt_decode from "jwt-decode";
 import LogoutButton from "../../logout/LogoutButton";
 const pages = ["Home", "About Us", "Program / Certificate"];
@@ -23,7 +22,6 @@ let settings = ["Profile", "Upload CV", "Status", "Logout"];
 let settingsLink = ["/profil", "/dashboard", "/status", "/logout"];
 let settingsRecruiter = ["Recruiter Page", "Dashboard", "Logout"];
 let settingsLinkRecruiter = ["/recruiter", "/dashboard", "/logout"];
-
 const NavbarCompontent = () => {
   const data = React.useContext(RootContext);
 

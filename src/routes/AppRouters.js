@@ -106,14 +106,20 @@ const AppRouters = () => {
             </>
           }
         />
-        <Route
+       
+       <Route path="/vacancy/:id" element={<VacancyDetail />}>
+          <Route index element={<MiddlewareAuth />} />
+        </Route>
+
+
+        {/* <Route
           path="/vacancy/:id"
           element={
             <>
               <VacancyDetail />
             </>
           }
-        />
+        /> */}
         <Route
           path="*"
           element={

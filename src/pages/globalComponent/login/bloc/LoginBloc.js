@@ -12,7 +12,7 @@ const LoginBloc = (LoginService) => {
       console.log(formik.values)
       const basicAuth = {username:formik.values.email,password:formik.values.password}
       let res = await postLogin(basicAuth);
-    console.log(res)
+    // console.log(res)
     localStorage.setItem("token", res.data.data.token)
     context.dispatch({type:ActionType.LOGIN,token:res.data.data.token,name:res.data.data.name})
     let role=jwt_decode(res.data.data.token).Role

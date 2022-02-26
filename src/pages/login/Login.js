@@ -15,7 +15,6 @@ const Logins = () => {
       <Card
         style={{
           backgroundColor: "transparent",
-          height: "40vh",
           padding: "4vh",
           boxShadow: "0 13px 13px -4px lightblue",
         }}

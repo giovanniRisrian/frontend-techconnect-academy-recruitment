@@ -9,7 +9,7 @@ import { Navbar } from "../globalComponent/navbar/Navbar";
 const Dashboard = () => {
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
-  console.log("data",userInfo);
+  // console.log("data",userInfo);
 //   const navigate = useNavigate();
 //   const handleLogout = () => {
 //     localStorage.removeItem("token");

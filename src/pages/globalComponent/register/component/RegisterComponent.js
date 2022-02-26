@@ -1,9 +1,10 @@
-// import { useEffect } from "react";
-
 import { useFormik } from "formik";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
 import * as Yup from "yup";
+import { Typography, TextField, Button } from "@mui/material";
+import logo from "../../../../asset/icon/logo.svg";
+
 const RegisterComponent = ({ bloc }) => {
   const data = useContext(RootContext);
   const { doRegister } = bloc();
@@ -42,7 +43,68 @@ const RegisterComponent = ({ bloc }) => {
           <div className="card-body">
             <div>
               <form onSubmit={formik.handleSubmit}>
-                <label>Full Name </label>
+                <Typography textAlign="center">
+                  <img src={logo} style={{ width: "75px", height: "75px" }} />
+                </Typography>
+
+                <TextField
+                  variant="outlined"
+                  color="secondary"
+                  className="form-control cardForm text-center"
+                  type="text"
+                  name="fullname"
+                  label="Name"
+                  value={formik.values.fullname || ""}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <p className="warning">
+                  {formik.errors.fullname && formik.touched.fullname ? (
+                    <small style={{ color: "red" }} className="text-danger">
+                      {formik.errors.fullname}
+                    </small>
+                  ) : null}
+                </p>
+
+                <TextField
+                  variant="outlined"
+                  color="secondary"
+                  className="form-control cardForm text-center"
+                  type="email"
+                  name="email"
+                  label="Email"
+                  value={formik.values.email || ""}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <p className="warning">
+                  {formik.errors.email && formik.touched.email ? (
+                    <small style={{ color: "red" }} className="text-danger">
+                      {formik.errors.email}
+                    </small>
+                  ) : null}
+                </p>
+
+                <TextField
+                  variant="outlined"
+                  color="secondary"
+                  className="form-control cardForm text-center"
+                  type="password"
+                  name="password"
+                  label="Password"
+                  value={formik.values.password || ""}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                <p className="warning">
+                  {formik.errors.password && formik.touched.password ? (
+                    <small style={{ color: "red" }} className="text-danger">
+                      {formik.errors.password}
+                    </small>
+                  ) : null}
+                </p>
+
+                {/* <label>Full Name </label>
                 <input
                   className="form-control cardForm text-center"
                   type="text"
@@ -91,14 +153,18 @@ const RegisterComponent = ({ bloc }) => {
                       {formik.errors.password}
                     </small>
                   ) : null}
-                </p>
-                <input
-                  className="form-control cardForm btnp"
+                </p> */}
+
+                <Button
                   type="submit"
+                  variant="contained"
                   value="submit"
+                  color="secondary"
+                  textAlign="center"
                   disabled={!(formik.isValid && formik.dirty)}
-                  //   onClick={doRegister}
-                />
+                >
+                  SIGN UP
+                </Button>
               </form>
             </div>
           </div>
