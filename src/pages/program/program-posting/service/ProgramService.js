@@ -2,8 +2,8 @@ import { client } from "../../../../http-client/Client";
 
 
 const ProgramService = () => {
-  const createProgram = async (program) => {
-    const response = await client.post("/programs", program);
+  const createProgram = async (program, header) => {
+    const response = await client.post("/programs", program, header);
     return response;
   };
 

@@ -1,13 +1,15 @@
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as Yup from "yup";
 import Autocomplete from "@mui/material/Autocomplete";
 import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
+import { RootContext } from "../../../../App";
 
 const ProgramForm = ({ bloc }) => {
-  const { skills, handleSubmit, getListSkill } = bloc();
+  const data = useContext(RootContext);
+  const { skills, handleSubmit, getListSkill, image, setImage } = bloc();
 
   const formik = useFormik({
     initialValues: {
@@ -29,9 +31,9 @@ const ProgramForm = ({ bloc }) => {
       closeDate: Yup.string().required("This field is required"),
       address: Yup.string().required("This field is required"),
     }),
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: (values) => {
       values.image = image;
-      handleSubmit(values);
+      handleSubmit(values, data);
     },
   });
 
@@ -39,7 +41,7 @@ const ProgramForm = ({ bloc }) => {
     getListSkill();
   }, []);
 
-  const [image, setImage] = useState(null);
+  
 
   return (
     <Box

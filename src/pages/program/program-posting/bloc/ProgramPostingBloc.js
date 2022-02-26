@@ -1,5 +1,5 @@
 const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
-  let { skills, setSkills } = useProgramForm();
+  let { skills, setSkills, image, setImage } = useProgramForm();
   let { createProgram, getSkills } = programRepository();
   const { paramsNav, navigateTo } = navigation();
 
@@ -12,10 +12,19 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
     }
   };
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, context) => {
     try {
-      await createProgram(values);
-      navigateTo("..");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${context.userInfo}`,
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const formData = new FormData();
+      formData.append("imiage", values.image);
+      formData.append("data", values);
+     const response =  await createProgram(formData, config);
+     return response;
     } catch (error) {
       throw error;
     }
@@ -25,7 +34,7 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
     navigateTo("..");
   };
 
-  return { skills, handleSubmit, handleCancel, getListSkill };
+  return { skills, handleSubmit, handleCancel, getListSkill, image, setImage };
 };
 
 export default ProgramFormBloc;

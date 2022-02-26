@@ -84,6 +84,7 @@ const AppRouters = () => {
 
         <Route path="/recruiter" element={<MiddlewareAuthRecruiter />}>
           <Route index element={<RecruiterHome />} />
+          <Route path="programs" element={<ProgramPosting/>}/>
         </Route>
 
         <Route path="/administrator" element={<MiddlewareAuthAdministrator />}>
@@ -116,7 +117,7 @@ const AppRouters = () => {
           }
         />
         <Route path="programs" element={<Outlet />}>
-        <Route index element={<ProgramPosting/>}/>
+        
       </Route>
         <Route
           path="*"
