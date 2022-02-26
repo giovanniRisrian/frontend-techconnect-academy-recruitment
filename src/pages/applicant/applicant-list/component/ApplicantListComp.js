@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import background from "../../../../asset/image/background.jpg";
+import Footer from "../../../globalComponent/footer/Footer";
 
 const MyComponent = styled("div")({
   backgroundImage: `url(${background})`,
@@ -185,6 +186,7 @@ const ApplicantListComp = ({ bloc }) => {
         </Grid>
         {/* End of Table */}
       </>
+      <Footer/>
     </MyComponent>
   );
 };

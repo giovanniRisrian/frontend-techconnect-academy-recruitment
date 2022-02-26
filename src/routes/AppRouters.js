@@ -84,6 +84,7 @@ const AppRouters = () => {
 
         <Route path="/recruiter" element={<MiddlewareAuthRecruiter />}>
           <Route index element={<RecruiterHome />} />
+          <Route path="applicants" element={<ApplicantList />}/>
         </Route>
 
         <Route path="/administrator" element={<MiddlewareAuthAdministrator />}>
@@ -115,9 +116,9 @@ const AppRouters = () => {
             </>
           }
         />
-        <Route path="applicants" element={<Outlet />}>
-        <Route index element={<ApplicantList />}/>
-        </Route>
+        
+        
+      
         <Route
           path="*"
           element={
