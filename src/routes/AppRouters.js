@@ -7,7 +7,6 @@ import Login from "../pages/login/Login";
 import Registers from "../pages/register/Register";
 import VacancyDetail from "../pages/guest/vacancyDetail/VacancyDetail";
 import Vacancy from "../pages/guest/vacany/Vacancy";
-import RecruiterHome from "../pages/recruiter/home/RecruiterHome";
 import AdministratorHome from "../pages/administrator/home/AdministratorHome";
 import MiddlewareAuthRecruiter from "../middleware/middlewareAuthRecruiter";
 import MiddlewareAuthAdministrator from "../middleware/middlewareAuthAdministrator";
@@ -19,6 +18,7 @@ import Homepage from "../pages/homepage/Homepage";
 import NotFoundPage from "../pages/404/NotFoundPage";
 import Profile from "../pages/applicant/profile/Profile";
 import { Navbar } from "../pages/globalComponent/navbar/Navbar";
+import RecruiterHome from "../pages/recruiter/home/RecruiterHome";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -38,8 +38,7 @@ const AppRouters = () => {
   }
   return (
     <>
-
-    <Navbar/>
+      <Navbar />
       <Routes>
         <Route
           path="/"
