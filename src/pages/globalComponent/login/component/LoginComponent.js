@@ -1,5 +1,5 @@
 // import { useEffect } from "react";
-import { Box, Button, Fab, TextField } from "@mui/material";
+import { Box,Typography, Button, Fab, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
@@ -34,51 +34,62 @@ const LoginComponent = ({ bloc }) => {
     <div className="formBody">
       <div>
         <div className="card cardForm">
-          <div className="box">
-          </div>
+          <div className="box"></div>
           <div className="card-body">
             <div>
               <form onSubmit={formik.handleSubmit}>
-                <label>Email </label>
-                <input
+              <Typography gutterBottom variant="h5" component="div">
+          Login
+        </Typography>
+                <TextField
+                variant="outlined"
                   className="form-control cardForm text-center"
                   type="text"
                   name="email"
-                  placeholder="Email"
+                  label="Email"
                   value={formik.values.email || ""}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
                 <p className="warning">
                   {formik.errors.email && formik.touched.email ? (
-                    <small className="text-danger">{formik.errors.email}</small>
+                    <small style={{color:"red"}} className="text-danger">{formik.errors.email}</small>
                   ) : null}
                 </p>
-                <label>Password : </label>
-                <input
+                <TextField
+                variant="outlined"
                   className="form-control cardForm text-center"
                   type="password"
                   id="password"
                   name="password"
-                  placeholder="Password"
+                  label="Password"
                   value={formik.values.password || ""}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
                 <p className="warning">
                   {formik.errors.password && formik.touched.password ? (
-                    <small className="text-danger">
+                    <small style={{color:"red"}}>
                       {formik.errors.password}
                     </small>
                   ) : null}
                 </p>
-                <input
+                <Button
+                  type="submit"
+                  variant="contained"
+                  value="submit"
+                  disabled={!(formik.isValid && formik.dirty)}
+                >
+                  Submit
+                </Button>
+                {/* <input
                   className="form-control cardForm btnp"
+                  variant="contained"
                   type="submit"
                   value="submit"
                   disabled={!(formik.isValid && formik.dirty)}
                   //   onClick={doLogin}
-                />
+                /> */}
               </form>
             </div>
           </div>

@@ -12,7 +12,7 @@ const LogoutButtonBloc = () => {
     localStorage.removeItem("token");
     context.dispatch({type:ActionType.LOGIN, name: null, token: null });
     console.log("ooo",context)
-    navigate("/login");
+    navigate("/");
   };
   return { doLogout };
 };
