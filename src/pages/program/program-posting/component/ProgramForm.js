@@ -9,7 +9,8 @@ import { RootContext } from "../../../../App";
 
 const ProgramForm = ({ bloc }) => {
   const data = useContext(RootContext);
-  const { skills, handleSubmit, getListSkill, image, setImage } = bloc();
+  const { skills, handleSubmit, getListSkill, image, setImage, handleCancel } =
+    bloc();
 
   const formik = useFormik({
     initialValues: {
@@ -40,8 +41,6 @@ const ProgramForm = ({ bloc }) => {
   useEffect(() => {
     getListSkill();
   }, []);
-
-  
 
   return (
     <Box
@@ -305,8 +304,20 @@ const ProgramForm = ({ bloc }) => {
                 />
               </Grid>
             </Grid>
-            <Box textAlign="center" >
-              <Button variant="contained" type="submit" sx={{marginBottom:12}}>
+            <Box textAlign="center">
+              <Button
+                variant="contained"
+                color="error"
+                onClick={handleCancel}
+                sx={{ marginBottom: 12 }}
+              >
+                Cancel
+              </Button>{" "}
+              <Button
+                variant="contained"
+                type="submit"
+                sx={{ marginBottom: 12 }}
+              >
                 Submit
               </Button>
             </Box>

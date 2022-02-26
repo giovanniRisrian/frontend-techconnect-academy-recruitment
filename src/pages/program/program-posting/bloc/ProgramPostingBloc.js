@@ -21,10 +21,10 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
         },
       };
       const formData = new FormData();
-      formData.append("imiage", values.image);
+      formData.append("image", values.image);
       formData.append("data", values);
-     const response =  await createProgram(formData, config);
-     return response;
+      const response = await createProgram(formData, config);
+      return response;
     } catch (error) {
       throw error;
     }
