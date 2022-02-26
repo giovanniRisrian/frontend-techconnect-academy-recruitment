@@ -3,20 +3,31 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import MyComponent from "../../../homepage/BackgroundImage";
 import Box from "@mui/material/Box";
 import location from "../../../../asset/icon/location.svg";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
+import jwt_decode from "jwt-decode";
 
-const JobInformationDetail = ({ bloc }) => {
-  const { programDetail, navigate, getProgrambyId, doApplyProgram } = bloc();
+
+const VacancyDetail = ({ bloc }) => {
+  const { programDetail, navigate, getProgrambyId, doApplyProgram, params } = bloc();
   const data = useContext(RootContext);
+  let userInfo;
+  let id;
+  if(data.userInfo){
+    userInfo = jwt_decode(data.userInfo);
+    id = userInfo.id
+  }
+  let dataApplicant = {
+    id_program : params.id, 
+    id_user  : id
+  }
 
   useEffect(() => {
-    getProgrambyId();
+      getProgrambyId();
   }, []);
 
   return (
@@ -101,7 +112,7 @@ const JobInformationDetail = ({ bloc }) => {
                   <Button
                     variant="contained"
                     sx={{ backgroundColor: "#521582", marginRight: "15px" }}
-                    onClick={doApplyProgram(data)}
+                    onClick={()=>doApplyProgram(dataApplicant)}
                   >
                     Apply
                   </Button>
@@ -123,4 +134,4 @@ const JobInformationDetail = ({ bloc }) => {
   );
 };
 
-export default JobInformationDetail;
+export default VacancyDetail;
