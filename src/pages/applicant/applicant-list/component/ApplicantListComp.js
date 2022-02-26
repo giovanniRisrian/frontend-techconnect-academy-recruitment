@@ -22,7 +22,7 @@ const MyComponent = styled("div")({
   minHeight: "100vh",
 });
 
-const ApplicantList = ({ bloc }) => {
+const ApplicantListComp = ({ bloc }) => {
   const { applicantList, getListApplicant, handleSeeDetail } = bloc();
   React.useEffect(() => {
     getListApplicant();
@@ -189,4 +189,4 @@ const ApplicantList = ({ bloc }) => {
   );
 };
 
-export default ApplicantList;
+export default ApplicantListComp;
