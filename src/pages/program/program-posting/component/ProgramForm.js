@@ -3,7 +3,8 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import Autocomplete from "@mui/material/Autocomplete";
-import background from "../../../asset/image/background.jpg";
+import background from "../../../../asset/image/background.jpg";
+import Footer from "../../../globalComponent/footer/Footer";
 
 const ProgramForm = ({ bloc }) => {
   const { skills, handleSubmit, getListSkill } = bloc();
@@ -302,14 +303,15 @@ const ProgramForm = ({ bloc }) => {
                 />
               </Grid>
             </Grid>
-            <Box textAlign="center">
-              <Button variant="contained" type="submit">
+            <Box textAlign="center" >
+              <Button variant="contained" type="submit" sx={{marginBottom:12}}>
                 Submit
               </Button>
             </Box>
           </Box>
         </form>
       </>
+      <Footer />
     </Box>
   );
 };
