@@ -171,9 +171,9 @@ const ProfileForm = ({ bloc }) => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          values.file = file;
+          // values.file = file;
           
-          handleSubmit(values, data);
+          handleSubmit(values,file, data);
         }}
       >
         {({ values, touched, errors, handleChange }) => (
