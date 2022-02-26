@@ -14,15 +14,18 @@ const ProfileForm = ({ bloc }) => {
   let userInfo = jwt_decode(data.userInfo);
   
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("This field is required"),
-    gender: Yup.string().required("This field is required"),
-    birth_date: Yup.date().required("This field is required"),
-    domicile: Yup.string().required("This field is required"),
-    email: Yup.string()
-      .required("This field is required")
-      .email("Invalid format email"),
-    telephone_no: Yup.number().required("This field is required"),
-    salary_expectation: Yup.number().required("This field is required"),
+    personal : Yup.object().shape({
+      name: Yup.string().required("This field is required"),
+      gender: Yup.string().required("This field is required"),
+      birth_date: Yup.date().required("This field is required"),
+      domicile: Yup.string().required("This field is required"),
+      email: Yup.string()
+        .required("This field is required")
+        .email("Invalid format email"),
+      telephone_no: Yup.number().required("This field is required"),
+      total_working_experience:Yup.number().required("This field is required"),
+      salary_expectation: Yup.number().required("This field is required"),
+    }),
     education: Yup.array().of(
       Yup.object().shape({
         title: Yup.string().required("This field is required"),
@@ -82,36 +85,6 @@ const ProfileForm = ({ bloc }) => {
 
   return (
     <MyComponent>
-      {/* <Typography
-        variant="h4"
-        textAlign="center"
-        fontFamily="Montserrat"
-        fontWeight="400"
-        sx={{ paddingTop: "20px" }}
-      >
-        Profile Resume
-      </Typography>
-      <Typography
-        variant="body2"
-        textAlign="center"
-        fontFamily="Montserrat"
-        sx={{ paddingTop: "10px" }}
-      >
-        Complete your profile information to be able to apply for the
-        TechConnect Academy Trainee Program
-        <br />
-        Use feature
-        <Input
-          color="secondary"
-          variant="contained"
-          accept="image/pdf/*"
-          id="contained-button-file"
-          multiple
-          type="file"
-          onChange={handleFile}
-        />
-        Upload file to fill your profile automatically
-      </Typography> */}
       <Typography
         variant="h4"
         textAlign="center"
@@ -124,15 +97,16 @@ const ProfileForm = ({ bloc }) => {
       <br />
       <Formik
         initialValues={{
-          name: "",
-          gender: "",
-          birth_date: "",
-          domicile: "",
-          email: "",
-          telephone_no: "",
-          yearWorkExperience: "",
-          monthWorkExperience: "",
-          salary_expectation: "",
+          personal:{
+            name: "",
+            gender: "",
+            birth_date: "",
+            domicile: "",
+            email: "",
+            telephone_no: "",
+            total_working_experience:"",
+            salary_expectation: "",
+          },
           education: [
             {
               title: "",
@@ -171,8 +145,7 @@ const ProfileForm = ({ bloc }) => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          // values.file = file;
-          
+          console.log("ini valuesnya",values);
           handleSubmit(values,file, data);
         }}
       >
@@ -184,10 +157,6 @@ const ProfileForm = ({ bloc }) => {
           >
             <Form>
               <Box
-                // sx={{
-                //   width: "100%",
-                //   "& > :not(style)": { m: 1 },
-                // }}
                 autoComplete="off"
               >
                 
@@ -210,11 +179,17 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Name"
-                        name="name"
-                        value={values.name}
+                        name="personal.name"
+                        value={values.personal.name}
                         required
-                        error={touched.name && Boolean(errors.name)}
-                        helperText={touched.name && errors.name}
+                        error={Boolean(
+                          getIn(touched, 'personal.name') &&
+                            getIn(errors, 'personal.name')
+                        )}
+                        helperText={
+                          getIn(touched, 'personal.name') &&
+                          getIn(errors, 'personal.name')
+                        }
                         onChange={handleChange}
                       />
                       <br />
@@ -225,11 +200,17 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Gender"
-                        name="gender"
-                        value={values.gender}
+                        name="personal.gender"
+                        value={values.personal.gender}
                         required
-                        error={touched.gender && Boolean(errors.gender)}
-                        helperText={touched.gender && errors.gender}
+                        error={Boolean(
+                          getIn(touched, 'personal.gender') &&
+                            getIn(errors, 'personal.gender')
+                        )}
+                        helperText={
+                          getIn(touched, 'personal.gender') &&
+                          getIn(errors, 'personal.gender')
+                        }
                         onChange={handleChange}
                       />
                       <br />
@@ -240,11 +221,17 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Birth Date"
-                        name="birth_date"
-                        value={values.birth_date}
+                        name="personal.birth_date"
+                        value={values.personal.birth_date}
                         required
-                        error={touched.birth_date && Boolean(errors.birth_date)}
-                        helperText={touched.birth_date && errors.birth_date}
+                        error={Boolean(
+                          getIn(touched, 'personal.birth_date') &&
+                            getIn(errors, 'personal.birth_date')
+                        )}
+                        helperText={
+                          getIn(touched, 'personal.birth_date') &&
+                          getIn(errors, 'personal.birth_date')
+                        }
                         onChange={handleChange}
                         type="date"
                         InputLabelProps={{
@@ -259,11 +246,17 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Domicile"
-                        name="domicile"
-                        value={values.domicile}
+                        name="personal.domicile"
+                        value={values.personal.domicile}
                         required
-                        error={touched.domicile && Boolean(errors.domicile)}
-                        helperText={touched.domicile && errors.domicile}
+                        error={Boolean(
+                          getIn(touched, 'personal.domicile') &&
+                            getIn(errors, 'personal.domicile')
+                        )}
+                        helperText={
+                          getIn(touched, 'personal.domicile') &&
+                          getIn(errors, 'personal.domicile')
+                        }
                         onChange={handleChange}
                       />
                     </Grid>
@@ -275,11 +268,17 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Email"
-                        name="email"
-                        value={values.email}
+                        name="personal.email"
+                        value={values.personal.email}
                         required
-                        error={touched.email && Boolean(errors.email)}
-                        helperText={touched.email && errors.email}
+                        error={Boolean(
+                          getIn(touched, 'personal.email') &&
+                            getIn(errors, 'personal.email')
+                        )}
+                        helperText={
+                          getIn(touched, 'personal.email') &&
+                          getIn(errors, 'personal.email')
+                        }
                         onChange={handleChange}
                         type="email"
                       />
@@ -291,38 +290,43 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Phone"
-                        name="telephone_no"
-                        value={values.telephone_no}
+                        name="personal.telephone_no"
+                        value={values.personal.telephone_no}
                         required
-                        error={
-                          touched.telephone_no && Boolean(errors.telephone_no)
+                        error={Boolean(
+                          getIn(touched, 'personal.telephone_no') &&
+                            getIn(errors, 'personal.telephone_no')
+                        )}
+                        helperText={
+                          getIn(touched, 'personal.telephone_no') &&
+                          getIn(errors, 'personal.telephone_no')
                         }
-                        helperText={touched.telephone_no && errors.telephone_no}
                         onChange={handleChange}
                       />
-                      <Grid container>
-                        <Grid item md={6}>
-                          <TextField
+                      <TextField
                             margin="normal"
                             required
                             color="secondary"
-                            id="yearWorkExperience"
-                            label="Year"
+                            id="total_working_experience"
+                            label="Experience in Year"
                             variant="outlined"
                             size="small"
-                            name="yearWorkExperience"
-                            value={values.yearWorkExperience}
-                            error={
-                              touched.yearWorkExperience &&
-                              Boolean(errors.yearWorkExperience)
-                            }
+                            name="personal.total_working_experience"
+                            value={values.personal.total_working_experience}
+                            error={Boolean(
+                              getIn(touched, 'personal.total_working_experience') &&
+                                getIn(errors, 'personal.total_working_experience')
+                            )}
                             helperText={
-                              touched.yearWorkExperience &&
-                              errors.yearWorkExperience
+                              getIn(touched, 'personal.total_working_experience') &&
+                              getIn(errors, 'personal.total_working_experience')
                             }
                             onChange={handleChange}
                             type="number"
                           />
+                      {/* <Grid container>
+                        <Grid item md={6}>
+                          
                         </Grid>
                         <Grid item md={6}>
                           <TextField
@@ -335,10 +339,10 @@ const ProfileForm = ({ bloc }) => {
                             variant="outlined"
                             size="small"
                             name="monthWorkExperience"
-                            value={values.monthWorkExperience}
+                            value={values.personal.monthWorkExperience}
                             error={
-                              touched.monthWorkExperience &&
-                              Boolean(errors.monthWorkExperience)
+                              touched.personal.monthWorkExperience &&
+                              Boolean(errors.personal.monthWorkExperience)
                             }
                             helperText={
                               touched.monthWorkExperience &&
@@ -348,7 +352,7 @@ const ProfileForm = ({ bloc }) => {
                             type="number"
                           />
                         </Grid>
-                      </Grid>
+                      </Grid> */}
                       <TextField
                         fullWidth
                         margin="normal"
@@ -357,15 +361,15 @@ const ProfileForm = ({ bloc }) => {
                         label="Salary Expectation"
                         variant="outlined"
                         size="small"
-                        name="salary_expectation"
-                        value={values.salary_expectation}
-                        error={
-                          touched.salary_expectation &&
-                          Boolean(errors.salary_expectation)
-                        }
+                        name="personal.salary_expectation"
+                        value={values.personal.salary_expectation}
+                        error={Boolean(
+                          getIn(touched, 'personal.salary_expectation') &&
+                            getIn(errors, 'personal.salary_expectation')
+                        )}
                         helperText={
-                          touched.salary_expectation &&
-                          errors.salary_expectation
+                          getIn(touched, 'personal.salary_expectation') &&
+                          getIn(errors, 'personal.salary_expectation')
                         }
                         onChange={handleChange}
                       />

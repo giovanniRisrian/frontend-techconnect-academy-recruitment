@@ -23,9 +23,7 @@ const ProfileBloc = (profileService) => {
       });
       formData.append("json", jsonPretendFile);
       formData.append("file", file);
-      for (var pair of formData.entries()) {
-        console.log("cobaa",pair[0]+ ', ' + pair[1]); 
-       }
+    
       const response = await uploadDataApplicant(formData, config);
       return response;
     } catch (err) {
