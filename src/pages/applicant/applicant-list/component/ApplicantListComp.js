@@ -8,8 +8,12 @@ import TableRow from "@mui/material/TableRow";
 import {
   Box,
   Button,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
   Pagination,
+  Select,
   Stack,
   Typography,
 } from "@mui/material";
@@ -24,9 +28,21 @@ const MyComponent = styled("div")({
 });
 
 const ApplicantListComp = ({ bloc }) => {
-  const { applicantList, getListApplicant, handleSeeDetail } = bloc();
+  const {
+    applicantList,
+    programList,
+    program,
+    page,
+    programId,
+    getAge,
+    handlePage,
+    handleSeeDetail,
+    handleProgram,
+    getListProgram,
+    getListApplicantByPage,
+  } = bloc();
   React.useEffect(() => {
-    getListApplicant();
+    getListProgram();
   }, []);
 
   return (
@@ -63,35 +79,40 @@ const ApplicantListComp = ({ bloc }) => {
         </Grid>
         {/* End of header */}
 
-        {/* Start of filter */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            p: 1,
-            m: 1,
-            borderRadius: 1,
-          }}
-        >
-          <Button variant="contained" color="secondary">
-            Program 1
-          </Button>
-          <Button variant="contained" color="secondary">
-            Program 2
-          </Button>
-          <Button variant="contained" color="secondary">
-            Program 3
-          </Button>
-          <Button variant="contained" color="secondary">
-            Program 4
-          </Button>
-        </Box>
-        {/* End of filter */}
+        {/* Start of Dropwdown */}
+        <Grid container sx={{ mt: 5 }}>
+          <Grid item md={5} sm={4} xs={4} />
+          <Grid item md={2} sm={4} xs={4}>
+            <FormControl fullWidth>
+              <InputLabel id="programlist">Program</InputLabel>
+              <Select
+                labelId="programlist"
+                id="programlist"
+                value={programId}
+                label="Program"
+                onChange={(e, value) => {
+                  handleProgram(e.target.value, value);
+                  getListApplicantByPage();
+                }}
+              >
+                {programList.map((value) => {
+                  return (
+                    <MenuItem key={value.id} value={value.id}>
+                      {value.program}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+
+        {/* End of Dropwdown */}
 
         {/* Start of Table */}
         <Grid container sx={{ mt: 5 }}>
           <Grid item md={1} />
-          <Grid item md={10}>
+          <Grid item md={10} sm={12} xs={12}>
             <TableContainer sx={{ width: "100%" }}>
               <Table aria-label="">
                 <TableHead>
@@ -126,51 +147,59 @@ const ApplicantListComp = ({ bloc }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {applicantList.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        <Typography sx={{ fontWeight: "medium" }}>
-                          {row.name}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="center">
-                        <Typography sx={{ fontWeight: "medium" }}>
-                          {row.age}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="center">
-                        <Typography sx={{ fontWeight: "medium" }}>
-                          {row.college}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="center">
-                        <Typography sx={{ fontWeight: "medium" }}>
-                          {row.gpa}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="center">
-                        <Typography sx={{ fontWeight: "medium" }}>
-                          {row.work}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="center">
-                        <Typography sx={{ fontWeight: "medium" }}>
-                          {row.program}
-                        </Typography>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Button
-                          color="secondary"
-                          onClick={() => handleSeeDetail(row.id)}
-                        >
-                          See Detail
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {applicantList.length === 0 ? (
+                    <></>
+                  ) : (
+                    applicantList.map((row) => (
+                      <TableRow
+                        key={row.Personal.ApplicantID}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          <Typography sx={{ fontWeight: "medium" }}>
+                            {row.Personal.Name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Typography sx={{ fontWeight: "medium" }}>
+                            {getAge(row.Personal.BirthDate)}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Typography sx={{ fontWeight: "medium" }}>
+                            {row.Education[0].Institution}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Typography sx={{ fontWeight: "medium" }}>
+                            {row.Education[0].GPA}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Typography sx={{ fontWeight: "medium" }}>
+                            {row.Personal.TotalWorkingExperience}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Typography sx={{ fontWeight: "medium" }}>
+                            {program}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="right">
+                          <Button
+                            color="secondary"
+                            onClick={() =>
+                              handleSeeDetail(row.Personal.ApplicantID)
+                            }
+                          >
+                            See Detail
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -179,6 +208,10 @@ const ApplicantListComp = ({ bloc }) => {
                 count={10}
                 color="secondary"
                 size="large"
+                page={page}
+                onChange={(e, value) => {
+                  handlePage(value);
+                }}
                 sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
               />
             </Stack>
@@ -186,7 +219,7 @@ const ApplicantListComp = ({ bloc }) => {
         </Grid>
         {/* End of Table */}
       </>
-      <Footer/>
+      <Footer />
     </MyComponent>
   );
 };
