@@ -5,27 +5,30 @@ import swal from "sweetalert2";
 const VacancyDetailBloc = (programService) => {
   let params = useParams();
   let navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
   const [programDetail, setProgramDetail] = useState({});
   let { getDetailInformationProgram, applyProgram } = programService();
 
   const getProgrambyId = async () => {
     try {
+      setLoading(true)
       const response = await getDetailInformationProgram(params.id);
       setProgramDetail(response.data);
+      setLoading(false)
       return programDetail;
     } catch (err) {
       throw err;
     }
   };
-  const doApplyProgram = async (values) => {
+  const doApplyProgram = async (values, context) => {
     console.log("data apply", values);
     try {
-      // const config = {
-      //   headers: { Authorization: `Bearer ${context.userInfo}` },
-      // };
-      let res = await applyProgram(values);
-     
-      navigate("/applicant/status");
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      setLoading(true)
+      let res = await applyProgram(values, config);
+      setLoading(false)
       return res;
     } catch (err) {
       swal.fire({
@@ -40,6 +43,7 @@ const VacancyDetailBloc = (programService) => {
   return {
     programDetail,
     params,
+    loading,
     navigate,
     getProgrambyId,
     doApplyProgram,

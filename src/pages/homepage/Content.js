@@ -16,7 +16,7 @@ const Content = () => {
   return (
     <Box>
       <Grid container >
-        <Grid items md={5} sm={12} xs={12} sx={{paddingTop:"50px"}}>
+        <Grid item md={5} sm={12} xs={12} sx={{paddingTop:"50px"}}>
           <Typography
             textAlign="left"
             sx={{
@@ -51,7 +51,7 @@ const Content = () => {
             alignItems="center"
             marginTop="20px"
           >
-            <Button
+            {/* <Button
               variant="contained"
               onClick={() => navigate("/register")}
               sx={{ backgroundColor: "#521582", marginRight: "20px" }}
@@ -64,7 +64,7 @@ const Content = () => {
               sx={{ color: "#521582", borderColor: "#521582" }}
             >
               Login
-            </Button>
+            </Button> */}
           </Box>
         </Grid>
         <Grid item md={7} sm={12} xs={12}>
@@ -84,7 +84,7 @@ const Content = () => {
           />
         </Grid>
 
-        <Grid items md={6} sm={12} xs={12}>
+        <Grid item md={6} sm={12} xs={12}>
           <Typography
             letterSpacing="5px"
             textAlign="center"

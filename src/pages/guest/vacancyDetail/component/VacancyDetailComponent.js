@@ -11,23 +11,28 @@ import { useContext } from "react";
 import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
 
-
 const VacancyDetail = ({ bloc }) => {
-  const { programDetail, navigate, getProgrambyId, doApplyProgram, params } = bloc();
+  const {
+    programDetail,
+    navigate,
+    getProgrambyId,
+    doApplyProgram,
+    params,
+  } = bloc();
   const data = useContext(RootContext);
   let userInfo;
   let id;
-  if(data.userInfo){
+  if (data.userInfo) {
     userInfo = jwt_decode(data.userInfo);
-    id = userInfo.id
+    id = userInfo.id;
   }
   let dataApplicant = {
-    id_program : params.id, 
-    id_user  : id
-  }
+    id_program: params.id,
+    id_user: id,
+  };
 
   useEffect(() => {
-      getProgrambyId();
+    getProgrambyId();
   }, []);
 
   return (
@@ -81,14 +86,40 @@ const VacancyDetail = ({ bloc }) => {
                     fontFamily="Montserrat"
                     marginTop="20px"
                   >
-                    Requirements :
+                    Description :
                   </Typography>
+                  <ul>
+                    <li>
+                      <Typography
+                        gutterBottom
+                        variant="body2"
+                        component="div"
+                        fontFamily="Montserrat"
+                      >
+                        Description 
+                      </Typography>
+                    </li>
+                  </ul>
                   <Typography
                     gutterBottom
-                    variant="h6"
+                    variant="h5"
                     component="div"
                     fontFamily="Montserrat"
-                  ></Typography>
+                  >
+                    Requirement :
+                  </Typography>
+                  <ul>
+                    <li>
+                      <Typography
+                        gutterBottom
+                        variant="body2"
+                        component="div"
+                        fontFamily="Montserrat"
+                      >
+                        Requirement 
+                      </Typography>
+                    </li>
+                  </ul>
                 </div>
               </CardContent>
 
@@ -112,7 +143,7 @@ const VacancyDetail = ({ bloc }) => {
                   <Button
                     variant="contained"
                     sx={{ backgroundColor: "#521582", marginRight: "15px" }}
-                    onClick={()=>doApplyProgram(dataApplicant)}
+                    onClick={() => doApplyProgram(dataApplicant, data)}
                   >
                     Apply
                   </Button>
@@ -120,7 +151,7 @@ const VacancyDetail = ({ bloc }) => {
                   <Button
                     variant="contained"
                     sx={{ backgroundColor: "#521582", marginRight: "15px" }}
-                    onClick={() => navigate('/login')}
+                    onClick={() => navigate("/login")}
                   >
                     Apply
                   </Button>

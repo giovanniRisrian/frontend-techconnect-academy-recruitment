@@ -22,6 +22,10 @@ let settings = ["Profile", "Upload CV", "Status", "Logout"];
 let settingsLink = ["/applicant/profile", "/dashboard", "/applicant/status", "/logout"];
 let settingsRecruiter = ["Recruiter Page", "Dashboard", "Logout"];
 let settingsLinkRecruiter = ["/recruiter", "/dashboard", "/logout"];
+let settingAdmin =["Dasboard", "Register Recruiter", "Logout"]
+let settingsLinkAdmin=["/administrator", "/administrator/register/recruiter", "/logout"]
+let pagesAdmin =[""]
+let pagesLinkAdmin=[""]
 const NavbarCompontent = () => {
   const data = React.useContext(RootContext);
 
@@ -30,6 +34,11 @@ const NavbarCompontent = () => {
     if(userInfo.Role === "recruiter"){
     settings = settingsRecruiter;
     settingsLink = settingsLinkRecruiter;
+    }
+    if(userInfo.Role === "administrator"){
+      settings = settingAdmin
+      settingsLink = settingsLinkAdmin
+    
     }
     
   }
@@ -107,7 +116,7 @@ const NavbarCompontent = () => {
               ))}
             </Menu>
           </Box>
-          <Typography
+          {/* <Typography
             variant="h6"
             noWrap
             color="#343434"
@@ -119,7 +128,7 @@ const NavbarCompontent = () => {
               alt="logo-tca"
               style={{ height: "50px", width: "50px" }}
             />
-          </Typography>
+          </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, index) => (
               
@@ -135,11 +144,14 @@ const NavbarCompontent = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             {!data.userInfo ? (
-              // <>
-              //   <Button onClick={() => navigate("/login")}>Login</Button> |{" "}
-              //   <Button onClick={() => navigate("/register")}>register</Button>{" "}
-              // </>
-              <div />
+              <Box
+              display="flex"
+              justifyContent="center"
+              >
+                <Button variant="outlined" color="secondary" onClick={() => navigate("/login")}>Login</Button> |{" "}
+                <Button variant="contained" color="secondary" onClick={() => navigate("/register")}>register</Button>{" "}
+              </Box>
+          
             ) : (
               <Tooltip title="Open settings">
                 {/* <Button></Button> */}

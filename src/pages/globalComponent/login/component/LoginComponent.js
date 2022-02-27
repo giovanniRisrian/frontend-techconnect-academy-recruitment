@@ -49,6 +49,7 @@ const LoginComponent = ({ bloc }) => {
                   type="text"
                   name="email"
                   label="Email"
+                  color="secondary"
                   value={formik.values.email || ""}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -65,6 +66,7 @@ const LoginComponent = ({ bloc }) => {
                   id="password"
                   name="password"
                   label="Password"
+                  color="secondary"
                   value={formik.values.password || ""}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

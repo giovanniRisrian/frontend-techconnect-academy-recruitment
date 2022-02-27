@@ -1,14 +1,19 @@
-import { useNavigate } from "react-router-dom"
-import LogoutButton from "../../globalComponent/logout/LogoutButton"
+import { Typography, Box } from "@mui/material";
+import MyComponent from "../../homepage/BackgroundImage";
+import admin from "../../../asset/image/Admin.png";
 
-
-
-const AdministratorHome = ()=>{
-    const navigate = useNavigate()
-    const handleClick = ()=>{
-        navigate('register/recruiter')
-    }
-    
-    return(<div>Welcome Administrator <LogoutButton/> <button onClick={handleClick}>Register Recruiter</button></div>)
-}
-export default AdministratorHome
+const AdministratorHome = () => {
+  return (
+    <div>
+      <MyComponent>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Typography variant="h2" fontFamily="Montserrat">
+            Welcome Administrator
+          </Typography>
+          <img src={admin} alt="admin-photo" />
+        </Box>
+      </MyComponent>
+    </div>
+  );
+};
+export default AdministratorHome;

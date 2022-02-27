@@ -12,8 +12,7 @@ import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
 import MyComponent from "../../../homepage/BackgroundImage";
-import { Typography } from "@mui/material";
-
+import { Typography, Button } from "@mui/material";
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -103,28 +102,53 @@ const steps = [
   "Apply Program",
   "Administration",
   "Pyschology Test",
-  "Interview"
+  "Interview",
 ];
 
-export default function StatusRecruitmen() {
+export default function StatusRecruitmen({ bloc }) {
+  let { statusProgram, loading, navigate, getStatusbyId } = bloc();
+  
+  React.useEffect(() => {
+    getStatusbyId()
+  })
+
   return (
     <MyComponent>
-    <Typography variant="h5" fontFamily="Montserrat" textAlign="center" paddingY="10px">
-      Status Recruitmen Process
-    </Typography>
-    <Stack sx={{ width: "100%", display:"flex", justifyContent:"center", paddingTop:"100px" }} spacing={4} >
-      <Stepper
-        alternativeLabel
-        activeStep={1}
-        connector={<ColorlibConnector />}
+      <Typography
+        variant="h5"
+        fontFamily="Montserrat"
+        textAlign="center"
+        paddingY="10px"
       >
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Stack>
+        Status Recruitmen Process
+      </Typography>
+
+      <Stack
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          paddingTop: "100px",
+        }}
+        spacing={4}
+      >
+        <Stepper
+          alternativeLabel
+          activeStep={1}
+          connector={<ColorlibConnector />}
+        >
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel StepIconComponent={ColorlibStepIcon}>
+                {label}
+              </StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </Stack>
+      <Button variant="contained" color="secondary">
+          Back
+      </Button>
     </MyComponent>
   );
 }
