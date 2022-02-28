@@ -6,10 +6,10 @@ const ListProgramApplyBloc = (statusService) => {
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
   let { getAppliedProgram } = statusService();
-  const getListAppliedProgram = async () => {
+  const getListAppliedProgram = async (contex) => {
     try {
       setLoading(true);
-      let response = await getAppliedProgram();
+      let response = await getAppliedProgram(contex);
       setList(response.data.data);
       setLoading(false);
       return list;

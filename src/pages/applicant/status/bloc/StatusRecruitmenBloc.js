@@ -8,10 +8,11 @@ const StatusRecruitmentBloc = (statusService) => {
   const [statusProgram, setStatusProgram] = useState({});
   let {getDetailAppliedProgram} = statusService();
 
-  const getStatusbyId = async () => {
+  const getStatusbyId = async (id, context) => {
+   
     try {
       setLoading(true)
-      const response = await getDetailAppliedProgram(params.id);
+      const response = await getDetailAppliedProgram(id, context);
       setStatusProgram(response.data.data);
       setLoading(false)
       return statusProgram;
