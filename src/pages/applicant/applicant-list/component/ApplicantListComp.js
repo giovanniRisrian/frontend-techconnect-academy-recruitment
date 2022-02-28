@@ -137,25 +137,27 @@ const ApplicantListComp = ({ bloc }) => {
                       paddingTop: 2,
                     }}
                   >
-                    <item>
+                    <div>
                       <Button
+                        color="secondary"
                         onClick={() => {
                           handleStepDown();
                         }}
                       >
                         Previous
                       </Button>
-                    </item>
-                    <item></item>
-                    <item>
+                    </div>
+                    <div></div>
+                    <div>
                       <Button
+                        color="secondary"
                         onClick={() => {
                           handleStepUp();
                         }}
                       >
                         Next
                       </Button>
-                    </item>
+                    </div>
                   </Box>
                 </Box>
               </Grid>
