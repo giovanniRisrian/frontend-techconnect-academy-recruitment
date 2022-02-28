@@ -3,7 +3,7 @@ import { client } from "../../../../http-client/Client";
 
 const ProgramService = () => {
   const createProgram = async (program, header) => {
-    const response = await client.post("/programs", program, header);
+    const response = await client.post("/program", program, header);
     return response;
   };
 
