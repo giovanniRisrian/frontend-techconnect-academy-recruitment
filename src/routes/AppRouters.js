@@ -16,6 +16,7 @@ import jwt_decode from "jwt-decode";
 import RegisterRecruiter from "../pages/administrator/registerRecruiter/RegisterRecruiter";
 import About from "../pages/about/About";
 import ProgramPosting from "../pages/program/program-posting/ProgramPosting";
+import ApplicantList from "../pages/applicant/applicant-list/ApplicantList";
 import Homepage from "../pages/homepage/Homepage";
 import NotFoundPage from "../pages/404/NotFoundPage";
 import Profile from "../pages/applicant/profile/Profile";
@@ -118,6 +119,11 @@ const AppRouters = () => {
           <Route index element={<RecruiterHome />} />
           <Route path="applicants/details/:programid/:applicantid" element={<DetailApplicant/>}/>
           <Route path="programs" element={<ProgramPosting/>}/>
+          <Route path="applicants" element={<ApplicantList />} />
+          <Route
+            path="applicants/:programId/:applicantId"
+            element={<ApplicantList />}
+          />
         </Route>
 
         <Route path="/administrator" element={<MiddlewareAuthAdministrator />}>
@@ -156,6 +162,7 @@ const AppRouters = () => {
         <Route path="programs" element={<Outlet />}>
         
       </Route>
+
         <Route
           path="*"
           element={
