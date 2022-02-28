@@ -7,8 +7,8 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
   let { paramsNav } = navigation();
   let params = paramsNav();
   let applicant = {
-    applicantId: params.applicantId,
-    programId: params.programId,
+    applicantid: params.applicantid,
+    programid: params.programid,
   };
   const handleAccept = async () => {
     try {

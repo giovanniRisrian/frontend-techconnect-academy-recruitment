@@ -19,6 +19,7 @@ import Homepage from "../pages/homepage/Homepage";
 import NotFoundPage from "../pages/404/NotFoundPage";
 import Profile from "../pages/applicant/profile/Profile";
 import { Navbar } from "../pages/globalComponent/navbar/Navbar";
+import DetailApplicant from "../pages/applicant/detailApplicant/DetailApplicant";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -81,9 +82,9 @@ const AppRouters = () => {
           ></Route>
         </Route>
 
-        <Route path="/recruiter" element={<MiddlewareAuthRecruiter />}>
+        <Route path="/recruiter" element={< MiddlewareAuth/>}>
           <Route index element={<RecruiterHome />} />
-          <Route path="applicants/:programId/:applicantId"/>
+          <Route path="applicants/details/:programid/:applicantid" element={<DetailApplicant/>}/>
         </Route>
 
         <Route path="/administrator" element={<MiddlewareAuthAdministrator />}>

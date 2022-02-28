@@ -10,7 +10,7 @@ import jwt_decode from "jwt-decode";
 
 const DetailApplicantForm = ({ bloc }) => {
   const params = useParams()
-  const { getDataByID} = bloc();
+  const { getDataByID, handleAccept, handleReject} = bloc();
   const [file, setFile] = useState(false);
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
@@ -1179,11 +1179,11 @@ const DetailApplicantForm = ({ bloc }) => {
                   alignItems="center"
                   justifyContent="center"
                 >
-                <Button color="error" variant="contained">
+                <Button color="error" variant="contained" onClick={handleReject}>
               Reject
             </Button> 
 
-            <Button color="primary" variant="contained">
+            <Button color="primary" variant="contained" onClick={handleAccept}>
                     Accept
                   </Button> 
                  

@@ -14,14 +14,14 @@ const DetailApplicantService = () =>{
       return response 
     }
     async function acceptApplicant(applicant) {
-      const response = await client.post(
+      const response = await client.put(
         "/program_applicant/accepted",
         applicant
       );
       return response;
     }
     async function rejectApplicant(applicant) {
-      const response = await client.post(
+      const response = await client.put(
         "/program_applicant/rejected",
         applicant
       );
