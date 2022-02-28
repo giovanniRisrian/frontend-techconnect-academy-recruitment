@@ -19,6 +19,8 @@ import Homepage from "../pages/homepage/Homepage";
 import NotFoundPage from "../pages/404/NotFoundPage";
 import Profile from "../pages/applicant/profile/Profile";
 import { Navbar } from "../pages/globalComponent/navbar/Navbar";
+// import StatusBar from "../pages/applicant/status/StatusBar";
+import ViewProfile from "../pages/applicant/viewProfile/ViewProfile";
 import ListProgramApplied from "../pages/applicant/status/ListProgramApplied";
 import StatusDetail from "../pages/applicant/status/StatusDetail";
 
@@ -72,14 +74,23 @@ const AppRouters = () => {
           />
         </Route>
         <Route path="/applicant" element={<MiddlewareAuth />}>
-          <Route
+        <Route
             path="profile"
+            element={
+              <>
+                <ViewProfile />
+              </>
+            }
+          />
+           <Route
+            path="profile/insert"
             element={
               <>
                 <Profile />
               </>
             }
-          ></Route>
+          />
+
           <Route
             path="status"
             element={
