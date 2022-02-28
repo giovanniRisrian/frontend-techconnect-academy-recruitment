@@ -105,8 +105,8 @@ const ApplicantListComp = ({ bloc }) => {
               >
                 {programList.map((value) => {
                   return (
-                    <MenuItem key={value.id} value={value.id}>
-                      {value.program}
+                    <MenuItem key={value.ID} value={value.ID}>
+                      {value.ProgramName}
                     </MenuItem>
                   );
                 })}
@@ -209,34 +209,34 @@ const ApplicantListComp = ({ bloc }) => {
                   ) : (
                     applicantList.map((row) => (
                       <TableRow
-                        key={row.Personal.ApplicantID}
+                        key={row.Applicant.Personal.ApplicantID}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
                         <TableCell component="th" scope="row">
                           <Typography sx={{ fontWeight: "medium" }}>
-                            {row.Personal.Name}
+                            {row.Applicant.Personal.Name}
                           </Typography>
                         </TableCell>
                         <TableCell align="center">
                           <Typography sx={{ fontWeight: "medium" }}>
-                            {getAge(row.Personal.BirthDate)}
+                            {getAge(row.Applicant.Personal.BirthDate)}
                           </Typography>
                         </TableCell>
                         <TableCell align="center">
                           <Typography sx={{ fontWeight: "medium" }}>
-                            {row.Education[0].Institution}
+                            {row.Applicant.Education[0].Institution}
                           </Typography>
                         </TableCell>
                         <TableCell align="center">
                           <Typography sx={{ fontWeight: "medium" }}>
-                            {row.Education[0].GPA}
+                            {row.Applicant.Education[0].GPA}
                           </Typography>
                         </TableCell>
                         <TableCell align="center">
                           <Typography sx={{ fontWeight: "medium" }}>
-                            {row.Personal.TotalWorkingExperience}
+                            {row.Applicant.Personal.TotalWorkingExperience}
                           </Typography>
                         </TableCell>
                         <TableCell align="center">

@@ -37,16 +37,18 @@ const ApplicantListBloc = (
   const getListApplicantByPage = async () => {
     try {
       const response = await getApplicantsByProgram(programId, page);
-      setApplicantList(response.data.data);
+      setApplicantList(response.data.data.ApplicantInfo);
     } catch (e) {
       setApplicantList([]);
     }
   };
 
   const handleProgram = (programId, program) => {
+    console.log("banyakan", program);
     getApplicantsByProgram(programId, page);
-    setIsProgram(true);
+    setPage(1);
     setProgramId(programId);
+    setIsProgram(true);
     setProgram(program.props.children);
   };
 
