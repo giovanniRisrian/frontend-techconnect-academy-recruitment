@@ -6,7 +6,7 @@ const Logins = () => {
   return (
     <MyComponent
       style={{
-        height: "100vh",
+        // height: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -15,7 +15,6 @@ const Logins = () => {
       <Card
         style={{
           backgroundColor: "transparent",
-          height: "40vh",
           padding: "4vh",
           boxShadow: "0 13px 13px -4px lightblue",
         }}

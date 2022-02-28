@@ -1,4 +1,5 @@
 import { Box, Button, Grid, TextField, Typography, Input } from "@mui/material";
+import dayjs from 'dayjs';
 import { FieldArray, Form, Formik, getIn } from "formik";
 import * as Yup from "yup";
 import MyComponent from "../../../homepage/BackgroundImage";
@@ -6,71 +7,121 @@ import { useContext, useEffect, useState } from "react";
 import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
 
-const ProfileForm = ({ bloc }) => {
+const ViewProfileForm = ({ bloc }) => {
   
-  const { handleSubmit } = bloc();
-  const [file, setFile] = useState(null);
+  const { handleSubmit ,getDataByID} = bloc();
+  const [file, setFile] = useState(false);
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
-  
+  let [uploadPhoto,setUpload] = useState(false)
+  const [disabled,changeDisable] = useState(1)
+  const [initialValues,changeInitial] = useState({
+    ID:"",
+    UserAccountID:"",
+    Personal:{
+      Name: "",
+      Gender: "",
+      BirthDate:"",
+      Domicile: "",
+      Email: "",
+      TelephoneNo: "",
+      TotalWorkingExperience:"",
+      SalaryExpectation: "",
+    },
+    Education: [
+      {
+        Title: "",
+        Institution: "",
+        Major: "",
+        YearIn: "",
+        YearOut: "",
+        GPA: "",
+      },
+    ],
+    Organization: [
+      {
+        Organization: "",
+        Scope: "",
+        Duration: "",
+        Description: "",
+        Position: "",
+      },
+    ],
+    WorkExperience: [
+      {
+        CompanyName: "",
+        Position: "",
+        Level: "",
+        Industry: "",
+        YearIn: "",
+        YearOut: "",
+        Description: "",
+      },
+    ],
+    SkillSet: [
+      {
+        Skill: "",
+      },
+    ],
+  })
   const validationSchema = Yup.object().shape({
-    personal : Yup.object().shape({
-      name: Yup.string().required("This field is required"),
-      gender: Yup.string().required("This field is required"),
-      birth_date: Yup.date().required("This field is required"),
-      domicile: Yup.string().required("This field is required"),
-      email: Yup.string()
+    Personal : Yup.object().shape({
+      Name: Yup.string().required("This field is required"),
+      Gender: Yup.string().required("This field is required"),
+      BirthDate: Yup.date().required("This field is required"),
+      Domicile: Yup.string().required("This field is required"),
+      Email: Yup.string()
         .required("This field is required")
         .email("Invalid format email"),
-      telephone_no: Yup.number().required("This field is required"),
-      total_working_experience:Yup.number().required("This field is required"),
-      salary_expectation: Yup.number().required("This field is required"),
+      TelephoneNo: Yup.number().required("This field is required"),
+      TotalWorkingExperience:Yup.number().required("This field is required"),
+      SalaryExpectation: Yup.number().required("This field is required"),
     }),
-    education: Yup.array().of(
+    Education: Yup.array().of(
       Yup.object().shape({
-        title: Yup.string().required("This field is required"),
-        institution: Yup.string().required("This field is required"),
-        major: Yup.string().required("This field is required"),
-        year_in_edu: Yup.string()
+        Title: Yup.string().required("This field is required"),
+        Institution: Yup.string().required("This field is required"),
+        Major: Yup.string().required("This field is required"),
+        YearIn: Yup.string()
           .required("This field is required")
           .min(4, "Year in must be 4 character")
           .max(4, "Year in must be 4 character"),
-        year_out_edu: Yup.string()
+        YearOut: Yup.string()
           .required("This field is required")
           .min(4, "Year out must be 4 character")
           .max(4, "Year in must be 4 character"),
-        gpa: Yup.string().required("This field is required"),
+        GPA: Yup.string().required("This field is required"),
       })
     ),
-    organization: Yup.array().of(
+    Organization: Yup.array().of(
       Yup.object().shape({
-        organization: Yup.string().required("This field is required"),
-        scope: Yup.string().required("This field is required"),
-        duration_org: Yup.string().required("This field is required"),
-        description_org: Yup.string().required("This field is required"),
-        position_org: Yup.string().required("This field is required"),
+        Organization: Yup.string().required("This field is required"),
+        Scope: Yup.string().required("This field is required"),
+        Duration: Yup.string().required("This field is required"),
+        Description: Yup.string().required("This field is required"),
+        Position: Yup.string().required("This field is required"),
       })
     ),
-    work_exp: Yup.array().of(
+    WorkExperience: Yup.array().of(
       Yup.object().shape({
-        company_name: Yup.string().required("This field is required"),
-        position_work: Yup.string().required("This field is required"),
-        level: Yup.string().required("This field is required"),
-        industry: Yup.string().required("This field is required"),
-        year_in_work: Yup.string()
+        CompanyName: Yup.string().required("This field is required"),
+        Position: Yup.string().required("This field is required"),
+        Level: Yup.string().required("This field is required"),
+        Industry: Yup.string().required("This field is required"),
+        YearIn: Yup.string()
           .required("This field is required")
           .min(4, "Year in must be 4 character")
           .max(4, "Year in must be 4 character"),
-        year_out_work: Yup.string()
+        YearOut: Yup.string()
           .required("This field is required")
           .min(4, "Year out must be 4 character")
           .max(4, "Year out must be 4 character"),
-        description_work: Yup.string().required("This field is required"),
+        Description: Yup.string().required("This field is required"),
       })
     ),
-    skill: Yup.array().of(
+    SkillSet: Yup.array().of(
       Yup.object().shape({
-        name: Yup.string().required("This field is required"),
+        Skill: Yup.string().required("This field is required"),
       })
     ),
   });
@@ -80,7 +131,7 @@ const ProfileForm = ({ bloc }) => {
   };
 
   useEffect(()=>{
-     console.log("user",data);
+    getDataByID(userInfo.id,data,changeInitial)
   },[])
 
   return (
@@ -92,57 +143,12 @@ const ProfileForm = ({ bloc }) => {
         fontWeight="400"
         sx={{ paddingTop: "20px" }}
       >
-        Data Personal
+        Data Personal View Profile
       </Typography>
       <br />
       <Formik
-        initialValues={{
-          personal:{
-            name: "",
-            gender: "",
-            birth_date: "",
-            domicile: "",
-            email: "",
-            telephone_no: "",
-            total_working_experience:"",
-            salary_expectation: "",
-          },
-          education: [
-            {
-              title: "",
-              institution: "",
-              major: "",
-              year_in_edu: "",
-              year_out_edu: "",
-              gpa: "",
-            },
-          ],
-          organization: [
-            {
-              organization: "",
-              scope: "",
-              duration_org: "",
-              description_org: "",
-              position_org: "",
-            },
-          ],
-          work_exp: [
-            {
-              company_name: "",
-              position_work: "",
-              level: "",
-              industry: "",
-              year_in_work: "",
-              year_out_work: "",
-              description_work: "",
-            },
-          ],
-          skill: [
-            {
-              name: "",
-            },
-          ],
-        }}
+      enableReinitialize={true}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           console.log("ini valuesnya",values);
@@ -159,36 +165,54 @@ const ProfileForm = ({ bloc }) => {
               <Box
                 autoComplete="off"
               >
-                
-                <Input
+                {disabled?<img src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`} style={{height: '300px'}} />:  
+                <>
+                {file?    <Input
                   color="secondary"
                   variant="contained"
                   accept="image/*"
                   id="contained-button-file"
                   multiple
                   type="file"
+                  disabled={disabled}
                   onChange={handleFile}
-                />
+                /> :  <Button
+                margin="normal"
+                type="button"
+                color="secondary"
+                variant="outlined"
+                sx={{ height: "30px", marginTop: "20px" }}
+                onClick={() => setFile(true)}
+              >
+                Add / Edit Photo
+              </Button>}
+            
+                </>
+                }
+              
                 <Grid container>
                   <Grid container spacing={2}>
                     <Grid item md={6}>
                       <TextField
                         fullWidth
                         size="small"
+                        InputProps={{
+                          readOnly: disabled,
+                        }}
                         color="secondary"
                         margin="normal"
                         variant="outlined"
                         label="Name"
-                        name="personal.name"
-                        value={values.personal.name}
+                        name="Personal.Name"
+                        value={values.Personal.Name}
                         required
                         error={Boolean(
-                          getIn(touched, 'personal.name') &&
-                            getIn(errors, 'personal.name')
+                          getIn(touched, 'Personal.Name') &&
+                            getIn(errors, 'Personal.Name')
                         )}
                         helperText={
-                          getIn(touched, 'personal.name') &&
-                          getIn(errors, 'personal.name')
+                          getIn(touched, 'Personal.Name') &&
+                          getIn(errors, 'Personal.Name')
                         }
                         onChange={handleChange}
                       />
@@ -200,18 +224,21 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Gender"
-                        name="personal.gender"
-                        value={values.personal.gender}
+                        name="Personal.Gender"
+                        value={values.Personal.Gender}
                         required
                         error={Boolean(
-                          getIn(touched, 'personal.gender') &&
-                            getIn(errors, 'personal.gender')
+                          getIn(touched, 'Personal.Gender') &&
+                            getIn(errors, 'Personal.Gender')
                         )}
                         helperText={
-                          getIn(touched, 'personal.gender') &&
-                          getIn(errors, 'personal.gender')
+                          getIn(touched, 'Personal.Gender') &&
+                          getIn(errors, 'Personal.Gender')
                         }
                         onChange={handleChange}
+                        InputProps={{
+                          readOnly: disabled,
+                        }}
                       />
                       <br />
                       <TextField
@@ -221,21 +248,24 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Birth Date"
-                        name="personal.birth_date"
-                        value={values.personal.birth_date}
+                        name="Personal.BirthDate"
+                        value={dayjs(values.Personal.BirthDate).format("YYYY-MM-DD")}
                         required
                         error={Boolean(
-                          getIn(touched, 'personal.birth_date') &&
-                            getIn(errors, 'personal.birth_date')
+                          getIn(touched, 'Personal.BirthDate') &&
+                            getIn(errors, 'Personal.BirthDate')
                         )}
                         helperText={
-                          getIn(touched, 'personal.birth_date') &&
-                          getIn(errors, 'personal.birth_date')
+                          getIn(touched, 'Personal.BirthDate') &&
+                          getIn(errors, 'Personal.BirthDate')
                         }
                         onChange={handleChange}
                         type="date"
                         InputLabelProps={{
                           shrink: true,
+                        }}
+                        InputProps={{
+                          readOnly: disabled,
                         }}
                       />
                       <br />
@@ -246,18 +276,21 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Domicile"
-                        name="personal.domicile"
-                        value={values.personal.domicile}
+                        name="Personal.Domicile"
+                        value={values.Personal.Domicile}
                         required
                         error={Boolean(
-                          getIn(touched, 'personal.domicile') &&
-                            getIn(errors, 'personal.domicile')
+                          getIn(touched, 'Personal.Domicile') &&
+                            getIn(errors, 'Personal.Domicile')
                         )}
                         helperText={
-                          getIn(touched, 'personal.domicile') &&
-                          getIn(errors, 'personal.domicile')
+                          getIn(touched, 'Personal.Domicile') &&
+                          getIn(errors, 'Personal.Domicile')
                         }
                         onChange={handleChange}
+                        InputProps={{
+                          readOnly: disabled,
+                        }}
                       />
                     </Grid>
                     <Grid item md={6}>
@@ -268,18 +301,21 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Email"
-                        name="personal.email"
-                        value={values.personal.email}
+                        name="Personal.Email"
+                        value={values.Personal.Email}
                         required
                         error={Boolean(
-                          getIn(touched, 'personal.email') &&
-                            getIn(errors, 'personal.email')
+                          getIn(touched, 'Personal.Email') &&
+                            getIn(errors, 'Personal.Email')
                         )}
                         helperText={
-                          getIn(touched, 'personal.email') &&
-                          getIn(errors, 'personal.email')
+                          getIn(touched, 'Personal.Email') &&
+                          getIn(errors, 'Personal.Email')
                         }
                         onChange={handleChange}
+                        InputProps={{
+                          readOnly: disabled,
+                        }}
                         type="email"
                       />
                       <br />
@@ -290,38 +326,44 @@ const ProfileForm = ({ bloc }) => {
                         margin="normal"
                         variant="outlined"
                         label="Phone"
-                        name="personal.telephone_no"
-                        value={values.personal.telephone_no}
+                        name="Personal.TelephoneNo"
+                        value={values.Personal.TelephoneNo}
                         required
                         error={Boolean(
-                          getIn(touched, 'personal.telephone_no') &&
-                            getIn(errors, 'personal.telephone_no')
+                          getIn(touched, 'Personal.TelephoneNo') &&
+                            getIn(errors, 'Personal.TelephoneNo')
                         )}
                         helperText={
-                          getIn(touched, 'personal.telephone_no') &&
-                          getIn(errors, 'personal.telephone_no')
+                          getIn(touched, 'Personal.TelephoneNo') &&
+                          getIn(errors, 'Personal.TelephoneNo')
                         }
                         onChange={handleChange}
+                        InputProps={{
+                          readOnly: disabled,
+                        }}
                       />
                       <TextField
                             margin="normal"
                             required
                             color="secondary"
-                            id="total_working_experience"
+                            id="TotalWorkingExperience"
                             label="Experience in Year"
                             variant="outlined"
                             size="small"
-                            name="personal.total_working_experience"
-                            value={values.personal.total_working_experience}
+                            name="Personal.TotalWorkingExperience"
+                            value={values.Personal.TotalWorkingExperience}
                             error={Boolean(
-                              getIn(touched, 'personal.total_working_experience') &&
-                                getIn(errors, 'personal.total_working_experience')
+                              getIn(touched, 'Personal.TotalWorkingExperience') &&
+                                getIn(errors, 'Personal.TotalWorkingExperience')
                             )}
                             helperText={
-                              getIn(touched, 'personal.total_working_experience') &&
-                              getIn(errors, 'personal.total_working_experience')
+                              getIn(touched, 'Personal.TotalWorkingExperience') &&
+                              getIn(errors, 'Personal.TotalWorkingExperience')
                             }
                             onChange={handleChange}
+                            InputProps={{
+                              readOnly: disabled,
+                            }}
                             type="number"
                           />
                       {/* <Grid container>
@@ -339,10 +381,10 @@ const ProfileForm = ({ bloc }) => {
                             variant="outlined"
                             size="small"
                             name="monthWorkExperience"
-                            value={values.personal.monthWorkExperience}
+                            value={values.Personal.monthWorkExperience}
                             error={
-                              touched.personal.monthWorkExperience &&
-                              Boolean(errors.personal.monthWorkExperience)
+                              touched.Personal.monthWorkExperience &&
+                              Boolean(errors.Personal.monthWorkExperience)
                             }
                             helperText={
                               touched.monthWorkExperience &&
@@ -357,30 +399,33 @@ const ProfileForm = ({ bloc }) => {
                         fullWidth
                         margin="normal"
                         color="secondary"
-                        id="salary_expectation"
+                        id="SalaryExpectation"
                         label="Salary Expectation"
                         variant="outlined"
                         size="small"
-                        name="personal.salary_expectation"
-                        value={values.personal.salary_expectation}
+                        name="Personal.SalaryExpectation"
+                        value={values.Personal.SalaryExpectation}
                         error={Boolean(
-                          getIn(touched, 'personal.salary_expectation') &&
-                            getIn(errors, 'personal.salary_expectation')
+                          getIn(touched, 'Personal.SalaryExpectation') &&
+                            getIn(errors, 'Personal.SalaryExpectation')
                         )}
                         helperText={
-                          getIn(touched, 'personal.salary_expectation') &&
-                          getIn(errors, 'personal.salary_expectation')
+                          getIn(touched, 'Personal.SalaryExpectation') &&
+                          getIn(errors, 'Personal.SalaryExpectation')
                         }
                         onChange={handleChange}
+                        InputProps={{
+                          readOnly: disabled,
+                        }}
                       />
                     </Grid>
                   </Grid>
                   <Grid item md={12}>
-                    <FieldArray name="skill">
+                    <FieldArray name="SkillSet">
                       {({ push, remove }) => (
                         <div>
-                          {values.skill.map((skillName, idx) => {
-                            const name = `skill[${idx}].name`;
+                          {values.SkillSet.map((SkillSetName, idx) => {
+                            const name = `SkillSet[${idx}].Skill`;
                             const touchedName = getIn(touched, name);
                             const errorName = getIn(errors, name);
                             const handleDelete = () => {
@@ -399,14 +444,17 @@ const ProfileForm = ({ bloc }) => {
                                   fullWidth
                                   margin="normal"
                                   color="secondary"
-                                  label="Skill Name"
+                                  label="SkillSet Skill"
                                   variant="outlined"
                                   size="small"
                                   name={name}
-                                  value={skillName.name}
+                                  value={SkillSetName.Skill}
                                   error={touchedName && Boolean(errorName)}
                                   helperText={touchedName && errorName}
                                   onChange={handleChange}
+                                  InputProps={{
+                                    readOnly: disabled,
+                                  }}
                                 />
                                 </Grid>
                                 <Grid item md={1}>
@@ -420,6 +468,9 @@ const ProfileForm = ({ bloc }) => {
                                     variant="outlined"
                                     sx={{ height: "30px", marginTop: "20px" }}
                                     onClick={() => handleDelete()}
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
                                   >
                                     X
                                   </Button>
@@ -429,58 +480,59 @@ const ProfileForm = ({ bloc }) => {
                               </div>
                             );
                           })}
-                          <Button
+                          {disabled?<></>: <Button
                             type="button"
                             variant="outlined"
                             color="secondary"
-                            disabled={values.skill.length >= 10}
+                            disabled={values.SkillSet.length >= 10}
                             onClick={() =>
                               push({
-                                name: "",
+                                Name: "",
                               })
                             }
                           >
-                            Add Skill
-                          </Button>
+                            Add SkillSet
+                          </Button>}
+                         
                         </div>
                       )}
                     </FieldArray>
                   </Grid>
                 </Grid>
                 <br />
-                <FieldArray name="education">
+                <FieldArray name="Education">
                   {({ push, remove }) => (
                     <div>
                       <Typography variant="h6" fontFamily="Montserrat">
                         Education
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 education
+                        *Maksimum 3 Education
                       </Typography>
-                      {values.education.map((edu, idx) => {
-                        const title = `education[${idx}].title`;
+                      {values.Education.map((edu, idx) => {
+                        const title = `Education[${idx}].Title`;
                         const touchedTitle = getIn(touched, title);
                         const errorTitle = getIn(errors, title);
 
-                        const institution = `education[${idx}].institution`;
-                        const touchedInstitution = getIn(touched, institution);
-                        const errorInstitution = getIn(errors, institution);
+                        const Institution = `Education[${idx}].Institution`;
+                        const touchedInstitution = getIn(touched, Institution);
+                        const errorInstitution = getIn(errors, Institution);
 
-                        const major = `education[${idx}].major`;
-                        const touchedMajor = getIn(touched, major);
-                        const errorMajor = getIn(errors, major);
+                        const Major = `Education[${idx}].Major`;
+                        const touchedMajor = getIn(touched, Major);
+                        const errorMajor = getIn(errors, Major);
 
-                        const yearInEdu = `education[${idx}].year_in_edu`;
+                        const yearInEdu = `Education[${idx}].YearIn`;
                         const touchedYearInEdu = getIn(touched, yearInEdu);
                         const errorYearInEdu = getIn(errors, yearInEdu);
 
-                        const yearOutEdu = `education[${idx}].year_out_edu`;
+                        const yearOutEdu = `Education[${idx}].YearOut`;
                         const touchedYearOutEdu = getIn(touched, yearOutEdu);
                         const errorYearOutEdu = getIn(errors, yearOutEdu);
 
-                        const gpa = `education[${idx}].gpa`;
-                        const touchedGpa = getIn(touched, gpa);
-                        const errorGpa = getIn(errors, gpa);
+                        const GPA = `Education[${idx}].GPA`;
+                        const touchedGPA = getIn(touched, GPA);
+                        const errorGPA = getIn(errors, GPA);
 
                         const handleDelete = () => {
                           if (
@@ -500,8 +552,11 @@ const ProfileForm = ({ bloc }) => {
                                   margin="normal"
                                   variant="outlined"
                                   label="Title"
+                                  InputProps={{
+                                    readOnly: disabled,
+                                  }}
                                   name={title}
-                                  value={edu.title}
+                                  value={edu.Title}
                                   required
                                   helperText={
                                     touchedTitle && errorTitle ? errorTitle : ""
@@ -516,8 +571,8 @@ const ProfileForm = ({ bloc }) => {
                                   margin="normal"
                                   variant="outlined"
                                   label="Institution"
-                                  name={institution}
-                                  value={edu.institution}
+                                  name={Institution}
+                                  value={edu.Institution}
                                   required
                                   helperText={
                                     touchedInstitution && errorInstitution
@@ -528,6 +583,9 @@ const ProfileForm = ({ bloc }) => {
                                     touchedInstitution && errorInstitution
                                   )}
                                   onChange={handleChange}
+                                  InputProps={{
+                                    readOnly: disabled,
+                                  }}
                                 />
                                 <br />
                                 <TextField
@@ -536,8 +594,8 @@ const ProfileForm = ({ bloc }) => {
                                   margin="normal"
                                   variant="outlined"
                                   label="Major"
-                                  name={major}
-                                  value={edu.major}
+                                  name={Major}
+                                  value={edu.Major}
                                   required
                                   helperText={
                                     touchedMajor && errorMajor ? errorMajor : ""
@@ -554,7 +612,7 @@ const ProfileForm = ({ bloc }) => {
                                   variant="outlined"
                                   label="Year In"
                                   name={yearInEdu}
-                                  value={edu.year_in_edu}
+                                  value={edu.YearIn}
                                   required
                                   helperText={
                                     touchedYearInEdu && errorYearInEdu
@@ -565,6 +623,9 @@ const ProfileForm = ({ bloc }) => {
                                     touchedYearInEdu && errorYearInEdu
                                   )}
                                   onChange={handleChange}
+                                  InputProps={{
+                                    readOnly: disabled,
+                                  }}
                                 />
                                 <br />
                                 <TextField
@@ -574,7 +635,7 @@ const ProfileForm = ({ bloc }) => {
                                   variant="outlined"
                                   label="Year Out"
                                   name={yearOutEdu}
-                                  value={edu.year_out_edu}
+                                  value={edu.YearOut}
                                   required
                                   helperText={
                                     touchedYearOutEdu && errorYearOutEdu
@@ -585,6 +646,9 @@ const ProfileForm = ({ bloc }) => {
                                     touchedYearOutEdu && errorYearOutEdu
                                   )}
                                   onChange={handleChange}
+                                  InputProps={{
+                                    readOnly: disabled,
+                                  }}
                                 />
                                 <br />
                                 <TextField
@@ -593,14 +657,17 @@ const ProfileForm = ({ bloc }) => {
                                   margin="normal"
                                   variant="outlined"
                                   label="GPA"
-                                  name={gpa}
-                                  value={edu.gpa}
+                                  name={GPA}
+                                  value={edu.GPA}
                                   required
                                   helperText={
-                                    touchedGpa && errorGpa ? errorGpa : ""
+                                    touchedGPA && errorGPA ? errorGPA : ""
                                   }
-                                  error={Boolean(touchedGpa && errorGpa)}
+                                  error={Boolean(touchedGPA && errorGPA)}
                                   onChange={handleChange}
+                                  InputProps={{
+                                    readOnly: disabled,
+                                  }}
                                 />
                               </Grid>
                               <Grid item md={1}>
@@ -623,58 +690,60 @@ const ProfileForm = ({ bloc }) => {
                           </div>
                         );
                       })}
-                      <Button
+
+                        {disabled?<></>: <Button
                         type="button"
                         variant="outlined"
                         color="secondary"
-                        disabled={values.education.length >= 3}
+                        disabled={values.Education.length >= 3}
                         onClick={() =>
                           push({
-                            title: "",
-                            institution: "",
-                            major: "",
-                            year_in_edu: "",
-                            year_out_edu: "",
-                            gpa: "",
+                            Title: "",
+                            Institution: "",
+                            Major: "",
+                            YearIn: "",
+                            YearOut: "",
+                            GPA: "",
                           })
                         }
                       >
                         Add
-                      </Button>
+                      </Button>}
+                      
                     </div>
                   )}
                 </FieldArray>
                 <br />
-                <FieldArray name="organization">
+                <FieldArray name="Organization">
                   {({ push, remove }) => (
                     <div>
                       <Typography variant="h6" fontFamily="Montserrat">
                         Organization
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 organization
+                        *Maksimum 3 Organization
                       </Typography>
-                      {values.organization.map((org, idx) => {
-                        const organizations = `organization[${idx}].organization`;
+                      {values.Organization.map((org, idx) => {
+                        const Organizations = `Organization[${idx}].Organization`;
                         const touchedOrganization = getIn(
                           touched,
-                          organizations
+                          Organizations
                         );
-                        const errorOrganization = getIn(errors, organizations);
+                        const errorOrganization = getIn(errors, Organizations);
 
-                        const scope = `organization[${idx}].scope`;
-                        const touchedScope = getIn(touched, scope);
-                        const errorScope = getIn(errors, scope);
+                        const Scope = `Organization[${idx}].Scope`;
+                        const touchedScope = getIn(touched, Scope);
+                        const errorScope = getIn(errors, Scope);
 
-                        const duration = `organization[${idx}].duration_org`;
+                        const duration = `Organization[${idx}].Duration`;
                         const touchedDuration = getIn(touched, duration);
                         const errorDuration = getIn(errors, duration);
 
-                        const description = `organization[${idx}].description_org`;
+                        const description = `Organization[${idx}].Description`;
                         const touchedDescription = getIn(touched, description);
                         const errorDescription = getIn(errors, description);
 
-                        const position = `organization[${idx}].position_org`;
+                        const position = `Organization[${idx}].Position`;
                         const touchedPosition = getIn(touched, position);
                         const errorPosition = getIn(errors, position);
                         const handleDelete = () => {
@@ -696,8 +765,8 @@ const ProfileForm = ({ bloc }) => {
                                     margin="normal"
                                     variant="outlined"
                                     label="Organization"
-                                    name={organizations}
-                                    value={org.organization}
+                                    name={Organizations}
+                                    value={org.Organization}
                                     required
                                     helperText={
                                       touchedOrganization && errorOrganization
@@ -716,8 +785,11 @@ const ProfileForm = ({ bloc }) => {
                                     margin="normal"
                                     variant="outlined"
                                     label="Scope"
-                                    name={scope}
-                                    value={org.scope}
+                                    name={Scope}
+                                    value={org.Scope}
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
                                     required
                                     helperText={
                                       touchedScope && errorScope
@@ -736,7 +808,7 @@ const ProfileForm = ({ bloc }) => {
                                     variant="outlined"
                                     label="Duration"
                                     name={duration}
-                                    value={org.duration_org}
+                                    value={org.Duration}
                                     required
                                     helperText={
                                       touchedDuration && errorDuration
@@ -756,7 +828,7 @@ const ProfileForm = ({ bloc }) => {
                                     variant="outlined"
                                     label="Position"
                                     name={position}
-                                    value={org.position_org}
+                                    value={org.Position}
                                     required
                                     helperText={
                                       touchedPosition && errorPosition
@@ -766,6 +838,9 @@ const ProfileForm = ({ bloc }) => {
                                     error={Boolean(
                                       touchedPosition && errorPosition
                                     )}
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
                                     onChange={handleChange}
                                   />
                                 </Grid>
@@ -797,8 +872,11 @@ const ProfileForm = ({ bloc }) => {
                                 variant="outlined"
                                 label="Description"
                                 name={description}
-                                value={org.description_org}
+                                value={org.Description}
                                 required
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
                                 helperText={
                                   touchedDescription && errorDescription
                                     ? errorDescription
@@ -813,28 +891,30 @@ const ProfileForm = ({ bloc }) => {
                           </div>
                         );
                       })}
+
+                    {disabled?<></>: 
                       <Button
                         type="button"
                         variant="outlined"
                         color="secondary"
-                        disabled={values.organization.length >= 3}
+                        disabled={values.Organization.length >= 3}
                         onClick={() =>
                           push({
-                            organization: "",
-                            scope: "",
-                            duration_org: "",
-                            description_org: "",
-                            position_org: "",
+                            Organization: "",
+                            Scope: "",
+                            Duration: "",
+                            Description: "",
+                            Position: "",
                           })
                         }
                       >
                         Add
-                      </Button>
+                      </Button>}
                     </div>
                   )}
                 </FieldArray>
                 <br />
-                <FieldArray name="work_exp">
+                <FieldArray name="WorkExperience">
                   {({ push, remove }) => (
                     <div>
                       <Typography variant="h6" fontFamily="Montserrat">
@@ -843,32 +923,32 @@ const ProfileForm = ({ bloc }) => {
                       <Typography variant="body2" color="#4D4D4D">
                         *Maksimum 3 work experience
                       </Typography>
-                      {values.work_exp.map((work, idx) => {
-                        const name = `work_exp[${idx}].company_name`;
+                      {values.WorkExperience.map((work, idx) => {
+                        const name = `WorkExperience[${idx}].CompanyName`;
                         const touchedCompanyName = getIn(touched, name);
                         const errorCompanyName = getIn(errors, name);
 
-                        const position = `work_exp[${idx}].position_work`;
+                        const position = `WorkExperience[${idx}].Position`;
                         const touchedPosition = getIn(touched, position);
                         const errorPosition = getIn(errors, position);
 
-                        const level = `work_exp[${idx}].level`;
-                        const touchedLevel = getIn(touched, level);
-                        const errorLevel = getIn(errors, level);
+                        const Level = `WorkExperience[${idx}].Level`;
+                        const touchedLevel = getIn(touched, Level);
+                        const errorLevel = getIn(errors, Level);
 
-                        const industry = `work_exp[${idx}].industry`;
-                        const touchedIndustry = getIn(touched, industry);
-                        const errorIndustry = getIn(errors, industry);
+                        const Industry = `WorkExperience[${idx}].Industry`;
+                        const touchedIndustry = getIn(touched, Industry);
+                        const errorIndustry = getIn(errors, Industry);
 
-                        const yearIn = `work_exp[${idx}].year_in_work`;
+                        const yearIn = `WorkExperience[${idx}].YearIn`;
                         const touchedYearIn = getIn(touched, yearIn);
                         const errorYearIn = getIn(errors, yearIn);
 
-                        const yearOut = `work_exp[${idx}].year_out_work`;
+                        const yearOut = `WorkExperience[${idx}].YearOut`;
                         const touchedYearOut = getIn(touched, yearOut);
                         const errorYearOut = getIn(errors, yearOut);
 
-                        const descriptionWork = `work_exp[${idx}].description_work`;
+                        const descriptionWork = `WorkExperience[${idx}].Description`;
                         const touchedDescription = getIn(
                           touched,
                           descriptionWork
@@ -892,8 +972,11 @@ const ProfileForm = ({ bloc }) => {
                                     margin="normal"
                                     variant="outlined"
                                     label="Company Name"
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
                                     name={name}
-                                    value={work.company_name}
+                                    value={work.CompanyName}
                                     required
                                     helperText={
                                       touchedCompanyName && errorCompanyName
@@ -912,8 +995,11 @@ const ProfileForm = ({ bloc }) => {
                                     margin="normal"
                                     variant="outlined"
                                     label="Position"
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
                                     name={position}
-                                    value={work.position_work}
+                                    value={work.Position}
                                     required
                                     helperText={
                                       touchedPosition && errorPosition
@@ -932,8 +1018,11 @@ const ProfileForm = ({ bloc }) => {
                                     margin="normal"
                                     variant="outlined"
                                     label="Level"
-                                    name={level}
-                                    value={work.level}
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
+                                    name={Level}
+                                    value={work.Level}
                                     required
                                     helperText={
                                       touchedLevel && errorLevel
@@ -951,8 +1040,11 @@ const ProfileForm = ({ bloc }) => {
                                     margin="normal"
                                     variant="outlined"
                                     label="Industry"
-                                    name={industry}
-                                    value={work.industry}
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
+                                    name={Industry}
+                                    value={work.Industry}
                                     required
                                     helperText={
                                       touchedIndustry && errorIndustry
@@ -972,7 +1064,10 @@ const ProfileForm = ({ bloc }) => {
                                     variant="outlined"
                                     label="Year In"
                                     name={yearIn}
-                                    value={work.year_in_work}
+                                    value={work.YearIn}
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
                                     required
                                     helperText={
                                       touchedYearIn && errorYearIn
@@ -992,8 +1087,11 @@ const ProfileForm = ({ bloc }) => {
                                     variant="outlined"
                                     label="Year Out"
                                     name={yearOut}
-                                    value={work.year_out_work}
+                                    value={work.YearOut}
                                     required
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
                                     helperText={
                                       touchedYearOut && errorYearOut
                                         ? errorYearOut
@@ -1032,8 +1130,11 @@ const ProfileForm = ({ bloc }) => {
                                 variant="outlined"
                                 label="Description"
                                 name={descriptionWork}
-                                value={work.description_work}
+                                value={work.Description}
                                 required
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
                                 helperText={
                                   touchedDescription && errorDescription
                                     ? errorDescription
@@ -1048,25 +1149,28 @@ const ProfileForm = ({ bloc }) => {
                           </div>
                         );
                       })}
+
+                    {disabled?<></>: 
+                      
                       <Button
                         type="button"
                         variant="outlined"
-                        disabled={values.work_exp.length >= 3}
+                        disabled={values.WorkExperience.length >= 3}
                         color="secondary"
                         onClick={() =>
                           push({
-                            company_name: "",
-                            position_work: "",
-                            level: "",
-                            industry: "",
-                            year_in_work: "",
-                            year_out_work: "",
-                            description_work: "",
+                            CompanyName: "",
+                            Position: "",
+                            Level: "",
+                            Industry: "",
+                            YearIn: "",
+                            YearOut: "",
+                            Description: "",
                           })
                         }
                       >
                         Add
-                      </Button>
+                      </Button>}
                     </div>
                   )}
                 </FieldArray>
@@ -1076,9 +1180,23 @@ const ProfileForm = ({ bloc }) => {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Button type="submit" color="secondary" variant="contained">
-                    submit
+                  {disabled?
+                  <Button color="secondary" variant="contained" onClick={()=>changeDisable(!disabled)}>
+                    Edit Profile
+                  </Button> 
+                  :
+                  <>
+                  
+                  <Button color="secondary" variant="contained"onClick={()=>changeDisable(!disabled)} >
+                    Cancel
                   </Button>
+                   <Button type="submit" color="secondary" variant="contained">
+                    Submit
+                  </Button>
+
+                  </>
+                  }
+                 
                 </Box>
               </Box>
             </Form>
@@ -1089,4 +1207,4 @@ const ProfileForm = ({ bloc }) => {
   );
 };
 
-export default ProfileForm;
+export default ViewProfileForm;

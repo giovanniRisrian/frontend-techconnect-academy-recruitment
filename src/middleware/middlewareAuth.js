@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 const MiddlewareAuth = () => {
   const data = useContext(RootContext);
   let Role;
-  console.log(data);
+  // console.log(data);
   if (data.userInfo !== null) {
     let userInfo = jwt_decode(data.userInfo);
     Role = userInfo.Role;

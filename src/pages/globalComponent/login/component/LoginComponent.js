@@ -3,7 +3,9 @@ import { Box,Typography, Button, Fab, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
+import logo from "../../../../asset/icon/logo.svg";
 import * as Yup from "yup";
+
 const LoginComponent = ({ bloc }) => {
   const data = useContext(RootContext);
   const { doLogin } = bloc();
@@ -38,15 +40,16 @@ const LoginComponent = ({ bloc }) => {
           <div className="card-body">
             <div>
               <form onSubmit={formik.handleSubmit}>
-              <Typography gutterBottom variant="h5" component="div">
-          Login
-        </Typography>
+              <Typography gutterBottom variant="h5" component="div" textAlign="center">
+              <img src={logo} style={{ width: "75px", height: "75px" }} />
+              </Typography>
                 <TextField
                 variant="outlined"
                   className="form-control cardForm text-center"
                   type="text"
                   name="email"
                   label="Email"
+                  color="secondary"
                   value={formik.values.email || ""}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -63,6 +66,7 @@ const LoginComponent = ({ bloc }) => {
                   id="password"
                   name="password"
                   label="Password"
+                  color="secondary"
                   value={formik.values.password || ""}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -76,11 +80,12 @@ const LoginComponent = ({ bloc }) => {
                 </p>
                 <Button
                   type="submit"
+                  color="secondary"
                   variant="contained"
                   value="submit"
                   disabled={!(formik.isValid && formik.dirty)}
                 >
-                  Submit
+                  LOGIN
                 </Button>
                 {/* <input
                   className="form-control cardForm btnp"

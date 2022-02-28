@@ -4,22 +4,23 @@ const ProfileBloc = (profileService) => {
   let { uploadDataApplicant, updateDataApplicant, getDataApplicantbyId } =
     profileService();
 
-  const handleSubmit = async (values, context) => {
-    console.log("ini context", context);
-    console.log("handleApplicant", values);
+  const handleSubmit = async (values,file, context) => {
     try {
       const config = {
         headers: {
           Authorization: `Bearer ${context.userInfo}`,
+          'Accept': 'application/json',
           "Content-Type": "multipart/form-data",
         },
       };
       const formData = new FormData();
-      formData.append("file", values.file);
-      formData.append("data", values);
-      for (var pair of formData.entries()) {
-        console.log("cobaa",pair[0]+ ', ' + pair[1]); 
-       }
+      const jsonText = JSON.stringify(values)
+      const jsonPretendFile =  new Blob([jsonText], {
+        type: 'application/json'
+      });
+      formData.append("json", jsonPretendFile);
+      formData.append("file", file);
+    
       const response = await uploadDataApplicant(formData, config);
       return response;
     } catch (err) {
