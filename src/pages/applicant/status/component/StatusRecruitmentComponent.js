@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import Footer from "../../../globalComponent/footer/Footer";
 
 const steps = [
   'Administration',
@@ -100,7 +101,7 @@ export default function StatusRecruitmen({ bloc }) {
       </Button>
 
       </Box>
-    
+      <Footer />
     </MyComponent>
   );
 }

@@ -5,20 +5,20 @@ import {
   Card,
   Typography,
   Button,
-  Box,
   Grid,
 } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
+import Footer from "../../../globalComponent/footer/Footer";
 
 const ListProgramApply = ({ bloc }) => {
   const { list, getListAppliedProgram, navigate, loading } = bloc();
-  
+
   const data = useContext(RootContext);
 
   let userInfo = jwt_decode(data.userInfo);
-  let id = userInfo.id
+  let id = userInfo.id;
 
   useEffect(() => {
     getListAppliedProgram(id);
@@ -27,6 +27,7 @@ const ListProgramApply = ({ bloc }) => {
   return (
     <>
       <MyComponent>
+       
         <Typography
           textAlign="center"
           sx={{
@@ -55,8 +56,6 @@ const ListProgramApply = ({ bloc }) => {
           justifyContent="center"
           alignItems="center"
           marginTop="30px"
-          
-       
         >
           {list?.ProgramPosts &&
             list.ProgramPosts.map((value, idx) => {
@@ -74,22 +73,20 @@ const ListProgramApply = ({ bloc }) => {
                   >
                     <Card sx={{ width: "auto" }}>
                       <CardContent>
-                        <Typography
-                          variant="h6"
-                          color="#343434"
-                          gutterBottom
-                        >
+                        <Typography variant="h6" color="#343434" gutterBottom>
                           {value.Headline}
                         </Typography>
                       </CardContent>
                       <CardActions>
-                      <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => navigate(`/applicant/status/${value.ID}`)}
-                    >
-                      Details
-                    </Button>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() =>
+                            navigate(`/applicant/status/${value.ID}`)
+                          }
+                        >
+                          Details
+                        </Button>
                       </CardActions>
                     </Card>
                   </Grid>
@@ -97,6 +94,15 @@ const ListProgramApply = ({ bloc }) => {
               );
             })}
         </Grid>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <Footer />
       </MyComponent>
     </>
   );
