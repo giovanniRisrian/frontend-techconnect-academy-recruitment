@@ -27,8 +27,8 @@ const VacancyDetail = ({ bloc }) => {
     id_user: id,
   };
 
-  let desc = programDetail.Description;
-  console.log(typeof(desc));
+ console.log(programDetail.Description.replace("\n","<br/>"));
+  
 
   useEffect(() => {
     getProgrambyId();
@@ -46,7 +46,7 @@ const VacancyDetail = ({ bloc }) => {
           {programDetail && (
             <Card
               sx={{
-                width: "80%",
+                width: "auto",
                 height: "500px",
                 borderRadius: "20px",
               }}
@@ -93,6 +93,9 @@ const VacancyDetail = ({ bloc }) => {
                     variant="body2"
                     component="div"
                     fontFamily="Montserrat"
+                    sx={{
+                      whiteSpace: "pre-line"
+                    }}
                   >
                     {programDetail.Description}
                   </Typography>
