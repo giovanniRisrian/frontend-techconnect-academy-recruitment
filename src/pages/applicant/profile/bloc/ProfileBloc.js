@@ -5,9 +5,6 @@ const ProfileBloc = (profileService) => {
     profileService();
 
   const handleSubmit = async (values,file, context) => {
-    
-    console.log("ini context", context);
-    console.log("handleApplicant", values);
     try {
       const config = {
         headers: {

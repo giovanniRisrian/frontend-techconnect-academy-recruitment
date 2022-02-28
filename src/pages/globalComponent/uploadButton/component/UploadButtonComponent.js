@@ -2,12 +2,13 @@ import { useContext } from "react";
 import { RootContext } from "../../../../App";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
+import {Button, Box} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 // import IconButton from "@mui/material/IconButton";
 // import PhotoCamera from "@mui/icons-material/PhotoCamera";
 // import Stack from "@mui/material/Stack";
 const UploadButtonComponent = ({ bloc }) => {
-  const { doUpload } = bloc();
+  const { doUpload, loading } = bloc();
   const Input = styled("input")({
     display: "none",
   });
@@ -35,7 +36,22 @@ const UploadButtonComponent = ({ bloc }) => {
   return (
     <>
       <br></br>
-      <label htmlFor="contained-button-file">
+     {loading ?  
+     <Box
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="center"
+          >
+
+          <LoadingButton
+            loading={loading}
+            loadingPosition="center"
+          >
+            Loading
+          </LoadingButton>
+          </Box> : 
+       <label htmlFor="contained-button-file">
         <Input
           accept="image/pdf/*"
           id="contained-button-file"
@@ -43,10 +59,11 @@ const UploadButtonComponent = ({ bloc }) => {
           type="file"
           onChange={handleUpload}
         />
-        <Button variant="contained" component="span">
+        <Button variant="contained" color="secondary" component="span">
           Upload Resume
         </Button>
       </label>
+      }
       <div>
         match_score : {info.match_score}
         <br></br>Information : <br/>{info.summary.text}<br/>

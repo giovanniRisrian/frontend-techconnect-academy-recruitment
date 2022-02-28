@@ -1,16 +1,16 @@
 import { client } from "../../../../http-client/Client";
 
 const VacancyService = () =>{
-    async function getInformationProgram(data){
-        const response =  await client.get('/vacancy', {params:data})
+    async function getInformationProgram(page){ 
+        const response =  await client.get(`/program?page=${page}&limit=4`)
         return response;
     }
     async function getDetailInformationProgram(id){
-        const response =  await client.get(`/vacancy/${id}`)
+        const response =  await client.get(`/program?id=${id}`)
         return response;
     }
-    async function applyProgram(params, header){
-        const response = await client.post(`/apply`, params, header)
+    async function applyProgram(params){
+        const response = await client.post(`/program_applicant/apply`, params)
         return response
     }
     return {

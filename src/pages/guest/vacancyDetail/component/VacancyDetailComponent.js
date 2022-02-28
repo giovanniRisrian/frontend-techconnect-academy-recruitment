@@ -3,17 +3,31 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import MyComponent from "../../../homepage/BackgroundImage";
 import Box from "@mui/material/Box";
 import location from "../../../../asset/icon/location.svg";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
+import jwt_decode from "jwt-decode";
 
-const JobInformationDetail = ({ bloc }) => {
-  const { programDetail, navigate, getProgrambyId, doApplyProgram } = bloc();
+const VacancyDetail = ({ bloc }) => {
+  const { programDetail, navigate, getProgrambyId, doApplyProgram, params } =
+    bloc();
   const data = useContext(RootContext);
+
+  let userInfo;
+  let id;
+  if (data.userInfo) {
+    userInfo = jwt_decode(data.userInfo);
+    id = userInfo.id;
+  }
+  let dataApplicant = {
+    ProgramId: params.id,
+    id_user: id,
+  };
+
+
 
   useEffect(() => {
     getProgrambyId();
@@ -31,8 +45,8 @@ const JobInformationDetail = ({ bloc }) => {
           {programDetail && (
             <Card
               sx={{
-                width: "80%",
-                height: "500px",
+                width: "auto",
+                height: "auto",
                 borderRadius: "20px",
               }}
             >
@@ -43,7 +57,7 @@ const JobInformationDetail = ({ bloc }) => {
                   component="div"
                   fontFamily="Montserrat"
                 >
-                  {programDetail.headline}
+                  {programDetail.Headline}
                 </Typography>
                 <Box display="flex" flexDirection="row">
                   <img
@@ -58,7 +72,7 @@ const JobInformationDetail = ({ bloc }) => {
                     marginLeft="10px"
                     marginTop="5px"
                   >
-                    {programDetail.program_location}
+                    {programDetail.ProgramLocation?.Address}
                   </Typography>
                 </Box>
 
@@ -70,14 +84,42 @@ const JobInformationDetail = ({ bloc }) => {
                     fontFamily="Montserrat"
                     marginTop="20px"
                   >
-                    Requirements :
+                    Description :
                   </Typography>
+                  <ul>
                   <Typography
                     gutterBottom
-                    variant="h6"
+                    variant="body2"
                     component="div"
                     fontFamily="Montserrat"
-                  ></Typography>
+                    sx={{
+                      whiteSpace: "pre-line"
+                    }}
+                  >
+                    {programDetail.Description}
+                  </Typography>
+                  </ul>
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    fontFamily="Montserrat"
+                  >
+                    Requirement :
+                  </Typography>
+                  <ul>
+                    <Typography
+                      gutterBottom
+                      variant="body2"
+                      component="div"
+                      fontFamily="Montserrat"
+                      sx={{
+                        whiteSpace: "pre-line"
+                      }}
+                    >
+                      {programDetail.Requirement}
+                    </Typography>
+                  </ul>
                 </div>
               </CardContent>
 
@@ -85,6 +127,7 @@ const JobInformationDetail = ({ bloc }) => {
                 display="flex"
                 justifyContent="flex-end"
                 alignItems="flex-end"
+                marginBottom="20px"
               >
                 <Button
                   variant="outlined"
@@ -101,7 +144,7 @@ const JobInformationDetail = ({ bloc }) => {
                   <Button
                     variant="contained"
                     sx={{ backgroundColor: "#521582", marginRight: "15px" }}
-                    onClick={doApplyProgram(data)}
+                    onClick={() => doApplyProgram(dataApplicant, data)}
                   >
                     Apply
                   </Button>
@@ -109,7 +152,7 @@ const JobInformationDetail = ({ bloc }) => {
                   <Button
                     variant="contained"
                     sx={{ backgroundColor: "#521582", marginRight: "15px" }}
-                    onClick={() => navigate('/login')}
+                    onClick={() => navigate("/login")}
                   >
                     Apply
                   </Button>
@@ -123,4 +166,4 @@ const JobInformationDetail = ({ bloc }) => {
   );
 };
 
-export default JobInformationDetail;
+export default VacancyDetail;

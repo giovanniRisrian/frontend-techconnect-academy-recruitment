@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-const VacancyListBloc = (programService) => {
-  const [list, setList] = useState([]);
+const VacancyListBloc = (programService,useVacancyList) => {
+  let { list, setList } = useVacancyList()
+  const [loading, setLoading] = useState(false)
   let navigate = useNavigate();
   let { getInformationProgram } = programService();
-  const getListJobInformation = async () => {
+  const getListJobInformation = async (page) => {
     try {
-      const response = await getInformationProgram();
+      setLoading(true)
+      const response = await getInformationProgram(page);
       setList(response.data.data);
+      setLoading(false)
       return list;
     } catch (err) {
       throw err;
@@ -16,6 +19,7 @@ const VacancyListBloc = (programService) => {
   };
   return {
     list,
+    loading,
     navigate,
     getListJobInformation,
   };
