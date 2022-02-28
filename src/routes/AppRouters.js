@@ -15,6 +15,7 @@ import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import RegisterRecruiter from "../pages/administrator/registerRecruiter/RegisterRecruiter";
+import About from "../pages/about/About";
 import Homepage from "../pages/homepage/Homepage";
 import NotFoundPage from "../pages/404/NotFoundPage";
 import Profile from "../pages/applicant/profile/Profile";
@@ -110,7 +111,9 @@ const AppRouters = () => {
           ></Route>
         </Route>
 
-        <Route path="/recruiter" element={< MiddlewareAuth/>}>
+        <Route path="/about" element={<About />}/>
+
+        <Route path="/recruiter" element={<MiddlewareAuthRecruiter />}>
           <Route index element={<RecruiterHome />} />
           <Route path="applicants/details/:programid/:applicantid" element={<DetailApplicant/>}/>
         </Route>
