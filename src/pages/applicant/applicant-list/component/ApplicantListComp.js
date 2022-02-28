@@ -15,6 +15,9 @@ import {
   Pagination,
   Select,
   Stack,
+  Step,
+  StepLabel,
+  Stepper,
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
@@ -34,6 +37,11 @@ const ApplicantListComp = ({ bloc }) => {
     program,
     page,
     programId,
+    step,
+    isProgram,
+    handleStepUp,
+    handleStepDown,
+    steps,
     getAge,
     handlePage,
     handleSeeDetail,
@@ -108,9 +116,56 @@ const ApplicantListComp = ({ bloc }) => {
         </Grid>
 
         {/* End of Dropwdown */}
+        {/* Start of stepper process selection */}
+        {isProgram ? (
+          <div>
+            <Grid container>
+              <Grid item md={2} sm={1} xs={1} />
+              <Grid item md={8} sm={10} xs={10}>
+                <Box sx={{ width: "100%", mt: 10 }}>
+                  <Stepper activeStep={step} alternativeLabel>
+                    {steps.map((label) => (
+                      <Step key={label} color="secondary">
+                        <StepLabel color="secondary">{label}</StepLabel>
+                      </Step>
+                    ))}
+                  </Stepper>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      paddingTop: 2,
+                    }}
+                  >
+                    <item>
+                      <Button
+                        onClick={() => {
+                          handleStepDown();
+                        }}
+                      >
+                        Previous
+                      </Button>
+                    </item>
+                    <item></item>
+                    <item>
+                      <Button
+                        onClick={() => {
+                          handleStepUp();
+                        }}
+                      >
+                        Next
+                      </Button>
+                    </item>
+                  </Box>
+                </Box>
+              </Grid>
+            </Grid>
+          </div>
+        ) : null}
+        {/* End of stepper process selection */}
 
         {/* Start of Table */}
-        <Grid container sx={{ mt: 5 }}>
+        <Grid container sx={{ mt: 3 }}>
           <Grid item md={1} />
           <Grid item md={10} sm={12} xs={12}>
             <TableContainer sx={{ width: "100%" }}>

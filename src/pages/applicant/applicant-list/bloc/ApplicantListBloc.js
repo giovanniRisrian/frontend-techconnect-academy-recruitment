@@ -14,9 +14,13 @@ const ApplicantListBloc = (
     setPage,
     programId,
     setProgramId,
+    step,
+    setStep,
+    isProgram,
+    setIsProgram,
   } = useApplicantList();
 
-  let { getApplicantsByProgram, getApplicant, getPrograms } =
+  let { getApplicantsByProgram, getApplicant, getPrograms, getProcess } =
     applicantRepository();
   const { navigateTo, paramsNav } = navigation();
   const params = paramsNav();
@@ -41,6 +45,7 @@ const ApplicantListBloc = (
 
   const handleProgram = (programId, program) => {
     getApplicantsByProgram(programId, page);
+    setIsProgram(true);
     setProgramId(programId);
     setProgram(program.props.children);
   };
@@ -54,6 +59,14 @@ const ApplicantListBloc = (
     navigateTo(`details/${programId}/${applicantId}`);
   };
 
+  const handleStepUp = () => {
+    setStep((prevValue) => prevValue + 1);
+  };
+
+  const handleStepDown = () => {
+    setStep((prevValue) => prevValue - 1);
+  };
+
   const getAge = (dateString) => {
     var today = new Date();
     var birthDate = new Date(dateString);
@@ -64,6 +77,14 @@ const ApplicantListBloc = (
     }
     return age;
   };
+
+  const steps = [
+    "Administration",
+    "Assesment",
+    "Interview",
+    "Offering Letter",
+    "Welcome to SMM",
+  ];
 
   return {
     applicantList,
@@ -76,10 +97,17 @@ const ApplicantListBloc = (
     setPage,
     programId,
     setProgramId,
+    step,
+    setStep,
+    isProgram,
+    setIsProgram,
+    steps,
     getAge,
     handlePage,
     handleSeeDetail,
     handleProgram,
+    handleStepUp,
+    handleStepDown,
     getListProgram,
     getListApplicantByPage,
   };

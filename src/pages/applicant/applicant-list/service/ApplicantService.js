@@ -2,7 +2,12 @@ import { client } from "../../../../http-client/Client";
 
 const ApplicantService = () => {
   const getPrograms = async (data) => {
-    const response = await client.get(`/applicants/`, { params: data });
+    const response = await client.get(`/program/`, { params: data });
+    return response;
+  };
+
+  const getProcess = async (data) => {
+    const response = await client.get(`/process/`, { params: data });
     return response;
   };
 
@@ -18,7 +23,7 @@ const ApplicantService = () => {
     return response;
   };
 
-  return { getApplicantsByProgram, getApplicant, getPrograms };
+  return { getApplicantsByProgram, getApplicant, getPrograms, getProcess };
 };
 
 export default ApplicantService;
