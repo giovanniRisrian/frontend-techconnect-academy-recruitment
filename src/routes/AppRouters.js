@@ -20,15 +20,12 @@ import Homepage from "../pages/homepage/Homepage";
 import NotFoundPage from "../pages/404/NotFoundPage";
 import Profile from "../pages/applicant/profile/Profile";
 import { Navbar } from "../pages/globalComponent/navbar/Navbar";
-<<<<<<< HEAD
 import DetailApplicant from "../pages/applicant/detailApplicant/DetailApplicant";
 // import StatusBar from "../pages/applicant/status/StatusBar";
 import ViewProfile from "../pages/applicant/viewProfile/ViewProfile";
 import ListProgramApplied from "../pages/applicant/status/ListProgramApplied";
 import StatusDetail from "../pages/applicant/status/StatusDetail";
-=======
 import RecruiterHome from "../pages/recruiter/home/RecruiterHome";
->>>>>>> giovanni/feature_recruiter_dashboard
 
 const AppRouters = () => {
   const data = useContext(RootContext);
