@@ -20,10 +20,10 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
           "Content-Type": "multipart/form-data",
         },
       };
-      const formData = new FormData();
-      formData.append("image", values.image);
-      formData.append("data", values);
-      const response = await createProgram(formData, config);
+      // const formData = new FormData();
+      // formData.append("image", values.image);
+      // formData.append("data", values);
+      const response = await createProgram(values, config);
       return response;
     } catch (error) {
       throw error;

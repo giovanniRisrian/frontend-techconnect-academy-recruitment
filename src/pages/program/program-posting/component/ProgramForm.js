@@ -13,33 +13,36 @@ const ProgramForm = ({ bloc }) => {
 
   const formik = useFormik({
     initialValues: {
-      title: "",
+      ProgramTypeName: "",
+      ProgramName: "",
       headline: "",
       description: "",
       requirement: "",
-      skill: "",
+      RequirementSkill: "",
+      path_file: "",
       openDate: "2022-03-01",
       closeDate: "2022-03-01",
       address: "",
     },
     validationSchema: Yup.object({
-      title: Yup.string().required("This field is required"),
+      ProgramTypeName: Yup.string().required("This field is required"),
+      ProgramName: Yup.string().required("This field is required"),
       headline: Yup.string().required("This field is required"),
       description: Yup.string().required("This field is required"),
       requirement: Yup.string().required("This field is required"),
-      skill: Yup.string().required("This field is required"),
+      RequirementSkill: Yup.string().required("This field is required"),
       openDate: Yup.string().required("This field is required"),
       closeDate: Yup.string().required("This field is required"),
       address: Yup.string().required("This field is required"),
     }),
     onSubmit: (values) => {
-      values.image = image;
+      // values.image = image;
       handleSubmit(values, data);
     },
   });
 
   useEffect(() => {
-    // getListSkill();
+    // getListRequirementSkill();
   }, []);
 
   return (
@@ -85,7 +88,7 @@ const ProgramForm = ({ bloc }) => {
         {/* End of header */}
         {/* Start of upload image */}
 
-        <Box textAlign="center">
+        {/* <Box textAlign="center">
           {image && (
             <div>
               <img
@@ -109,7 +112,7 @@ const ProgramForm = ({ bloc }) => {
             Upload Photo
             <input type="file" hidden />
           </Button>
-        </Box>
+        </Box> */}
 
         {/* End of Upload Image */}
         {/* Form */}
@@ -120,7 +123,27 @@ const ProgramForm = ({ bloc }) => {
               maxWidth: "100%",
               "& > :not(style)": { m: 1 },
             }}
-          >
+          ><Grid container>
+          <Grid item md={3} />
+          <Grid item md={6} sm={12} xs={12}>
+            <TextField
+              fullWidth
+              sx={{ marginTop: 3 }}
+              color="secondary"
+              id="ProgramTypeName"
+              label="Program Type"
+              variant="outlined"
+              size="small"
+              name="ProgramTypeName"
+              value={formik.values.ProgramTypeName}
+              error={formik.touched.ProgramTypeName && Boolean(formik.errors.ProgramTypeName)}
+              helperText={formik.touched.ProgramTypeName && formik.errors.ProgramTypeName}
+              onChange={formik.handleChange}
+            />
+          </Grid>
+        </Grid>
+
+
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
@@ -128,14 +151,14 @@ const ProgramForm = ({ bloc }) => {
                   fullWidth
                   sx={{ marginTop: 3 }}
                   color="secondary"
-                  id="title"
+                  id="ProgramName"
                   label="Title"
                   variant="outlined"
                   size="small"
-                  name="title"
-                  value={formik.values.title}
-                  error={formik.touched.title && Boolean(formik.errors.title)}
-                  helperText={formik.touched.title && formik.errors.title}
+                  name="ProgramName"
+                  value={formik.values.ProgramName}
+                  error={formik.touched.ProgramName && Boolean(formik.errors.ProgramName)}
+                  helperText={formik.touched.ProgramName && formik.errors.ProgramName}
                   onChange={formik.handleChange}
                 />
               </Grid>
@@ -221,14 +244,14 @@ const ProgramForm = ({ bloc }) => {
                 <TextField
                   fullWidth
                   color="secondary"
-                  id="skill"
+                  id="RequirementSkill"
                   label="Skill"
                   variant="outlined"
                   size="small"
-                  name="skill"
-                  value={formik.values.skill}
-                  error={formik.touched.skill && Boolean(formik.errors.skill)}
-                  helperText={formik.touched.skill && formik.errors.skill}
+                  name="RequirementSkill"
+                  value={formik.values.RequirementSkill}
+                  error={formik.touched.RequirementSkill && Boolean(formik.errors.RequirementSkill)}
+                  helperText={formik.touched.RequirementSkill && formik.errors.RequirementSkill}
                   onChange={formik.handleChange}
                 />
               </Grid>
