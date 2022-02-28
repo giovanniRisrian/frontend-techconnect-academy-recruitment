@@ -34,13 +34,10 @@ const NavbarCompontent = () => {
     if(userInfo.Role === "recruiter"){
     settings = settingsRecruiter;
     settingsLink = settingsLinkRecruiter;
-    }
-    if(userInfo.Role === "administrator"){
+    }else if(userInfo.Role === "administrator"){
       settings = settingAdmin
       settingsLink = settingsLinkAdmin
-    
     }
-    
   }
  
   const navigate = useNavigate();

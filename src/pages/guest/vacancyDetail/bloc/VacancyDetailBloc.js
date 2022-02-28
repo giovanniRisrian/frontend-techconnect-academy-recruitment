@@ -12,8 +12,10 @@ const VacancyDetailBloc = (programService) => {
   const getProgrambyId = async () => {
     try {
       setLoading(true)
+      console.log(params);
       const response = await getDetailInformationProgram(params.id);
-      setProgramDetail(response.data);
+      console.log(response);
+      setProgramDetail(response.data.data);
       setLoading(false)
       return programDetail;
     } catch (err) {
@@ -21,7 +23,6 @@ const VacancyDetailBloc = (programService) => {
     }
   };
   const doApplyProgram = async (values, context) => {
-    console.log("data apply", values);
     try {
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },

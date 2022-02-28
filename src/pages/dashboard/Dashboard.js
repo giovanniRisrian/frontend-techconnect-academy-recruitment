@@ -1,10 +1,8 @@
 import { useContext } from "react";
-// import { useNavigate } from "react-router-dom";
 import { RootContext } from "../../App";
 import LogoutButton from "../globalComponent/logout/LogoutButton";
 import UploadButton from "../globalComponent/uploadButton/UploadButton";
 import jwt_decode from "jwt-decode";
-import { Navbar } from "../globalComponent/navbar/Navbar";
 import { Grid } from "@mui/material";
 import MyComponent from "../homepage/BackgroundImage";
 

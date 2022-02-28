@@ -12,7 +12,7 @@ const StatusRecruitmentBloc = (statusService) => {
     try {
       setLoading(true)
       const response = await getDetailAppliedProgram(params.id);
-      setStatusProgram(response.data);
+      setStatusProgram(response.data.data);
       setLoading(false)
       return statusProgram;
     } catch (err) {

@@ -12,14 +12,10 @@ import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
 
 const VacancyDetail = ({ bloc }) => {
-  const {
-    programDetail,
-    navigate,
-    getProgrambyId,
-    doApplyProgram,
-    params,
-  } = bloc();
+  const { programDetail, navigate, getProgrambyId, doApplyProgram, params } =
+    bloc();
   const data = useContext(RootContext);
+
   let userInfo;
   let id;
   if (data.userInfo) {
@@ -27,9 +23,12 @@ const VacancyDetail = ({ bloc }) => {
     id = userInfo.id;
   }
   let dataApplicant = {
-    id_program: params.id,
+    ProgramId: params.id,
     id_user: id,
   };
+
+  let desc = programDetail.Description;
+  console.log(typeof(desc));
 
   useEffect(() => {
     getProgrambyId();
@@ -59,7 +58,7 @@ const VacancyDetail = ({ bloc }) => {
                   component="div"
                   fontFamily="Montserrat"
                 >
-                  {programDetail.headline}
+                  {programDetail.Headline}
                 </Typography>
                 <Box display="flex" flexDirection="row">
                   <img
@@ -74,7 +73,7 @@ const VacancyDetail = ({ bloc }) => {
                     marginLeft="10px"
                     marginTop="5px"
                   >
-                    {programDetail.program_location}
+                    {programDetail.ProgramLocation?.Address}
                   </Typography>
                 </Box>
 
@@ -89,16 +88,14 @@ const VacancyDetail = ({ bloc }) => {
                     Description :
                   </Typography>
                   <ul>
-                    <li>
-                      <Typography
-                        gutterBottom
-                        variant="body2"
-                        component="div"
-                        fontFamily="Montserrat"
-                      >
-                        Description 
-                      </Typography>
-                    </li>
+                  <Typography
+                    gutterBottom
+                    variant="body2"
+                    component="div"
+                    fontFamily="Montserrat"
+                  >
+                    {programDetail.Description}
+                  </Typography>
                   </ul>
                   <Typography
                     gutterBottom
@@ -109,16 +106,14 @@ const VacancyDetail = ({ bloc }) => {
                     Requirement :
                   </Typography>
                   <ul>
-                    <li>
-                      <Typography
-                        gutterBottom
-                        variant="body2"
-                        component="div"
-                        fontFamily="Montserrat"
-                      >
-                        Requirement 
-                      </Typography>
-                    </li>
+                    <Typography
+                      gutterBottom
+                      variant="body2"
+                      component="div"
+                      fontFamily="Montserrat"
+                    >
+                      {programDetail.Requirement}
+                    </Typography>
                   </ul>
                 </div>
               </CardContent>

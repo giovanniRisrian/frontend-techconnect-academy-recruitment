@@ -3,9 +3,9 @@ import { Pagination, Stack } from "@mui/material"
 const BasicPagination = (props) =>{
     // const handleCount = () =>{
     //    if(props.data.length % 4 === 0){
-    //      return props.data.length / 4
+    //      return parseInt(props.data.length / 4)
     //    }else{
-    //      return (props.data.length / 4) + 1
+    //      return parseInt(props.data.length / 4)+1
     //    }
     // }
     return(

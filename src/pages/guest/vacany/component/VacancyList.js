@@ -9,23 +9,19 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import MyComponent from "../../../homepage/BackgroundImage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../../globalComponent/footer/Footer";
 import BasicPagination from "../../../globalComponent/pagination/Pagination";
 
 const VacancyList = ({ bloc }) => {
-  const { list, getListJobInformation, navigate, loading, pagination } = bloc();
-
+  const { list, getListJobInformation, navigate, loading } = bloc();
+  
   useEffect(() => {
-    getListJobInformation({page:1, size:4});
+    getListJobInformation(1);
   }, []);
 
   const setPagination = (e, value) =>{
-    let params = {
-      page : value,
-      size : 4
-    }
-    getListJobInformation(params)
+    getListJobInformation(value)
   }
 
   return (
@@ -91,7 +87,7 @@ const VacancyList = ({ bloc }) => {
                 >
                   <Card
                     sx={{
-                      backgroundImage: `url(${value.photo_url})`,
+                      backgroundImage: `url(${value.PathFile})`,
                       height: "300px",
                       width: "250px",
                       borderRadius: "15px",
@@ -111,7 +107,7 @@ const VacancyList = ({ bloc }) => {
                         fontFamily="Montserrat"
                         fontWeight="600"
                       >
-                        {value.headline}
+                        {value.Headline}
                       </Typography>
                     </CardContent>
                     <CardActions
@@ -120,18 +116,14 @@ const VacancyList = ({ bloc }) => {
                       <Button
                    
                         size="small"
+                        color="secondary"
+                        variant="contained"
                         sx={{
-                          backgroundColor: "#521582",
-                          color: "#FFF",
                           fontFamily: "Montserrat",
                           fontSize: "16px",
                           marginLeft: "50px",
-                          "&:hover": {
-                            backgroundColor: "#FFF",
-                            color: "#521582",
-                          },
                         }}
-                        onClick={() => navigate(`/vacancy/${value.id}`)}
+                        onClick={() => navigate(`/vacancy/${value.ID}`)}
                       >
                         See Details
                       </Button>
@@ -148,7 +140,7 @@ const VacancyList = ({ bloc }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <BasicPagination onChange={setPagination} data={pagination} />
+          <BasicPagination onChange={setPagination} data={list} />
         </Box>
         <Footer />
       </MyComponent>

@@ -2,7 +2,7 @@ import { client } from "../../../../http-client/Client"
 
 const StatusService = () =>{
     async function getAppliedProgram(params){ 
-        const response =  await client.get('/programs', params)
+        const response =  await client.get('/program', params)
         return response;
     }
     async function getDetailAppliedProgram(id){

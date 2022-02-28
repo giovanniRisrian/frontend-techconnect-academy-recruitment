@@ -16,6 +16,7 @@ const ListProgramApply = ({ bloc }) => {
   useEffect(() => {
     getListAppliedProgram();
   }, []);
+
   return (
     <>
       <MyComponent>
@@ -39,7 +40,6 @@ const ListProgramApply = ({ bloc }) => {
         >
           Program Applied
         </Typography>
-       
         <Grid
           container
           spacing={2}
@@ -49,29 +49,60 @@ const ListProgramApply = ({ bloc }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item md={6}>
-            <Card sx={{}}>
-              <CardContent>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                >
-                  Word of the Day
-                </Typography>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  adjective
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item md={6}>
-            <Button variant="contained" color="secondary" >
-              Details
-            </Button>
-          </Grid>
+          {list?.ProgramPosts &&
+            list.ProgramPosts.map((value, idx) => {
+              return (
+                <>
+                  <Grid
+                    item
+                    md={6}
+                    key={idx}
+                    justifyContent="center"
+                    display="flex"
+                  >
+                    <Card sx={{ minWidth: "500px" }}>
+                      <CardContent>
+                        <Typography
+                          sx={{ fontSize: 24 }}
+                          color="#343434"
+                          gutterBottom
+                        >
+                          {value.Headline}
+                        </Typography>
+                        {value.IsActive === true ? (
+                            <Typography
+                              sx={{ fontSize: 14 }}
+                              color="text.secondary"
+                              gutterBottom
+                            >
+                              Active
+                            </Typography>
+                      
+                        ) : (
+                          <Typography
+                            sx={{ fontSize: 14 }}
+                            color="text.secondary"
+                            gutterBottom
+                          >
+                            NonActive
+                          </Typography>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                  <Grid item md={6}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => navigate(`/status/${value.ID}`)}
+                    >
+                      Details
+                    </Button>
+                  </Grid>
+                </>
+              );
+            })}
         </Grid>
-        
       </MyComponent>
     </>
   );

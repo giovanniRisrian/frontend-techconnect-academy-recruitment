@@ -106,11 +106,11 @@ const steps = [
 ];
 
 export default function StatusRecruitmen({ bloc }) {
-  let { statusProgram, loading, navigate, getStatusbyId } = bloc();
-  
+  let { statusProgram, params, loading, navigate, getStatusbyId } = bloc();
+  console.log(params);
   React.useEffect(() => {
-    getStatusbyId()
-  })
+    getStatusbyId();
+  });
 
   return (
     <MyComponent>
@@ -146,8 +146,8 @@ export default function StatusRecruitmen({ bloc }) {
           ))}
         </Stepper>
       </Stack>
-      <Button variant="contained" color="secondary">
-          Back
+      <Button variant="contained" color="secondary" onClick={()=> navigate('..')}>
+        Back
       </Button>
     </MyComponent>
   );

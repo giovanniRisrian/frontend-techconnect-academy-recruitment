@@ -3,16 +3,14 @@ import { useNavigate } from "react-router";
 
 const VacancyListBloc = (programService,useVacancyList) => {
   let { list, setList } = useVacancyList()
-  const [pagination, setPagination] = useState({})
   const [loading, setLoading] = useState(false)
   let navigate = useNavigate();
   let { getInformationProgram } = programService();
-  const getListJobInformation = async (params) => {
+  const getListJobInformation = async (page) => {
     try {
       setLoading(true)
-      const response = await getInformationProgram(params);
+      const response = await getInformationProgram(page);
       setList(response.data.data);
-      setPagination(response.data.pagination)
       setLoading(false)
       return list;
     } catch (err) {
@@ -22,7 +20,6 @@ const VacancyListBloc = (programService,useVacancyList) => {
   return {
     list,
     loading,
-    pagination,
     navigate,
     getListJobInformation,
   };

@@ -114,7 +114,7 @@ const Content = () => {
             digital <br /> and technology education
           </Typography>
           <Box textAlign="right" marginRight="20px" marginTop="10px">
-            <Button variant="contained" sx={{ backgroundColor: "#521582" }} onClick={()=> navigate("/about")}>
+            <Button variant="contained" color="secondary" onClick={()=> navigate("/about")}>
               See Details
             </Button>
           </Box>
