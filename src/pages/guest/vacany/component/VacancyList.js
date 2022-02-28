@@ -23,6 +23,7 @@ const VacancyList = ({ bloc }) => {
   const setPagination = (e, value) =>{
     getListJobInformation(value)
   }
+  console.log(list);
 
   return (
     <>
@@ -73,7 +74,8 @@ const VacancyList = ({ bloc }) => {
             justifyContent="center"
             paddingTop="10px"
           >
-            {list.map((value, idx) => {
+          {list?.ProgramList &&
+            list.ProgramList.map((value, idx) => {
               return (
                 <Grid
                   key={idx}

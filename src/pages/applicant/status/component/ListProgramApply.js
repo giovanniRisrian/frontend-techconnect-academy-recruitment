@@ -8,13 +8,20 @@ import {
   Box,
   Grid,
 } from "@mui/material";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { RootContext } from "../../../../App";
+import jwt_decode from "jwt-decode";
 
 const ListProgramApply = ({ bloc }) => {
   const { list, getListAppliedProgram, navigate, loading } = bloc();
+  
+  const data = useContext(RootContext);
+
+  let userInfo = jwt_decode(data.userInfo);
+  let id = userInfo.id
 
   useEffect(() => {
-    getListAppliedProgram();
+    getListAppliedProgram(id);
   }, []);
 
   return (
@@ -43,11 +50,13 @@ const ListProgramApply = ({ bloc }) => {
         <Grid
           container
           spacing={2}
-          padding="10px"
+          padding="20px"
           display="flex"
-          flexDirection="row"
           justifyContent="center"
           alignItems="center"
+          marginTop="30px"
+          
+       
         >
           {list?.ProgramPosts &&
             list.ProgramPosts.map((value, idx) => {
@@ -55,49 +64,34 @@ const ListProgramApply = ({ bloc }) => {
                 <>
                   <Grid
                     item
-                    md={6}
+                    md={5}
+                    sm={12}
+                    xs={12}
                     key={idx}
                     justifyContent="center"
                     display="flex"
+                    flexDirection="column"
                   >
-                    <Card sx={{ minWidth: "500px" }}>
+                    <Card sx={{ width: "auto" }}>
                       <CardContent>
                         <Typography
-                          sx={{ fontSize: 24 }}
+                          variant="h6"
                           color="#343434"
                           gutterBottom
                         >
                           {value.Headline}
                         </Typography>
-                        {value.IsActive === true ? (
-                            <Typography
-                              sx={{ fontSize: 14 }}
-                              color="text.secondary"
-                              gutterBottom
-                            >
-                              Active
-                            </Typography>
-                      
-                        ) : (
-                          <Typography
-                            sx={{ fontSize: 14 }}
-                            color="text.secondary"
-                            gutterBottom
-                          >
-                            NonActive
-                          </Typography>
-                        )}
                       </CardContent>
-                    </Card>
-                  </Grid>
-                  <Grid item md={6}>
-                    <Button
+                      <CardActions>
+                      <Button
                       variant="contained"
                       color="secondary"
-                      onClick={() => navigate(`/status/${value.ID}`)}
+                      onClick={() => navigate(`/applicant/status/${value.ID}`)}
                     >
                       Details
                     </Button>
+                      </CardActions>
+                    </Card>
                   </Grid>
                 </>
               );
