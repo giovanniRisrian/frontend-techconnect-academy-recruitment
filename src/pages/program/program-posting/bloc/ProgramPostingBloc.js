@@ -1,16 +1,16 @@
 const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
-  let { skills, setSkills, image, setImage } = useProgramForm();
-  let { createProgram, getSkills } = programRepository();
-  const { paramsNav, navigateTo } = navigation();
+  let { image, setImage } = useProgramForm();
+  let { createProgram } = programRepository();
+  const { navigateTo } = navigation();
 
-  const getListSkill = async () => {
-    try {
-      const response = await getSkills();
-      setSkills(response.data.skill);
-    } catch (e) {
-      setSkills({});
-    }
-  };
+  // const getListSkill = async () => {
+  //   try {
+  //     const response = await getSkills();
+  //     setSkills(response.data.skill);
+  //   } catch (e) {
+  //     setSkills({});
+  //   }
+  // };
 
   const handleSubmit = async (values, context) => {
     try {
@@ -34,7 +34,7 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
     navigateTo("..");
   };
 
-  return { skills, handleSubmit, handleCancel, getListSkill, image, setImage };
+  return { handleSubmit, handleCancel, image, setImage };
 };
 
 export default ProgramFormBloc;

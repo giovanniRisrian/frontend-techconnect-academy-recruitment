@@ -9,8 +9,7 @@ import { RootContext } from "../../../../App";
 
 const ProgramForm = ({ bloc }) => {
   const data = useContext(RootContext);
-  const { skills, handleSubmit, getListSkill, image, setImage, handleCancel } =
-    bloc();
+  const { handleSubmit, getListSkill, image, setImage, handleCancel } = bloc();
 
   const formik = useFormik({
     initialValues: {
@@ -19,8 +18,8 @@ const ProgramForm = ({ bloc }) => {
       description: "",
       requirement: "",
       skill: "",
-      openDate: "2022-02-25",
-      closeDate: "2022-02-25",
+      openDate: "2022-03-01",
+      closeDate: "2022-03-01",
       address: "",
     },
     validationSchema: Yup.object({
@@ -28,6 +27,7 @@ const ProgramForm = ({ bloc }) => {
       headline: Yup.string().required("This field is required"),
       description: Yup.string().required("This field is required"),
       requirement: Yup.string().required("This field is required"),
+      skill: Yup.string().required("This field is required"),
       openDate: Yup.string().required("This field is required"),
       closeDate: Yup.string().required("This field is required"),
       address: Yup.string().required("This field is required"),
@@ -39,7 +39,7 @@ const ProgramForm = ({ bloc }) => {
   });
 
   useEffect(() => {
-    getListSkill();
+    // getListSkill();
   }, []);
 
   return (
@@ -218,23 +218,18 @@ const ProgramForm = ({ bloc }) => {
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
-                <Autocomplete
-                  multiple
-                  id="tags-outlined"
+                <TextField
+                  fullWidth
+                  color="secondary"
+                  id="skill"
+                  label="Skill"
+                  variant="outlined"
+                  size="small"
                   name="skill"
-                  options={skills}
-                  getOptionLabel={(option) => option.skill}
-                  filterSelectedOptions
-                  onChange={(e, value) => {
-                    formik.setFieldValue("skill", value);
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Skill"
-                      placeholder="Enter your skill here"
-                    />
-                  )}
+                  value={formik.values.skill}
+                  error={formik.touched.skill && Boolean(formik.errors.skill)}
+                  helperText={formik.touched.skill && formik.errors.skill}
+                  onChange={formik.handleChange}
                 />
               </Grid>
             </Grid>

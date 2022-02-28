@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 const UseProgramForm = () => {
-  const [skills, setSkills] = useState([]);
+  // const [skills, setSkills] = useState([]);
   const [image, setImage] = useState(null);
-  return { skills, setSkills, image, setImage };
+  return { image, setImage };
 };
 
 export default UseProgramForm;
