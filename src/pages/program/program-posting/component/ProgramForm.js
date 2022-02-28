@@ -149,7 +149,6 @@ const ProgramForm = ({ bloc }) => {
               <Grid item md={6} sm={12} xs={12}>
                 <TextField
                   fullWidth
-                  sx={{ marginTop: 3 }}
                   color="secondary"
                   id="ProgramName"
                   label="Title"

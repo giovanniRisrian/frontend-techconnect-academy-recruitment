@@ -100,7 +100,6 @@ const ApplicantListComp = ({ bloc }) => {
                 label="Program"
                 onChange={(e, value) => {
                   handleProgram(e.target.value, value);
-                  getListApplicantByPage();
                 }}
               >
                 {programList.map((value) => {

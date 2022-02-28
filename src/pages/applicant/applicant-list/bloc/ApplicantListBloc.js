@@ -44,7 +44,6 @@ const ApplicantListBloc = (
   };
 
   const handleProgram = (programId, program) => {
-    console.log("banyakan", program);
     getApplicantsByProgram(programId, page);
     setPage(1);
     setProgramId(programId);

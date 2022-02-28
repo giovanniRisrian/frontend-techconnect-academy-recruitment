@@ -2,11 +2,11 @@ const DashboardRecruiterBloc = (navigation) => {
   const { navigateTo } = navigation();
 
   const handleSeeApplicantList = () => {
-    navigateTo(`/applicants`);
+    navigateTo(`./applicants`);
   };
 
   const handleJobPosting = (id) => {
-    navigateTo(`/programs`);
+    navigateTo(`./programs`);
   };
   return { handleSeeApplicantList, handleJobPosting };
 };
