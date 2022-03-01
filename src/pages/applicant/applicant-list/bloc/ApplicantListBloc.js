@@ -18,6 +18,8 @@ const ApplicantListBloc = (
     setStep,
     isProgram,
     setIsProgram,
+    actualStep,
+    setActualStep,
   } = useApplicantList();
 
   let { getApplicantsByProgram, getApplicant, getPrograms, getProcess } =
@@ -69,12 +71,14 @@ const ApplicantListBloc = (
     let stepUp = step + 1;
     getListApplicantByPage(programId, stepUp);
     setStep((prevValue) => prevValue + 1);
+    setActualStep((prevValue) => prevValue + 1);
   };
 
   const handleStepDown = () => {
     let stepDown = step - 1;
     getListApplicantByPage(programId, stepDown);
     setStep((prevValue) => prevValue - 1);
+    setActualStep((prevValue) => prevValue - 1);
   };
 
   const getAge = (dateString) => {
@@ -89,11 +93,11 @@ const ApplicantListBloc = (
   };
 
   const steps = [
-    "Administration",
-    "Assesment",
-    "Interview",
-    "Offering Letter",
-    "Welcome to SMM",
+    { title: "Administration" },
+    { title: "Assesment" },
+    { title: "Interview" },
+    { title: "Offering Letter" },
+    { title: "Welcome to SMM" },
   ];
 
   return {
@@ -120,6 +124,8 @@ const ApplicantListBloc = (
     handleStepDown,
     getListProgram,
     getListApplicantByPage,
+    actualStep,
+    setActualStep,
   };
 };
 export default ApplicantListBloc;

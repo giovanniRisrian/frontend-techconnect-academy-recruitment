@@ -7,6 +7,7 @@ const UseApplicantList = () => {
   const [program, setProgram] = useState("");
   const [page, setPage] = useState(1);
   const [step, setStep] = useState(1);
+  const [actualStep, setActualStep] = useState(0);
   const [isProgram, setIsProgram] = useState(false);
 
   return {
@@ -24,6 +25,8 @@ const UseApplicantList = () => {
     setStep,
     isProgram,
     setIsProgram,
+    actualStep,
+    setActualStep,
   };
 };
 

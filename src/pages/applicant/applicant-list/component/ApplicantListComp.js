@@ -17,12 +17,13 @@ import {
   Stack,
   Step,
   StepLabel,
-  Stepper,
+  // Stepper,
   Typography,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
+import Stepper from "react-stepper-horizontal/lib/Stepper";
 
 const MyComponent = styled("div")({
   backgroundImage: `url(${background})`,
@@ -35,7 +36,7 @@ const ApplicantListComp = ({ bloc }) => {
     applicantList,
     programList,
     program,
-    page,
+    // page,
     programId,
     step,
     isProgram,
@@ -43,12 +44,14 @@ const ApplicantListComp = ({ bloc }) => {
     handleStepDown,
     steps,
     getAge,
-    handlePage,
-    setStep,
+    // handlePage,
+    // setStep,
     handleSeeDetail,
     handleProgram,
     getListProgram,
     getListApplicantByPage,
+    actualStep,
+    setActualStep,
   } = bloc();
   React.useEffect(() => {
     getListProgram();
@@ -124,23 +127,34 @@ const ApplicantListComp = ({ bloc }) => {
               <Grid item md={2} sm={1} xs={1} />
               <Grid item md={8} sm={10} xs={10}>
                 <Box sx={{ width: "100%", mt: 10 }}>
-                  <Stepper activeStep={step} alternativeLabel>
-                    {steps.map((label) => (
+                  <Stepper
+                    steps={steps}
+                    activeStep={actualStep}
+                    activeColor={"#9c27b0"}
+                    completeColor={"#9c27b0"}
+                    completeBarColor={"#9c27b0"}
+                    size={58}
+                    circleFontSize={20}
+                    titleFontSize={18}
+                    completeOpacity={0.4}
+                  >
+                    {/* {steps.map((label) => (
                       <Step key={label} color="secondary">
                         <StepLabel color="secondary">{label}</StepLabel>
                       </Step>
-                    ))}
+                    ))} */}
                   </Stepper>
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
-                      paddingTop: 2,
+                      paddingTop: 5,
                     }}
                   >
                     <div>
                       <Button
                         color="secondary"
+                        variant="contained"
                         onClick={() => {
                           handleStepDown();
                         }}
@@ -151,6 +165,7 @@ const ApplicantListComp = ({ bloc }) => {
                     <div></div>
                     <div>
                       <Button
+                        variant="contained"
                         color="secondary"
                         onClick={() => {
                           handleStepUp();
