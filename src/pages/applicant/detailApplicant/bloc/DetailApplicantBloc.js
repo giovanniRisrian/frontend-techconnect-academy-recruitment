@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router";
-
+import swal from "sweetalert2";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
+
 const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
   let { uploadDataApplicant, updateDataApplicant, getDataApplicantbyId, acceptApplicant, rejectApplicant } =viewDetailApplicantService();
-  let { paramsNav } = navigation();
+  let { paramsNav, navigateTo } = navigation();
   let params = paramsNav();
   let applicant = {
     applicantid: params.applicantid,
@@ -13,7 +14,20 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
   const handleAccept = async () => {
     try {
       await acceptApplicant(applicant);
+      swal
+      .fire({
+        title: "Success!",
+        icon: "success",
+        text: "Applicant is accepted",
+        confirmButtonText: "OK",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          navigateTo("/recruiter/applicants");
+        }
+      });
     } catch (e) {
+
       throw e;
     }
   };
@@ -21,6 +35,18 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
   const handleReject = async () => {
     try {
       await rejectApplicant(applicant);
+      swal
+      .fire({
+        title: "Success!",
+        icon: "error",
+        text: "Applicant is rejected",
+        confirmButtonText: "OK",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          navigateTo("/recruiter/applicants");
+        }
+      });
     } catch (e) {
       throw e;
     }
