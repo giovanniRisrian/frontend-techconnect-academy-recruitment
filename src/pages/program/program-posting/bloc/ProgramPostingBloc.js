@@ -1,3 +1,5 @@
+import swal from "sweetalert2";
+
 const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
   let { image, setImage } = useProgramForm();
   let { createProgram } = programRepository();
@@ -24,6 +26,18 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
       // formData.append("image", values.image);
       // formData.append("data", values);
       const response = await createProgram(values, config);
+      swal
+      .fire({
+        title: "Success!",
+        icon: "success",
+        text: "Program is created",
+        confirmButtonText: "OK",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          navigateTo("/recruiter");
+        }
+      });
       return response;
     } catch (error) {
       throw error;
