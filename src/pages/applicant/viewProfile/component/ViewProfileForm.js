@@ -152,6 +152,7 @@ const ViewProfileForm = ({ bloc }) => {
         onSubmit={(values) => {
           console.log("ini valuesnya", values);
           handleSubmit(values, file, data);
+          changeDisable(!disabled)
         }}
       >
         {({ values, touched, errors, handleChange }) => (
@@ -1197,7 +1198,7 @@ const ViewProfileForm = ({ bloc }) => {
                         type="submit"
                         color="secondary"
                         variant="contained"
-                        onClick={() => changeDisable(!disabled)}
+                        // onClick={() => changeDisable(!disabled)}
                       >
                         Submit
                       </Button>

@@ -2,7 +2,7 @@ import { client } from "../../../../http-client/Client";
 
 const DetailApplicantService = () => {
   const uploadDataApplicant = async (params, header) => {
-    const response = await client.post("/applicant/insert", params, header);
+    const response = await client.put("/applicant/insert", params, header);
     return response;
   };
   const updateDataApplicant = async (params, header) => {
