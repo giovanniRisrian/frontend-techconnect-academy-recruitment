@@ -44,6 +44,7 @@ const ApplicantListComp = ({ bloc }) => {
     steps,
     getAge,
     handlePage,
+    setStep,
     handleSeeDetail,
     handleProgram,
     getListProgram,
@@ -55,7 +56,7 @@ const ApplicantListComp = ({ bloc }) => {
 
   return (
     <MyComponent>
-      <>
+      <Box sx={{ mb: 20 }}>
         {/* Start of Header */}
         <Grid container sx={{ paddingTop: 5 }}>
           <Grid item md={3} />
@@ -100,6 +101,7 @@ const ApplicantListComp = ({ bloc }) => {
                 label="Program"
                 onChange={(e, value) => {
                   handleProgram(e.target.value, value);
+                  // getListApplicantByPage();
                 }}
               >
                 {programList.map((value) => {
@@ -208,7 +210,7 @@ const ApplicantListComp = ({ bloc }) => {
                   ) : (
                     applicantList.map((row) => (
                       <TableRow
-                        key={row.Applicant.Personal.ApplicantID}
+                        key={row.Applicant.UserAccountID}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
@@ -247,7 +249,7 @@ const ApplicantListComp = ({ bloc }) => {
                           <Button
                             color="secondary"
                             onClick={() =>
-                              handleSeeDetail(row.Personal.ApplicantID)
+                              handleSeeDetail(row.Applicant.UserAccountID)
                             }
                           >
                             See Detail
@@ -259,7 +261,7 @@ const ApplicantListComp = ({ bloc }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <Stack spacing={2}>
+            {/* <Stack spacing={2}>
               <Pagination
                 count={10}
                 color="secondary"
@@ -270,11 +272,11 @@ const ApplicantListComp = ({ bloc }) => {
                 }}
                 sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
               />
-            </Stack>
+            </Stack> */}
           </Grid>
         </Grid>
         {/* End of Table */}
-      </>
+      </Box>
       <Footer />
     </MyComponent>
   );

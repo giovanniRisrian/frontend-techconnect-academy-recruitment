@@ -34,37 +34,46 @@ const ApplicantListBloc = (
     }
   };
 
-  const getListApplicantByPage = async () => {
+  const getListApplicantByPage = async (data1, data2) => {
     try {
-      const response = await getApplicantsByProgram(programId, page);
-      setApplicantList(response.data.data.ApplicantInfo);
+      const response = await getApplicantsByProgram(data1, data2);
+      if (response.data.data.ApplicantInfo === null) {
+        setApplicantList([]);
+      } else {
+        setApplicantList(response.data.data.ApplicantInfo);
+      }
     } catch (e) {
       setApplicantList([]);
     }
   };
 
   const handleProgram = (programId, program) => {
-    getApplicantsByProgram(programId, page);
+    getListApplicantByPage(programId, step);
     setPage(1);
     setProgramId(programId);
     setIsProgram(true);
     setProgram(program.props.children);
   };
 
-  const handlePage = (page) => {
-    getApplicantsByProgram(programId, Number(page));
-    setPage(Number(page));
-  };
+  // const handlePage = (page) => {
+  //   getApplicantsByProgram(programId, Number(page));
+  //   setPage(Number(page));
+  // };
 
   const handleSeeDetail = (applicantId) => {
+    console.log("applicant id", applicantId);
     navigateTo(`details/${programId}/${applicantId}`);
   };
 
   const handleStepUp = () => {
+    let stepUp = step + 1;
+    getListApplicantByPage(programId, stepUp);
     setStep((prevValue) => prevValue + 1);
   };
 
   const handleStepDown = () => {
+    let stepDown = step - 1;
+    getListApplicantByPage(programId, stepDown);
     setStep((prevValue) => prevValue - 1);
   };
 
@@ -104,7 +113,7 @@ const ApplicantListBloc = (
     setIsProgram,
     steps,
     getAge,
-    handlePage,
+    // handlePage,
     handleSeeDetail,
     handleProgram,
     handleStepUp,
