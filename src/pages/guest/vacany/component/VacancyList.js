@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import Footer from "../../../globalComponent/footer/Footer";
 import BasicPagination from "../../../globalComponent/pagination/Pagination";
 
+
 const VacancyList = ({ bloc }) => {
   const { list, getListJobInformation, navigate, loading } = bloc();
   
