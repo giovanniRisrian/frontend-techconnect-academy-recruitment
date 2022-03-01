@@ -39,6 +39,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
       .then((result) => {
         if (result.isConfirmed) {
           navigate("/applicant/profile");
+          window.location.reload()
         }
       });
       return response;
