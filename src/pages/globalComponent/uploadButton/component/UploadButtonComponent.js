@@ -64,13 +64,6 @@ const UploadButtonComponent = ({ bloc }) => {
         </Button>
       </label>
       }
-      <div>
-        match_score : {info.match_score}
-        <br></br>Information : <br/>{info.summary.text}<br/>
-      {/* <br/><br/>email :<br/> {info.summary.email}<br/>GPA : <br/>{info.summary.gpa} <br/> Skill : <br/>{info.summary.skill} */}
-      </div>
-      <br></br>
-      {/* <button onClick={handleUpload}>Upload</button> */}
     </>
   );
 };
