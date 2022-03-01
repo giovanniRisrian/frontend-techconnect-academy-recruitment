@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ActionType from "../../../../Context/ActionType";
 
 import jwt_decode from 'jwt-decode';
+import Swal from "sweetalert2";
 const LoginBloc = (LoginService) => {
   let { postLogin } = LoginService();
 
@@ -21,7 +22,12 @@ const LoginBloc = (LoginService) => {
     }else{
     navigate('/dashboard')
   }} catch (err) {
-        alert('Username or Password is invalid')
+    Swal.fire({
+      icon: "error",
+      
+      text: "Username or Password is invalid",
+    });
+        // alert('Username or Password is invalid')
     }
   };
   return { doLogin };

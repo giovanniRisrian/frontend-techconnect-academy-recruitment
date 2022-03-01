@@ -148,8 +148,12 @@ const Content = () => {
         container
         paddingX="10px"
         marginTop="30px"
+     
       >
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}
+           display="flex"
+           justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -172,7 +176,10 @@ const Content = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}
+         display="flex"
+         justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -196,7 +203,10 @@ const Content = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }} 
+         display="flex"
+         justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -219,7 +229,10 @@ const Content = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }} 
+         display="flex"
+         justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",

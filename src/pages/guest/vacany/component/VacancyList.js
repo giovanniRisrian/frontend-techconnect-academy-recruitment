@@ -16,7 +16,7 @@ import BasicPagination from "../../../globalComponent/pagination/Pagination";
 
 const VacancyList = ({ bloc }) => {
   const { list, getListJobInformation, navigate, loading } = bloc();
-  
+  // console.log("created",list);
   useEffect(() => {
     getListJobInformation(1);
   }, []);

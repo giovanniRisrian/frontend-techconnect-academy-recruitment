@@ -46,7 +46,9 @@ const Footer = () => {
             (021) 5018 6888
           </Typography>
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={4}
+         
+        >
           <Typography
             component="div"
             textAlign="center"
