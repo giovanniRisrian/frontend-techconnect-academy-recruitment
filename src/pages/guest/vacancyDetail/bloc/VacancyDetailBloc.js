@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import swal from "sweetalert2";
+import jwt_decode from "jwt-decode";
 
 const VacancyDetailBloc = (programService) => {
   let params = useParams();
@@ -42,12 +43,22 @@ const VacancyDetailBloc = (programService) => {
           }
         });
       return res;
+      
     } catch (err) {
-      swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "You've already apply this program",
-      });
+      let user = jwt_decode(context.userInfo);
+      if(user.Role === "recruiter" || user.Role ==="administrator"){
+        swal.fire({
+          icon: "error",
+          title: "",
+          text: "Your role can't apply this program",
+        });
+      }else{
+        swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "You've already apply this program",
+        });
+      }
       throw err;
     }
   };

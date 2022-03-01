@@ -25,22 +25,22 @@ export default function StatusRecruitmen({ bloc }) {
   let userInfo = jwt_decode(data.userInfo);
   let id = userInfo.id
   
-  console.log(statusProgram?.ApplyProcess);
+  console.log("cek ini status",statusProgram?.ApplyProcess?.SelectionProcessId);
 
   let active = 0
   
   const handleActive = () =>{
-    if(statusProgram?.ApplyProcess === "Applied"){
+    if(statusProgram?.ApplyProcess?.SelectionProcessId === 1){
       active = 0
-    }else if(statusProgram?.ApplyProcess === "Administration"){
+    }else if(statusProgram?.ApplyProcess?.SelectionProcessId === 2){
       active = 1
-    }else if(statusProgram?.ApplyProcess === "Assesment"){
+    }else if(statusProgram?.ApplyProcess?.SelectionProcessId === 3){
       active = 2
-    }else if(statusProgram?.ApplyProcess === "Interview"){
+    }else if(statusProgram?.ApplyProcess?.SelectionProcessId === 4){
       active = 3
-    }else if(statusProgram?.ApplyProcess === "Offering"){
+    }else if(statusProgram?.ApplyProcess?.SelectionProcessId === 5){
       active = 4
-    }else if(statusProgram?.ApplyProcess === "Onboarding"){
+    }else if(statusProgram?.ApplyProcess?.SelectionProcessId === 6){
       active = 5
     }
     return active

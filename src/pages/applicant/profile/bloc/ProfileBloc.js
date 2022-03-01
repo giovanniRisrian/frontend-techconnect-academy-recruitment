@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 
 const ProfileBloc = (profileService) => {
-  let { uploadDataApplicant, updateDataApplicant, getDataApplicantbyId } =
+  let { uploadDataApplicant} =
     profileService();
 
   const handleSubmit = async (values,file, context) => {
@@ -22,6 +22,7 @@ const ProfileBloc = (profileService) => {
       formData.append("file", file);
     
       const response = await uploadDataApplicant(formData, config);
+
       return response;
     } catch (err) {
       throw err;

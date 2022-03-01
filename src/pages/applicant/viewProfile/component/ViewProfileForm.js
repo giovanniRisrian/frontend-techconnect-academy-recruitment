@@ -164,7 +164,7 @@ const ViewProfileForm = ({ bloc }) => {
               <Box autoComplete="off">
                 {disabled ? (
                   <img
-                    src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
+                    src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}` || ""}
                     style={{ height: "300px" }}
                   />
                 ) : (
@@ -209,7 +209,7 @@ const ViewProfileForm = ({ bloc }) => {
                         variant="outlined"
                         label="Name"
                         name="Personal.Name"
-                        value={values.Personal.Name}
+                        value={values.Personal?.Name}
                         required
                         error={Boolean(
                           getIn(touched, "Personal.Name") &&
@@ -230,7 +230,7 @@ const ViewProfileForm = ({ bloc }) => {
                         variant="outlined"
                         label="Gender"
                         name="Personal.Gender"
-                        value={values.Personal.Gender}
+                        value={values.Personal?.Gender}
                         required
                         error={Boolean(
                           getIn(touched, "Personal.Gender") &&
@@ -254,7 +254,7 @@ const ViewProfileForm = ({ bloc }) => {
                         variant="outlined"
                         label="Birth Date"
                         name="Personal.BirthDate"
-                        value={dayjs(values.Personal.BirthDate).format(
+                        value={dayjs(values.Personal?.BirthDate).format(
                           "YYYY-MM-DD"
                         )}
                         required
@@ -284,7 +284,7 @@ const ViewProfileForm = ({ bloc }) => {
                         variant="outlined"
                         label="Domicile"
                         name="Personal.Domicile"
-                        value={values.Personal.Domicile}
+                        value={values.Personal?.Domicile}
                         required
                         error={Boolean(
                           getIn(touched, "Personal.Domicile") &&
@@ -309,7 +309,7 @@ const ViewProfileForm = ({ bloc }) => {
                         variant="outlined"
                         label="Email"
                         name="Personal.Email"
-                        value={values.Personal.Email}
+                        value={values.Personal?.Email}
                         required
                         error={Boolean(
                           getIn(touched, "Personal.Email") &&
@@ -352,6 +352,7 @@ const ViewProfileForm = ({ bloc }) => {
                       <TextField
                         margin="normal"
                         required
+                        fullWidth
                         color="secondary"
                         id="TotalWorkingExperience"
                         label="Experience in Year"
@@ -373,35 +374,6 @@ const ViewProfileForm = ({ bloc }) => {
                         }}
                         type="number"
                       />
-                      {/* <Grid container>
-                        <Grid item md={6}>
-                          
-                        </Grid>
-                        <Grid item md={6}>
-                          <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            color="secondary"
-                            id=" monthWorkExperience"
-                            label="Month"
-                            variant="outlined"
-                            size="small"
-                            name="monthWorkExperience"
-                            value={values.Personal.monthWorkExperience}
-                            error={
-                              touched.Personal.monthWorkExperience &&
-                              Boolean(errors.Personal.monthWorkExperience)
-                            }
-                            helperText={
-                              touched.monthWorkExperience &&
-                              errors.monthWorkExperience
-                            }
-                            onChange={handleChange}
-                            type="number"
-                          />
-                        </Grid>
-                      </Grid> */}
                       <TextField
                         fullWidth
                         margin="normal"
@@ -1211,13 +1183,16 @@ const ViewProfileForm = ({ bloc }) => {
                     </Button>
                   ) : (
                     <>
+                
                       <Button
                         color="secondary"
                         variant="contained"
                         onClick={() => changeDisable(!disabled)}
+                        sx={{marginRight:"20px"}}
                       >
                         Cancel
                       </Button>
+
                       <Button
                         type="submit"
                         color="secondary"
@@ -1226,6 +1201,7 @@ const ViewProfileForm = ({ bloc }) => {
                       >
                         Submit
                       </Button>
+                    
                     </>
                   )}
                 </Box>

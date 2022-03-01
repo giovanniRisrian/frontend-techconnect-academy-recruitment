@@ -2,9 +2,10 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
 import * as Yup from "yup";
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button, Box } from "@mui/material";
 import logo from "../../../../asset/icon/logo.svg";
 import { useNavigate } from "react-router-dom";
+import MyComponent from "../../../homepage/BackgroundImage";
 
 const RegisterComponent = ({ bloc }) => {
   const data = useContext(RootContext);
@@ -38,75 +39,86 @@ const RegisterComponent = ({ bloc }) => {
   };
 
   return (
-    <div className="formBody">
-      <div>
-        <div className="card cardForm">
-          <div className="box"></div>
-          <div className="card-body">
-            <div>
-              <form onSubmit={formik.handleSubmit}>
-                <Typography textAlign="center">
-                  <img src={logo} style={{ width: "75px", height: "75px" }} />
-                </Typography>
+    <MyComponent>
+      <div className="formBody">
+        <div>
+          <div className="card cardForm">
+            <div className="box"></div>
+            <div className="card-body">
+              <Typography textAlign="center" variant="h4" fontFamily="Montserrat">
+                Register Recruiter Form
+              </Typography>
 
-                <TextField
-                  variant="outlined"
-                  color="secondary"
-                  className="form-control cardForm text-center"
-                  type="text"
-                  name="fullname"
-                  label="Name"
-                  value={formik.values.fullname || ""}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <p className="warning">
-                  {formik.errors.fullname && formik.touched.fullname ? (
-                    <small style={{ color: "red" }} className="text-danger">
-                      {formik.errors.fullname}
-                    </small>
-                  ) : null}
-                </p>
+              <div>
+                <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                padding="20px"
+                >
+                <form onSubmit={formik.handleSubmit}>
+                  <Typography textAlign="center">
+                    <img src={logo} style={{ width: "75px", height: "75px" }} />
+                  </Typography>
 
-                <TextField
-                  variant="outlined"
-                  color="secondary"
-                  className="form-control cardForm text-center"
-                  type="email"
-                  name="email"
-                  label="Email"
-                  value={formik.values.email || ""}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <p className="warning">
-                  {formik.errors.email && formik.touched.email ? (
-                    <small style={{ color: "red" }} className="text-danger">
-                      {formik.errors.email}
-                    </small>
-                  ) : null}
-                </p>
+                  <TextField
+                    variant="outlined"
+                    color="secondary"
+                    className="form-control cardForm text-center"
+                    type="text"
+                    name="fullname"
+                    label="Name"
+                    value={formik.values.fullname || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <p className="warning">
+                    {formik.errors.fullname && formik.touched.fullname ? (
+                      <small style={{ color: "red" }} className="text-danger">
+                        {formik.errors.fullname}
+                      </small>
+                    ) : null}
+                  </p>
 
-                <TextField
-                  variant="outlined"
-                  color="secondary"
-                  className="form-control cardForm text-center"
-                  type="password"
-                  name="password"
-                  label="Password"
-                  value={formik.values.password || ""}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <p className="warning">
-                  {formik.errors.password && formik.touched.password ? (
-                    <small style={{ color: "red" }} className="text-danger">
-                      {formik.errors.password}
-                    </small>
-                  ) : null}
-                </p>
+                  <TextField
+                    variant="outlined"
+                    color="secondary"
+                    className="form-control cardForm text-center"
+                    type="email"
+                    name="email"
+                    label="Email"
+                    value={formik.values.email || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <p className="warning">
+                    {formik.errors.email && formik.touched.email ? (
+                      <small style={{ color: "red" }} className="text-danger">
+                        {formik.errors.email}
+                      </small>
+                    ) : null}
+                  </p>
 
-                {/* <label>Full Name </label>
+                  <TextField
+                    variant="outlined"
+                    color="secondary"
+                    className="form-control cardForm text-center"
+                    type="password"
+                    name="password"
+                    label="Password"
+                    value={formik.values.password || ""}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <p className="warning">
+                    {formik.errors.password && formik.touched.password ? (
+                      <small style={{ color: "red" }} className="text-danger">
+                        {formik.errors.password}
+                      </small>
+                    ) : null}
+                  </p>
+
+                  {/* <label>Full Name </label>
                 <input
                   className="form-control cardForm text-center"
                   type="text"
@@ -157,35 +169,38 @@ const RegisterComponent = ({ bloc }) => {
                   ) : null}
                 </p> */}
 
-                <Button
-                  // type="submit"
-                  variant="contained"
-                  // value="submit"
-                  color="secondary"
-                  textAlign="center"
-                  onClick={() => {
-                    navigate("..");
-                  }}
-                  // disabled={!(formik.isValid && formik.dirty)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  value="submit"
-                  color="secondary"
-                  textAlign="center"
-                  disabled={!(formik.isValid && formik.dirty)}
-                >
-                  SIGN UP
-                </Button>
-              </form>
+                  <Button
+                    // type="submit"
+                    variant="contained"
+                    // value="submit"
+                    color="secondary"
+                    textAlign="center"
+                    onClick={() => {
+                      navigate("..");
+                    }}
+                    // disabled={!(formik.isValid && formik.dirty)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    value="submit"
+                    color="secondary"
+                    textAlign="center"
+                    disabled={!(formik.isValid && formik.dirty)}
+                    marginLeft="20px"
+                  >
+                    SIGN UP
+                  </Button>
+                </form>
+                </Box>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </MyComponent>
   );
 };
 

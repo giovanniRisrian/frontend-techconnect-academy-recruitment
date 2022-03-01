@@ -19,7 +19,7 @@ const ListProgramApply = ({ bloc }) => {
 
   let userInfo = jwt_decode(data.userInfo);
   let id = userInfo.id;
-
+  console.log("ini",list);
   useEffect(() => {
     getListAppliedProgram(id);
   }, []);

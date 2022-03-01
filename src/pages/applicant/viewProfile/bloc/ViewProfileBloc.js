@@ -1,14 +1,15 @@
 import { useNavigate } from "react-router";
-
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
+import Swal from "sweetalert2";
+
 const ViewProfileBloc = (viewViewProfileService) => {
   let { uploadDataApplicant, updateDataApplicant, getDataApplicantbyId } =
     viewViewProfileService();
-
+  let navigate = useNavigate()
   const handleSubmit = async (values, file, context) => {
-    console.log("ini context", context);
-    console.log("handleApplicant", values);
+    // console.log("ini context", context);
+    // console.log("handleApplicant", values);
 
     values.Personal.TotalWorkingExperience = values.Personal.TotalWorkingExperience +""
     try {
@@ -28,8 +29,18 @@ const ViewProfileBloc = (viewViewProfileService) => {
       });
       formData.append("json", jsonPretendFile);
       formData.append("file", file);
-      
       const response = await updateDataApplicant(formData, config);
+      Swal
+      .fire({
+        title: "Success!",
+        icon: "success",
+        confirmButtonText: "OK",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          navigate("/applicant/profile");
+        }
+      });
       return response;
     } catch (err) {
       throw err;
@@ -45,9 +56,8 @@ const ViewProfileBloc = (viewViewProfileService) => {
       const data ={ id:id}
       const formData = new FormData();
       formData.append('id',id)
-      console.log('oioioi')
       const response = await getDataApplicantbyId(formData, config);
-      console.log("reposne",response.data.data)
+      // console.log("reposne",response.data.data)
       let dataReceive =response.data.data
       let mock = {
         Personal:{
