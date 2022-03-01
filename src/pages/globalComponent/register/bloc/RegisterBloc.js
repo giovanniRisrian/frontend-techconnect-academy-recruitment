@@ -1,6 +1,7 @@
 // import { useNavigate } from "react-router-dom";
 import ActionType from "../../../../Context/ActionType";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 const RegisterBloc = (RegisterService) => {
   const navigate = useNavigate()
   let { postRegister, postRegisterRecruiter } = RegisterService();
@@ -15,10 +16,23 @@ const RegisterBloc = (RegisterService) => {
         token: res.data.data.token,
         name: res.data.data.name,
       })
-
-    navigate('/dashboard')
+      Swal
+      .fire({
+        title: "Success!",
+        icon: "success",
+        confirmButtonText: "OK",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          navigate("/dashboard");
+        }
+      });
     } catch (err) {
-      alert(err);
+      Swal.fire({
+        icon: "error",
+        text: "Email has already exist",
+      });
+      throw err
     }
   };
   const doRegisterRecruiter = async (formik, context) => {
@@ -34,8 +48,23 @@ const RegisterBloc = (RegisterService) => {
         token: res.data.data.token,
         name: res.data.data.name,
       });
+      Swal
+      .fire({
+        title: "Success!",
+        icon: "success",
+        confirmButtonText: "OK",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          navigate("..");
+        }
+      });
     } catch (err) {
-      alert(err);
+      Swal.fire({
+        icon: "error",
+        text: "Email has already exist",
+      });
+      throw err
     }
   };
   return { doRegister, doRegisterRecruiter };

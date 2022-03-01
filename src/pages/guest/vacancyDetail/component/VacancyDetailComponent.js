@@ -21,7 +21,6 @@ const VacancyDetail = ({ bloc }) => {
   if (data.userInfo) {
     userInfo = jwt_decode(data.userInfo);
     id = userInfo.id;
-    console.log(userInfo);
   }
   let dataApplicant = {
     ProgramId: params.id,
