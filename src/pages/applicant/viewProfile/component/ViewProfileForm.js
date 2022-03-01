@@ -6,6 +6,7 @@ import MyComponent from "../../../homepage/BackgroundImage";
 import { useContext, useEffect, useState } from "react";
 import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
+import avatar from "../../../../asset/image/avatar.png";
 
 const ViewProfileForm = ({ bloc }) => {
   const { handleSubmit, getDataByID } = bloc();
@@ -163,10 +164,22 @@ const ViewProfileForm = ({ bloc }) => {
             <Form>
               <Box autoComplete="off">
                 {disabled ? (
-                  <img
-                    src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}` || ""}
-                    style={{ height: "300px" }}
+                  <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  >
+                {values.Personal?.PhotoFile ? <img
+                    src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
+                    style={{ height: "200px" }}
                   />
+                  :
+                  <img
+                    src={avatar}
+                    style={{ height: "200px" }}
+                  />
+                  }
+                  </Box>
                 ) : (
                   <>
                     {file ? (
@@ -1197,7 +1210,7 @@ const ViewProfileForm = ({ bloc }) => {
                         type="submit"
                         color="secondary"
                         variant="contained"
-                        onClick={() => changeDisable(!disabled)}
+                        // onClick={() => changeDisable(!disabled)}
                       >
                         Submit
                       </Button>
