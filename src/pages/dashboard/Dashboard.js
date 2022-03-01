@@ -30,7 +30,7 @@ const Dashboard = () => {
           <Grid item md={12} textAlign="center">
             <UploadButton />
           </Grid>
-          ini Dashboard untuk {userInfo.Email}
+          {/* ini Dashboard untuk {userInfo.Email} */}
         </Grid>
       </MyComponent>
     </div>

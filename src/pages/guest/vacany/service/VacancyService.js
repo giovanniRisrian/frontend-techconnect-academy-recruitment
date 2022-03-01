@@ -2,7 +2,7 @@ import { client } from "../../../../http-client/Client";
 
 const VacancyService = () =>{
     async function getInformationProgram(page){ 
-        const response =  await client.get(`/program?page=${page}&limit=4`)
+        const response =  await client.get(`/program?page=${page}&limit=4&sort_by=created_at&order_by=desc`)
         return response;
     }
     async function getDetailInformationProgram(id){

@@ -8,10 +8,11 @@ const BasicPagination = (props) =>{
     //      return parseInt(props.data.length / 4)+1
     //    }
     // }
+    console.log("data",props);
     return(
         <Stack spacing={2}>
         <Pagination 
-        count={10} 
+        count={props.data.LastPage} 
         color="secondary"
         onChange={props.onChange}
         />
