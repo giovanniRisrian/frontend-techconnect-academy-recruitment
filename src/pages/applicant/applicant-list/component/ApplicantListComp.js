@@ -39,20 +39,15 @@ const ApplicantListComp = ({ bloc }) => {
     program,
     // page,
     programId,
-    step,
     isProgram,
     handleStepUp,
     handleStepDown,
     steps,
     getAge,
-    // handlePage,
-    // setStep,
     handleSeeDetail,
     handleProgram,
     getListProgram,
-    getListApplicantByPage,
     actualStep,
-    setActualStep,
   } = bloc();
 
   const data = React.useContext(RootContext);
@@ -140,7 +135,7 @@ const ApplicantListComp = ({ bloc }) => {
                     size={58}
                     circleFontSize={20}
                     titleFontSize={18}
-                    completeOpacity={0.4}
+                    completeOpacity={"0.4"}
                   >
                     {/* {steps.map((label) => (
                       <Step key={label} color="secondary">
@@ -155,29 +150,37 @@ const ApplicantListComp = ({ bloc }) => {
                       paddingTop: 5,
                     }}
                   >
-                    <div>
-                      <Button
-                        color="secondary"
-                        variant="contained"
-                        onClick={() => {
-                          handleStepDown(data);
-                        }}
-                      >
-                        Previous
-                      </Button>
-                    </div>
+                    {actualStep === 0 ? (
+                      <div></div>
+                    ) : (
+                      <div>
+                        <Button
+                          color="secondary"
+                          variant="contained"
+                          onClick={() => {
+                            handleStepDown(data);
+                          }}
+                        >
+                          Previous
+                        </Button>
+                      </div>
+                    )}
                     <div></div>
-                    <div>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => {
-                          handleStepUp(data);
-                        }}
-                      >
-                        Next
-                      </Button>
-                    </div>
+                    {actualStep === 5 ? (
+                      <div></div>
+                    ) : (
+                      <div>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => {
+                            handleStepUp(data);
+                          }}
+                        >
+                          Next
+                        </Button>
+                      </div>
+                    )}
                   </Box>
                 </Box>
               </Grid>
