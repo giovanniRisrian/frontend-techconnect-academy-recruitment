@@ -1,5 +1,5 @@
-import { client } from "../../http-client/Client";
-import ApplicantService from "../../pages/applicant/applicant-list/service/ApplicantService";
+import { client } from "../../../http-client/Client";
+import ApplicantService from "../../../pages/applicant/applicant-list/service/ApplicantService";
 
 describe("Applicant list repository", () => {
   it("Should return program list successfully", async () => {

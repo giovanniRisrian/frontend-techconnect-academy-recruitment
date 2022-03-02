@@ -153,7 +153,7 @@ const ViewProfileForm = ({ bloc }) => {
         onSubmit={(values) => {
           console.log("ini valuesnya", values);
           handleSubmit(values, file, data);
-          changeDisable(!disabled)
+          changeDisable(!disabled);
         }}
       >
         {({ values, touched, errors, handleChange }) => (
@@ -166,20 +166,18 @@ const ViewProfileForm = ({ bloc }) => {
               <Box autoComplete="off">
                 {disabled ? (
                   <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
                   >
-                {values.Personal?.PhotoFile ? <img
-                    src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
-                    style={{ height: "200px" }}
-                  />
-                  :
-                  <img
-                    src={avatar}
-                    style={{ height: "200px" }}
-                  />
-                  }
+                    {values.Personal?.PhotoFile ? (
+                      <img
+                        src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
+                        style={{ height: "200px" }}
+                      />
+                    ) : (
+                      <img src={avatar} style={{ height: "200px" }} />
+                    )}
                   </Box>
                 ) : (
                   <>
@@ -506,7 +504,7 @@ const ViewProfileForm = ({ bloc }) => {
                         Education
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 Education
+                        *Maximum 3 Education
                       </Typography>
                       {values.Education.map((edu, idx) => {
                         const title = `Education[${idx}].Title`;
@@ -723,7 +721,7 @@ const ViewProfileForm = ({ bloc }) => {
                         Organization
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 Organization
+                        *Maximum 3 Organization
                       </Typography>
                       {values.Organization.map((org, idx) => {
                         const Organizations = `Organization[${idx}].Organization`;
@@ -926,7 +924,7 @@ const ViewProfileForm = ({ bloc }) => {
                         Work Experience
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 work experience
+                        *Maximum 3 work experience
                       </Typography>
                       {values.WorkExperience.map((work, idx) => {
                         const name = `WorkExperience[${idx}].CompanyName`;
@@ -1197,12 +1195,11 @@ const ViewProfileForm = ({ bloc }) => {
                     </Button>
                   ) : (
                     <>
-                
                       <Button
                         color="secondary"
                         variant="contained"
                         onClick={() => changeDisable(!disabled)}
-                        sx={{marginRight:"20px"}}
+                        sx={{ marginRight: "20px" }}
                       >
                         Cancel
                       </Button>
@@ -1215,7 +1212,6 @@ const ViewProfileForm = ({ bloc }) => {
                       >
                         Submit
                       </Button>
-                    
                     </>
                   )}
                 </Box>

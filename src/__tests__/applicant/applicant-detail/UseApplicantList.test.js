@@ -1,4 +1,4 @@
-import UseApplicantList from "../../pages/applicant/applicant-list/bloc/UseApplicantList";
+import UseApplicantList from "../../../pages/applicant/applicant-list/bloc/UseApplicantList";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 describe("Applicant list useState", () => {

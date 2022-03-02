@@ -1,4 +1,4 @@
-import ApplicantListBloc from "../../pages/applicant/applicant-list/bloc/ApplicantListBloc";
+import ApplicantListBloc from "../../../pages/applicant/applicant-list/bloc/ApplicantListBloc";
 
 describe("Applicant list Bloc", () => {
   let applicantRepositoryMock;
