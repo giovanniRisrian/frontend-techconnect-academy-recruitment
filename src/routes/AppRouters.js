@@ -19,7 +19,7 @@ import ProgramPosting from "../pages/program/program-posting/ProgramPosting";
 import ApplicantList from "../pages/applicant/applicant-list/ApplicantList";
 import Homepage from "../pages/homepage/Homepage";
 import NotFoundPage from "../pages/404/NotFoundPage";
-import Profile from "../pages/applicant/profile/Profile";
+// import Profile from "../pages/applicant/profile/Profile";
 import { Navbar } from "../pages/globalComponent/navbar/Navbar";
 import DetailApplicant from "../pages/applicant/detailApplicant/DetailApplicant";
 // import StatusBar from "../pages/applicant/status/StatusBar";
@@ -84,14 +84,6 @@ const AppRouters = () => {
             element={
               <>
                 <ViewProfile />
-              </>
-            }
-          />
-           <Route
-            path="profile/insert"
-            element={
-              <>
-                <Profile />
               </>
             }
           />

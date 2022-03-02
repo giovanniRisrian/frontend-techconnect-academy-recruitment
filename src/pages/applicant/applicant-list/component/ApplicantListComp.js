@@ -24,6 +24,7 @@ import { styled } from "@mui/system";
 import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
 import Stepper from "react-stepper-horizontal/lib/Stepper";
+import { RootContext } from "../../../../App";
 
 const MyComponent = styled("div")({
   backgroundImage: `url(${background})`,
@@ -53,6 +54,9 @@ const ApplicantListComp = ({ bloc }) => {
     actualStep,
     setActualStep,
   } = bloc();
+
+  const data = React.useContext(RootContext);
+
   React.useEffect(() => {
     getListProgram();
   }, []);
@@ -103,7 +107,7 @@ const ApplicantListComp = ({ bloc }) => {
                 value={programId}
                 label="Program"
                 onChange={(e, value) => {
-                  handleProgram(e.target.value, value);
+                  handleProgram(e.target.value, value, data);
                   // getListApplicantByPage();
                 }}
               >
@@ -156,7 +160,7 @@ const ApplicantListComp = ({ bloc }) => {
                         color="secondary"
                         variant="contained"
                         onClick={() => {
-                          handleStepDown();
+                          handleStepDown(data);
                         }}
                       >
                         Previous
@@ -168,7 +172,7 @@ const ApplicantListComp = ({ bloc }) => {
                         variant="contained"
                         color="secondary"
                         onClick={() => {
-                          handleStepUp();
+                          handleStepUp(data);
                         }}
                       >
                         Next

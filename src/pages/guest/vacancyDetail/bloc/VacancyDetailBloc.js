@@ -31,18 +31,6 @@ const VacancyDetailBloc = (programService) => {
       setLoading(true);
       let res = await applyProgram(values, config);
       setLoading(false);
-      // swal
-      //   .fire({
-      //     title: 'Do you want to apply the changes?',
-      //     showCancelButton: true,
-      //     confirmButtonText: "Apply",
-      //   })
-      //   .then((result) => {
-      //     if (result.isConfirmed) {
-      //       swal.fire('Saved!', '', 'success')
-      //       navigate("/applicant/status");
-      //     }
-      //   });
       return res;
     } catch (err) {
       let user = jwt_decode(context.userInfo);

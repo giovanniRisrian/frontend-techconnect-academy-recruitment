@@ -22,7 +22,7 @@ const ListProgramApply = ({ bloc }) => {
   let id = userInfo.id;
   console.log("ini",list);
   useEffect(() => {
-    getListAppliedProgram(id);
+    getListAppliedProgram(id, data);
   }, []);
 
   return (

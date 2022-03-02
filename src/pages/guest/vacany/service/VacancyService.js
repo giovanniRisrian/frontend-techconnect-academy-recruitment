@@ -9,8 +9,8 @@ const VacancyService = () =>{
         const response =  await client.get(`/program?id=${id}`)
         return response;
     }
-    async function applyProgram(params){
-        const response = await client.post(`/program_applicant/apply`, params)
+    async function applyProgram(params, header){
+        const response = await client.post(`/program_applicant/apply`, params, header)
         return response
     }
     return {

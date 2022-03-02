@@ -11,9 +11,9 @@ const ApplicantService = () => {
     return response;
   };
 
-  const getApplicantsByProgram = async (programId, process) => {
+  const getApplicantsByProgram = async (programId, process, header) => {
     const response = await client.get(
-      `/program_applicant/program/process?program_id=${programId}&process=${process}`
+      `/program_applicant/program/process?program_id=${programId}&process=${process}`, header
     );
     return response;
   };

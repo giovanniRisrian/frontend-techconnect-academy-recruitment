@@ -27,24 +27,23 @@ const VacancyDetail = ({ bloc }) => {
     ApplicantId: id,
   };
 
-
-const confirmationApply = () => {
-         swal
-        .fire({
-          title: 'Do you want to apply this program?',
-          showCancelButton: true,
-          confirmButtonText: "Apply",
-          icon:"warning"
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            doApplyProgram(dataApplicant, data)
-            swal.fire('Saved!', '', 'success')
-            navigate("/applicant/status");
-          }
-        });
-  }
-
+  const confirmationApply = () => {
+    swal
+      .fire({
+        title: "Do you want to apply this program?",
+        confirmButtonText: "Apply",
+        showCancelButton: true,
+        icon: "warning",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          doApplyProgram(dataApplicant, data);
+          swal.fire("Saved!", "", "success");
+          navigate("/applicant/status");
+        }
+      });
+  };
 
   useEffect(() => {
     getProgrambyId();
@@ -104,17 +103,17 @@ const confirmationApply = () => {
                     Description :
                   </Typography>
                   <ul>
-                  <Typography
-                    gutterBottom
-                    variant="body2"
-                    component="div"
-                    fontFamily="Montserrat"
-                    sx={{
-                      whiteSpace: "pre-line"
-                    }}
-                  >
-                    {programDetail.Description}
-                  </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="body2"
+                      component="div"
+                      fontFamily="Montserrat"
+                      sx={{
+                        whiteSpace: "pre-line",
+                      }}
+                    >
+                      {programDetail.Description}
+                    </Typography>
                   </ul>
                   <Typography
                     gutterBottom
@@ -131,7 +130,7 @@ const confirmationApply = () => {
                       component="div"
                       fontFamily="Montserrat"
                       sx={{
-                        whiteSpace: "pre-line"
+                        whiteSpace: "pre-line",
                       }}
                     >
                       {programDetail.Requirement}

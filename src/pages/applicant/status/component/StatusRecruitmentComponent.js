@@ -26,7 +26,7 @@ export default function StatusRecruitmen({ bloc }) {
   let userInfo = jwt_decode(data.userInfo);
   let id = userInfo.id;
 
-  console.log("cek ini status", statusProgram);
+  // console.log("cek ini status", statusProgram);
 
   let active = 0;
 
