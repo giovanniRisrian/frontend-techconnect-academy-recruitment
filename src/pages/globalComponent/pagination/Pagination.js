@@ -8,7 +8,7 @@ const BasicPagination = (props) =>{
     //      return parseInt(props.data.length / 4)+1
     //    }
     // }
-    console.log("data",props);
+    // console.log("data",props);
     return(
         <Stack spacing={2}>
         <Pagination 

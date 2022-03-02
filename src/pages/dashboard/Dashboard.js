@@ -9,7 +9,7 @@ import MyComponent from "../homepage/BackgroundImage";
 const Dashboard = () => {
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
-  // console.log("data",userInfo);
+  // // console.log("data",userInfo);
   //   const navigate = useNavigate();
   //   const handleLogout = () => {
   //     localStorage.removeItem("token");

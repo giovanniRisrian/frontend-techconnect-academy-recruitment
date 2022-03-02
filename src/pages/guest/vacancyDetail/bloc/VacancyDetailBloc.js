@@ -8,14 +8,67 @@ const VacancyDetailBloc = (programService) => {
   let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [programDetail, setProgramDetail] = useState({});
-  let { getDetailInformationProgram, applyProgram } = programService();
+  let { getDetailInformationProgram, applyProgram, getDataApplicantbyId } =
+    programService();
+
+  const getUserbyId = async (context) => {
+    try {
+      const res = await getDataApplicantbyId(context);
+      let counter = 0;
+      let data = res.data.data;
+      if (data.Personal.Name) {
+        counter += 1;
+      }
+      if (data.Personal.Email) {
+        counter += 1;
+      }
+      if (data.Personal.Domicile) {
+        counter += 1;
+      }
+      if (data.Personal.TelephoneNo) {
+        counter += 1;
+      }
+      if (data.Personal.BirthDate) {
+        counter += 1;
+      }
+      if (data.Personal.Gender) {
+        counter += 1;
+      }
+      if (data.Education[0].Title) {
+        counter += 1;
+      }
+      if (data.Education[0].Major) {
+        counter += 1;
+      }
+      if (data.Education[0].Institution) {
+        counter += 1;
+      }
+      if (data.Education[0].YearIn) {
+        counter += 1;
+      }
+      if (data.Education[0].YearOut) {
+        counter += 1;
+      }
+      if (data.Education[0].GPA) {
+        counter += 1;
+      }
+      if (counter >= 12) {
+        return true;
+      } else {
+        return false;
+      }
+      // return res
+    } catch (err) {
+      throw err;
+    }
+  };
 
   const getProgrambyId = async () => {
     try {
       setLoading(true);
-      console.log(params);
+      // console.log(params);
       const response = await getDetailInformationProgram(params.id);
-      console.log(response);
+      // console.log(response);
       setProgramDetail(response.data.data);
       setLoading(false);
       return programDetail;
@@ -29,7 +82,24 @@ const VacancyDetailBloc = (programService) => {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
       setLoading(true);
-      let res = await applyProgram(values, config);
+      let res;
+      let status = await getUserbyId(config);
+      // console.log("cekkk", status);
+      if (status === true) {
+        res = await applyProgram(values, config);
+        swal.fire("Saved!", "", "success").then(() => {
+          navigate("/applicant/status");
+        });
+      } else {
+        swal
+          .fire({
+            icon: "warning",
+            text: "You must fill mandatory field",
+          })
+          .then(() => {
+            navigate("/applicant/profile");
+          });
+      }
       setLoading(false);
       return res;
     } catch (err) {
@@ -58,6 +128,7 @@ const VacancyDetailBloc = (programService) => {
     navigate,
     getProgrambyId,
     doApplyProgram,
+    getUserbyId,
   };
 };
 

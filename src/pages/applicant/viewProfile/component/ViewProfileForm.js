@@ -74,8 +74,8 @@ const ViewProfileForm = ({ bloc }) => {
         .required("This field is required")
         .email("Invalid format email"),
       TelephoneNo: Yup.number().required("This field is required"),
-      TotalWorkingExperience: Yup.number().required("This field is required"),
-      SalaryExpectation: Yup.number().required("This field is required"),
+      // TotalWorkingExperience: Yup.number().required("This field is required"),
+      // SalaryExpectation: Yup.number().required("This field is required"),
     }),
     Education: Yup.array().of(
       Yup.object().shape({
@@ -151,7 +151,7 @@ const ViewProfileForm = ({ bloc }) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log("ini valuesnya", values);
+          // console.log("ini valuesnya", values);
           handleSubmit(values, file, data);
           changeDisable(!disabled);
         }}
@@ -394,7 +394,6 @@ const ViewProfileForm = ({ bloc }) => {
                       />
                       <TextField
                         margin="normal"
-                        required
                         fullWidth
                         color="secondary"
                         id="TotalWorkingExperience"

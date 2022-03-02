@@ -8,7 +8,7 @@ import {
   Grid,
   Box,
 } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { Fragment, useContext, useEffect } from "react";
 import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
 import Footer from "../../../globalComponent/footer/Footer";
@@ -20,7 +20,7 @@ const ListProgramApply = ({ bloc }) => {
 
   let userInfo = jwt_decode(data.userInfo);
   let id = userInfo.id;
-  console.log("ini",list);
+  // console.log("ini",list);
   useEffect(() => {
     getListAppliedProgram(id, data);
   }, []);
@@ -61,17 +61,17 @@ const ListProgramApply = ({ bloc }) => {
           {list?.ProgramPosts &&
             list.ProgramPosts.map((value, idx) => {
               return (
-                <>
-                <Grid
-                item 
-                md={3}
-                />
+                <Fragment key={idx}>
+                  <Grid
+                  item 
+                  md={3}
+                  />
                   <Grid
                     item
                     md={6}
                     sm={12}
                     xs={12}
-                    key={idx}
+                    // key={idx}
                     justifyContent="center"
                     display="flex"
                     flexDirection="column"
@@ -99,7 +99,7 @@ const ListProgramApply = ({ bloc }) => {
                 item 
                 md={3}
                 />
-                </>
+                </Fragment>
               );
             })}
         </Grid>

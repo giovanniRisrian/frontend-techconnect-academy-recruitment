@@ -35,7 +35,7 @@ const AppRouters = () => {
   let addressing;
   if (data.userInfo !== null) {
     let userInfo = jwt_decode(data.userInfo);
-    console.log(userInfo.Role)
+    // console.log(userInfo.Role)
     Role = userInfo.Role;
     if (Role === "user") {
       addressing = "/dashboard";

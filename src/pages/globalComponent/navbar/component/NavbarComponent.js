@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { RootContext } from "../../../../App";
 import logo from "../../../../asset/icon/logo.svg";
 import jwt_decode from "jwt-decode";
+import avatar from "../../../../asset/image/avatar.png"
 import LogoutButton from "../../logout/LogoutButton";
 const pages = ["Home", "About Us", "Program / Certificate"];
 const pageLink = ["/", "/about", "/vacancy"];
@@ -153,7 +154,7 @@ const NavbarCompontent = () => {
               <Tooltip title="Open settings">
                 {/* <Button></Button> */}
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src={avatar} />
                 </IconButton>
               </Tooltip>
             )}

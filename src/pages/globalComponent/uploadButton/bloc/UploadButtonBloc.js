@@ -16,7 +16,7 @@ const UploadButtonBloc = (UploadService) => {
   const [loading, setLoading] = useState(false);
   const doUpload = async (file, context, setInfo) => {
     let userInfo = jwt_decode(context.userInfo);
-    console.log(userInfo)
+    // console.log(userInfo)
     var formData = new FormData();
     formData.append("file", file.file);
     try {
@@ -36,15 +36,15 @@ const UploadButtonBloc = (UploadService) => {
       setLoading(false);
       let summary = res.data.data.summary;
       let SkillSet = []
-      console.log("ini sumari ",res.data.data.summary)
+      // console.log("ini sumari ",res.data.data.summary)
       for (let i = 0; i < summary.skill.length; i++) {
         SkillSet.push({Skill:summary.skill[i],ApplicantID:userInfo.ID})
       }
-      console.log(SkillSet)
+      // console.log(SkillSet)
       var jsonData = new FormData();
       let resp3 = await getDataApplicantbyId(null,config)
       let dataReceive = resp3.data.data
-      // console.log("INi data",mocks)
+      // // console.log("INi data",mocks)
       // let mock = {
       //   Personal: {
       //     Name: userInfo.FullName,
@@ -150,14 +150,14 @@ const UploadButtonBloc = (UploadService) => {
       mock.Organization = dataReceive.Organization
       mock.ID = dataReceive.ID
       mock.UserAccountID = dataReceive.UserAccountID
-      console.log("Ini MOCK",mock)
+      // console.log("Ini MOCK",mock)
       const jsonText = JSON.stringify(mock);
       const jsonPretendFile = new Blob([jsonText], {
         type: "application/json",
       });
       jsonData.append("json", jsonPretendFile);
     let res3 =  putUpdateProfile(jsonData, config)
-    console.log(res3)
+    // console.log(res3)
 
     Swal
     .fire({
@@ -183,10 +183,10 @@ const UploadButtonBloc = (UploadService) => {
     });
       
      ;
-      // console.log(res2);
+      // // console.log(res2);
     } catch (err) {
       alert(err);
-      console.log(err)
+      // console.log(err)
     }
   };
   return { doUpload, loading };

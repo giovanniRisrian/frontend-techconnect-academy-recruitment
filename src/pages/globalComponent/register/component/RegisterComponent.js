@@ -26,7 +26,7 @@ const RegisterComponent = ({ bloc }) => {
         .min(5, "minimum 6 characters"),
     }),
     onSubmit: () => {
-      console.log("Submited");
+      // console.log("Submited");
       handleRegisterFront();
     },
   });

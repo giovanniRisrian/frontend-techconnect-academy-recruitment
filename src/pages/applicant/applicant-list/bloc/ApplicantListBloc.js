@@ -66,7 +66,7 @@ const ApplicantListBloc = (
   // };
 
   const handleSeeDetail = (applicantId) => {
-    console.log("applicant id", applicantId);
+    // console.log("applicant id", applicantId);
     navigateTo(`details/${programId}/${applicantId}`);
   };
 

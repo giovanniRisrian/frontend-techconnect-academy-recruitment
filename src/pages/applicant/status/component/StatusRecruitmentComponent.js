@@ -26,7 +26,6 @@ export default function StatusRecruitmen({ bloc }) {
   let userInfo = jwt_decode(data.userInfo);
   let id = userInfo.id;
 
-  // console.log("cek ini status", statusProgram);
 
   let active = 0;
 
@@ -48,7 +47,7 @@ export default function StatusRecruitmen({ bloc }) {
   };
 
   React.useEffect(() => {
-    getStatusbyId(params.id, id);
+    getStatusbyId(params.id, id, data);
   }, []);
 
   return (
@@ -82,7 +81,7 @@ export default function StatusRecruitmen({ bloc }) {
         justifyContent="center"
         alignItems="center"
       >
-        <Grid md={6} sm={4} xs={4} sx={{ paddingLeft: "20px" }}>
+        <Grid item md={6} sm={4} xs={4} sx={{ paddingLeft: "20px" }}>
           <Typography variant="h4" fontFamily="Montserrat" textAlign="center">
             {statusProgram.ProgramPost?.ProgramName}
           </Typography>
@@ -114,7 +113,7 @@ export default function StatusRecruitmen({ bloc }) {
             ).format("DD-MM-YYYY")}
           </Typography>
         </Grid>
-        <Grid md={6} sm={8} xs={8} display="flex" justifyContent="flex-start">
+        <Grid item md={6} sm={8} xs={8} display="flex" justifyContent="flex-start">
           <Stepper activeStep={handleActive()} orientation="vertical">
             {steps.map((label) => (
               <Step key={label} sx={{ fontSize: "16px" }}>

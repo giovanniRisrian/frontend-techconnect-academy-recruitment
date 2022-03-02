@@ -116,7 +116,7 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
       }
       mock.Personal=dataReceive.Personal
       mock.Personal.BirthDate = dayjs(dataReceive.Personal.BirthDate).format("YYYY-MM-DD")
-      console.log(mock.Personal.BirthDate)
+      // console.log(mock.Personal.BirthDate)
       mock.Education = dataReceive.Education
       mock.SkillSet = dataReceive.SkillSet
       mock.WorkExperience = dataReceive.WorkExperience

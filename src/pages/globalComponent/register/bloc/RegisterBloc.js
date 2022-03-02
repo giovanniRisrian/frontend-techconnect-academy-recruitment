@@ -9,7 +9,7 @@ const RegisterBloc = (RegisterService) => {
     try {
       let res = await postRegister(formik.values);
 
-      console.log(res);
+      // console.log(res);
       localStorage.setItem("token", res.data.data.token)
       context.dispatch({
         type: ActionType.LOGIN,
@@ -42,7 +42,7 @@ const RegisterBloc = (RegisterService) => {
       };
       let res = await postRegisterRecruiter(formik.values,config);
 
-      console.log(res);
+      // console.log(res);
       context.dispatch({
         type: ActionType.Register,
         token: res.data.data.token,

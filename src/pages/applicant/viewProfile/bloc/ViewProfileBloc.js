@@ -8,8 +8,8 @@ const ViewProfileBloc = (viewViewProfileService) => {
     viewViewProfileService();
   let navigate = useNavigate()
   const handleSubmit = async (values, file, context) => {
-    // console.log("ini context", context);
-    // console.log("handleApplicant", values);
+    // // console.log("ini context", context);
+    // // console.log("handleApplicant", values);
 
     values.Personal.TotalWorkingExperience = values.Personal.TotalWorkingExperience +""
     try {
@@ -21,7 +21,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
         },
       };
       let userInfo = jwt_decode(context.userInfo);
-      console.log("Ini Values : ",values)
+      // console.log("Ini Values : ",values)
       const formData = new FormData();
       const jsonText = JSON.stringify(values);
       const jsonPretendFile = new Blob([jsonText], {
@@ -58,7 +58,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
       const formData = new FormData();
       formData.append('id',id)
       const response = await getDataApplicantbyId(formData, config);
-      // console.log("reposne",response.data.data)
+      // // console.log("reposne",response.data.data)
       let dataReceive =response.data.data
       let mock = {
         Personal:{
@@ -108,11 +108,11 @@ const ViewProfileBloc = (viewViewProfileService) => {
         ],
       }
 
-      console.log("resp:",dataReceive)
-      console.log("mock:",mock)
+      // console.log("resp:",dataReceive)
+      // console.log("mock:",mock)
       mock.Personal=dataReceive.Personal
       mock.Personal.BirthDate = dayjs(dataReceive.Personal.BirthDate).format("YYYY-MM-DD")
-      console.log(mock.Personal.BirthDate)
+      // console.log(mock.Personal.BirthDate)
       mock.Education = dataReceive.Education
       mock.SkillSet = dataReceive.SkillSet
       mock.WorkExperience = dataReceive.WorkExperience

@@ -77,8 +77,8 @@ const DetailApplicantForm = ({ bloc }) => {
         .required("This field is required")
         .email("Invalid format email"),
       TelephoneNo: Yup.number().required("This field is required"),
-      TotalWorkingExperience:Yup.number().required("This field is required"),
-      SalaryExpectation: Yup.number().required("This field is required"),
+      // TotalWorkingExperience:Yup.number().required("This field is required"),
+      // SalaryExpectation: Yup.number().required("This field is required"),
     }),
     Education: Yup.array().of(
       Yup.object().shape({
@@ -432,7 +432,6 @@ const DetailApplicantForm = ({ bloc }) => {
                       />
                       <TextField
                             margin="normal"
-                            required
                             color="secondary"
                             id="TotalWorkingExperience"
                             label="Experience in Year"

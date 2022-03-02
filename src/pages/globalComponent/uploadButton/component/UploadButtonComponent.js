@@ -30,7 +30,7 @@ const UploadButtonComponent = ({ bloc }) => {
   const data = useContext(RootContext);
   const handleUpload = (e) => {
     // doUpload(data);
-    console.log(e.target.value);
+    // console.log(e.target.value);
     doUpload({ file: e.target.files[0] }, data, setInfo);
   };
   return (

@@ -13,7 +13,7 @@ import jwt_decode from "jwt-decode";
 import swal from "sweetalert2";
 
 const VacancyDetail = ({ bloc }) => {
-  const { programDetail, navigate, getProgrambyId, doApplyProgram, params } =
+  const { programDetail, navigate, getProgrambyId, doApplyProgram, params, getUserbyId } =
     bloc();
   const data = useContext(RootContext);
   let userInfo;
@@ -38,17 +38,16 @@ const VacancyDetail = ({ bloc }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          doApplyProgram(dataApplicant, data);
-          swal.fire("Saved!", "", "success");
-          navigate("/applicant/status");
+            doApplyProgram(dataApplicant, data);
         }
       });
   };
 
   useEffect(() => {
     getProgrambyId();
+    
   }, []);
-
+  
   return (
     <>
       <MyComponent>
