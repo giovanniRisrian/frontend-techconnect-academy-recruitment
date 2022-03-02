@@ -53,7 +53,7 @@ const RegisterComponent = ({ bloc }) => {
                   className="form-control cardForm text-center"
                   type="text"
                   name="fullname"
-                  label="Name"
+                  label="Full Name"
                   value={formik.values.fullname || ""}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

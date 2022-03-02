@@ -21,7 +21,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
         },
       };
       let userInfo = jwt_decode(context.userInfo);
-      
+      console.log("Ini Values : ",values)
       const formData = new FormData();
       const jsonText = JSON.stringify(values);
       const jsonPretendFile = new Blob([jsonText], {

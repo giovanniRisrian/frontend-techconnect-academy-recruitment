@@ -160,6 +160,41 @@ const DetailApplicantForm = ({ bloc }) => {
               padding: "30px",
             }}
           >
+
+          {values.Personal.ResumeFile ? (
+                        <div>
+                          {values.Personal.ResumeFile.split(":")[0].split(".")[1] ===
+                          "pdf" ? (
+                            <a
+                              download={values.Personal.Name}
+                              title="Download pdf document"
+                              href={`data:application/pdf;base64,${
+                                values.Personal.ResumeFile.split(":")[1]
+                              }`}
+                            >
+                              Download CV
+                            </a>
+                          ) : (
+                            <a
+                              download={
+                                values.Personal.Name +
+                                "." +
+                                values.Personal.ResumeFile.split(":")[0].split(".")[1]
+                              }
+                              title="Download Image"
+                              href={`data:application/png;base64,${
+                                values.Personal.ResumeFile.split(":")[1]
+                              }`}
+                            >
+                              Download CV
+                            </a>
+                          )}
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+          
+                      
             <Form>
               <Box
                 autoComplete="off"

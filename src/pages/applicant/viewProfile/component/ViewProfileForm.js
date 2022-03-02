@@ -153,7 +153,7 @@ const ViewProfileForm = ({ bloc }) => {
         onSubmit={(values) => {
           console.log("ini valuesnya", values);
           handleSubmit(values, file, data);
-          changeDisable(!disabled)
+          changeDisable(!disabled);
         }}
       >
         {({ values, touched, errors, handleChange }) => (
@@ -162,24 +162,54 @@ const ViewProfileForm = ({ bloc }) => {
               padding: "30px",
             }}
           >
+            {values.Personal.ResumeFile ? (
+              <div>
+                {values.Personal.ResumeFile.split(":")[0].split(".")[1] ===
+                "pdf" ? (
+                  <a
+                    download={values.Personal.Name}
+                    title="Download pdf document"
+                    href={`data:application/pdf;base64,${
+                      values.Personal.ResumeFile.split(":")[1]
+                    }`}
+                  >
+                    Download CV
+                  </a>
+                ) : (
+                  <a
+                    download={
+                      values.Personal.Name +
+                      "." +
+                      values.Personal.ResumeFile.split(":")[0].split(".")[1]
+                    }
+                    title="Download Image"
+                    href={`data:application/png;base64,${
+                      values.Personal.ResumeFile.split(":")[1]
+                    }`}
+                  >
+                    Download CV
+                  </a>
+                )}
+              </div>
+            ) : (
+              <div></div>
+            )}
             <Form>
               <Box autoComplete="off">
                 {disabled ? (
                   <Box
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
                   >
-                {values.Personal?.PhotoFile ? <img
-                    src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
-                    style={{ height: "200px" }}
-                  />
-                  :
-                  <img
-                    src={avatar}
-                    style={{ height: "200px" }}
-                  />
-                  }
+                    {values.Personal?.PhotoFile ? (
+                      <img
+                        src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
+                        style={{ height: "200px" }}
+                      />
+                    ) : (
+                      <img src={avatar} style={{ height: "200px" }} />
+                    )}
                   </Box>
                 ) : (
                   <>
@@ -208,7 +238,6 @@ const ViewProfileForm = ({ bloc }) => {
                     )}
                   </>
                 )}
-
                 <Grid container>
                   <Grid container spacing={2}>
                     <Grid item md={6}>
@@ -1197,12 +1226,11 @@ const ViewProfileForm = ({ bloc }) => {
                     </Button>
                   ) : (
                     <>
-                
                       <Button
                         color="secondary"
                         variant="contained"
                         onClick={() => changeDisable(!disabled)}
-                        sx={{marginRight:"20px"}}
+                        sx={{ marginRight: "20px" }}
                       >
                         Cancel
                       </Button>
@@ -1215,7 +1243,6 @@ const ViewProfileForm = ({ bloc }) => {
                       >
                         Submit
                       </Button>
-                    
                     </>
                   )}
                 </Box>

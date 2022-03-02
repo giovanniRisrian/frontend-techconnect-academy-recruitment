@@ -70,6 +70,7 @@ const DetailApplicantBloc = (viewDetailApplicantService) => {
       mock.ID = dataReceive.ID
       mock.UserAccountID = dataReceive.UserAccountID
       // let combine = 
+      console.log("siniii",mock)
       changeInitial(mock)
       return response;
     } catch (err) {
