@@ -38,7 +38,7 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
       swal
       .fire({
         title: "Success!",
-        icon: "error",
+        icon: "success",
         text: "Applicant is rejected",
         confirmButtonText: "OK",
       })

@@ -7,6 +7,8 @@ import { useContext, useEffect, useState } from "react";
 import { RootContext } from "../../../../App";
 import { useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import swal from "sweetalert2";
+import avatar from "../../../../asset/image/avatar.png";
 
 const DetailApplicantForm = ({ bloc }) => {
   const params = useParams()
@@ -130,6 +132,35 @@ const DetailApplicantForm = ({ bloc }) => {
   const handleFile = (e) => {
     setFile(e.target.files[0]);
   };
+  const confirmationAccept = () => {
+    swal
+   .fire({
+     title: 'Do you want to accept this applicant?',
+     showCancelButton: true,
+     confirmButtonText: "Accept",
+     icon:"warning"
+   })
+   .then((result) => {
+     if (result.isConfirmed) {
+       handleAccept()
+     }
+   });
+  }
+  const confirmationReject = () => {
+    swal
+   .fire({
+     title: 'Do you want to reject this applicant?',
+     showCancelButton: true,
+     confirmButtonText: "Reject",
+     icon:"warning"
+   })
+   .then((result) => {
+     if (result.isConfirmed) {
+       handleReject()
+     }
+   });
+  }
+  
 
   useEffect(()=>{
     getDataByID(params.applicantid,data,changeInitial)
@@ -199,30 +230,48 @@ const DetailApplicantForm = ({ bloc }) => {
               <Box
                 autoComplete="off"
               >
-                {disabled?<img src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`} style={{height: '300px'}} />:  
-                <>
-                {file?    <Input
-                  color="secondary"
-                  variant="contained"
-                  accept="image/*"
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  disabled={disabled}
-                  onChange={handleFile}
-                /> :  <Button
-                margin="normal"
-                type="button"
-                color="secondary"
-                variant="outlined"
-                sx={{ height: "30px", marginTop: "20px" }}
-                onClick={() => setFile(true)}
-              >
-                Add / Edit Photo
-              </Button>}
-            
-                </>
-                }
+                 {disabled ? (
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {values.Personal?.PhotoFile ? (
+                      <img
+                        src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
+                        style={{ height: "200px" }}
+                      />
+                    ) : (
+                      <img src={avatar} style={{ height: "200px" }} />
+                    )}
+                  </Box>
+                ) : (
+                  <>
+                    {file ? (
+                      <Input
+                        color="secondary"
+                        variant="contained"
+                        accept="image/*"
+                        id="contained-button-file"
+                        multiple
+                        type="file"
+                        disabled={disabled}
+                        onChange={handleFile}
+                      />
+                    ) : (
+                      <Button
+                        margin="normal"
+                        type="button"
+                        color="secondary"
+                        variant="outlined"
+                        sx={{ height: "30px", marginTop: "20px" }}
+                        onClick={() => setFile(true)}
+                      >
+                        Add / Edit Photo
+                      </Button>
+                    )}
+                  </>
+                )}
               
                 <Grid container>
                   <Grid container spacing={2}>
@@ -541,7 +590,7 @@ const DetailApplicantForm = ({ bloc }) => {
                         Education
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 Education
+                        *Maximum 3 Education
                       </Typography>
                       {values.Education.map((edu, idx) => {
                         const title = `Education[${idx}].Title`;
@@ -755,7 +804,7 @@ const DetailApplicantForm = ({ bloc }) => {
                         Organization
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 Organization
+                        *Maximum 3 Organization
                       </Typography>
                       {values.Organization.map((org, idx) => {
                         const Organizations = `Organization[${idx}].Organization`;
@@ -955,7 +1004,7 @@ const DetailApplicantForm = ({ bloc }) => {
                         Work Experience
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 work experience
+                        *Maximum 3 work experience
                       </Typography>
                       {values.WorkExperience.map((work, idx) => {
                         const name = `WorkExperience[${idx}].CompanyName`;
@@ -1214,11 +1263,11 @@ const DetailApplicantForm = ({ bloc }) => {
                   alignItems="center"
                   justifyContent="center"
                 >
-                <Button color="error" variant="contained" onClick={handleReject}>
+                <Button color="error" variant="contained" onClick={confirmationReject}>
               Reject
             </Button> 
 
-            <Button color="primary" variant="contained" onClick={handleAccept}>
+            <Button color="primary" variant="contained" onClick={confirmationAccept}>
                     Accept
                   </Button> 
                  

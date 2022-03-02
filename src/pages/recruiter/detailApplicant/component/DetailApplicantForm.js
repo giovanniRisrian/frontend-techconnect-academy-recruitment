@@ -542,7 +542,7 @@ const DetailApplicantForm = ({ bloc }) => {
                         Education
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 Education
+                        *Maximum 3 Education
                       </Typography>
                       {values.Education.map((edu, idx) => {
                         const title = `Education[${idx}].Title`;
@@ -756,7 +756,7 @@ const DetailApplicantForm = ({ bloc }) => {
                         Organization
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 Organization
+                        *Maximum 3 Organization
                       </Typography>
                       {values.Organization.map((org, idx) => {
                         const Organizations = `Organization[${idx}].Organization`;
@@ -956,7 +956,7 @@ const DetailApplicantForm = ({ bloc }) => {
                         Work Experience
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 work experience
+                        *Maximum 3 work experience
                       </Typography>
                       {values.WorkExperience.map((work, idx) => {
                         const name = `WorkExperience[${idx}].CompanyName`;

@@ -6,13 +6,16 @@ import ActionType from "../../../../Context/ActionType";
 const LogoutButtonBloc = () => {
   const navigate = useNavigate();
   const doLogout = (context) => {
-    console.log("otw lgot")
+    // console.log("otw lgot")
 
-    console.log("oaoae",context)
+    // console.log("oaoae",context)
     localStorage.removeItem("token");
     context.dispatch({type:ActionType.LOGIN, name: null, token: null });
-    console.log("ooo",context)
-    navigate("/");
+    // console.log("ooo",context)
+   
+    // navigate("/");
+    window.location.reload()
+    
   };
   return { doLogout };
 };

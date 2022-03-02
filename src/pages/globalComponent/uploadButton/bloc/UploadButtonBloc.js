@@ -162,9 +162,9 @@ const UploadButtonBloc = (UploadService) => {
     Swal
     .fire({
       title: "Upload CV Success!",
-      text:"Press Ok to go Reccomendation Job Based on CV",
+      text:"Please, complete your profile first before apply this program",
       icon: "success",
-      confirmButtonText: "OK",
+      confirmButtonText: "Show Recommendation Program",
       cancelButtonColor: '#f5c842',
       cancelButtonText: 'Go to Profile',
       showCancelButton: true,

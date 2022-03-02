@@ -31,28 +31,28 @@ const VacancyDetailBloc = (programService) => {
       setLoading(true);
       let res = await applyProgram(values, config);
       setLoading(false);
-      swal
-        .fire({
-          title: "Success!",
-          icon: "success",
-          confirmButtonText: "OK",
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            navigate("/applicant/status");
-          }
-        });
+      // swal
+      //   .fire({
+      //     title: 'Do you want to apply the changes?',
+      //     showCancelButton: true,
+      //     confirmButtonText: "Apply",
+      //   })
+      //   .then((result) => {
+      //     if (result.isConfirmed) {
+      //       swal.fire('Saved!', '', 'success')
+      //       navigate("/applicant/status");
+      //     }
+      //   });
       return res;
-      
     } catch (err) {
       let user = jwt_decode(context.userInfo);
-      if(user.Role === "recruiter" || user.Role ==="administrator"){
+      if (user.Role === "recruiter" || user.Role === "administrator") {
         swal.fire({
           icon: "error",
           title: "",
           text: "Your role can't apply this program",
         });
-      }else{
+      } else {
         swal.fire({
           icon: "error",
           title: "Oops...",

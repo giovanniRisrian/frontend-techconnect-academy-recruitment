@@ -93,32 +93,32 @@ const ViewProfileForm = ({ bloc }) => {
         GPA: Yup.string().required("This field is required"),
       })
     ),
-    Organization: Yup.array().of(
-      Yup.object().shape({
-        Organization: Yup.string().required("This field is required"),
-        Scope: Yup.string().required("This field is required"),
-        Duration: Yup.string().required("This field is required"),
-        Description: Yup.string().required("This field is required"),
-        Position: Yup.string().required("This field is required"),
-      })
-    ),
-    WorkExperience: Yup.array().of(
-      Yup.object().shape({
-        CompanyName: Yup.string().required("This field is required"),
-        Position: Yup.string().required("This field is required"),
-        Level: Yup.string().required("This field is required"),
-        Industry: Yup.string().required("This field is required"),
-        YearIn: Yup.string()
-          .required("This field is required")
-          .min(4, "Year in must be 4 character")
-          .max(4, "Year in must be 4 character"),
-        YearOut: Yup.string()
-          .required("This field is required")
-          .min(4, "Year out must be 4 character")
-          .max(4, "Year out must be 4 character"),
-        Description: Yup.string().required("This field is required"),
-      })
-    ),
+    // Organization: Yup.array().of(
+    //   Yup.object().shape({
+    //     Organization: Yup.string().required("This field is required"),
+    //     Scope: Yup.string().required("This field is required"),
+    //     Duration: Yup.string().required("This field is required"),
+    //     Description: Yup.string().required("This field is required"),
+    //     Position: Yup.string().required("This field is required"),
+    //   })
+    // ),
+    // WorkExperience: Yup.array().of(
+    //   Yup.object().shape({
+    //     CompanyName: Yup.string().required("This field is required"),
+    //     Position: Yup.string().required("This field is required"),
+    //     Level: Yup.string().required("This field is required"),
+    //     Industry: Yup.string().required("This field is required"),
+    //     YearIn: Yup.string()
+    //       .required("This field is required")
+    //       .min(4, "Year in must be 4 character")
+    //       .max(4, "Year in must be 4 character"),
+    //     YearOut: Yup.string()
+    //       .required("This field is required")
+    //       .min(4, "Year out must be 4 character")
+    //       .max(4, "Year out must be 4 character"),
+    //     Description: Yup.string().required("This field is required"),
+    //   })
+    // ),
     SkillSet: Yup.array().of(
       Yup.object().shape({
         Skill: Yup.string().required("This field is required"),
@@ -535,7 +535,7 @@ const ViewProfileForm = ({ bloc }) => {
                         Education
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 Education
+                        *Maximum 3 Education
                       </Typography>
                       {values.Education.map((edu, idx) => {
                         const title = `Education[${idx}].Title`;
@@ -752,7 +752,7 @@ const ViewProfileForm = ({ bloc }) => {
                         Organization
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 Organization
+                        *Maximum 3 Organization
                       </Typography>
                       {values.Organization.map((org, idx) => {
                         const Organizations = `Organization[${idx}].Organization`;
@@ -798,7 +798,6 @@ const ViewProfileForm = ({ bloc }) => {
                                     label="Organization"
                                     name={Organizations}
                                     value={org.Organization}
-                                    required
                                     helperText={
                                       touchedOrganization && errorOrganization
                                         ? errorOrganization
@@ -821,7 +820,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
-                                    required
+                                   
                                     helperText={
                                       touchedScope && errorScope
                                         ? errorScope
@@ -840,7 +839,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     label="Duration"
                                     name={duration}
                                     value={org.Duration}
-                                    required
+                                    
                                     helperText={
                                       touchedDuration && errorDuration
                                         ? errorDuration
@@ -860,7 +859,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     label="Position"
                                     name={position}
                                     value={org.Position}
-                                    required
+                                   
                                     helperText={
                                       touchedPosition && errorPosition
                                         ? errorPosition
@@ -904,7 +903,7 @@ const ViewProfileForm = ({ bloc }) => {
                                 label="Description"
                                 name={description}
                                 value={org.Description}
-                                required
+                               
                                 InputProps={{
                                   readOnly: disabled,
                                 }}
@@ -955,7 +954,7 @@ const ViewProfileForm = ({ bloc }) => {
                         Work Experience
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 work experience
+                        *Maximum 3 work experience
                       </Typography>
                       {values.WorkExperience.map((work, idx) => {
                         const name = `WorkExperience[${idx}].CompanyName`;
@@ -1011,7 +1010,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     }}
                                     name={name}
                                     value={work.CompanyName}
-                                    required
+                                  
                                     helperText={
                                       touchedCompanyName && errorCompanyName
                                         ? errorCompanyName
@@ -1034,7 +1033,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     }}
                                     name={position}
                                     value={work.Position}
-                                    required
+                                    
                                     helperText={
                                       touchedPosition && errorPosition
                                         ? errorPosition
@@ -1057,7 +1056,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     }}
                                     name={Level}
                                     value={work.Level}
-                                    required
+                                  
                                     helperText={
                                       touchedLevel && errorLevel
                                         ? errorLevel
@@ -1079,7 +1078,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     }}
                                     name={Industry}
                                     value={work.Industry}
-                                    required
+                                   
                                     helperText={
                                       touchedIndustry && errorIndustry
                                         ? errorIndustry
@@ -1102,7 +1101,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
-                                    required
+                                   
                                     helperText={
                                       touchedYearIn && errorYearIn
                                         ? errorYearIn
@@ -1122,7 +1121,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     label="Year Out"
                                     name={yearOut}
                                     value={work.YearOut}
-                                    required
+                                  
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
@@ -1165,7 +1164,7 @@ const ViewProfileForm = ({ bloc }) => {
                                 label="Description"
                                 name={descriptionWork}
                                 value={work.Description}
-                                required
+                              
                                 InputProps={{
                                   readOnly: disabled,
                                 }}

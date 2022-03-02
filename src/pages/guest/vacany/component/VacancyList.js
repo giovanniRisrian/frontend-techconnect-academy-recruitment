@@ -83,7 +83,7 @@ const VacancyList = ({ bloc }) => {
                   item
                   display="flex"
                   justifyContent="center"
-                  md={6}
+                  md={4}
                   sm={12}
                   xs={12}
                   sx={{ marginBottom: "15px" }}

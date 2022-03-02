@@ -6,6 +6,7 @@ import {
   Typography,
   Button,
   Grid,
+  Box,
 } from "@mui/material";
 import { useContext, useEffect } from "react";
 import { RootContext } from "../../../../App";
@@ -61,9 +62,13 @@ const ListProgramApply = ({ bloc }) => {
             list.ProgramPosts.map((value, idx) => {
               return (
                 <>
+                <Grid
+                item 
+                md={3}
+                />
                   <Grid
                     item
-                    md={5}
+                    md={6}
                     sm={12}
                     xs={12}
                     key={idx}
@@ -90,6 +95,10 @@ const ListProgramApply = ({ bloc }) => {
                       </CardActions>
                     </Card>
                   </Grid>
+                  <Grid
+                item 
+                md={3}
+                />
                 </>
               );
             })}

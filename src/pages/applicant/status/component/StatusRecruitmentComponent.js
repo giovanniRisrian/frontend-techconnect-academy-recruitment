@@ -10,6 +10,7 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Footer from "../../../globalComponent/footer/Footer";
+import dayjs from "dayjs";
 
 const steps = [
   "Administration",
@@ -81,32 +82,39 @@ export default function StatusRecruitmen({ bloc }) {
         justifyContent="center"
         alignItems="center"
       >
-        <Grid md={6} sm={4} xs={4}
-        sx={{paddingLeft:"20px"}}
-        >
+        <Grid md={6} sm={4} xs={4} sx={{ paddingLeft: "20px" }}>
+          <Typography variant="h4" fontFamily="Montserrat" textAlign="center">
+            {statusProgram.ProgramPost?.ProgramName}
+          </Typography>
+          <br />
+          <Typography variant="h6" fontFamily="Montserrat" textAlign="center">
+            {statusProgram.ProgramPost?.ProgramTypeName}
+          </Typography>
+          <Typography variant="h6" fontFamily="Montserrat" textAlign="center">
+            {statusProgram.ProgramPost?.ProgramLocation?.Address}
+          </Typography>
           <Typography
-          variant="h4"
-          fontFamily="Montserrat"
-          textAlign="center"
-          >{statusProgram.ProgramPost?.ProgramName}</Typography>
-          <br/>
-          <Typography
-           variant="h6"
-           fontFamily="Montserrat"
-           textAlign="center"
-          >{statusProgram.ProgramPost?.ProgramTypeName}</Typography>
-          <Typography
-            variant="h6"
+            variant="body2"
             fontFamily="Montserrat"
             textAlign="center"
           >
-            {statusProgram.ProgramPost?.ProgramLocation?.Address}
+            Open Date :
+            {dayjs(statusProgram.ProgramPost?.ProgramActivity?.OpenDate).format(
+              "DD-MM-YYYY"
+            )}
+          </Typography>
+          <Typography
+            variant="body2"
+            fontFamily="Montserrat"
+            textAlign="center"
+          >
+            Close Date :
+            {dayjs(
+              statusProgram.ProgramPost?.ProgramActivity?.CloseDate
+            ).format("DD-MM-YYYY")}
           </Typography>
         </Grid>
-        <Grid md={6} sm={8} xs={8}
-        display="flex"
-        justifyContent="flex-start"
-        >
+        <Grid md={6} sm={8} xs={8} display="flex" justifyContent="flex-start">
           <Stepper activeStep={handleActive()} orientation="vertical">
             {steps.map((label) => (
               <Step key={label} sx={{ fontSize: "16px" }}>

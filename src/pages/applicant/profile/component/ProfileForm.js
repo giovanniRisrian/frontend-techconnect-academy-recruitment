@@ -455,7 +455,7 @@ const ProfileForm = ({ bloc }) => {
                         Education
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 education
+                        *Maximum 3 education
                       </Typography>
                       {values.education.map((edu, idx) => {
                         const title = `education[${idx}].title`;
@@ -652,7 +652,7 @@ const ProfileForm = ({ bloc }) => {
                         Organization
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 organization
+                        *Maximum 3 organization
                       </Typography>
                       {values.organization.map((org, idx) => {
                         const organizations = `organization[${idx}].organization`;
@@ -841,7 +841,7 @@ const ProfileForm = ({ bloc }) => {
                         Work Experience
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
-                        *Maksimum 3 work experience
+                        *Maximum 3 work experience
                       </Typography>
                       {values.work_exp.map((work, idx) => {
                         const name = `work_exp[${idx}].company_name`;
