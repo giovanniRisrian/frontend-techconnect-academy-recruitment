@@ -25,7 +25,7 @@ const ApplicantListBloc = (
   let { getApplicantsByProgram, getApplicant, getPrograms, getProcess } =
     applicantRepository();
   const { navigateTo, paramsNav } = navigation();
-  const params = paramsNav();
+  // const params = paramsNav();
 
   const getListProgram = async () => {
     try {

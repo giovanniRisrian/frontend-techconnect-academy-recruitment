@@ -136,7 +136,7 @@ const ApplicantListComp = ({ bloc }) => {
                     size={58}
                     circleFontSize={20}
                     titleFontSize={18}
-                    completeOpacity={0.4}
+                    completeOpacity={"0.4"}
                   >
                     {/* {steps.map((label) => (
                       <Step key={label} color="secondary">
