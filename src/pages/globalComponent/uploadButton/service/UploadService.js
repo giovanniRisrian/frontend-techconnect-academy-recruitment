@@ -9,6 +9,16 @@ const UploadService = () =>{
         const response = await client.post("/program/list",params,header)
         return response
     }
-    return {postUpload,postGetDataByListId}
+
+    const putUpdateProfile = async(params,header)=>{
+        const response = await client.put("/applicant/update",params,header)
+        return response
+    }
+
+    const getDataApplicantbyId = async(params,header) =>{
+        const response = await client.get("/user",header)
+        return response 
+      }
+    return {postUpload,postGetDataByListId,putUpdateProfile,getDataApplicantbyId}
 }
 export default UploadService

@@ -19,7 +19,7 @@ import ProgramPosting from "../pages/program/program-posting/ProgramPosting";
 import ApplicantList from "../pages/applicant/applicant-list/ApplicantList";
 import Homepage from "../pages/homepage/Homepage";
 import NotFoundPage from "../pages/404/NotFoundPage";
-import Profile from "../pages/applicant/profile/Profile";
+// import Profile from "../pages/applicant/profile/Profile";
 import { Navbar } from "../pages/globalComponent/navbar/Navbar";
 import DetailApplicant from "../pages/applicant/detailApplicant/DetailApplicant";
 // import StatusBar from "../pages/applicant/status/StatusBar";
@@ -35,7 +35,7 @@ const AppRouters = () => {
   let addressing;
   if (data.userInfo !== null) {
     let userInfo = jwt_decode(data.userInfo);
-    console.log(userInfo.Role)
+    // console.log(userInfo.Role)
     Role = userInfo.Role;
     if (Role === "user") {
       addressing = "/dashboard";
@@ -84,14 +84,6 @@ const AppRouters = () => {
             element={
               <>
                 <ViewProfile />
-              </>
-            }
-          />
-           <Route
-            path="profile/insert"
-            element={
-              <>
-                <Profile />
               </>
             }
           />

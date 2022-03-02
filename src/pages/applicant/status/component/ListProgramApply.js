@@ -6,8 +6,9 @@ import {
   Typography,
   Button,
   Grid,
+  Box,
 } from "@mui/material";
-import { useContext, useEffect } from "react";
+import { Fragment, useContext, useEffect } from "react";
 import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
 import Footer from "../../../globalComponent/footer/Footer";
@@ -19,9 +20,9 @@ const ListProgramApply = ({ bloc }) => {
 
   let userInfo = jwt_decode(data.userInfo);
   let id = userInfo.id;
-  console.log("ini",list);
+  // console.log("ini",list);
   useEffect(() => {
-    getListAppliedProgram(id);
+    getListAppliedProgram(id, data);
   }, []);
 
   return (
@@ -60,13 +61,17 @@ const ListProgramApply = ({ bloc }) => {
           {list?.ProgramPosts &&
             list.ProgramPosts.map((value, idx) => {
               return (
-                <>
+                <Fragment key={idx}>
+                  <Grid
+                  item 
+                  md={3}
+                  />
                   <Grid
                     item
-                    md={5}
+                    md={6}
                     sm={12}
                     xs={12}
-                    key={idx}
+                    // key={idx}
                     justifyContent="center"
                     display="flex"
                     flexDirection="column"
@@ -90,7 +95,11 @@ const ListProgramApply = ({ bloc }) => {
                       </CardActions>
                     </Card>
                   </Grid>
-                </>
+                  <Grid
+                item 
+                md={3}
+                />
+                </Fragment>
               );
             })}
         </Grid>

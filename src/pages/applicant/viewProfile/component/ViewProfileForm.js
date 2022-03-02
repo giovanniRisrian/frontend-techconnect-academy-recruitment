@@ -74,8 +74,8 @@ const ViewProfileForm = ({ bloc }) => {
         .required("This field is required")
         .email("Invalid format email"),
       TelephoneNo: Yup.number().required("This field is required"),
-      TotalWorkingExperience: Yup.number().required("This field is required"),
-      SalaryExpectation: Yup.number().required("This field is required"),
+      // TotalWorkingExperience: Yup.number().required("This field is required"),
+      // SalaryExpectation: Yup.number().required("This field is required"),
     }),
     Education: Yup.array().of(
       Yup.object().shape({
@@ -93,32 +93,32 @@ const ViewProfileForm = ({ bloc }) => {
         GPA: Yup.string().required("This field is required"),
       })
     ),
-    Organization: Yup.array().of(
-      Yup.object().shape({
-        Organization: Yup.string().required("This field is required"),
-        Scope: Yup.string().required("This field is required"),
-        Duration: Yup.string().required("This field is required"),
-        Description: Yup.string().required("This field is required"),
-        Position: Yup.string().required("This field is required"),
-      })
-    ),
-    WorkExperience: Yup.array().of(
-      Yup.object().shape({
-        CompanyName: Yup.string().required("This field is required"),
-        Position: Yup.string().required("This field is required"),
-        Level: Yup.string().required("This field is required"),
-        Industry: Yup.string().required("This field is required"),
-        YearIn: Yup.string()
-          .required("This field is required")
-          .min(4, "Year in must be 4 character")
-          .max(4, "Year in must be 4 character"),
-        YearOut: Yup.string()
-          .required("This field is required")
-          .min(4, "Year out must be 4 character")
-          .max(4, "Year out must be 4 character"),
-        Description: Yup.string().required("This field is required"),
-      })
-    ),
+    // Organization: Yup.array().of(
+    //   Yup.object().shape({
+    //     Organization: Yup.string().required("This field is required"),
+    //     Scope: Yup.string().required("This field is required"),
+    //     Duration: Yup.string().required("This field is required"),
+    //     Description: Yup.string().required("This field is required"),
+    //     Position: Yup.string().required("This field is required"),
+    //   })
+    // ),
+    // WorkExperience: Yup.array().of(
+    //   Yup.object().shape({
+    //     CompanyName: Yup.string().required("This field is required"),
+    //     Position: Yup.string().required("This field is required"),
+    //     Level: Yup.string().required("This field is required"),
+    //     Industry: Yup.string().required("This field is required"),
+    //     YearIn: Yup.string()
+    //       .required("This field is required")
+    //       .min(4, "Year in must be 4 character")
+    //       .max(4, "Year in must be 4 character"),
+    //     YearOut: Yup.string()
+    //       .required("This field is required")
+    //       .min(4, "Year out must be 4 character")
+    //       .max(4, "Year out must be 4 character"),
+    //     Description: Yup.string().required("This field is required"),
+    //   })
+    // ),
     SkillSet: Yup.array().of(
       Yup.object().shape({
         Skill: Yup.string().required("This field is required"),
@@ -151,7 +151,7 @@ const ViewProfileForm = ({ bloc }) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log("ini valuesnya", values);
+          // console.log("ini valuesnya", values);
           handleSubmit(values, file, data);
           changeDisable(!disabled);
         }}
@@ -162,6 +162,38 @@ const ViewProfileForm = ({ bloc }) => {
               padding: "30px",
             }}
           >
+            {values.Personal.ResumeFile ? (
+              <div>
+                {values.Personal.ResumeFile.split(":")[0].split(".")[1] ===
+                "pdf" ? (
+                  <a
+                    download={values.Personal.Name}
+                    title="Download pdf document"
+                    href={`data:application/pdf;base64,${
+                      values.Personal.ResumeFile.split(":")[1]
+                    }`}
+                  >
+                    Download CV
+                  </a>
+                ) : (
+                  <a
+                    download={
+                      values.Personal.Name +
+                      "." +
+                      values.Personal.ResumeFile.split(":")[0].split(".")[1]
+                    }
+                    title="Download Image"
+                    href={`data:application/png;base64,${
+                      values.Personal.ResumeFile.split(":")[1]
+                    }`}
+                  >
+                    Download CV
+                  </a>
+                )}
+              </div>
+            ) : (
+              <div></div>
+            )}
             <Form>
               <Box autoComplete="off">
                 {disabled ? (
@@ -206,7 +238,6 @@ const ViewProfileForm = ({ bloc }) => {
                     )}
                   </>
                 )}
-
                 <Grid container>
                   <Grid container spacing={2}>
                     <Grid item md={6}>
@@ -363,7 +394,6 @@ const ViewProfileForm = ({ bloc }) => {
                       />
                       <TextField
                         margin="normal"
-                        required
                         fullWidth
                         color="secondary"
                         id="TotalWorkingExperience"
@@ -767,7 +797,6 @@ const ViewProfileForm = ({ bloc }) => {
                                     label="Organization"
                                     name={Organizations}
                                     value={org.Organization}
-                                    required
                                     helperText={
                                       touchedOrganization && errorOrganization
                                         ? errorOrganization
@@ -790,7 +819,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
-                                    required
+                                   
                                     helperText={
                                       touchedScope && errorScope
                                         ? errorScope
@@ -809,7 +838,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     label="Duration"
                                     name={duration}
                                     value={org.Duration}
-                                    required
+                                    
                                     helperText={
                                       touchedDuration && errorDuration
                                         ? errorDuration
@@ -829,7 +858,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     label="Position"
                                     name={position}
                                     value={org.Position}
-                                    required
+                                   
                                     helperText={
                                       touchedPosition && errorPosition
                                         ? errorPosition
@@ -873,7 +902,7 @@ const ViewProfileForm = ({ bloc }) => {
                                 label="Description"
                                 name={description}
                                 value={org.Description}
-                                required
+                               
                                 InputProps={{
                                   readOnly: disabled,
                                 }}
@@ -980,7 +1009,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     }}
                                     name={name}
                                     value={work.CompanyName}
-                                    required
+                                  
                                     helperText={
                                       touchedCompanyName && errorCompanyName
                                         ? errorCompanyName
@@ -1003,7 +1032,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     }}
                                     name={position}
                                     value={work.Position}
-                                    required
+                                    
                                     helperText={
                                       touchedPosition && errorPosition
                                         ? errorPosition
@@ -1026,7 +1055,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     }}
                                     name={Level}
                                     value={work.Level}
-                                    required
+                                  
                                     helperText={
                                       touchedLevel && errorLevel
                                         ? errorLevel
@@ -1048,7 +1077,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     }}
                                     name={Industry}
                                     value={work.Industry}
-                                    required
+                                   
                                     helperText={
                                       touchedIndustry && errorIndustry
                                         ? errorIndustry
@@ -1071,7 +1100,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
-                                    required
+                                   
                                     helperText={
                                       touchedYearIn && errorYearIn
                                         ? errorYearIn
@@ -1091,7 +1120,7 @@ const ViewProfileForm = ({ bloc }) => {
                                     label="Year Out"
                                     name={yearOut}
                                     value={work.YearOut}
-                                    required
+                                  
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
@@ -1134,7 +1163,7 @@ const ViewProfileForm = ({ bloc }) => {
                                 label="Description"
                                 name={descriptionWork}
                                 value={work.Description}
-                                required
+                              
                                 InputProps={{
                                   readOnly: disabled,
                                 }}

@@ -26,7 +26,7 @@ const RegisterComponent = ({ bloc }) => {
         .min(5, "minimum 6 characters"),
     }),
     onSubmit: () => {
-      console.log("Submited");
+      // console.log("Submited");
       handleRegisterFront();
     },
   });
@@ -53,7 +53,7 @@ const RegisterComponent = ({ bloc }) => {
                   className="form-control cardForm text-center"
                   type="text"
                   name="fullname"
-                  label="Name"
+                  label="Full Name"
                   value={formik.values.fullname || ""}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

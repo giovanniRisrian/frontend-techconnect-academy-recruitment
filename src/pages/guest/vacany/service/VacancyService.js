@@ -2,21 +2,27 @@ import { client } from "../../../../http-client/Client";
 
 const VacancyService = () =>{
     async function getInformationProgram(page){ 
-        const response =  await client.get(`/program?page=${page}&limit=4&sort_by=created_at&order_by=desc`)
+        const response =  await client.get(`/program?page=${page}&limit=6&sort_by=created_at&order_by=desc`)
         return response;
     }
     async function getDetailInformationProgram(id){
         const response =  await client.get(`/program?id=${id}`)
         return response;
     }
-    async function applyProgram(params){
-        const response = await client.post(`/program_applicant/apply`, params)
+    async function applyProgram(params, header){
+        const response = await client.post(`/program_applicant/apply`, params, header)
         return response
     }
+
+    const getDataApplicantbyId = async(header) =>{
+        const response = await client.get("/user",header)
+        return response 
+      }
     return {
         getInformationProgram,
         getDetailInformationProgram,
-        applyProgram
+        applyProgram,
+        getDataApplicantbyId
     }
 }
 

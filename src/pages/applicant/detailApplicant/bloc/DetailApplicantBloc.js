@@ -11,9 +11,12 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
     applicantid: params.applicantid,
     programid: params.programid,
   };
-  const handleAccept = async () => {
+  const handleAccept = async (context) => {
     try {
-      await acceptApplicant(applicant);
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      await acceptApplicant(applicant, config);
       swal
       .fire({
         title: "Success!",
@@ -32,13 +35,16 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
     }
   };
 
-  const handleReject = async () => {
+  const handleReject = async (context) => {
     try {
-      await rejectApplicant(applicant);
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      await rejectApplicant(applicant, config);
       swal
       .fire({
         title: "Success!",
-        icon: "error",
+        icon: "success",
         text: "Applicant is rejected",
         confirmButtonText: "OK",
       })
@@ -110,7 +116,7 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
       }
       mock.Personal=dataReceive.Personal
       mock.Personal.BirthDate = dayjs(dataReceive.Personal.BirthDate).format("YYYY-MM-DD")
-      console.log(mock.Personal.BirthDate)
+      // console.log(mock.Personal.BirthDate)
       mock.Education = dataReceive.Education
       mock.SkillSet = dataReceive.SkillSet
       mock.WorkExperience = dataReceive.WorkExperience

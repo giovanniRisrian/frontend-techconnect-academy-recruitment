@@ -6,10 +6,13 @@ const ListProgramApplyBloc = (statusService) => {
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
   let { getAppliedProgram } = statusService();
-  const getListAppliedProgram = async (contex) => {
+  const getListAppliedProgram = async (params, context) => {
     try {
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
       setLoading(true);
-      let response = await getAppliedProgram(contex);
+      let response = await getAppliedProgram(params, config);
       setList(response.data.data);
       setLoading(false);
       return list;

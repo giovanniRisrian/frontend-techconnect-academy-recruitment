@@ -10,12 +10,12 @@ import location from "../../../../asset/icon/location.svg";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
+import swal from "sweetalert2";
 
 const VacancyDetail = ({ bloc }) => {
-  const { programDetail, navigate, getProgrambyId, doApplyProgram, params } =
+  const { programDetail, navigate, getProgrambyId, doApplyProgram, params, getUserbyId } =
     bloc();
   const data = useContext(RootContext);
-
   let userInfo;
   let id;
   if (data.userInfo) {
@@ -27,12 +27,27 @@ const VacancyDetail = ({ bloc }) => {
     ApplicantId: id,
   };
 
-
+  const confirmationApply = () => {
+    swal
+      .fire({
+        title: "Do you want to apply this program?",
+        confirmButtonText: "Apply",
+        showCancelButton: true,
+        icon: "warning",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+            doApplyProgram(dataApplicant, data);
+        }
+      });
+  };
 
   useEffect(() => {
     getProgrambyId();
+    
   }, []);
-
+  
   return (
     <>
       <MyComponent>
@@ -87,17 +102,17 @@ const VacancyDetail = ({ bloc }) => {
                     Description :
                   </Typography>
                   <ul>
-                  <Typography
-                    gutterBottom
-                    variant="body2"
-                    component="div"
-                    fontFamily="Montserrat"
-                    sx={{
-                      whiteSpace: "pre-line"
-                    }}
-                  >
-                    {programDetail.Description}
-                  </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="body2"
+                      component="div"
+                      fontFamily="Montserrat"
+                      sx={{
+                        whiteSpace: "pre-line",
+                      }}
+                    >
+                      {programDetail.Description}
+                    </Typography>
                   </ul>
                   <Typography
                     gutterBottom
@@ -114,7 +129,7 @@ const VacancyDetail = ({ bloc }) => {
                       component="div"
                       fontFamily="Montserrat"
                       sx={{
-                        whiteSpace: "pre-line"
+                        whiteSpace: "pre-line",
                       }}
                     >
                       {programDetail.Requirement}
@@ -144,7 +159,7 @@ const VacancyDetail = ({ bloc }) => {
                   <Button
                     variant="contained"
                     sx={{ backgroundColor: "#521582", marginRight: "15px" }}
-                    onClick={() => doApplyProgram(dataApplicant, data)}
+                    onClick={() => confirmationApply()}
                   >
                     Apply
                   </Button>

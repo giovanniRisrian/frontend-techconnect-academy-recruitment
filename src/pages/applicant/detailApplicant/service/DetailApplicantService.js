@@ -13,15 +13,15 @@ const DetailApplicantService = () => {
     const response = await client.get("/applicant/find?id=" + params, header);
     return response;
   };
-  async function acceptApplicant(applicant) {
+  async function acceptApplicant(applicant, header) {
     const response = await client.put(
       "/program_applicant/next_selection",
-      applicant
+      applicant, header
     );
     return response;
   }
-  async function rejectApplicant(applicant) {
-    const response = await client.put("/program_applicant/rejected", applicant);
+  async function rejectApplicant(applicant, header) {
+    const response = await client.put("/program_applicant/rejected", applicant, header);
     return response;
   }
 

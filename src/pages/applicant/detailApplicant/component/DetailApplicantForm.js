@@ -7,6 +7,8 @@ import { useContext, useEffect, useState } from "react";
 import { RootContext } from "../../../../App";
 import { useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import swal from "sweetalert2";
+import avatar from "../../../../asset/image/avatar.png";
 
 const DetailApplicantForm = ({ bloc }) => {
   const params = useParams();
@@ -75,8 +77,8 @@ const DetailApplicantForm = ({ bloc }) => {
         .required("This field is required")
         .email("Invalid format email"),
       TelephoneNo: Yup.number().required("This field is required"),
-      TotalWorkingExperience: Yup.number().required("This field is required"),
-      SalaryExpectation: Yup.number().required("This field is required"),
+      // TotalWorkingExperience:Yup.number().required("This field is required"),
+      // SalaryExpectation: Yup.number().required("This field is required"),
     }),
     Education: Yup.array().of(
       Yup.object().shape({
@@ -94,32 +96,32 @@ const DetailApplicantForm = ({ bloc }) => {
         GPA: Yup.string().required("This field is required"),
       })
     ),
-    Organization: Yup.array().of(
-      Yup.object().shape({
-        Organization: Yup.string().required("This field is required"),
-        Scope: Yup.string().required("This field is required"),
-        Duration: Yup.string().required("This field is required"),
-        Description: Yup.string().required("This field is required"),
-        Position: Yup.string().required("This field is required"),
-      })
-    ),
-    WorkExperience: Yup.array().of(
-      Yup.object().shape({
-        CompanyName: Yup.string().required("This field is required"),
-        Position: Yup.string().required("This field is required"),
-        Level: Yup.string().required("This field is required"),
-        Industry: Yup.string().required("This field is required"),
-        YearIn: Yup.string()
-          .required("This field is required")
-          .min(4, "Year in must be 4 character")
-          .max(4, "Year in must be 4 character"),
-        YearOut: Yup.string()
-          .required("This field is required")
-          .min(4, "Year out must be 4 character")
-          .max(4, "Year out must be 4 character"),
-        Description: Yup.string().required("This field is required"),
-      })
-    ),
+    // Organization: Yup.array().of(
+    //   Yup.object().shape({
+    //     Organization: Yup.string().required("This field is required"),
+    //     Scope: Yup.string().required("This field is required"),
+    //     Duration: Yup.string().required("This field is required"),
+    //     Description: Yup.string().required("This field is required"),
+    //     Position: Yup.string().required("This field is required"),
+    //   })
+    // ),
+    // WorkExperience: Yup.array().of(
+    //   Yup.object().shape({
+    //     CompanyName: Yup.string().required("This field is required"),
+    //     Position: Yup.string().required("This field is required"),
+    //     Level: Yup.string().required("This field is required"),
+    //     Industry: Yup.string().required("This field is required"),
+    //     YearIn: Yup.string()
+    //       .required("This field is required")
+    //       .min(4, "Year in must be 4 character")
+    //       .max(4, "Year in must be 4 character"),
+    //     YearOut: Yup.string()
+    //       .required("This field is required")
+    //       .min(4, "Year out must be 4 character")
+    //       .max(4, "Year out must be 4 character"),
+    //     Description: Yup.string().required("This field is required"),
+    //   })
+    // ),
     SkillSet: Yup.array().of(
       Yup.object().shape({
         Skill: Yup.string().required("This field is required"),
@@ -129,6 +131,36 @@ const DetailApplicantForm = ({ bloc }) => {
 
   const handleFile = (e) => {
     setFile(e.target.files[0]);
+  };
+  const confirmationAccept = () => {
+    swal
+      .fire({
+        title: "Do you want to accept this applicant?",
+        showCancelButton: true,
+        confirmButtonText: "Accept",
+        icon: "warning",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          handleAccept(data);
+        }
+      });
+  };
+  const confirmationReject = () => {
+    swal
+      .fire({
+        title: "Do you want to reject this applicant?",
+        showCancelButton: true,
+        confirmButtonText: "Reject",
+        icon: "warning",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          handleReject(data);
+        }
+      });
   };
 
   useEffect(() => {
@@ -159,13 +191,56 @@ const DetailApplicantForm = ({ bloc }) => {
               padding: "30px",
             }}
           >
+            {values.Personal.ResumeFile ? (
+              <div>
+                {values.Personal.ResumeFile.split(":")[0].split(".")[1] ===
+                "pdf" ? (
+                  <a
+                    download={values.Personal.Name}
+                    title="Download pdf document"
+                    href={`data:application/pdf;base64,${
+                      values.Personal.ResumeFile.split(":")[1]
+                    }`}
+                  >
+                    Download CV
+                  </a>
+                ) : (
+                  <a
+                    download={
+                      values.Personal.Name +
+                      "." +
+                      values.Personal.ResumeFile.split(":")[0].split(".")[1]
+                    }
+                    title="Download Image"
+                    href={`data:application/png;base64,${
+                      values.Personal.ResumeFile.split(":")[1]
+                    }`}
+                  >
+                    Download CV
+                  </a>
+                )}
+              </div>
+            ) : (
+              <div></div>
+            )}
+
             <Form>
               <Box autoComplete="off">
                 {disabled ? (
-                  <img
-                    src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
-                    style={{ height: "300px" }}
-                  />
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    {values.Personal?.PhotoFile ? (
+                      <img
+                        src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
+                        style={{ height: "200px" }}
+                      />
+                    ) : (
+                      <img src={avatar} style={{ height: "200px" }} />
+                    )}
+                  </Box>
                 ) : (
                   <>
                     {file ? (
@@ -350,7 +425,6 @@ const DetailApplicantForm = ({ bloc }) => {
                       />
                       <TextField
                         margin="normal"
-                        required
                         color="secondary"
                         id="TotalWorkingExperience"
                         label="Experience in Year"
@@ -782,7 +856,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     label="Organization"
                                     name={Organizations}
                                     value={org.Organization}
-                                    required
                                     helperText={
                                       touchedOrganization && errorOrganization
                                         ? errorOrganization
@@ -805,7 +878,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
-                                    required
                                     helperText={
                                       touchedScope && errorScope
                                         ? errorScope
@@ -824,7 +896,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     label="Duration"
                                     name={duration}
                                     value={org.Duration}
-                                    required
                                     helperText={
                                       touchedDuration && errorDuration
                                         ? errorDuration
@@ -844,7 +915,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     label="Position"
                                     name={position}
                                     value={org.Position}
-                                    required
                                     helperText={
                                       touchedPosition && errorPosition
                                         ? errorPosition
@@ -888,7 +958,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                 label="Description"
                                 name={description}
                                 value={org.Description}
-                                required
                                 InputProps={{
                                   readOnly: disabled,
                                 }}
@@ -995,7 +1064,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     }}
                                     name={name}
                                     value={work.CompanyName}
-                                    required
                                     helperText={
                                       touchedCompanyName && errorCompanyName
                                         ? errorCompanyName
@@ -1018,7 +1086,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     }}
                                     name={position}
                                     value={work.Position}
-                                    required
                                     helperText={
                                       touchedPosition && errorPosition
                                         ? errorPosition
@@ -1041,7 +1108,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     }}
                                     name={Level}
                                     value={work.Level}
-                                    required
                                     helperText={
                                       touchedLevel && errorLevel
                                         ? errorLevel
@@ -1063,7 +1129,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     }}
                                     name={Industry}
                                     value={work.Industry}
-                                    required
                                     helperText={
                                       touchedIndustry && errorIndustry
                                         ? errorIndustry
@@ -1086,7 +1151,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
-                                    required
                                     helperText={
                                       touchedYearIn && errorYearIn
                                         ? errorYearIn
@@ -1106,7 +1170,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     label="Year Out"
                                     name={yearOut}
                                     value={work.YearOut}
-                                    required
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
@@ -1149,7 +1212,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                 label="Description"
                                 name={descriptionWork}
                                 value={work.Description}
-                                required
                                 InputProps={{
                                   readOnly: disabled,
                                 }}
@@ -1203,7 +1265,7 @@ const DetailApplicantForm = ({ bloc }) => {
                   <Button
                     color="error"
                     variant="contained"
-                    onClick={handleReject}
+                    onClick={confirmationReject}
                   >
                     Reject
                   </Button>
@@ -1211,7 +1273,7 @@ const DetailApplicantForm = ({ bloc }) => {
                   <Button
                     color="primary"
                     variant="contained"
-                    onClick={handleAccept}
+                    onClick={confirmationAccept}
                   >
                     Accept
                   </Button>

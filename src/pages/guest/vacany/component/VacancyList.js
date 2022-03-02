@@ -16,7 +16,7 @@ import BasicPagination from "../../../globalComponent/pagination/Pagination";
 
 const VacancyList = ({ bloc }) => {
   const { list, getListJobInformation, navigate, loading } = bloc();
-  // console.log("created",list);
+  // // console.log("created",list);
   useEffect(() => {
     getListJobInformation(1);
   }, []);
@@ -76,14 +76,14 @@ const VacancyList = ({ bloc }) => {
           >
           {list?.ProgramList &&
             list.ProgramList.map((value, idx) => {
-              console.log("ceek",value);
+              // console.log("ceek",value);
               return (
                 <Grid
                   key={idx}
                   item
                   display="flex"
                   justifyContent="center"
-                  md={6}
+                  md={4}
                   sm={12}
                   xs={12}
                   sx={{ marginBottom: "15px" }}

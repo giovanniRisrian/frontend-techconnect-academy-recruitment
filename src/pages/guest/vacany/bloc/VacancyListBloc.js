@@ -11,14 +11,14 @@ const VacancyListBloc = (programService,useVacancyList) => {
   let navigate = useNavigate();
   let { getInformationProgram } = programService();
   const getListJobInformation = async (page) => {
-    // console.log(page, created);
-console.log(state)
+    // // console.log(page, created);
+// console.log(state)
     try {
       setLoading(true)
       if(!state){
 
       const response = await getInformationProgram(page);
-      console.log(response.data.data)
+      // console.log(response.data.data)
       setList(response.data.data);
 
       }else{

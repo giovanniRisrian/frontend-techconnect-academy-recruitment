@@ -24,6 +24,7 @@ import { styled } from "@mui/system";
 import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
 import Stepper from "react-stepper-horizontal/lib/Stepper";
+import { RootContext } from "../../../../App";
 
 const MyComponent = styled("div")({
   backgroundImage: `url(${background})`,
@@ -38,21 +39,19 @@ const ApplicantListComp = ({ bloc }) => {
     program,
     // page,
     programId,
-    step,
     isProgram,
     handleStepUp,
     handleStepDown,
     steps,
     getAge,
-    // handlePage,
-    // setStep,
     handleSeeDetail,
     handleProgram,
     getListProgram,
-    getListApplicantByPage,
     actualStep,
-    setActualStep,
   } = bloc();
+
+  const data = React.useContext(RootContext);
+
   React.useEffect(() => {
     getListProgram();
   }, []);
@@ -103,7 +102,7 @@ const ApplicantListComp = ({ bloc }) => {
                 value={programId}
                 label="Program"
                 onChange={(e, value) => {
-                  handleProgram(e.target.value, value);
+                  handleProgram(e.target.value, value, data);
                   // getListApplicantByPage();
                 }}
               >
@@ -151,29 +150,37 @@ const ApplicantListComp = ({ bloc }) => {
                       paddingTop: 5,
                     }}
                   >
-                    <div>
-                      <Button
-                        color="secondary"
-                        variant="contained"
-                        onClick={() => {
-                          handleStepDown();
-                        }}
-                      >
-                        Previous
-                      </Button>
-                    </div>
+                    {actualStep === 0 ? (
+                      <div></div>
+                    ) : (
+                      <div>
+                        <Button
+                          color="secondary"
+                          variant="contained"
+                          onClick={() => {
+                            handleStepDown(data);
+                          }}
+                        >
+                          Previous
+                        </Button>
+                      </div>
+                    )}
                     <div></div>
-                    <div>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => {
-                          handleStepUp();
-                        }}
-                      >
-                        Next
-                      </Button>
-                    </div>
+                    {actualStep === 5 ? (
+                      <div></div>
+                    ) : (
+                      <div>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => {
+                            handleStepUp(data);
+                          }}
+                        >
+                          Next
+                        </Button>
+                      </div>
+                    )}
                   </Box>
                 </Box>
               </Grid>

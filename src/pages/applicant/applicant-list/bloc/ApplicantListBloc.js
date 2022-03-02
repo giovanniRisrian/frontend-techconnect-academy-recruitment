@@ -36,9 +36,12 @@ const ApplicantListBloc = (
     }
   };
 
-  const getListApplicantByPage = async (data1, data2) => {
+  const getListApplicantByPage = async (data1, data2, context) => {
     try {
-      const response = await getApplicantsByProgram(data1, data2);
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      const response = await getApplicantsByProgram(data1, data2, config);
       if (response.data.data.ApplicantInfo === null) {
         setApplicantList([]);
       } else {
@@ -49,8 +52,11 @@ const ApplicantListBloc = (
     }
   };
 
-  const handleProgram = (programId, program) => {
-    getListApplicantByPage(programId, step);
+  const handleProgram = (programId, program, header) => {
+    let step = 1;
+    getListApplicantByPage(programId, step,header);
+    setActualStep(0);
+    setStep(1);
     setPage(1);
     setProgramId(programId);
     setIsProgram(true);
@@ -63,20 +69,20 @@ const ApplicantListBloc = (
   // };
 
   const handleSeeDetail = (applicantId) => {
-    console.log("applicant id", applicantId);
+    // console.log("applicant id", applicantId);
     navigateTo(`details/${programId}/${applicantId}`);
   };
 
-  const handleStepUp = () => {
+  const handleStepUp = (header) => {
     let stepUp = step + 1;
-    getListApplicantByPage(programId, stepUp);
+    getListApplicantByPage(programId, stepUp,header);
     setStep((prevValue) => prevValue + 1);
     setActualStep((prevValue) => prevValue + 1);
   };
 
-  const handleStepDown = () => {
+  const handleStepDown = (data) => {
     let stepDown = step - 1;
-    getListApplicantByPage(programId, stepDown);
+    getListApplicantByPage(programId, stepDown,data);
     setStep((prevValue) => prevValue - 1);
     setActualStep((prevValue) => prevValue - 1);
   };

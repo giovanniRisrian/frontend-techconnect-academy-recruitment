@@ -8,11 +8,14 @@ const StatusRecruitmentBloc = (statusService) => {
   const [statusProgram, setStatusProgram] = useState({});
   let {getDetailAppliedProgram} = statusService();
 
-  const getStatusbyId = async (id, context) => {
+  const getStatusbyId = async (idProgram, idApplicant, context) => {
    
     try {
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
       setLoading(true)
-      const response = await getDetailAppliedProgram(id, context);
+      const response = await getDetailAppliedProgram(idProgram, idApplicant, config);
       setStatusProgram(response.data.data);
       setLoading(false)
       return statusProgram;
