@@ -50,7 +50,10 @@ const ApplicantListBloc = (
   };
 
   const handleProgram = (programId, program) => {
+    let step = 1;
     getListApplicantByPage(programId, step);
+    setActualStep(0);
+    setStep(1);
     setPage(1);
     setProgramId(programId);
     setIsProgram(true);

@@ -38,20 +38,15 @@ const ApplicantListComp = ({ bloc }) => {
     program,
     // page,
     programId,
-    step,
     isProgram,
     handleStepUp,
     handleStepDown,
     steps,
     getAge,
-    // handlePage,
-    // setStep,
     handleSeeDetail,
     handleProgram,
     getListProgram,
-    getListApplicantByPage,
     actualStep,
-    setActualStep,
   } = bloc();
   React.useEffect(() => {
     getListProgram();
@@ -104,7 +99,6 @@ const ApplicantListComp = ({ bloc }) => {
                 label="Program"
                 onChange={(e, value) => {
                   handleProgram(e.target.value, value);
-                  // getListApplicantByPage();
                 }}
               >
                 {programList.map((value) => {
@@ -136,7 +130,7 @@ const ApplicantListComp = ({ bloc }) => {
                     size={58}
                     circleFontSize={20}
                     titleFontSize={18}
-                    completeOpacity={0.4}
+                    completeOpacity={"0.4"}
                   >
                     {/* {steps.map((label) => (
                       <Step key={label} color="secondary">
@@ -151,29 +145,37 @@ const ApplicantListComp = ({ bloc }) => {
                       paddingTop: 5,
                     }}
                   >
-                    <div>
-                      <Button
-                        color="secondary"
-                        variant="contained"
-                        onClick={() => {
-                          handleStepDown();
-                        }}
-                      >
-                        Previous
-                      </Button>
-                    </div>
+                    {actualStep === 0 ? (
+                      <div></div>
+                    ) : (
+                      <div>
+                        <Button
+                          color="secondary"
+                          variant="contained"
+                          onClick={() => {
+                            handleStepDown();
+                          }}
+                        >
+                          Previous
+                        </Button>
+                      </div>
+                    )}
                     <div></div>
-                    <div>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => {
-                          handleStepUp();
-                        }}
-                      >
-                        Next
-                      </Button>
-                    </div>
+                    {actualStep === 5 ? (
+                      <div></div>
+                    ) : (
+                      <div>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => {
+                            handleStepUp();
+                          }}
+                        >
+                          Next
+                        </Button>
+                      </div>
+                    )}
                   </Box>
                 </Box>
               </Grid>
