@@ -28,7 +28,6 @@ const ListProgramApply = ({ bloc }) => {
   return (
     <>
       <MyComponent>
-       
         <Typography
           textAlign="center"
           sx={{
@@ -62,10 +61,7 @@ const ListProgramApply = ({ bloc }) => {
             list.ProgramPosts.map((value, idx) => {
               return (
                 <Fragment key={idx}>
-                  <Grid
-                  item 
-                  md={3}
-                  />
+                  <Grid item md={3} />
                   <Grid
                     item
                     md={6}
@@ -79,7 +75,7 @@ const ListProgramApply = ({ bloc }) => {
                     <Card sx={{ width: "auto" }}>
                       <CardContent>
                         <Typography variant="h6" color="#343434" gutterBottom>
-                          {value.Headline}
+                          {value.ProgramName}
                         </Typography>
                       </CardContent>
                       <CardActions>
@@ -95,22 +91,19 @@ const ListProgramApply = ({ bloc }) => {
                       </CardActions>
                     </Card>
                   </Grid>
-                  <Grid
-                item 
-                md={3}
-                />
+                  <Grid item md={3} />
                 </Fragment>
               );
             })}
         </Grid>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <Footer />
       </MyComponent>
     </>

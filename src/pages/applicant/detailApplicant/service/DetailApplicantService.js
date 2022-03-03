@@ -24,6 +24,10 @@ const DetailApplicantService = () => {
     const response = await client.put("/program_applicant/rejected", applicant, header);
     return response;
   }
+  async function getDetailAppliedProgram(idProgram, idApplicant, header){
+    const response =  await client.get(`/program_applicant/detailed?program_id=${idProgram}&applicant_id=${idApplicant}`, header)
+    return response;
+}
 
   return {
     uploadDataApplicant,
@@ -31,6 +35,7 @@ const DetailApplicantService = () => {
     getDataApplicantbyId,
     acceptApplicant,
     rejectApplicant,
+    getDetailAppliedProgram
   };
 };
 export default DetailApplicantService;

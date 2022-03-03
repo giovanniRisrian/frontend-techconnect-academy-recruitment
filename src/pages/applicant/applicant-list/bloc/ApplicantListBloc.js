@@ -54,7 +54,7 @@ const ApplicantListBloc = (
 
   const handleProgram = (programId, program, header) => {
     let step = 1;
-    getListApplicantByPage(programId, step,header);
+    getListApplicantByPage(programId, step, header);
     setActualStep(0);
     setStep(1);
     setPage(1);
@@ -75,14 +75,14 @@ const ApplicantListBloc = (
 
   const handleStepUp = (header) => {
     let stepUp = step + 1;
-    getListApplicantByPage(programId, stepUp,header);
+    getListApplicantByPage(programId, stepUp, header);
     setStep((prevValue) => prevValue + 1);
     setActualStep((prevValue) => prevValue + 1);
   };
 
   const handleStepDown = (data) => {
     let stepDown = step - 1;
-    getListApplicantByPage(programId, stepDown,data);
+    getListApplicantByPage(programId, stepDown, data);
     setStep((prevValue) => prevValue - 1);
     setActualStep((prevValue) => prevValue - 1);
   };

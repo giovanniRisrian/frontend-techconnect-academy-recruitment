@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  FormControl,
   Grid,
   InputLabel,
   MenuItem,
@@ -137,31 +138,33 @@ const ProgramForm = ({ bloc }) => {
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
-                <InputLabel id="ProgramTypeName">Program Type</InputLabel>
-                <Select
-                  fullWidth
-                  sx={{ marginTop: 3 }}
-                  labelId="ProgramTypeName"
-                  color="secondary"
-                  id="ProgramTypeName"
-                  label="Program Type"
-                  variant="outlined"
-                  size="small"
-                  name="ProgramTypeName"
-                  value={formik.values.ProgramTypeName}
-                  error={
-                    formik.touched.ProgramTypeName &&
-                    Boolean(formik.errors.ProgramTypeName)
-                  }
-                  helperText={
-                    formik.touched.ProgramTypeName &&
-                    formik.errors.ProgramTypeName
-                  }
-                  onChange={formik.handleChange}
-                >
-                  <MenuItem value={"training"}>Training</MenuItem>
-                  <MenuItem value={"certification"}>Certification</MenuItem>
-                </Select>
+                <FormControl fullWidth>
+                  <InputLabel id="ProgramTypeName">Program Type</InputLabel>
+                  <Select
+                    fullWidth
+                    // sx={{ marginTop: 3 }}
+                    labelId="ProgramTypeName"
+                    id="ProgramTypeName"
+                    color="secondary"
+                    label="Program Type"
+                    variant="outlined"
+                    size="small"
+                    name="ProgramTypeName"
+                    value={formik.values.ProgramTypeName}
+                    error={
+                      formik.touched.ProgramTypeName &&
+                      Boolean(formik.errors.ProgramTypeName)
+                    }
+                    helperText={
+                      formik.touched.ProgramTypeName &&
+                      formik.errors.ProgramTypeName
+                    }
+                    onChange={formik.handleChange}
+                  >
+                    <MenuItem value={"training"}>Training</MenuItem>
+                    <MenuItem value={"certification"}>Certification</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
             </Grid>
 

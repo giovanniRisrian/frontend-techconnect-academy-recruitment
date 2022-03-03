@@ -12,7 +12,8 @@ import avatar from "../../../../asset/image/avatar.png";
 
 const DetailApplicantForm = ({ bloc }) => {
   const params = useParams();
-  const { getDataByID, handleAccept, handleReject } = bloc();
+  const { getDataByID, handleAccept, handleReject, getAllProgram, program } =
+    bloc();
   const [file, setFile] = useState(false);
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
@@ -165,6 +166,7 @@ const DetailApplicantForm = ({ bloc }) => {
 
   useEffect(() => {
     getDataByID(params.applicantid, data, changeInitial);
+    getAllProgram(data);
   }, []);
 
   return (
@@ -1256,28 +1258,32 @@ const DetailApplicantForm = ({ bloc }) => {
                     </div>
                   )}
                 </FieldArray>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <Button
-                    color="error"
-                    variant="contained"
-                    onClick={confirmationReject}
+                {program.ApplyProcess?.SelectionProcessId === 6 ? (
+                  <> </>
+                ) : (
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    alignItems="center"
+                    justifyContent="center"
                   >
-                    Reject
-                  </Button>
+                    <Button
+                      color="error"
+                      variant="contained"
+                      onClick={confirmationReject}
+                    >
+                      Reject
+                    </Button>
 
-                  <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={confirmationAccept}
-                  >
-                    Accept
-                  </Button>
-                </Box>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      onClick={confirmationAccept}
+                    >
+                      Accept
+                    </Button>
+                  </Box>
+                )}
               </Box>
             </Form>
           </Box>

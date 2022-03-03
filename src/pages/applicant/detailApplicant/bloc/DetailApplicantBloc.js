@@ -3,9 +3,10 @@ import swal from "sweetalert2";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
 
-const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
-  let { uploadDataApplicant, updateDataApplicant, getDataApplicantbyId, acceptApplicant, rejectApplicant } =viewDetailApplicantService();
+const DetailApplicantBloc = (viewDetailApplicantService, navigation, useDetailApplicant) => {
+  let { uploadDataApplicant, updateDataApplicant, getDetailAppliedProgram, getDataApplicantbyId, acceptApplicant, rejectApplicant } =viewDetailApplicantService();
   let { paramsNav, navigateTo } = navigation();
+  let {program, setProgram} = useDetailApplicant()
   let params = paramsNav();
   let applicant = {
     applicantid: params.applicantid,
@@ -57,7 +58,7 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
       throw e;
     }
   };
-
+  
 
   const getDataByID = async (id, context,changeInitial) => {
     try {
@@ -130,7 +131,20 @@ const DetailApplicantBloc = (viewDetailApplicantService, navigation) => {
       throw err;
     }
   };
-  return { getDataByID, handleAccept, handleReject};
+  const getAllProgram = async(context) => {
+    try{
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      const response = await getDetailAppliedProgram(params.programid,params.applicantid, config)
+      setProgram(response.data.data)
+      console.log("bloc",setProgram(response.data.data));
+      return response
+    }catch(err){
+      throw(err)
+    }
+  }
+  return { getDataByID, handleAccept, handleReject, getAllProgram, program};
 };
 
 export default DetailApplicantBloc;

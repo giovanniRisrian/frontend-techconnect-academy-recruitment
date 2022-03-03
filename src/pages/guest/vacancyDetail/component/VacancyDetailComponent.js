@@ -14,8 +14,14 @@ import swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 const VacancyDetail = ({ bloc }) => {
-  const { programDetail, navigate, getProgrambyId, doApplyProgram, params, getUserbyId } =
-    bloc();
+  const {
+    programDetail,
+    navigate,
+    getProgrambyId,
+    doApplyProgram,
+    params,
+    getUserbyId,
+  } = bloc();
   const data = useContext(RootContext);
   let userInfo;
   let id;
@@ -40,20 +46,18 @@ const VacancyDetail = ({ bloc }) => {
       .then((result) => {
         if (result.isConfirmed) {
           if (programDetail.ProgramTypeName === "certification") {
-            window.open(programDetail.LinkCertification)            
+            window.open(programDetail.LinkCertification);
           } else {
             doApplyProgram(dataApplicant, data);
-          }  
-
+          }
         }
       });
   };
-
+  console.log(programDetail);
   useEffect(() => {
     getProgrambyId();
-    
   }, []);
-  
+
   return (
     <>
       <MyComponent>
