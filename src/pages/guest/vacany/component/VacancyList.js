@@ -24,7 +24,6 @@ const VacancyList = ({ bloc }) => {
   const setPagination = (e, value) =>{
     getListJobInformation(value)
   }
-
   return (
     <>
       <MyComponent>
@@ -110,7 +109,7 @@ const VacancyList = ({ bloc }) => {
                         fontFamily="Montserrat"
                         fontWeight="600"
                       >
-                        {value.Headline}
+                        {value.ProgramName}
                       </Typography>
                     </CardContent>
                     <CardActions

@@ -107,11 +107,15 @@ const ApplicantListComp = ({ bloc }) => {
                 }}
               >
                 {programList.map((value) => {
-                  return (
-                    <MenuItem key={value.ID} value={value.ID}>
-                      {value.ProgramName}
-                    </MenuItem>
-                  );
+                  if (value.ProgramTypeName !== "certification") {
+                    return (
+                      <MenuItem key={value.ID} value={value.ID}>
+                        {value.ProgramName}
+                      </MenuItem>
+                    );
+                  } else {
+                    return "";
+                  }
                 })}
               </Select>
             </FormControl>

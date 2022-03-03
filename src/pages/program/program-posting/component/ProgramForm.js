@@ -1,4 +1,13 @@
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useFormik } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import * as Yup from "yup";
@@ -14,6 +23,7 @@ const ProgramForm = ({ bloc }) => {
   const formik = useFormik({
     initialValues: {
       ProgramTypeName: "",
+      LinkCertification: "",
       ProgramName: "",
       headline: "",
       description: "",
@@ -123,26 +133,66 @@ const ProgramForm = ({ bloc }) => {
               maxWidth: "100%",
               "& > :not(style)": { m: 1 },
             }}
-          ><Grid container>
-          <Grid item md={3} />
-          <Grid item md={6} sm={12} xs={12}>
-            <TextField
-              fullWidth
-              sx={{ marginTop: 3 }}
-              color="secondary"
-              id="ProgramTypeName"
-              label="Program Type"
-              variant="outlined"
-              size="small"
-              name="ProgramTypeName"
-              value={formik.values.ProgramTypeName}
-              error={formik.touched.ProgramTypeName && Boolean(formik.errors.ProgramTypeName)}
-              helperText={formik.touched.ProgramTypeName && formik.errors.ProgramTypeName}
-              onChange={formik.handleChange}
-            />
-          </Grid>
-        </Grid>
+          >
+            <Grid container>
+              <Grid item md={3} />
+              <Grid item md={6} sm={12} xs={12}>
+                <InputLabel id="ProgramTypeName">Program Type</InputLabel>
+                <Select
+                  fullWidth
+                  sx={{ marginTop: 3 }}
+                  labelId="ProgramTypeName"
+                  color="secondary"
+                  id="ProgramTypeName"
+                  label="Program Type"
+                  variant="outlined"
+                  size="small"
+                  name="ProgramTypeName"
+                  value={formik.values.ProgramTypeName}
+                  error={
+                    formik.touched.ProgramTypeName &&
+                    Boolean(formik.errors.ProgramTypeName)
+                  }
+                  helperText={
+                    formik.touched.ProgramTypeName &&
+                    formik.errors.ProgramTypeName
+                  }
+                  onChange={formik.handleChange}
+                >
+                  <MenuItem value={"training"}>Training</MenuItem>
+                  <MenuItem value={"certification"}>Certification</MenuItem>
+                </Select>
+              </Grid>
+            </Grid>
 
+            {formik.values.ProgramTypeName === "certification" ? (
+              <Grid container>
+                <Grid item md={3} />
+                <Grid item md={6} sm={12} xs={12}>
+                  <TextField
+                    fullWidth
+                    color="secondary"
+                    id="LinkCertification"
+                    label="Certificate Link"
+                    variant="outlined"
+                    size="small"
+                    name="LinkCertification"
+                    value={formik.values.LinkCertification}
+                    error={
+                      formik.touched.LinkCertification &&
+                      Boolean(formik.errors.LinkCertification)
+                    }
+                    helperText={
+                      formik.touched.LinkCertification &&
+                      formik.errors.LinkCertification
+                    }
+                    onChange={formik.handleChange}
+                  />
+                </Grid>
+              </Grid>
+            ) : (
+              <></>
+            )}
 
             <Grid container>
               <Grid item md={3} />
@@ -156,8 +206,13 @@ const ProgramForm = ({ bloc }) => {
                   size="small"
                   name="ProgramName"
                   value={formik.values.ProgramName}
-                  error={formik.touched.ProgramName && Boolean(formik.errors.ProgramName)}
-                  helperText={formik.touched.ProgramName && formik.errors.ProgramName}
+                  error={
+                    formik.touched.ProgramName &&
+                    Boolean(formik.errors.ProgramName)
+                  }
+                  helperText={
+                    formik.touched.ProgramName && formik.errors.ProgramName
+                  }
                   onChange={formik.handleChange}
                 />
               </Grid>
@@ -249,8 +304,14 @@ const ProgramForm = ({ bloc }) => {
                   size="small"
                   name="RequirementSkill"
                   value={formik.values.RequirementSkill}
-                  error={formik.touched.RequirementSkill && Boolean(formik.errors.RequirementSkill)}
-                  helperText={formik.touched.RequirementSkill && formik.errors.RequirementSkill}
+                  error={
+                    formik.touched.RequirementSkill &&
+                    Boolean(formik.errors.RequirementSkill)
+                  }
+                  helperText={
+                    formik.touched.RequirementSkill &&
+                    formik.errors.RequirementSkill
+                  }
                   onChange={formik.handleChange}
                 />
               </Grid>

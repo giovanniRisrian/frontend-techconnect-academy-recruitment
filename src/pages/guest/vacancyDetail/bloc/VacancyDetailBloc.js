@@ -70,6 +70,7 @@ const VacancyDetailBloc = (programService) => {
       const response = await getDetailInformationProgram(params.id);
       // console.log(response);
       setProgramDetail(response.data.data);
+      console.log(" Ini response",response.data.data);
       setLoading(false);
       return programDetail;
     } catch (err) {

@@ -11,6 +11,7 @@ import { useContext } from "react";
 import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
 import swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const VacancyDetail = ({ bloc }) => {
   const { programDetail, navigate, getProgrambyId, doApplyProgram, params, getUserbyId } =
@@ -38,7 +39,12 @@ const VacancyDetail = ({ bloc }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
+          if (programDetail.ProgramTypeName === "certification") {
+            window.open(programDetail.LinkCertification)            
+          } else {
             doApplyProgram(dataApplicant, data);
+          }  
+
         }
       });
   };
@@ -60,7 +66,7 @@ const VacancyDetail = ({ bloc }) => {
           {programDetail && (
             <Card
               sx={{
-                width: "auto",
+                width: "70%",
                 height: "auto",
                 borderRadius: "20px",
               }}
@@ -72,7 +78,7 @@ const VacancyDetail = ({ bloc }) => {
                   component="div"
                   fontFamily="Montserrat"
                 >
-                  {programDetail.Headline}
+                  {programDetail.ProgramName}
                 </Typography>
                 <Box display="flex" flexDirection="row">
                   <img
