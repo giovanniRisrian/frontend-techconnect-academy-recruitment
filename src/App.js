@@ -4,7 +4,7 @@ import { createContext, useReducer } from 'react';
 import reducer from './Context/ContextReducer';
 import Login from './pages/globalComponent/login/Login';
 import Register from './pages/globalComponent/register/Register';
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, HashRouter } from "react-router-dom";
 import AppRouters from './routes/AppRouters';
 
 export const RootContext = createContext();
@@ -18,12 +18,15 @@ function App() {
   };
   return (
     <RootContext.Provider value={{ userInfo: userInfo.token,name:userInfo.name, dispatch: handleAuth }}>
-    <Router basename="/allr8squad">
-    {/* <div className="App"> */}
-    <AppRouters/>
-      {/* <Register/> */}
-    {/* </div> */}
-    </Router>
+      <HashRouter basename={"/"}>
+        {/* <Router basename="/allr8squad"> */}
+          {/* <div className="App"> */}
+          <AppRouters/>
+            {/* <Register/> */}
+          {/* </div> */}
+      {/* </Router> */}
+      </HashRouter>
+
     </RootContext.Provider>
   );
 }
