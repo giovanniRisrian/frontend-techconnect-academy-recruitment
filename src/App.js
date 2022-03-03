@@ -18,7 +18,7 @@ function App() {
   };
   return (
     <RootContext.Provider value={{ userInfo: userInfo.token,name:userInfo.name, dispatch: handleAuth }}>
-    <Router>
+    <Router basename="/allr8squad">
     {/* <div className="App"> */}
     <AppRouters/>
       {/* <Register/> */}
