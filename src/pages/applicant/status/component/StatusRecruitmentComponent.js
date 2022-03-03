@@ -27,6 +27,7 @@ export default function StatusRecruitmen({ bloc }) {
   let id = userInfo.id;
 
 
+
   let active = 0;
 
   const handleActive = () => {
@@ -115,9 +116,14 @@ export default function StatusRecruitmen({ bloc }) {
         </Grid>
         <Grid item md={6} sm={8} xs={8} display="flex" justifyContent="flex-start">
           <Stepper activeStep={handleActive()} orientation="vertical">
-            {steps.map((label) => (
-              <Step key={label} sx={{ fontSize: "16px" }}>
-                <StepLabel>{label}</StepLabel>
+            {steps.map((label, index) =>  (
+              <Step key={label} sx={{ fontSize: "16px" }}> 
+                <StepLabel>{label} {
+                  statusProgram.ApplyProcess?.Accepted === "Rejected" ? 
+                  (index === active ? <div style={{color:"red"}}>Rejected</div> : <></>) : 
+                  (<> </>) 
+                }
+                </StepLabel> 
               </Step>
             ))}
           </Stepper>

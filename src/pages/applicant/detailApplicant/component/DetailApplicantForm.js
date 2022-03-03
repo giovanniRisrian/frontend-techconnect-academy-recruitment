@@ -1,5 +1,5 @@
 import { Box, Button, Grid, TextField, Typography, Input } from "@mui/material";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import { FieldArray, Form, Formik, getIn } from "formik";
 import * as Yup from "yup";
 import MyComponent from "../../../homepage/BackgroundImage";
@@ -11,24 +11,26 @@ import swal from "sweetalert2";
 import avatar from "../../../../asset/image/avatar.png";
 
 const DetailApplicantForm = ({ bloc }) => {
-  const params = useParams()
-  const { getDataByID, handleAccept, handleReject} = bloc();
+  const params = useParams();
+  const { getDataByID, handleAccept, handleReject, getAllProgram, program } =
+    bloc();
   const [file, setFile] = useState(false);
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
-  let [uploadPhoto,setUpload] = useState(false)
-  const [disabled,changeDisable] = useState(1)
-  const [initialValues,changeInitial] = useState({
-    ID:"",
-    UserAccountID:"",
-    Personal:{
+  let [uploadPhoto, setUpload] = useState(false);
+  const [disabled, changeDisable] = useState(1);
+  console.log("ini program", program);
+  const [initialValues, changeInitial] = useState({
+    ID: "",
+    UserAccountID: "",
+    Personal: {
       Name: "",
       Gender: "",
-      BirthDate:"",
+      BirthDate: "",
       Domicile: "",
       Email: "",
       TelephoneNo: "",
-      TotalWorkingExperience:"",
+      TotalWorkingExperience: "",
       SalaryExpectation: "",
     },
     Education: [
@@ -66,9 +68,9 @@ const DetailApplicantForm = ({ bloc }) => {
         Skill: "",
       },
     ],
-  })
+  });
   const validationSchema = Yup.object().shape({
-    Personal : Yup.object().shape({
+    Personal: Yup.object().shape({
       Name: Yup.string().required("This field is required"),
       Gender: Yup.string().required("This field is required"),
       BirthDate: Yup.date().required("This field is required"),
@@ -134,39 +136,39 @@ const DetailApplicantForm = ({ bloc }) => {
   };
   const confirmationAccept = () => {
     swal
-   .fire({
-     title: 'Do you want to accept this applicant?',
-     showCancelButton: true,
-     confirmButtonText: "Accept",
-     icon:"warning",
-     reverseButtons: true,
-   })
-   .then((result) => {
-     if (result.isConfirmed) {
-       handleAccept(data)
-     }
-   });
-  }
+      .fire({
+        title: "Do you want to accept this applicant?",
+        showCancelButton: true,
+        confirmButtonText: "Accept",
+        icon: "warning",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          handleAccept(data);
+        }
+      });
+  };
   const confirmationReject = () => {
     swal
-   .fire({
-     title: 'Do you want to reject this applicant?',
-     showCancelButton: true,
-     confirmButtonText: "Reject",
-     icon:"warning",
-     reverseButtons: true,
-   })
-   .then((result) => {
-     if (result.isConfirmed) {
-       handleReject(data)
-     }
-   });
-  }
-  
+      .fire({
+        title: "Do you want to reject this applicant?",
+        showCancelButton: true,
+        confirmButtonText: "Reject",
+        icon: "warning",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          handleReject(data);
+        }
+      });
+  };
 
-  useEffect(()=>{
-    getDataByID(params.applicantid,data,changeInitial)
-  },[])
+  useEffect(() => {
+    getDataByID(params.applicantid, data, changeInitial);
+    getAllProgram(data);
+  }, []);
 
   return (
     <MyComponent>
@@ -181,11 +183,10 @@ const DetailApplicantForm = ({ bloc }) => {
       </Typography>
       <br />
       <Formik
-      enableReinitialize={true}
+        enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-        }}
+        onSubmit={(values) => {}}
       >
         {({ values, touched, errors, handleChange }) => (
           <Box
@@ -193,49 +194,42 @@ const DetailApplicantForm = ({ bloc }) => {
               padding: "30px",
             }}
           >
+            {values.Personal.ResumeFile ? (
+              <div>
+                {values.Personal.ResumeFile.split(":")[0].split(".")[1] ===
+                "pdf" ? (
+                  <a
+                    download={values.Personal.Name}
+                    title="Download pdf document"
+                    href={`data:application/pdf;base64,${
+                      values.Personal.ResumeFile.split(":")[1]
+                    }`}
+                  >
+                    Download CV
+                  </a>
+                ) : (
+                  <a
+                    download={
+                      values.Personal.Name +
+                      "." +
+                      values.Personal.ResumeFile.split(":")[0].split(".")[1]
+                    }
+                    title="Download Image"
+                    href={`data:application/png;base64,${
+                      values.Personal.ResumeFile.split(":")[1]
+                    }`}
+                  >
+                    Download CV
+                  </a>
+                )}
+              </div>
+            ) : (
+              <div></div>
+            )}
 
-          {values.Personal.ResumeFile ? (
-                        <div>
-                          {values.Personal.ResumeFile.split(":")[0].split(".")[1] ===
-                          "pdf" ? (
-                          
-                            <a
-                              download={values.Personal.Name}
-                              title="Download pdf document"
-                              href={`data:application/pdf;base64,${
-                                values.Personal.ResumeFile.split(":")[1]
-                              }`}
-                            >
-                              Download CV
-                            </a>
-                          ) : (
-                         
-                            <a
-                              download={
-                                values.Personal.Name +
-                                "." +
-                                values.Personal.ResumeFile.split(":")[0].split(".")[1]
-                              }
-                              title="Download Image"
-                              href={`data:application/png;base64,${
-                                values.Personal.ResumeFile.split(":")[1]
-                              }`}
-                            >
-                              Download CV
-                            </a>
-                          
-                          )}
-                        </div>
-                      ) : (
-                        <div></div>
-                      )}
-          
-                      
             <Form>
-              <Box
-                autoComplete="off"
-              >
-                 {disabled ? (
+              <Box autoComplete="off">
+                {disabled ? (
                   <Box
                     display="flex"
                     justifyContent="center"
@@ -277,7 +271,7 @@ const DetailApplicantForm = ({ bloc }) => {
                     )}
                   </>
                 )}
-              
+
                 <Grid container>
                   <Grid container spacing={2}>
                     <Grid item md={6}>
@@ -295,12 +289,12 @@ const DetailApplicantForm = ({ bloc }) => {
                         value={values.Personal.Name}
                         required
                         error={Boolean(
-                          getIn(touched, 'Personal.Name') &&
-                            getIn(errors, 'Personal.Name')
+                          getIn(touched, "Personal.Name") &&
+                            getIn(errors, "Personal.Name")
                         )}
                         helperText={
-                          getIn(touched, 'Personal.Name') &&
-                          getIn(errors, 'Personal.Name')
+                          getIn(touched, "Personal.Name") &&
+                          getIn(errors, "Personal.Name")
                         }
                         onChange={handleChange}
                       />
@@ -316,12 +310,12 @@ const DetailApplicantForm = ({ bloc }) => {
                         value={values.Personal.Gender}
                         required
                         error={Boolean(
-                          getIn(touched, 'Personal.Gender') &&
-                            getIn(errors, 'Personal.Gender')
+                          getIn(touched, "Personal.Gender") &&
+                            getIn(errors, "Personal.Gender")
                         )}
                         helperText={
-                          getIn(touched, 'Personal.Gender') &&
-                          getIn(errors, 'Personal.Gender')
+                          getIn(touched, "Personal.Gender") &&
+                          getIn(errors, "Personal.Gender")
                         }
                         onChange={handleChange}
                         InputProps={{
@@ -337,15 +331,17 @@ const DetailApplicantForm = ({ bloc }) => {
                         variant="outlined"
                         label="Birth Date"
                         name="Personal.BirthDate"
-                        value={dayjs(values.Personal.BirthDate).format("YYYY-MM-DD")}
+                        value={dayjs(values.Personal.BirthDate).format(
+                          "YYYY-MM-DD"
+                        )}
                         required
                         error={Boolean(
-                          getIn(touched, 'Personal.BirthDate') &&
-                            getIn(errors, 'Personal.BirthDate')
+                          getIn(touched, "Personal.BirthDate") &&
+                            getIn(errors, "Personal.BirthDate")
                         )}
                         helperText={
-                          getIn(touched, 'Personal.BirthDate') &&
-                          getIn(errors, 'Personal.BirthDate')
+                          getIn(touched, "Personal.BirthDate") &&
+                          getIn(errors, "Personal.BirthDate")
                         }
                         onChange={handleChange}
                         type="date"
@@ -368,12 +364,12 @@ const DetailApplicantForm = ({ bloc }) => {
                         value={values.Personal.Domicile}
                         required
                         error={Boolean(
-                          getIn(touched, 'Personal.Domicile') &&
-                            getIn(errors, 'Personal.Domicile')
+                          getIn(touched, "Personal.Domicile") &&
+                            getIn(errors, "Personal.Domicile")
                         )}
                         helperText={
-                          getIn(touched, 'Personal.Domicile') &&
-                          getIn(errors, 'Personal.Domicile')
+                          getIn(touched, "Personal.Domicile") &&
+                          getIn(errors, "Personal.Domicile")
                         }
                         onChange={handleChange}
                         InputProps={{
@@ -393,12 +389,12 @@ const DetailApplicantForm = ({ bloc }) => {
                         value={values.Personal.Email}
                         required
                         error={Boolean(
-                          getIn(touched, 'Personal.Email') &&
-                            getIn(errors, 'Personal.Email')
+                          getIn(touched, "Personal.Email") &&
+                            getIn(errors, "Personal.Email")
                         )}
                         helperText={
-                          getIn(touched, 'Personal.Email') &&
-                          getIn(errors, 'Personal.Email')
+                          getIn(touched, "Personal.Email") &&
+                          getIn(errors, "Personal.Email")
                         }
                         onChange={handleChange}
                         InputProps={{
@@ -418,12 +414,12 @@ const DetailApplicantForm = ({ bloc }) => {
                         value={values.Personal.TelephoneNo}
                         required
                         error={Boolean(
-                          getIn(touched, 'Personal.TelephoneNo') &&
-                            getIn(errors, 'Personal.TelephoneNo')
+                          getIn(touched, "Personal.TelephoneNo") &&
+                            getIn(errors, "Personal.TelephoneNo")
                         )}
                         helperText={
-                          getIn(touched, 'Personal.TelephoneNo') &&
-                          getIn(errors, 'Personal.TelephoneNo')
+                          getIn(touched, "Personal.TelephoneNo") &&
+                          getIn(errors, "Personal.TelephoneNo")
                         }
                         onChange={handleChange}
                         InputProps={{
@@ -431,28 +427,28 @@ const DetailApplicantForm = ({ bloc }) => {
                         }}
                       />
                       <TextField
-                            margin="normal"
-                            color="secondary"
-                            id="TotalWorkingExperience"
-                            label="Experience in Year"
-                            variant="outlined"
-                            size="small"
-                            name="Personal.TotalWorkingExperience"
-                            value={values.Personal.TotalWorkingExperience}
-                            error={Boolean(
-                              getIn(touched, 'Personal.TotalWorkingExperience') &&
-                                getIn(errors, 'Personal.TotalWorkingExperience')
-                            )}
-                            helperText={
-                              getIn(touched, 'Personal.TotalWorkingExperience') &&
-                              getIn(errors, 'Personal.TotalWorkingExperience')
-                            }
-                            onChange={handleChange}
-                            InputProps={{
-                              readOnly: disabled,
-                            }}
-                            type="number"
-                          />
+                        margin="normal"
+                        color="secondary"
+                        id="TotalWorkingExperience"
+                        label="Experience in Year"
+                        variant="outlined"
+                        size="small"
+                        name="Personal.TotalWorkingExperience"
+                        value={values.Personal.TotalWorkingExperience}
+                        error={Boolean(
+                          getIn(touched, "Personal.TotalWorkingExperience") &&
+                            getIn(errors, "Personal.TotalWorkingExperience")
+                        )}
+                        helperText={
+                          getIn(touched, "Personal.TotalWorkingExperience") &&
+                          getIn(errors, "Personal.TotalWorkingExperience")
+                        }
+                        onChange={handleChange}
+                        InputProps={{
+                          readOnly: disabled,
+                        }}
+                        type="number"
+                      />
                       {/* <Grid container>
                         <Grid item md={6}>
                           
@@ -493,12 +489,12 @@ const DetailApplicantForm = ({ bloc }) => {
                         name="Personal.SalaryExpectation"
                         value={values.Personal.SalaryExpectation}
                         error={Boolean(
-                          getIn(touched, 'Personal.SalaryExpectation') &&
-                            getIn(errors, 'Personal.SalaryExpectation')
+                          getIn(touched, "Personal.SalaryExpectation") &&
+                            getIn(errors, "Personal.SalaryExpectation")
                         )}
                         helperText={
-                          getIn(touched, 'Personal.SalaryExpectation') &&
-                          getIn(errors, 'Personal.SalaryExpectation')
+                          getIn(touched, "Personal.SalaryExpectation") &&
+                          getIn(errors, "Personal.SalaryExpectation")
                         }
                         onChange={handleChange}
                         InputProps={{
@@ -525,62 +521,68 @@ const DetailApplicantForm = ({ bloc }) => {
 
                             return (
                               <div key={idx}>
-                               <Grid container spacing={5}>
-                                 <Grid item md={11}>
-                                <TextField
-                                  fullWidth
-                                  margin="normal"
-                                  color="secondary"
-                                  label="SkillSet Skill"
-                                  variant="outlined"
-                                  size="small"
-                                  name={name}
-                                  value={SkillSetName.Skill}
-                                  error={touchedName && Boolean(errorName)}
-                                  helperText={touchedName && errorName}
-                                  onChange={handleChange}
-                                  InputProps={{
-                                    readOnly: disabled,
-                                  }}
-                                />
+                                <Grid container spacing={5}>
+                                  <Grid item md={11}>
+                                    <TextField
+                                      fullWidth
+                                      margin="normal"
+                                      color="secondary"
+                                      label="SkillSet Skill"
+                                      variant="outlined"
+                                      size="small"
+                                      name={name}
+                                      value={SkillSetName.Skill}
+                                      error={touchedName && Boolean(errorName)}
+                                      helperText={touchedName && errorName}
+                                      onChange={handleChange}
+                                      InputProps={{
+                                        readOnly: disabled,
+                                      }}
+                                    />
+                                  </Grid>
+                                  <Grid item md={1}>
+                                    {idx === 0 ? (
+                                      <div />
+                                    ) : (
+                                      <Button
+                                        margin="normal"
+                                        type="button"
+                                        color="secondary"
+                                        variant="outlined"
+                                        sx={{
+                                          height: "30px",
+                                          marginTop: "20px",
+                                        }}
+                                        onClick={() => handleDelete()}
+                                        InputProps={{
+                                          readOnly: disabled,
+                                        }}
+                                      >
+                                        X
+                                      </Button>
+                                    )}
+                                  </Grid>
                                 </Grid>
-                                <Grid item md={1}>
-                                {idx === 0 ? (
-                                  <div />
-                                ) : (
-                                  <Button
-                                    margin="normal"
-                                    type="button"
-                                    color="secondary"
-                                    variant="outlined"
-                                    sx={{ height: "30px", marginTop: "20px" }}
-                                    onClick={() => handleDelete()}
-                                    InputProps={{
-                                      readOnly: disabled,
-                                    }}
-                                  >
-                                    X
-                                  </Button>
-                                )}
-                                </Grid>
-                              </Grid>
                               </div>
                             );
                           })}
-                          {disabled?<></>: <Button
-                            type="button"
-                            variant="outlined"
-                            color="secondary"
-                            disabled={values.SkillSet.length >= 10}
-                            onClick={() =>
-                              push({
-                                Name: "",
-                              })
-                            }
-                          >
-                            Add SkillSet
-                          </Button>}
-                         
+                          {disabled ? (
+                            <></>
+                          ) : (
+                            <Button
+                              type="button"
+                              variant="outlined"
+                              color="secondary"
+                              disabled={values.SkillSet.length >= 10}
+                              onClick={() =>
+                                push({
+                                  Name: "",
+                                })
+                              }
+                            >
+                              Add SkillSet
+                            </Button>
+                          )}
                         </div>
                       )}
                     </FieldArray>
@@ -778,25 +780,28 @@ const DetailApplicantForm = ({ bloc }) => {
                         );
                       })}
 
-                        {disabled?<></>: <Button
-                        type="button"
-                        variant="outlined"
-                        color="secondary"
-                        disabled={values.Education.length >= 3}
-                        onClick={() =>
-                          push({
-                            Title: "",
-                            Institution: "",
-                            Major: "",
-                            YearIn: "",
-                            YearOut: "",
-                            GPA: "",
-                          })
-                        }
-                      >
-                        Add
-                      </Button>}
-                      
+                      {disabled ? (
+                        <></>
+                      ) : (
+                        <Button
+                          type="button"
+                          variant="outlined"
+                          color="secondary"
+                          disabled={values.Education.length >= 3}
+                          onClick={() =>
+                            push({
+                              Title: "",
+                              Institution: "",
+                              Major: "",
+                              YearIn: "",
+                              YearOut: "",
+                              GPA: "",
+                            })
+                          }
+                        >
+                          Add
+                        </Button>
+                      )}
                     </div>
                   )}
                 </FieldArray>
@@ -854,7 +859,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     label="Organization"
                                     name={Organizations}
                                     value={org.Organization}
-                                  
                                     helperText={
                                       touchedOrganization && errorOrganization
                                         ? errorOrganization
@@ -877,7 +881,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
-                                    
                                     helperText={
                                       touchedScope && errorScope
                                         ? errorScope
@@ -896,7 +899,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     label="Duration"
                                     name={duration}
                                     value={org.Duration}
-                                  
                                     helperText={
                                       touchedDuration && errorDuration
                                         ? errorDuration
@@ -916,7 +918,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     label="Position"
                                     name={position}
                                     value={org.Position}
-                                    
                                     helperText={
                                       touchedPosition && errorPosition
                                         ? errorPosition
@@ -960,7 +961,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                 label="Description"
                                 name={description}
                                 value={org.Description}
-                              
                                 InputProps={{
                                   readOnly: disabled,
                                 }}
@@ -979,24 +979,27 @@ const DetailApplicantForm = ({ bloc }) => {
                         );
                       })}
 
-                    {disabled?<></>: 
-                      <Button
-                        type="button"
-                        variant="outlined"
-                        color="secondary"
-                        disabled={values.Organization.length >= 3}
-                        onClick={() =>
-                          push({
-                            Organization: "",
-                            Scope: "",
-                            Duration: "",
-                            Description: "",
-                            Position: "",
-                          })
-                        }
-                      >
-                        Add
-                      </Button>}
+                      {disabled ? (
+                        <></>
+                      ) : (
+                        <Button
+                          type="button"
+                          variant="outlined"
+                          color="secondary"
+                          disabled={values.Organization.length >= 3}
+                          onClick={() =>
+                            push({
+                              Organization: "",
+                              Scope: "",
+                              Duration: "",
+                              Description: "",
+                              Position: "",
+                            })
+                          }
+                        >
+                          Add
+                        </Button>
+                      )}
                     </div>
                   )}
                 </FieldArray>
@@ -1064,7 +1067,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     }}
                                     name={name}
                                     value={work.CompanyName}
-                                   
                                     helperText={
                                       touchedCompanyName && errorCompanyName
                                         ? errorCompanyName
@@ -1087,7 +1089,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     }}
                                     name={position}
                                     value={work.Position}
-                                  
                                     helperText={
                                       touchedPosition && errorPosition
                                         ? errorPosition
@@ -1110,7 +1111,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     }}
                                     name={Level}
                                     value={work.Level}
-                                  
                                     helperText={
                                       touchedLevel && errorLevel
                                         ? errorLevel
@@ -1132,7 +1132,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     }}
                                     name={Industry}
                                     value={work.Industry}
-                                  
                                     helperText={
                                       touchedIndustry && errorIndustry
                                         ? errorIndustry
@@ -1155,7 +1154,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
-                                 
                                     helperText={
                                       touchedYearIn && errorYearIn
                                         ? errorYearIn
@@ -1175,7 +1173,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     label="Year Out"
                                     name={yearOut}
                                     value={work.YearOut}
-                                    
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
@@ -1218,7 +1215,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                 label="Description"
                                 name={descriptionWork}
                                 value={work.Description}
-                               
                                 InputProps={{
                                   readOnly: disabled,
                                 }}
@@ -1237,45 +1233,58 @@ const DetailApplicantForm = ({ bloc }) => {
                         );
                       })}
 
-                    {disabled?<></>: 
-                      
-                      <Button
-                        type="button"
-                        variant="outlined"
-                        disabled={values.WorkExperience.length >= 3}
-                        color="secondary"
-                        onClick={() =>
-                          push({
-                            CompanyName: "",
-                            Position: "",
-                            Level: "",
-                            Industry: "",
-                            YearIn: "",
-                            YearOut: "",
-                            Description: "",
-                          })
-                        }
-                      >
-                        Add
-                      </Button>}
+                      {disabled ? (
+                        <></>
+                      ) : (
+                        <Button
+                          type="button"
+                          variant="outlined"
+                          disabled={values.WorkExperience.length >= 3}
+                          color="secondary"
+                          onClick={() =>
+                            push({
+                              CompanyName: "",
+                              Position: "",
+                              Level: "",
+                              Industry: "",
+                              YearIn: "",
+                              YearOut: "",
+                              Description: "",
+                            })
+                          }
+                        >
+                          Add
+                        </Button>
+                      )}
                     </div>
                   )}
                 </FieldArray>
-                <Box
-                  display="flex"
-                  flexDirection="row"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                <Button color="error" variant="contained" onClick={confirmationReject}>
-              Reject
-            </Button> 
+                {program.ApplyProcess?.SelectionProcessId === 6 ? (
+                  <> </>
+                ) : (
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    alignItems="center"
+                    justifyContent="center"
+                  >
+                    <Button
+                      color="error"
+                      variant="contained"
+                      onClick={confirmationReject}
+                    >
+                      Reject
+                    </Button>
 
-            <Button color="primary" variant="contained" onClick={confirmationAccept}>
-                    Accept
-                  </Button> 
-                 
-                </Box>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      onClick={confirmationAccept}
+                    >
+                      Accept
+                    </Button>
+                  </Box>
+                )}
               </Box>
             </Form>
           </Box>
