@@ -125,11 +125,7 @@ const AboutContent = () => {
           </Grid>
           {/* <Grid item md={1} /> */}
           <Grid item md={6}>
-            <img
-              src={vision}
-              style={{ width: "100%", height: "500px" }}
-              alt=""
-            />
+            <img src={vision} style={{ width: "100%" }} alt="" />
           </Grid>
           <Grid item md={1} />
         </Grid>
@@ -147,13 +143,9 @@ const AboutContent = () => {
         <Grid container>
           <Grid item md={1} />
           <Grid item md={6} sm={12} xs={12}>
-            <img
-              src={mission}
-              style={{ width: "100%", height: "500px" }}
-              alt=""
-            />
+            <img src={mission} style={{ width: "100%" }} alt="" />
           </Grid>
-          
+
           <Grid item md={4} sm={12} xs={12}>
             <Typography
               textAlign="right"
@@ -225,8 +217,16 @@ const AboutContent = () => {
       </Typography>
 
       {/* Start Cards Section Top */}
-      <Grid container paddingX="10px" marginTop="70px">
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+      <Grid container marginTop="70px">
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -260,7 +260,15 @@ const AboutContent = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -293,7 +301,15 @@ const AboutContent = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -326,7 +342,15 @@ const AboutContent = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -365,7 +389,15 @@ const AboutContent = () => {
       {/* Start Cards Section Bottom */}
 
       <Grid container paddingX="10px">
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -399,7 +431,15 @@ const AboutContent = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -432,7 +472,15 @@ const AboutContent = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",
@@ -465,7 +513,15 @@ const AboutContent = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}>
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
+        >
           <Card
             sx={{
               borderRadius: "15px",

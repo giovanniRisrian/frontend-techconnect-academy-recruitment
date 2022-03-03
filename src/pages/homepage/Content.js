@@ -15,8 +15,9 @@ const Content = () => {
   let navigate = useNavigate();
   return (
     <Box>
-      <Grid container >
-        <Grid item md={5} sm={12} xs={12} sx={{paddingTop:"50px"}}>
+      <Grid container>
+        <Grid item md={1} />
+        <Grid item md={4} sm={12} xs={12} sx={{ paddingTop: "50px" }}>
           <Typography
             textAlign="left"
             sx={{
@@ -50,24 +51,10 @@ const Content = () => {
             justifyContent="center"
             alignItems="center"
             marginTop="20px"
-          >
-            {/* <Button
-              variant="contained"
-              onClick={() => navigate("/register")}
-              sx={{ backgroundColor: "#521582", marginRight: "20px" }}
-            >
-              Sign Up
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() => navigate("/login")}
-              sx={{ color: "#521582", borderColor: "#521582" }}
-            >
-              Login
-            </Button> */}
-          </Box>
+          ></Box>
         </Grid>
-        <Grid item md={7} sm={12} xs={12}>
+        <Grid item md={1} />
+        <Grid item md={6} sm={12} xs={12}>
           <img
             src={image1}
             alt="image1"
@@ -75,6 +62,7 @@ const Content = () => {
           />
         </Grid>
       </Grid>
+
       <Grid container>
         <Grid item md={6} sm={12} xs={12}>
           <img
@@ -83,8 +71,8 @@ const Content = () => {
             style={{ width: "-webkit-fill-available" }}
           />
         </Grid>
-
-        <Grid item md={6} sm={12} xs={12}>
+        <Grid item md={1} />
+        <Grid item md={5} sm={12} xs={12}>
           <Typography
             letterSpacing="5px"
             textAlign="center"
@@ -114,7 +102,11 @@ const Content = () => {
             digital <br /> and technology education
           </Typography>
           <Box textAlign="right" marginRight="20px" marginTop="10px">
-            <Button variant="contained" color="secondary" onClick={()=> navigate("/about")}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => navigate("/about")}
+            >
               See Details
             </Button>
           </Box>
@@ -144,15 +136,15 @@ const Content = () => {
         Program We Offer at <br /> Techconnect Academy
       </Typography>
 
-      <Grid
-        container
-        paddingX="10px"
-        marginTop="30px"
-     
-      >
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}
-           display="flex"
-           justifyContent="center"
+      <Grid container paddingX="10px" marginTop="30px">
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
         >
           <Card
             sx={{
@@ -176,9 +168,14 @@ const Content = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }}
-         display="flex"
-         justifyContent="center"
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
         >
           <Card
             sx={{
@@ -186,7 +183,7 @@ const Content = () => {
               width: "250px",
               height: "250px",
               backgroundImage: `url(${program2})`,
-              opacity:"1.0"
+              opacity: "1.0",
             }}
           >
             <CardContent>
@@ -203,9 +200,14 @@ const Content = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }} 
-         display="flex"
-         justifyContent="center"
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
         >
           <Card
             sx={{
@@ -229,9 +231,14 @@ const Content = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={3} sm={12} xs={12} sx={{ marginBottom: "10px" }} 
-         display="flex"
-         justifyContent="center"
+        <Grid
+          item
+          md={3}
+          sm={12}
+          xs={12}
+          sx={{ marginBottom: "10px" }}
+          display="flex"
+          justifyContent="center"
         >
           <Card
             sx={{

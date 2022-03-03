@@ -24,7 +24,6 @@ const ListProgramApply = ({ bloc }) => {
   useEffect(() => {
     getListAppliedProgram(id, data);
   }, []);
-
   return (
     <>
       <MyComponent>
@@ -48,62 +47,65 @@ const ListProgramApply = ({ bloc }) => {
         >
           Program Applied
         </Typography>
-        <Grid
-          container
-          spacing={2}
-          padding="20px"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          marginTop="30px"
-        >
-          {list?.ProgramPosts &&
-            list.ProgramPosts.map((value, idx) => {
-              return (
-                <Fragment key={idx}>
-                  <Grid item md={3} />
-                  <Grid
-                    item
-                    md={6}
-                    sm={12}
-                    xs={12}
-                    // key={idx}
-                    justifyContent="center"
-                    display="flex"
-                    flexDirection="column"
-                  >
-                    <Card sx={{ width: "auto" }}>
-                      <CardContent>
-                        <Typography variant="h6" color="#343434" gutterBottom>
-                          {value.ProgramName}
-                        </Typography>
-                      </CardContent>
-                      <CardActions>
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          onClick={() =>
-                            navigate(`/applicant/status/${value.ID}`)
-                          }
-                        >
-                          Details
-                        </Button>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                  <Grid item md={3} />
-                </Fragment>
-              );
-            })}
-        </Grid>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+        {list?.ProgramPosts?.length === 0 ? (
+          <Box height="100vh"> </Box>
+        ) : (
+          <Box sx={{ mb: 50 }}>
+            <Grid
+              container
+              spacing={2}
+              padding="20px"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              marginTop="30px"
+            >
+              {list?.ProgramPosts &&
+                list.ProgramPosts.map((value, idx) => {
+                  return (
+                    <Fragment key={idx}>
+                      <Grid item md={3} />
+                      <Grid
+                        item
+                        md={6}
+                        sm={12}
+                        xs={12}
+                        // key={idx}
+                        justifyContent="center"
+                        display="flex"
+                        flexDirection="column"
+                      >
+                        <Card sx={{ width: "auto" }}>
+                          <CardContent>
+                            <Typography
+                              variant="h6"
+                              color="#343434"
+                              gutterBottom
+                            >
+                              {value.ProgramName}
+                            </Typography>
+                          </CardContent>
+                          <CardActions>
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              onClick={() =>
+                                navigate(`/applicant/status/${value.ID}`)
+                              }
+                            >
+                              Details
+                            </Button>
+                          </CardActions>
+                        </Card>
+                      </Grid>
+                      <Grid item md={3} />
+                    </Fragment>
+                  );
+                })}
+            </Grid>
+          </Box>
+        )}
+
         <Footer />
       </MyComponent>
     </>
