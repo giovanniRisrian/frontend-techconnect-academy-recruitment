@@ -161,6 +161,7 @@ const ProgramForm = ({ bloc }) => {
                     }
                     onChange={formik.handleChange}
                   >
+                    <MenuItem value={"program"}>Program</MenuItem>
                     <MenuItem value={"training"}>Training</MenuItem>
                     <MenuItem value={"certification"}>Certification</MenuItem>
                   </Select>
