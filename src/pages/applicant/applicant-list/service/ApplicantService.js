@@ -2,7 +2,7 @@ import { client } from "../../../../http-client/Client";
 
 const ApplicantService = () => {
   const getPrograms = async (data) => {
-    const response = await client.get(`/program/`, { params: data });
+    const response = await client.get(`/program`, { params: data });
     return response;
   };
 
@@ -13,7 +13,8 @@ const ApplicantService = () => {
 
   const getApplicantsByProgram = async (programId, process, header) => {
     const response = await client.get(
-      `/program_applicant/program/process?program_id=${programId}&process=${process}`, header
+      `/program_applicant/program/process?program_id=${programId}&process=${process}`,
+      header
     );
     return response;
   };
