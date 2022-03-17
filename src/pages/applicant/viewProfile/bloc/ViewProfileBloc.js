@@ -4,10 +4,10 @@ import dayjs from "dayjs";
 import Swal from "sweetalert2";
 
 const ViewProfileBloc = (viewViewProfileService) => {
-  let { uploadDataApplicant, updateDataApplicant, getDataApplicantbyId } =
+  let {updateDataApplicant, getDataApplicantbyId } =
     viewViewProfileService();
   let navigate = useNavigate()
-  const handleSubmit = async (values, file, context) => {
+  const addProfile = async (values, file, context) => {
     // // console.log("ini context", context);
     // // console.log("handleApplicant", values);
 
@@ -60,6 +60,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
       const response = await getDataApplicantbyId(formData, config);
       // // console.log("reposne",response.data.data)
       let dataReceive =response.data.data
+     
       let mock = {
         Personal:{
           Name: "zizki",
@@ -112,6 +113,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
       // console.log("mock:",mock)
       mock.Personal=dataReceive.Personal
       mock.Personal.BirthDate = dayjs(dataReceive.Personal.BirthDate).format("YYYY-MM-DD")
+      
       // console.log(mock.Personal.BirthDate)
       mock.Education = dataReceive.Education
       mock.SkillSet = dataReceive.SkillSet
@@ -126,7 +128,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
       throw err;
     }
   };
-  return { handleSubmit ,getDataByID};
+  return { addProfile ,getDataByID};
 };
 
 export default ViewProfileBloc;

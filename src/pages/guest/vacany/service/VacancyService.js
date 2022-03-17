@@ -5,6 +5,10 @@ const VacancyService = () =>{
         const response =  await client.get(`/program?page=${page}&limit=6&sort_by=created_at&order_by=desc`)
         return response;
     }
+    async function getSearchProgram(search){ 
+        const response =  await client.get(`/program?name=${search}&sort_by=created_at&order_by=desc`)
+        return response;
+    }
     async function getDetailInformationProgram(id){
         const response =  await client.get(`/program?id=${id}`)
         return response;
@@ -22,7 +26,8 @@ const VacancyService = () =>{
         getInformationProgram,
         getDetailInformationProgram,
         applyProgram,
-        getDataApplicantbyId
+        getDataApplicantbyId,
+        getSearchProgram,
     }
 }
 

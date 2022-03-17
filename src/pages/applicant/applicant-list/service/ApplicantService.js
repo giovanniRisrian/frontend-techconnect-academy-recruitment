@@ -5,7 +5,6 @@ const ApplicantService = () => {
     const response = await client.get(`/program/`, { params: data });
     return response;
   };
-
   const getProcess = async (data) => {
     const response = await client.get(`/process/`, { params: data });
     return response;

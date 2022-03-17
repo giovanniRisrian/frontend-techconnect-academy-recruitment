@@ -14,6 +14,7 @@ import {
   MenuItem,
   Pagination,
   Select,
+  SliderValueLabel,
   Stack,
   Step,
   StepLabel,
@@ -25,6 +26,7 @@ import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
 import Stepper from "react-stepper-horizontal/lib/Stepper";
 import { RootContext } from "../../../../App";
+import BasicPagination from "../../../globalComponent/pagination/Pagination";
 
 const MyComponent = styled("div")({
   backgroundImage: `url(${background})`,
@@ -48,13 +50,18 @@ const ApplicantListComp = ({ bloc }) => {
     handleProgram,
     getListProgram,
     actualStep,
+    handlePage,
   } = bloc();
 
   const data = React.useContext(RootContext);
 
   React.useEffect(() => {
-    getListProgram();
+    getListProgram(1);
   }, []);
+
+  const setPagination = (e, value) => {
+    handlePage(value);
+  };
 
   return (
     <MyComponent>
@@ -287,6 +294,7 @@ const ApplicantListComp = ({ bloc }) => {
                 </TableBody>
               </Table>
             </TableContainer>
+
             {/* <Stack spacing={2}>
               <Pagination
                 count={10}
@@ -301,6 +309,16 @@ const ApplicantListComp = ({ bloc }) => {
             </Stack> */}
           </Grid>
         </Grid>
+        {applicantList.length === 0 ? (
+          <Box display="flex" justifyContent="center" alignItems="center" marginTop="50px">
+          <BasicPagination onChange={setPagination} data={applicantList} />
+        </Box>
+        ) : (
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <BasicPagination onChange={setPagination} data={applicantList} />
+          </Box>
+        )}
+
         {/* End of Table */}
       </Box>
       <Footer />

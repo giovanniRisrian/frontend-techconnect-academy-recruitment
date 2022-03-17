@@ -63,10 +63,10 @@ const ApplicantListBloc = (
     setProgram(program.props.children);
   };
 
-  // const handlePage = (page) => {
-  //   getApplicantsByProgram(programId, Number(page));
-  //   setPage(Number(page));
-  // };
+  const handlePage = (page) => {
+    getApplicantsByProgram(programId, Number(page));
+    setPage(Number(page));
+  };
 
   const handleSeeDetail = (applicantId) => {
     // console.log("applicant id", applicantId);
@@ -123,7 +123,7 @@ const ApplicantListBloc = (
     setIsProgram,
     steps,
     getAge,
-    // handlePage,
+    handlePage,
     handleSeeDetail,
     handleProgram,
     handleStepUp,

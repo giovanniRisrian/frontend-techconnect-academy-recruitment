@@ -510,14 +510,6 @@ const DetailApplicantForm = ({ bloc }) => {
                             const name = `SkillSet[${idx}].Skill`;
                             const touchedName = getIn(touched, name);
                             const errorName = getIn(errors, name);
-                            const handleDelete = () => {
-                              if (
-                                window.confirm("Are you sure delete this data?")
-                              ) {
-                                remove(idx);
-                              }
-                            };
-
                             return (
                               <div key={idx}>
                                 <Grid container spacing={5}>
@@ -540,26 +532,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                     />
                                   </Grid>
                                   <Grid item md={1}>
-                                    {idx === 0 ? (
-                                      <div />
-                                    ) : (
-                                      <Button
-                                        margin="normal"
-                                        type="button"
-                                        color="secondary"
-                                        variant="outlined"
-                                        sx={{
-                                          height: "30px",
-                                          marginTop: "20px",
-                                        }}
-                                        onClick={() => handleDelete()}
-                                        InputProps={{
-                                          readOnly: disabled,
-                                        }}
-                                      >
-                                        X
-                                      </Button>
-                                    )}
                                   </Grid>
                                 </Grid>
                               </div>
@@ -621,15 +593,6 @@ const DetailApplicantForm = ({ bloc }) => {
                         const GPA = `Education[${idx}].GPA`;
                         const touchedGPA = getIn(touched, GPA);
                         const errorGPA = getIn(errors, GPA);
-
-                        const handleDelete = () => {
-                          if (
-                            window.confirm("Are you sure delete this data?")
-                          ) {
-                            remove(idx);
-                          }
-                        };
-
                         return (
                           <div key={idx}>
                             <Grid container spacing={2}>
@@ -759,20 +722,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                 />
                               </Grid>
                               <Grid item md={1}>
-                                {idx === 0 ? (
-                                  <div />
-                                ) : (
-                                  <Button
-                                    margin="normal"
-                                    type="button"
-                                    color="secondary"
-                                    variant="outlined"
-                                    sx={{ height: "30px", marginTop: "20px" }}
-                                    onClick={() => handleDelete()}
-                                  >
-                                    X
-                                  </Button>
-                                )}
                               </Grid>
                             </Grid>
                           </div>
@@ -837,13 +786,6 @@ const DetailApplicantForm = ({ bloc }) => {
                         const position = `Organization[${idx}].Position`;
                         const touchedPosition = getIn(touched, position);
                         const errorPosition = getIn(errors, position);
-                        const handleDelete = () => {
-                          if (
-                            window.confirm("Are you sure delete this data?")
-                          ) {
-                            remove(idx);
-                          }
-                        };
 
                         return (
                           <div key={idx}>
@@ -932,20 +874,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                   />
                                 </Grid>
                                 <Grid item md={1}>
-                                  {idx === 0 ? (
-                                    <div />
-                                  ) : (
-                                    <Button
-                                      margin="normal"
-                                      type="button"
-                                      color="secondary"
-                                      variant="outlined"
-                                      sx={{ height: "30px", marginTop: "20px" }}
-                                      onClick={() => handleDelete()}
-                                    >
-                                      x
-                                    </Button>
-                                  )}
                                 </Grid>
                               </Grid>
 
@@ -1043,13 +971,7 @@ const DetailApplicantForm = ({ bloc }) => {
                           descriptionWork
                         );
                         const errorDescription = getIn(errors, descriptionWork);
-                        const handleDelete = () => {
-                          if (
-                            window.confirm("Are you sure delete this data?")
-                          ) {
-                            remove(idx);
-                          }
-                        };
+                       
                         return (
                           <div key={idx}>
                             <Grid container>
@@ -1187,20 +1109,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   />
                                 </Grid>
                                 <Grid item md={1}>
-                                  {idx === 0 ? (
-                                    <div />
-                                  ) : (
-                                    <Button
-                                      margin="normal"
-                                      type="button"
-                                      color="secondary"
-                                      variant="outlined"
-                                      sx={{ height: "30px", marginTop: "20px" }}
-                                      onClick={() => handleDelete()}
-                                    >
-                                      x
-                                    </Button>
-                                  )}
+
                                 </Grid>
                               </Grid>
                               <TextField
