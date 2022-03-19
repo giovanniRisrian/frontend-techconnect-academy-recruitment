@@ -126,8 +126,6 @@ const ViewProfileForm = ({ bloc }) => {
     defaultValues: initialValues,
   });
 
-  console.log("error", errors);
-
   const {
     fields: SkillSetField,
     append: SkillSetAppend,
@@ -153,8 +151,9 @@ const ViewProfileForm = ({ bloc }) => {
   } = useFieldArray({ control, name: "WorkExperience" });
 
   const onSubmit = (values) => {
-    console.log(values);
     values.Personal.BirthDate = convert(values.Personal.BirthDate);
+    values.WorkExperience.YearIn = convert(values.WorkExperience.YearIn);
+    values.WorkExperience.YearOut = convert(values.WorkExperience.YearOut);
     addProfile(values, file, data);
     changeDisable(!disabled);
   };
@@ -282,7 +281,7 @@ const ViewProfileForm = ({ bloc }) => {
                     render={({ field }) => (
                       <TextField
                         {...field}
-                        label={"Name"}
+                        label={"Name*"}
                         fullWidth
                         size="small"
                         color="secondary"
@@ -321,7 +320,7 @@ const ViewProfileForm = ({ bloc }) => {
                           <Select
                             sx={{ marginTop: "15px" }}
                             {...field}
-                            label={"Gender"}
+                            label={"Gender*"}
                             fullWidth
                             size="small"
                             color="secondary"
@@ -359,7 +358,7 @@ const ViewProfileForm = ({ bloc }) => {
                         color="secondary"
                         margin="normal"
                         variant="outlined"
-                        label="Birth Date"
+                        label="Birth Date*"
                         value={dayjs(field.value?.BirthDate).format(
                           "YYYY-MM-DD"
                         )}
@@ -394,7 +393,7 @@ const ViewProfileForm = ({ bloc }) => {
                         color="secondary"
                         margin="normal"
                         variant="outlined"
-                        label="Domicile"
+                        label="Domicile*"
                         name="Personal.Domicile"
                         {...field}
                         InputProps={{
@@ -422,7 +421,7 @@ const ViewProfileForm = ({ bloc }) => {
                         color="secondary"
                         margin="normal"
                         variant="outlined"
-                        label="Email"
+                        label="Email*"
                         name="Personal.Email"
                         {...field}
                         InputProps={{
@@ -450,7 +449,7 @@ const ViewProfileForm = ({ bloc }) => {
                         color="secondary"
                         margin="normal"
                         variant="outlined"
-                        label="Phone"
+                        label="Phone*"
                         value={field.value.Personal?.TelephoneNo}
                         {...field}
                         InputProps={{
@@ -508,7 +507,7 @@ const ViewProfileForm = ({ bloc }) => {
                     )}
                   />
                 </Grid>
-                <Grid item md={1}/>
+                <Grid item md={1} />
               </Grid>
               <Grid item md={12}>
                 {SkillSetField.map((SkillSet, index) => {
@@ -527,7 +526,7 @@ const ViewProfileForm = ({ bloc }) => {
                                 fullWidth
                                 margin="normal"
                                 color="secondary"
-                                label="Skill"
+                                label="Skill*"
                                 variant="outlined"
                                 size="small"
                                 {...field}
@@ -552,7 +551,7 @@ const ViewProfileForm = ({ bloc }) => {
                           ) : (
                             <Box>
                               {disabled ? (
-                                <div/>
+                                <div />
                               ) : (
                                 <Button
                                   margin="normal"
@@ -626,7 +625,7 @@ const ViewProfileForm = ({ bloc }) => {
                               fullWidth
                               margin="normal"
                               color="secondary"
-                              label="Title"
+                              label="Title*"
                               variant="outlined"
                               size="small"
                               {...field}
@@ -651,7 +650,7 @@ const ViewProfileForm = ({ bloc }) => {
                               fullWidth
                               margin="normal"
                               color="secondary"
-                              label="Institution"
+                              label="Institution*"
                               variant="outlined"
                               size="small"
                               {...field}
@@ -679,7 +678,7 @@ const ViewProfileForm = ({ bloc }) => {
                               fullWidth
                               margin="normal"
                               color="secondary"
-                              label="Major"
+                              label="Major*"
                               variant="outlined"
                               size="small"
                               {...field}
@@ -706,7 +705,7 @@ const ViewProfileForm = ({ bloc }) => {
                               fullWidth
                               margin="normal"
                               color="secondary"
-                              label="Year In"
+                              label="Year In*"
                               variant="outlined"
                               size="small"
                               {...field}
@@ -732,7 +731,7 @@ const ViewProfileForm = ({ bloc }) => {
                               fullWidth
                               margin="normal"
                               color="secondary"
-                              label="Year Out"
+                              label="Year Out*"
                               variant="outlined"
                               size="small"
                               {...field}
@@ -758,7 +757,7 @@ const ViewProfileForm = ({ bloc }) => {
                               fullWidth
                               margin="normal"
                               color="secondary"
-                              label="GPA"
+                              label="GPA*"
                               variant="outlined"
                               size="small"
                               {...field}
@@ -782,27 +781,27 @@ const ViewProfileForm = ({ bloc }) => {
                           <div />
                         ) : (
                           <Box>
-                              {disabled ? (
-                                <div/>
-                              ) : (
-                                <Button
-                                  margin="normal"
-                                  type="button"
-                                  color="secondary"
-                                  variant="outlined"
-                                  sx={{
-                                    height: "30px",
-                                    marginTop: "20px",
-                                  }}
-                                  onClick={() => handleDelete()}
-                                  InputProps={{
-                                    readOnly: disabled,
-                                  }}
-                                >
-                                  X
-                                </Button>
-                              )}
-                            </Box>
+                            {disabled ? (
+                              <div />
+                            ) : (
+                              <Button
+                                margin="normal"
+                                type="button"
+                                color="secondary"
+                                variant="outlined"
+                                sx={{
+                                  height: "30px",
+                                  marginTop: "20px",
+                                }}
+                                onClick={() => handleDelete()}
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
+                              >
+                                X
+                              </Button>
+                            )}
+                          </Box>
                         )}
                       </Grid>
                     </Grid>
@@ -941,7 +940,7 @@ const ViewProfileForm = ({ bloc }) => {
                           ) : (
                             <Box>
                               {disabled ? (
-                                <div/>
+                                <div />
                               ) : (
                                 <Button
                                   margin="normal"
@@ -966,29 +965,28 @@ const ViewProfileForm = ({ bloc }) => {
                       </Grid>
                       <Grid container>
                         <Grid item md={11}>
-                        <Controller
-                        render={({ field }) => (
-                          <TextField
-                            fullWidth
-                            size="small"
-                            multiline
-                            minRows={3}
-                            color="secondary"
-                            margin="normal"
-                            variant="outlined"
-                            label="Description"
-                            InputProps={{
-                              readOnly: disabled,
-                            }}
-                            {...field}
+                          <Controller
+                            render={({ field }) => (
+                              <TextField
+                                fullWidth
+                                size="small"
+                                multiline
+                                minRows={3}
+                                color="secondary"
+                                margin="normal"
+                                variant="outlined"
+                                label="Description"
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
+                                {...field}
+                              />
+                            )}
+                            name={`Organization[${idx}].Description`}
+                            control={control}
                           />
-                        )}
-                        name={`Organization[${idx}].Description`}
-                        control={control}
-                      />
                         </Grid>
                       </Grid>
-                     
                     </Grid>
                   </div>
                 );
@@ -1118,7 +1116,10 @@ const ViewProfileForm = ({ bloc }) => {
                           />
 
                           <br />
+
                           <Controller
+                            name={`WorkExperience[${idx}].YearIn`}
+                            control={control}
                             render={({ field }) => (
                               <TextField
                                 fullWidth
@@ -1126,20 +1127,26 @@ const ViewProfileForm = ({ bloc }) => {
                                 color="secondary"
                                 margin="normal"
                                 variant="outlined"
-                                label="Year In"
+                                label="Start Date"
                                 InputProps={{
                                   readOnly: disabled,
                                 }}
+                                type="date"
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
+                                value={dayjs(
+                                  field.value?.WorkExperience?.[idx].YearIn
+                                ).format("YYYY-MM-DD")}
                                 {...field}
-                                type="number"
                               />
                             )}
-                            name={`WorkExperience[${idx}].YearIn`}
-                            control={control}
                           />
 
                           <br />
                           <Controller
+                            name={`WorkExperience[${idx}].YearOut`}
+                            control={control}
                             render={({ field }) => (
                               <TextField
                                 fullWidth
@@ -1147,16 +1154,21 @@ const ViewProfileForm = ({ bloc }) => {
                                 color="secondary"
                                 margin="normal"
                                 variant="outlined"
-                                label="Year Out"
+                                label="End Date"
                                 InputProps={{
                                   readOnly: disabled,
                                 }}
-                                type="number"
+                                type="date"
+                                InputLabelProps={{
+                                  shrink: true,
+                                }}
+                                value={dayjs(
+                                  field.value?.WorkExperience?.[idx].YearOut
+                                ).format("YYYY-MM-DD")}
                                 {...field}
                               />
                             )}
-                            name={`WorkExperience[${idx}].YearOut`}
-                            control={control}
+                          
                           />
                         </Grid>
                         <Grid item md={1}>
@@ -1164,55 +1176,54 @@ const ViewProfileForm = ({ bloc }) => {
                             <div />
                           ) : (
                             <Box>
-                            {disabled ? (
-                              <div/>
-                            ) : (
-                              <Button
-                                margin="normal"
-                                type="button"
-                                color="secondary"
-                                variant="outlined"
-                                sx={{
-                                  height: "30px",
-                                  marginTop: "20px",
-                                }}
-                                onClick={() => handleDelete()}
-                                InputProps={{
-                                  readOnly: disabled,
-                                }}
-                              >
-                                X
-                              </Button>
-                            )}
-                          </Box>
+                              {disabled ? (
+                                <div />
+                              ) : (
+                                <Button
+                                  margin="normal"
+                                  type="button"
+                                  color="secondary"
+                                  variant="outlined"
+                                  sx={{
+                                    height: "30px",
+                                    marginTop: "20px",
+                                  }}
+                                  onClick={() => handleDelete()}
+                                  InputProps={{
+                                    readOnly: disabled,
+                                  }}
+                                >
+                                  X
+                                </Button>
+                              )}
+                            </Box>
                           )}
                         </Grid>
                       </Grid>
                       <Grid container>
                         <Grid item md={11}>
-                        <Controller
-                        render={({ field }) => (
-                          <TextField
-                            fullWidth
-                            size="small"
-                            multiline
-                            minRows={3}
-                            color="secondary"
-                            margin="normal"
-                            variant="outlined"
-                            label="Description"
-                            InputProps={{
-                              readOnly: disabled,
-                            }}
-                            {...field}
+                          <Controller
+                            render={({ field }) => (
+                              <TextField
+                                fullWidth
+                                size="small"
+                                multiline
+                                minRows={3}
+                                color="secondary"
+                                margin="normal"
+                                variant="outlined"
+                                label="Description"
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
+                                {...field}
+                              />
+                            )}
+                            name={`WorkExperience[${idx}].Description`}
+                            control={control}
                           />
-                        )}
-                        name={`WorkExperience[${idx}].Description`}
-                        control={control}
-                      />
                         </Grid>
                       </Grid>
-                     
                     </Grid>
                   </div>
                 );

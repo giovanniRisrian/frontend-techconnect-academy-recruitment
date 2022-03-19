@@ -36,12 +36,12 @@ const ApplicantListBloc = (
     }
   };
 
-  const getListApplicantByPage = async (data1, data2, context) => {
+  const getListApplicantByPage = async (data1, data2, context, page) => {
     try {
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
-      const response = await getApplicantsByProgram(data1, data2, config);
+      const response = await getApplicantsByProgram(data1, data2, config, page);
       if (response.data.data.ApplicantInfo === null) {
         setApplicantList([]);
       } else {
@@ -63,8 +63,8 @@ const ApplicantListBloc = (
     setProgram(program.props.children);
   };
 
-  const handlePage = (page) => {
-    getApplicantsByProgram(programId, Number(page));
+  const handlePage = (header,page) => {
+    getApplicantsByProgram(programId, step, header, page);
     setPage(Number(page));
   };
 

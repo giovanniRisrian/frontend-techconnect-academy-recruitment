@@ -50,7 +50,6 @@ const ApplicantListComp = ({ bloc }) => {
     handleProgram,
     getListProgram,
     actualStep,
-    handlePage,
   } = bloc();
 
   const data = React.useContext(RootContext);
@@ -59,9 +58,10 @@ const ApplicantListComp = ({ bloc }) => {
     getListProgram(1);
   }, []);
 
-  const setPagination = (e, value) => {
-    handlePage(value);
-  };
+  // const setPagination = (e, value) => {
+  //   console.log("val",value);
+  //   handlePage(data,value);
+  // };
 
   return (
     <MyComponent>
@@ -309,7 +309,7 @@ const ApplicantListComp = ({ bloc }) => {
             </Stack> */}
           </Grid>
         </Grid>
-        {applicantList.length === 0 ? (
+        {/* {applicantList.length === 0 ? (
           <Box display="flex" justifyContent="center" alignItems="center" marginTop="50px">
           <BasicPagination onChange={setPagination} data={applicantList} />
         </Box>
@@ -317,7 +317,7 @@ const ApplicantListComp = ({ bloc }) => {
           <Box display="flex" justifyContent="center" alignItems="center">
             <BasicPagination onChange={setPagination} data={applicantList} />
           </Box>
-        )}
+        )} */}
 
         {/* End of Table */}
       </Box>

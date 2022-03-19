@@ -11,7 +11,8 @@ const BasicPagination = (props) =>{
     // console.log("data",props);
     return(
         <Stack spacing={2}>
-        <Pagination 
+        <Pagination
+         
         count={props.data.LastPage} 
         color="secondary"
         onChange={props.onChange}

@@ -34,6 +34,9 @@ const VacancyDetailBloc = (programService) => {
       if (data.Personal.Gender) {
         counter += 1;
       }
+      if(data.SkillSet[0].Skill){
+        counter += 1;
+      }
       if (data.Education[0].Title) {
         counter += 1;
       }
@@ -52,7 +55,7 @@ const VacancyDetailBloc = (programService) => {
       if (data.Education[0].GPA) {
         counter += 1;
       }
-      if (counter >= 12) {
+      if (counter >= 13) {
         return true;
       } else {
         return false;

@@ -11,10 +11,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Stack,
+  Pagination,
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import MyComponent from "../../../homepage/BackgroundImage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Footer from "../../../globalComponent/footer/Footer";
 import BasicPagination from "../../../globalComponent/pagination/Pagination";
 import { styled, alpha } from "@mui/material/styles";
@@ -29,15 +31,20 @@ const VacancyList = ({ bloc }) => {
     loading,
     getSearchByName,
     setSearchValue,
+    getProgramTypeName,
+    typeProgram,
+    types,
+    handleType,
+    handlePage,
+    pages,
+    setPage,
+    searchValue
   } = bloc();
-  console.log("created", list);
-  useEffect(() => {
-    getListJobInformation(1);
-  }, []);
 
-  const setPagination = (e, value) => {
-    getListJobInformation(value);
-  };
+  useEffect(() => {
+    getProgramTypeName();
+    getListJobInformation(1, '', '');
+  }, []);
 
   return (
     <>
@@ -77,28 +84,34 @@ const VacancyList = ({ bloc }) => {
           </Box>
         ) : (
           <>
-            <Box>
-              <FormControl fullWidth>
-                <InputLabel id="programlist">Filter</InputLabel>
-                {/* <Select
-                  labelId="programlist"
-                  id="programlist"
-                  value={programId}
+            <Box display="flex" justifyContent="space-between" marginY="10px">
+              <FormControl sx={{ width: "25%", marginLeft: "20px" }}>
+                <InputLabel id="typeProgram" color="secondary">
+                  Filter
+                </InputLabel>
+                <Select
+                  fullWidth
+                  variant="standard"
+                  color="secondary"
+                  id="typeProgram"
+                  value={types}
                   label="Program"
                   onChange={(e, value) => {
-                    handleProgram(e.target.value, value, data);
-                    // getListApplicantByPage();
+                    console.log("change", e.target.value);
+                    handleType(e.target.value)
                   }}
                 >
-                  {programList.map((value) => {
-                      return (
-                        <MenuItem key={value.ID} value={value.ID}>
-                          {value.ProgramName}
-                        </MenuItem>
-                      );
+                  {typeProgram?.map((value) => {
+                    // console.log(value);
+                    return (
+                      <MenuItem key={value.ID} value={value.ProgramName}>
+                        {value.ProgramName}
+                      </MenuItem>
+                    );
                   })}
-                </Select> */}
+                </Select>
               </FormControl>
+
               <Toolbar>
                 <Search>
                   <SearchIconWrapper>
@@ -188,7 +201,18 @@ const VacancyList = ({ bloc }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <BasicPagination onChange={setPagination} data={list} />
+             <Stack spacing={2}>
+              <Pagination
+                count={list.LastPage}
+                color="secondary"
+                size="large"
+                // page={pages}
+                onChange={(e, value) => {
+                  handlePage(value)
+                }}
+                sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
+              />
+            </Stack>
         </Box>
         <Footer />
       </MyComponent>
@@ -201,9 +225,10 @@ const Search = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.black, 0.1),
   },
   marginLeft: 0,
+  marginRight: "15px",
   width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),

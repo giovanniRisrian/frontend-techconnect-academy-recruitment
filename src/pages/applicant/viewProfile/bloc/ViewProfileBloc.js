@@ -118,6 +118,8 @@ const ViewProfileBloc = (viewViewProfileService) => {
       mock.Education = dataReceive.Education
       mock.SkillSet = dataReceive.SkillSet
       mock.WorkExperience = dataReceive.WorkExperience
+      mock.WorkExperience[0].YearIn = dayjs(dataReceive.WorkExperience[0].YearIn).format("YYYY-MM-DD")
+      mock.WorkExperience[0].YearOut = dayjs(dataReceive.WorkExperience[0].YearOut).format("YYYY-MM-DD")
       mock.Organization = dataReceive.Organization
       mock.ID = dataReceive.ID
       mock.UserAccountID = dataReceive.UserAccountID
