@@ -9,10 +9,11 @@ const UseApplicantList = () => {
   const [step, setStep] = useState(1);
   const [actualStep, setActualStep] = useState(0);
   const [isProgram, setIsProgram] = useState(false);
-  const [isAccepted, setIsAccepted] = useState(true);
+  const [isAccepted, setIsAccepted] = useState("true");
   const [searchValue, setSearchValue] = useState("");
   const [lastPage, setLastPage] = useState(1);
   const [searchBy, setSearchBy] = useState("");
+  const [error, setError] = useState("");
 
   return {
     applicantList,
@@ -39,6 +40,8 @@ const UseApplicantList = () => {
     setLastPage,
     searchBy,
     setSearchBy,
+    error,
+    setError,
   };
 };
 

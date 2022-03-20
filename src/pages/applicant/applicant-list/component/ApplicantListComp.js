@@ -19,6 +19,7 @@ import {
   InputBase,
   FormGroup,
   Stack,
+  FormHelperText,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
@@ -51,6 +52,7 @@ const ApplicantListComp = ({ bloc }) => {
     getListProgram,
     actualStep,
     handleAccept,
+    handleUnqualified,
     handleReject,
     isAccepted,
     handleSubmitSearch,
@@ -58,6 +60,8 @@ const ApplicantListComp = ({ bloc }) => {
     lastPage,
     searchBy,
     setSearchBy,
+    error,
+    setError,
   } = bloc();
 
   const data = React.useContext(RootContext);
@@ -141,7 +145,7 @@ const ApplicantListComp = ({ bloc }) => {
             <Grid container>
               <Grid item md={2} sm={1} xs={1} />
               <Grid item md={8} sm={10} xs={10}>
-                <Box sx={{ width: "100%", mt: 10 }}>
+                <Box sx={{ width: "100%", mt: 5, mb: 5 }}>
                   <Stepper
                     steps={steps}
                     activeStep={actualStep}
@@ -215,15 +219,28 @@ const ApplicantListComp = ({ bloc }) => {
           >
             <Button
               color="secondary"
-              variant={isAccepted ? "contained" : "outlined"}
+              variant={isAccepted === "true" ? "contained" : "outlined"}
               onClick={() => handleAccept(data)}
               sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
             >
-              All Applicant
+              On Progress Applicant
             </Button>
             <Button
               color="secondary"
-              variant={!isAccepted ? "contained" : "outlined"}
+              variant={isAccepted === "unqualified" ? "contained" : "outlined"}
+              onClick={() => handleUnqualified(data)}
+              sx={{
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+              }}
+            >
+              Unqualified Applicant
+            </Button>
+            <Button
+              color="secondary"
+              variant={isAccepted === "false" ? "contained" : "outlined"}
               onClick={() => handleReject(data)}
               sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
             >
@@ -255,24 +272,30 @@ const ApplicantListComp = ({ bloc }) => {
                 label="search"
                 onChange={(e) => {
                   setSearchBy(e.target.value);
+                  setError("");
                 }}
               >
                 <MenuItem key="name" value="Name">
                   Name
                 </MenuItem>
-                <MenuItem key="institution" value="Institution">
-                  Institution
+                <MenuItem key="age" value="Age">
+                  Age
+                </MenuItem>
+                <MenuItem key="institution" value="College">
+                  College
                 </MenuItem>
                 <MenuItem key="gpa" value="GPA">
                   GPA
-                </MenuItem>
-                <MenuItem key="age" value="Age">
-                  Age
                 </MenuItem>
                 <MenuItem key="work" value="Work Experience">
                   Work Experience
                 </MenuItem>
               </Select>
+              {error === "error" ? (
+                <FormHelperText sx={{ color: "red" }}>
+                  This is required!
+                </FormHelperText>
+              ) : null}
             </FormControl>
             <Toolbar>
               <Search>
@@ -283,7 +306,7 @@ const ApplicantListComp = ({ bloc }) => {
                   placeholder={`Search by ${searchBy}`}
                   inputProps={{ "aria-label": "search" }}
                   onChange={(e) => setInputSearchValue(e.target.value, data)}
-                  onKeyDown={(e) => handleSubmitSearch(e, data)}
+                  onKeyDown={(e) => handleSubmitSearch(e, data, page)}
                 />
               </Search>
             </Toolbar>
@@ -408,11 +431,13 @@ const Search = styled("div")(({ theme }) => ({
   position: "relative",
 
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: "#cb9bd1",
-  //  alpha(theme.palette.common.white, 0.15),
+  backgroundColor:
+    // "#cb9bd1",
+    alpha(theme.palette.common.white, 0.15),
   "&:hover": {
-    backgroundColor: "#cb9bd1",
-    // alpha(theme.palette.common.white, 0.25),
+    backgroundColor:
+      // "#cb9bd1",
+      alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
   width: "100%",
@@ -435,7 +460,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "black",
   "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: theme.spacing(2, 2, 2, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
