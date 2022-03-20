@@ -12,8 +12,15 @@ import avatar from "../../../../asset/image/avatar.png";
 
 const DetailApplicantForm = ({ bloc }) => {
   const params = useParams();
-  const { getDataByID, handleAccept, handleReject, getAllProgram, program } =
-    bloc();
+  const {
+    getDataByID,
+    handleAccept,
+    handleReject,
+    getAllProgram,
+    program,
+    applicantStatus,
+    getDataRejectedById,
+  } = bloc();
   const [file, setFile] = useState(false);
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
@@ -159,14 +166,32 @@ const DetailApplicantForm = ({ bloc }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          handleReject(data);
+          inputConfirmationReject();
         }
       });
+  };
+
+  const inputConfirmationReject = async () => {
+    const { value: rejectreason } = await swal.fire({
+      title: "Give the reason why is rejected",
+      input: "textarea",
+      reverseButtons: true,
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Submit",
+    });
+
+    if (rejectreason) {
+      handleReject(data, rejectreason);
+    }
   };
 
   useEffect(() => {
     getDataByID(params.applicantid, data, changeInitial);
     getAllProgram(data);
+    getDataRejectedById(data);
   }, []);
 
   return (
@@ -513,7 +538,7 @@ const DetailApplicantForm = ({ bloc }) => {
                             return (
                               <div key={idx}>
                                 <Grid container spacing={5}>
-                                  <Grid item md={11}>
+                                  <Grid item md={12}>
                                     <TextField
                                       fullWidth
                                       margin="normal"
@@ -530,8 +555,6 @@ const DetailApplicantForm = ({ bloc }) => {
                                         readOnly: disabled,
                                       }}
                                     />
-                                  </Grid>
-                                  <Grid item md={1}>
                                   </Grid>
                                 </Grid>
                               </div>
@@ -655,7 +678,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   onChange={handleChange}
                                 />
                               </Grid>
-                              <Grid item md={5}>
+                              <Grid item md={6}>
                                 <TextField
                                   size="small"
                                   color="secondary"
@@ -721,8 +744,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   }}
                                 />
                               </Grid>
-                              <Grid item md={1}>
-                              </Grid>
+                              <Grid item md={1}></Grid>
                             </Grid>
                           </div>
                         );
@@ -831,7 +853,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                     onChange={handleChange}
                                   />
                                 </Grid>
-                                <Grid item md={5}>
+                                <Grid item md={6}>
                                   <TextField
                                     size="small"
                                     color="secondary"
@@ -873,8 +895,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                     onChange={handleChange}
                                   />
                                 </Grid>
-                                <Grid item md={1}>
-                                </Grid>
+                                <Grid item md={1}></Grid>
                               </Grid>
 
                               <TextField
@@ -971,7 +992,6 @@ const DetailApplicantForm = ({ bloc }) => {
                           descriptionWork
                         );
                         const errorDescription = getIn(errors, descriptionWork);
-                       
                         return (
                           <div key={idx}>
                             <Grid container>
@@ -1108,9 +1128,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                     onChange={handleChange}
                                   />
                                 </Grid>
-                                <Grid item md={1}>
-
-                                </Grid>
+                                <Grid item md={1}></Grid>
                               </Grid>
                               <TextField
                                 size="small"
@@ -1136,6 +1154,34 @@ const DetailApplicantForm = ({ bloc }) => {
                                 )}
                                 onChange={handleChange}
                               />
+                              {applicantStatus !== "" ? (
+                                <TextField
+                                  size="small"
+                                  fullWidth
+                                  multiline
+                                  minRows={3}
+                                  color="secondary"
+                                  margin="normal"
+                                  variant="outlined"
+                                  label="Reject Reason"
+                                  // name={descriptionWork}
+                                  value={applicantStatus}
+                                  InputProps={{
+                                    readOnly: disabled,
+                                  }}
+                                  helperText={
+                                    touchedDescription && errorDescription
+                                      ? errorDescription
+                                      : ""
+                                  }
+                                  error={Boolean(
+                                    touchedDescription && errorDescription
+                                  )}
+                                  onChange={handleChange}
+                                />
+                              ) : (
+                                <></>
+                              )}
                             </Grid>
                           </div>
                         );
@@ -1167,7 +1213,8 @@ const DetailApplicantForm = ({ bloc }) => {
                     </div>
                   )}
                 </FieldArray>
-                {program.ApplyProcess?.SelectionProcessId === 6 ? (
+                {program.ApplyProcess?.SelectionProcessId === 6 ||
+                applicantStatus !== "" ? (
                   <> </>
                 ) : (
                   <Box
