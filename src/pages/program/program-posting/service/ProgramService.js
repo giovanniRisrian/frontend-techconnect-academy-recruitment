@@ -11,7 +11,12 @@ const ProgramService = () => {
   //   return response;
   // };
 
-  return { createProgram };
+  const getProgramTypes = async (data) => {
+    const response = await client.get("/program/programtype", { params: data });
+    return response;
+  };
+
+  return { createProgram, getProgramTypes };
 };
 
 export default ProgramService;

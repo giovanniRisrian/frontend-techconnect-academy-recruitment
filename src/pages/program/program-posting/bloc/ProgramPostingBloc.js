@@ -1,8 +1,8 @@
 import swal from "sweetalert2";
 
 const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
-  let { image, setImage } = useProgramForm();
-  let { createProgram } = programRepository();
+  let { image, setImage, programType, setProgramType } = useProgramForm();
+  let { createProgram, getProgramTypes } = programRepository();
   const { navigateTo } = navigation();
 
   // const getListSkill = async () => {
@@ -14,7 +14,17 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
   //   }
   // };
 
-  const handleSubmit = async (values, context) => {
+  const getListProgramType = async () => {
+    try {
+      const response = await getProgramTypes();
+      // console.log(response.data.data);
+      setProgramType(response.data.data);
+    } catch (e) {
+      setProgramType([]);
+    }
+  };
+
+  const createNewProgram = async (values, context) => {
     try {
       const config = {
         headers: {
@@ -27,28 +37,47 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
       // formData.append("data", values);
       const response = await createProgram(values, config);
       swal
-      .fire({
-        title: "Success!",
-        icon: "success",
-        text: "Program is created",
-        confirmButtonText: "OK",
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          navigateTo("/recruiter");
-        }
-      });
+        .fire({
+          title: "Success!",
+          icon: "success",
+          text: "Program is created",
+          confirmButtonText: "OK",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            navigateTo("/recruiter");
+          }
+        });
       return response;
     } catch (error) {
       throw error;
     }
   };
 
+  const getTodayDate = () => {
+    let dateObj = new Date();
+    let month = dateObj.getUTCMonth() + 1; //months from 1-12
+    let day = dateObj.getUTCDate();
+    let year = dateObj.getUTCFullYear();
+
+    return `${year}-${month <= 10 ? "0" + month : month}-${
+      day <= 10 ? "0" + day : day
+    }`;
+  };
+
   const handleCancel = async () => {
     navigateTo("..");
   };
 
-  return { handleSubmit, handleCancel, image, setImage };
+  return {
+    createNewProgram,
+    handleCancel,
+    image,
+    setImage,
+    getTodayDate,
+    getListProgramType,
+    programType,
+  };
 };
 
 export default ProgramFormBloc;
