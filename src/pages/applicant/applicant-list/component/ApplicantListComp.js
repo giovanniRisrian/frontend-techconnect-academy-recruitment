@@ -359,11 +359,7 @@ const ApplicantListComp = ({ bloc }) => {
                       <TableCell></TableCell>
                       <TableCell></TableCell>
                       <TableCell>
-                        <Box
-                          minHeight="10vh"
-                          alignItems="center"
-                          display="flex"
-                        >
+                        <Box minHeight="5vh" alignItems="center" display="flex">
                           <Typography textAlign="start">
                             No Data exists
                           </Typography>
