@@ -353,7 +353,24 @@ const ApplicantListComp = ({ bloc }) => {
                 </TableHead>
                 <TableBody>
                   {applicantList.length === 0 ? (
-                    <></>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                      <TableCell>
+                        <Box
+                          minHeight="10vh"
+                          alignItems="center"
+                          display="flex"
+                        >
+                          <Typography textAlign="start">
+                            No Data exists
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
                   ) : (
                     applicantList.map((row) => (
                       <TableRow
