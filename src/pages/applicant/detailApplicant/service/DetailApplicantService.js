@@ -16,18 +16,34 @@ const DetailApplicantService = () => {
   async function acceptApplicant(applicant, header) {
     const response = await client.put(
       "/program_applicant/next_selection",
-      applicant, header
+      applicant,
+      header
     );
     return response;
   }
   async function rejectApplicant(applicant, header) {
-    const response = await client.put("/program_applicant/rejected", applicant, header);
+    const response = await client.put(
+      "/program_applicant/rejected",
+      applicant,
+      header
+    );
     return response;
   }
-  async function getDetailAppliedProgram(idProgram, idApplicant, header){
-    const response =  await client.get(`/program_applicant/detailed?program_id=${idProgram}&applicant_id=${idApplicant}`, header)
+  async function getDetailAppliedProgram(idProgram, idApplicant, header) {
+    const response = await client.get(
+      `/program_applicant/detailed?program_id=${idProgram}&applicant_id=${idApplicant}`,
+      header
+    );
     return response;
-}
+  }
+
+  async function getDetailApplicantRejected(idProgram, idApplicant, header) {
+    const response = await client.get(
+      `/program_applicant/process_status?program_id=${idProgram}&applicant_id=${idApplicant}`,
+      header
+    );
+    return response;
+  }
 
   return {
     uploadDataApplicant,
@@ -35,7 +51,8 @@ const DetailApplicantService = () => {
     getDataApplicantbyId,
     acceptApplicant,
     rejectApplicant,
-    getDetailAppliedProgram
+    getDetailAppliedProgram,
+    getDetailApplicantRejected,
   };
 };
 export default DetailApplicantService;

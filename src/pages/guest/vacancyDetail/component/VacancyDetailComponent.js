@@ -12,6 +12,7 @@ import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
 import swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const VacancyDetail = ({ bloc }) => {
   const {
@@ -45,15 +46,23 @@ const VacancyDetail = ({ bloc }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          if (programDetail.ProgramTypeName === "certification") {
-            window.open(programDetail.LinkCertification);
+          if (programDetail.IsActive) {
+            if (programDetail.ProgramTypeName === "certification") {
+              window.open(programDetail.LinkCertification);
+            } else {
+              doApplyProgram(dataApplicant, data);
+            }
           } else {
-            doApplyProgram(dataApplicant, data);
+            Swal.fire({
+              icon: "error",
+              title: "Program is closed!",
+              text: "Please look for another available active program!",
+            });
           }
         }
       });
   };
-  console.log(programDetail);
+  console.log(programDetail.IsActive);
   useEffect(() => {
     getProgrambyId();
   }, []);

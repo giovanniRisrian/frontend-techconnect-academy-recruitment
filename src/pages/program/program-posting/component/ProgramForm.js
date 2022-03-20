@@ -9,51 +9,77 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useFormik } from "formik";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import * as Yup from "yup";
 import Autocomplete from "@mui/material/Autocomplete";
 import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
 import { RootContext } from "../../../../App";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const ProgramForm = ({ bloc }) => {
   const data = useContext(RootContext);
-  const { handleSubmit, getListSkill, image, setImage, handleCancel } = bloc();
+  const {
+    createNewProgram,
+    getListSkill,
+    image,
+    setImage,
+    handleCancel,
+    getTodayDate,
+    getListProgramType,
+    programType,
+  } = bloc();
 
-  const formik = useFormik({
-    initialValues: {
-      ProgramTypeName: "",
-      LinkCertification: "",
-      ProgramName: "",
-      headline: "",
-      description: "",
-      requirement: "",
-      RequirementSkill: "",
-      path_file: "",
-      openDate: "2022-03-01",
-      closeDate: "2022-03-01",
-      address: "",
-    },
-    validationSchema: Yup.object({
-      ProgramTypeName: Yup.string().required("This field is required"),
-      ProgramName: Yup.string().required("This field is required"),
-      headline: Yup.string().required("This field is required"),
-      description: Yup.string().required("This field is required"),
-      requirement: Yup.string().required("This field is required"),
-      RequirementSkill: Yup.string().required("This field is required"),
-      openDate: Yup.string().required("This field is required"),
-      closeDate: Yup.string().required("This field is required"),
-      address: Yup.string().required("This field is required"),
-    }),
-    onSubmit: (values) => {
-      // values.image = image;
-      handleSubmit(values, data);
-    },
+  let initialValues = {
+    ProgramTypeName: "",
+    LinkCertification: "",
+    ProgramName: "",
+    headline: "",
+    description: "",
+    requirement: "",
+    age: "",
+    gpa: "",
+    RequirementSkill: "",
+    path_file: "",
+    openDate: getTodayDate(),
+    closeDate: getTodayDate(),
+    address: "",
+  };
+
+  const validationSchema = Yup.object({
+    ProgramTypeName: Yup.string().required("This field is required"),
+    LinkCertification: Yup.string().url("This field must be a valid URL"),
+    ProgramName: Yup.string().required("This field is required"),
+    headline: Yup.string().required("This field is required"),
+    description: Yup.string().required("This field is required"),
+    requirement: Yup.string().required("This field is required"),
+    age: Yup.string().required("This field is required"),
+    gpa: Yup.string().required("This field is required"),
+    RequirementSkill: Yup.string().required("This field is required"),
+    openDate: Yup.string().required("This field is required"),
+    closeDate: Yup.string().required("This field is required"),
+    address: Yup.string().required("This field is required"),
+  });
+
+  const onSubmit = (values) => {
+    // values.image = image;
+    createNewProgram(values, data);
+  };
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: initialValues,
   });
 
   useEffect(() => {
     // getListRequirementSkill();
+    getListProgramType();
   }, []);
 
   return (
@@ -126,9 +152,10 @@ const ProgramForm = ({ bloc }) => {
         </Box> */}
 
         {/* End of Upload Image */}
+
         {/* Form */}
 
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Box
             sx={{
               maxWidth: "100%",
@@ -138,60 +165,71 @@ const ProgramForm = ({ bloc }) => {
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel id="ProgramTypeName">Program Type</InputLabel>
-                  <Select
-                    fullWidth
-                    // sx={{ marginTop: 3 }}
-                    labelId="ProgramTypeName"
-                    id="ProgramTypeName"
-                    color="secondary"
-                    label="Program Type"
-                    variant="outlined"
-                    size="small"
-                    name="ProgramTypeName"
-                    value={formik.values.ProgramTypeName}
-                    error={
-                      formik.touched.ProgramTypeName &&
-                      Boolean(formik.errors.ProgramTypeName)
-                    }
-                    helperText={
-                      formik.touched.ProgramTypeName &&
-                      formik.errors.ProgramTypeName
-                    }
-                    onChange={formik.handleChange}
-                  >
-                    <MenuItem value={"program"}>Program</MenuItem>
-                    <MenuItem value={"training"}>Training</MenuItem>
-                    <MenuItem value={"certification"}>Certification</MenuItem>
-                  </Select>
-                </FormControl>
+                <Controller
+                  name={"ProgramTypeName"}
+                  control={control}
+                  render={({ field }) => (
+                    <FormControl fullWidth>
+                      <InputLabel id="ProgramTypeName">Program Type</InputLabel>
+                      <Select
+                        fullWidth
+                        {...field}
+                        labelId="ProgramTypeName"
+                        id="ProgramTypeName"
+                        color="secondary"
+                        label="Program Type"
+                        variant="outlined"
+                        size="small"
+                        // name="ProgramTypeName"
+                        //
+                        error={Boolean(errors.ProgramTypeName)}
+                        helpertext={
+                          errors.ProgramTypeName
+                            ? errors.ProgramTypeName.message
+                            : ""
+                        }
+                      >
+                        {programType.map((programType) => (
+                          <MenuItem
+                            key={programType.ProgramName}
+                            value={programType.ProgramName.toLowerCase()}
+                          >
+                            {programType.ProgramName}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  )}
+                ></Controller>
               </Grid>
             </Grid>
 
-            {formik.values.ProgramTypeName === "certification" ? (
+            {watch("ProgramTypeName") === "certification" ? ( // ini masih pr
               <Grid container>
                 <Grid item md={3} />
                 <Grid item md={6} sm={12} xs={12}>
-                  <TextField
-                    fullWidth
-                    color="secondary"
-                    id="LinkCertification"
-                    label="Certificate Link"
-                    variant="outlined"
-                    size="small"
-                    name="LinkCertification"
-                    value={formik.values.LinkCertification}
-                    error={
-                      formik.touched.LinkCertification &&
-                      Boolean(formik.errors.LinkCertification)
-                    }
-                    helperText={
-                      formik.touched.LinkCertification &&
-                      formik.errors.LinkCertification
-                    }
-                    onChange={formik.handleChange}
-                  />
+                  <Controller
+                    name={"LinkCertification"}
+                    control={control}
+                    render={({ field }) => (
+                      <TextField
+                        fullWidth
+                        color="secondary"
+                        id="LinkCertification"
+                        label="Certificate Link"
+                        variant="outlined"
+                        size="small"
+                        name="LinkCertification"
+                        {...field}
+                        error={Boolean(errors.LinkCertification)}
+                        helperText={
+                          errors.LinkCertification
+                            ? errors.LinkCertification.message
+                            : ""
+                        }
+                      />
+                    )}
+                  ></Controller>
                 </Grid>
               </Grid>
             ) : (
@@ -201,97 +239,158 @@ const ProgramForm = ({ bloc }) => {
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
-                <TextField
-                  fullWidth
-                  color="secondary"
-                  id="ProgramName"
-                  label="Title"
-                  variant="outlined"
-                  size="small"
-                  name="ProgramName"
-                  value={formik.values.ProgramName}
-                  error={
-                    formik.touched.ProgramName &&
-                    Boolean(formik.errors.ProgramName)
-                  }
-                  helperText={
-                    formik.touched.ProgramName && formik.errors.ProgramName
-                  }
-                  onChange={formik.handleChange}
-                />
+                <Controller
+                  name={"ProgramName"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      fullWidth
+                      color="secondary"
+                      id="ProgramName"
+                      label="Title"
+                      variant="outlined"
+                      size="small"
+                      name="ProgramName"
+                      {...field}
+                      error={Boolean(errors.ProgramName)}
+                      helperText={
+                        errors.ProgramName ? errors.ProgramName.message : ""
+                      }
+                    />
+                  )}
+                ></Controller>
               </Grid>
             </Grid>
 
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
-                <TextField
-                  fullWidth
-                  color="secondary"
-                  id="headline"
-                  label="Headline"
-                  variant="outlined"
-                  size="small"
-                  name="headline"
-                  value={formik.values.headline}
-                  error={
-                    formik.touched.headline && Boolean(formik.errors.headline)
-                  }
-                  helperText={formik.touched.headline && formik.errors.headline}
-                  onChange={formik.handleChange}
-                />
+                <Controller
+                  name={"headline"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      fullWidth
+                      color="secondary"
+                      id="headline"
+                      label="Headline"
+                      variant="outlined"
+                      size="small"
+                      name="headline"
+                      {...field}
+                      error={Boolean(errors.headline)}
+                      helperText={
+                        errors.headline ? errors.headline.message : ""
+                      }
+                    />
+                  )}
+                ></Controller>
               </Grid>
             </Grid>
 
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
-                <TextField
-                  fullWidth
-                  multiline
-                  minRows={3}
-                  color="secondary"
-                  id="description"
-                  label="Description"
-                  variant="outlined"
-                  size="small"
-                  name="description"
-                  value={formik.values.description}
-                  error={
-                    formik.touched.description &&
-                    Boolean(formik.errors.description)
-                  }
-                  helperText={
-                    formik.touched.description && formik.errors.description
-                  }
-                  onChange={formik.handleChange}
-                />
+                <Controller
+                  name={"description"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      fullWidth
+                      multiline
+                      minRows={3}
+                      color="secondary"
+                      id="description"
+                      label="Description"
+                      variant="outlined"
+                      size="small"
+                      name="description"
+                      {...field}
+                      error={Boolean(errors.description)}
+                      helperText={
+                        errors.description ? errors.description.message : ""
+                      }
+                    />
+                  )}
+                ></Controller>
               </Grid>
             </Grid>
 
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
-                <TextField
-                  fullWidth
-                  multiline
-                  minRows={3}
-                  color="secondary"
-                  id="requirement"
-                  label="Requirement"
-                  variant="outlined"
-                  size="small"
-                  name="requirement"
-                  value={formik.values.requirement}
-                  error={
-                    formik.touched.requirement &&
-                    Boolean(formik.errors.requirement)
-                  }
-                  helperText={
-                    formik.touched.requirement && formik.errors.requirement
-                  }
-                  onChange={formik.handleChange}
-                />
+                <Controller
+                  name={"requirement"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      fullWidth
+                      multiline
+                      minRows={3}
+                      color="secondary"
+                      id="requirement"
+                      label="Requirement"
+                      variant="outlined"
+                      size="small"
+                      name="requirement"
+                      {...field}
+                      error={Boolean(errors.requirement)}
+                      helperText={
+                        errors.requirement ? errors.requirement.message : ""
+                      }
+                    />
+                  )}
+                ></Controller>
+              </Grid>
+            </Grid>
+
+            <Grid container>
+              <Grid item md={3} />
+              <Grid item md={6} sm={12} xs={12}>
+                <Controller
+                  name={"age"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      fullWidth
+                      type="number"
+                      color="secondary"
+                      id="age"
+                      label="Age"
+                      variant="outlined"
+                      size="small"
+                      name="age"
+                      {...field}
+                      error={Boolean(errors.age)}
+                      helperText={errors.age ? errors.age.message : ""}
+                    />
+                  )}
+                ></Controller>
+              </Grid>
+            </Grid>
+
+            <Grid container>
+              <Grid item md={3} />
+              <Grid item md={6} sm={12} xs={12}>
+                <Controller
+                  name={"gpa"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      fullWidth
+                      type="number"
+                      color="secondary"
+                      id="gpa"
+                      label="GPA"
+                      variant="outlined"
+                      size="small"
+                      name="gpa"
+                      {...field}
+                      error={Boolean(errors.gpa)}
+                      helperText={errors.gpa ? errors.gpa.message : ""}
+                    />
+                  )}
+                ></Controller>
               </Grid>
             </Grid>
 
@@ -299,25 +398,28 @@ const ProgramForm = ({ bloc }) => {
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
-                <TextField
-                  fullWidth
-                  color="secondary"
-                  id="RequirementSkill"
-                  label="Skill"
-                  variant="outlined"
-                  size="small"
-                  name="RequirementSkill"
-                  value={formik.values.RequirementSkill}
-                  error={
-                    formik.touched.RequirementSkill &&
-                    Boolean(formik.errors.RequirementSkill)
-                  }
-                  helperText={
-                    formik.touched.RequirementSkill &&
-                    formik.errors.RequirementSkill
-                  }
-                  onChange={formik.handleChange}
-                />
+                <Controller
+                  name={"RequirementSkill"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      fullWidth
+                      color="secondary"
+                      id="RequirementSkill"
+                      label="Skill"
+                      variant="outlined"
+                      size="small"
+                      name="RequirementSkill"
+                      {...field}
+                      error={Boolean(errors.RequirementSkill)}
+                      helperText={
+                        errors.RequirementSkill
+                          ? errors.RequirementSkill.message
+                          : ""
+                      }
+                    />
+                  )}
+                ></Controller>
               </Grid>
             </Grid>
 
@@ -325,65 +427,76 @@ const ProgramForm = ({ bloc }) => {
             <Grid container>
               <Grid item md={4} />
               <Grid item md={2} sm={6} xs={6}>
-                <TextField
-                  color="secondary"
-                  id="openDate"
-                  label="Open Date"
-                  variant="outlined"
-                  size="small"
-                  name="openDate"
-                  type="date"
-                  value={formik.values.openDate}
-                  error={
-                    formik.touched.openDate && Boolean(formik.errors.openDate)
-                  }
-                  helperText={formik.touched.openDate && formik.errors.openDate}
-                  onChange={formik.handleChange}
-                />
+                <Controller
+                  name={"openDate"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      color="secondary"
+                      id="openDate"
+                      label="Open Date"
+                      variant="outlined"
+                      size="small"
+                      name="openDate"
+                      type="date"
+                      {...field}
+                      error={Boolean(errors.openDate)}
+                      helperText={
+                        errors.openDate ? errors.openDate.message : ""
+                      }
+                    />
+                  )}
+                ></Controller>
               </Grid>
 
               <Grid item md={3} sm={6} xs={6}>
-                <TextField
-                  color="secondary"
-                  id="closeDate"
-                  label="Close Date"
-                  variant="outlined"
-                  size="small"
-                  name="closeDate"
-                  type="date"
-                  value={formik.values.closeDate}
-                  error={
-                    formik.touched.closeDate && Boolean(formik.errors.closeDate)
-                  }
-                  helperText={
-                    formik.touched.closeDate && formik.errors.closeDate
-                  }
-                  onChange={formik.handleChange}
-                />
+                <Controller
+                  name={"closeDate"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      color="secondary"
+                      id="closeDate"
+                      label="Close Date"
+                      variant="outlined"
+                      size="small"
+                      name="closeDate"
+                      type="date"
+                      {...field}
+                      error={Boolean(errors.closeDate)}
+                      helperText={
+                        errors.closeDate ? errors.closeDate.message : ""
+                      }
+                    />
+                  )}
+                ></Controller>
               </Grid>
             </Grid>
 
             <Grid container>
               <Grid item md={3} />
               <Grid item md={6} sm={12} xs={12}>
-                <TextField
-                  fullWidth
-                  multiline
-                  minRows={4}
-                  sx={{ marginBottom: 3 }}
-                  color="secondary"
-                  id="address"
-                  label="Address"
-                  variant="outlined"
-                  size="small"
-                  name="address"
-                  value={formik.values.address}
-                  error={
-                    formik.touched.address && Boolean(formik.errors.address)
-                  }
-                  helperText={formik.touched.address && formik.errors.address}
-                  onChange={formik.handleChange}
-                />
+                <Controller
+                  name={"address"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      fullWidth
+                      multiline
+                      minRows={4}
+                      sx={{ marginBottom: 3 }}
+                      color="secondary"
+                      id="address"
+                      label="Address"
+                      variant="outlined"
+                      size="small"
+                      name="address"
+                      {...field}
+                      error={Boolean(errors.address)}
+                      helperText={errors.address ? errors.address.message : ""}
+                    />
+                  )}
+                ></Controller>
               </Grid>
             </Grid>
             <Box textAlign="center">
