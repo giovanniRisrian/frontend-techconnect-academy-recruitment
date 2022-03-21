@@ -198,7 +198,10 @@ const ApplicantListBloc = (
               setError("error");
               setApplicantList([]);
               return;
+            default:
+              break;
           }
+
         } else if (isAccepted === "unqualified") {
           switch (searchBy) {
             case "Name":
@@ -250,6 +253,8 @@ const ApplicantListBloc = (
               setError("error");
               setApplicantList([]);
               return;
+            default:
+              break;
           }
         }
 

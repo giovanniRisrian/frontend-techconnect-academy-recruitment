@@ -82,6 +82,7 @@ const VacancyDetail = ({ bloc }) => {
                 width: "70%",
                 height: "auto",
                 borderRadius: "20px",
+                backgroundColor:'#EEF8F9'
               }}
             >
               <CardContent>
@@ -177,7 +178,8 @@ const VacancyDetail = ({ bloc }) => {
                 {data.userInfo ? (
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: "#521582", marginRight: "15px" }}
+                    color="secondary"
+                    sx={{marginRight: "15px" }}
                     onClick={() => confirmationApply()}
                   >
                     Apply
@@ -185,7 +187,8 @@ const VacancyDetail = ({ bloc }) => {
                 ) : (
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: "#521582", marginRight: "15px" }}
+                    color="secondary"
+                    sx={{marginRight: "15px" }}
                     onClick={() => navigate("/login")}
                   >
                     Apply

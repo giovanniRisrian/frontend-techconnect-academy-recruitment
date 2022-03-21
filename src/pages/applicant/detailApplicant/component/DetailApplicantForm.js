@@ -535,7 +535,6 @@ const DetailApplicantForm = ({ bloc }) => {
                             const name = `SkillSet[${idx}].Skill`;
                             const touchedName = getIn(touched, name);
                             const errorName = getIn(errors, name);
-
                             return (
                               <div key={idx}>
                                 <Grid container spacing={5}>
@@ -617,7 +616,6 @@ const DetailApplicantForm = ({ bloc }) => {
                         const GPA = `Education[${idx}].GPA`;
                         const touchedGPA = getIn(touched, GPA);
                         const errorGPA = getIn(errors, GPA);
-
                         return (
                           <div key={idx}>
                             <Grid container spacing={2}>
@@ -746,6 +744,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   }}
                                 />
                               </Grid>
+                              <Grid item md={1}></Grid>
                             </Grid>
                           </div>
                         );
@@ -896,6 +895,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                     onChange={handleChange}
                                   />
                                 </Grid>
+                                <Grid item md={1}></Grid>
                               </Grid>
 
                               <TextField
@@ -992,7 +992,6 @@ const DetailApplicantForm = ({ bloc }) => {
                           descriptionWork
                         );
                         const errorDescription = getIn(errors, descriptionWork);
-
                         return (
                           <div key={idx}>
                             <Grid container>
@@ -1129,6 +1128,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                     onChange={handleChange}
                                   />
                                 </Grid>
+                                <Grid item md={1}></Grid>
                               </Grid>
                               <TextField
                                 size="small"

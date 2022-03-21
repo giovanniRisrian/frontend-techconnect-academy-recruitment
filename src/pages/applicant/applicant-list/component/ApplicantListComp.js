@@ -14,11 +14,15 @@ import {
   MenuItem,
   Pagination,
   Select,
+  SliderValueLabel,
+  Stack,
+  Step,
+  StepLabel,
+  // Stepper,
   Toolbar,
   Typography,
   InputBase,
   FormGroup,
-  Stack,
   FormHelperText,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -27,6 +31,7 @@ import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
 import Stepper from "react-stepper-horizontal/lib/Stepper";
 import { RootContext } from "../../../../App";
+import BasicPagination from "../../../globalComponent/pagination/Pagination";
 
 const MyComponent = styled("div")({
   backgroundImage: `url(${background})`,
@@ -67,8 +72,13 @@ const ApplicantListComp = ({ bloc }) => {
   const data = React.useContext(RootContext);
 
   React.useEffect(() => {
-    getListProgram();
+    getListProgram(1);
   }, []);
+
+  // const setPagination = (e, value) => {
+  //   console.log("val",value);
+  //   handlePage(data,value);
+  // };
 
   return (
     <MyComponent>
@@ -433,7 +443,6 @@ const ApplicantListComp = ({ bloc }) => {
             </Stack>
           </Grid>
         </Grid>
-        {/* End of Table */}
       </Box>
       <Footer />
     </MyComponent>
