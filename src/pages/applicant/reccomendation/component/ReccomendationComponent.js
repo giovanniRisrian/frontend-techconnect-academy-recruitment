@@ -4,6 +4,6 @@ const ReccomendationComponent = ({ bloc }) => {
     useEffect(() => {
         doReccomendation()
       });
-    return (<div>Hello </div>)
+    return (<div>No Job Reccomendation </div>)
 }
 export default ReccomendationComponent

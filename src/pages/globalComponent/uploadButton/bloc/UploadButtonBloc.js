@@ -50,50 +50,6 @@ const UploadButtonBloc = (UploadService) => {
       var jsonData = new FormData();
       let resp3 = await getDataApplicantbyId(null, config);
       let dataReceive = resp3.data.data;
-      // // console.log("INi data",mocks)
-      // let mock = {
-      //   Personal: {
-      //     Name: userInfo.FullName,
-      //     Gender: "",
-      //     BirthDate: new Date(),
-      //     Domicile: "",
-      //     Email: userInfo.Email,
-      //     TelephoneNo: summary.phone_number[0],
-      //     TotalWorkingExperience: "",
-      //     SalaryExpectation: "",
-      //   },
-      //   Education: [
-      //     {
-      //       Title: "",
-      //       Institution:summary.academic[0],
-      //       Major: "",
-      //       YearIn: "",
-      //       YearOut: "",
-      //       GPA: summary.gpa[0],
-      //     },
-      //   ],
-      //   Organization: [
-      //     {
-      //       Organization: "",
-      //       Scope: "",
-      //       Duration: "",
-      //       Description: "",
-      //       Position: "",
-      //     },
-      //   ],
-      //   WorkExperience: [
-      //     {
-      //       CompanyName: "",
-      //       Position: "",
-      //       Level: "",
-      //       Industry: "",
-      //       YearIn: "",
-      //       YearOut: "",
-      //       Description: "",
-      //     },
-      //   ],
-      //   SkillSet: SkillSet,
-      // };
       let mock = {
         Personal: {
           Name: "",
@@ -238,7 +194,6 @@ const UploadButtonBloc = (UploadService) => {
           (experience[experience.length - 1].period.endDate?.year ||
             experience[experience.length - 1].period.startDate)).toString();
       }
-      // console.log("Ini MOCK",mock)
       const jsonText = JSON.stringify(mock);
       const jsonPretendFile = new Blob([jsonText], {
         type: "application/json",

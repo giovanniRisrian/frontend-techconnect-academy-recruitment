@@ -10,6 +10,8 @@
     "@mui/lab": "^5.0.0-alpha.70",
     "@mui/material": "^5.4.2",
     "@mui/styled-engine-sc": "^5.4.2",
+    "@react-native-async-storage/async-storage": "^1.17.0",
+    "@react-native-google-signin/google-signin": "^7.2.1",
     "@react-pdf/renderer": "^2.1.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
