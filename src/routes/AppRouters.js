@@ -27,6 +27,7 @@ import ViewProfile from "../pages/applicant/viewProfile/ViewProfile";
 import ListProgramApplied from "../pages/applicant/status/ListProgramApplied";
 import StatusDetail from "../pages/applicant/status/StatusDetail";
 import RecruiterHome from "../pages/recruiter/home/RecruiterHome";
+import Reccomendation from "../pages/applicant/reccomendation/Reccomendation";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -79,7 +80,7 @@ const AppRouters = () => {
           />
         </Route>
         <Route path="/applicant" element={<MiddlewareAuth />}>
-        <Route
+          <Route
             path="profile"
             element={
               <>
@@ -97,6 +98,14 @@ const AppRouters = () => {
             }
           ></Route>
           <Route
+            path="reccomendation"
+            element={
+              <>
+                <Reccomendation />
+              </>
+            }
+          ></Route>
+          <Route
             path="status/:id"
             element={
               <>
@@ -106,12 +115,15 @@ const AppRouters = () => {
           ></Route>
         </Route>
 
-        <Route path="/about" element={<About />}/>
+        <Route path="/about" element={<About />} />
 
         <Route path="/recruiter" element={<MiddlewareAuthRecruiter />}>
           <Route index element={<RecruiterHome />} />
-          <Route path="applicants/details/:programid/:applicantid" element={<DetailApplicant/>}/>
-          <Route path="programs" element={<ProgramPosting/>}/>
+          <Route
+            path="applicants/details/:programid/:applicantid"
+            element={<DetailApplicant />}
+          />
+          <Route path="programs" element={<ProgramPosting />} />
           <Route path="applicants" element={<ApplicantList />} />
           <Route
             path="applicants/:programId/:applicantId"
@@ -152,9 +164,7 @@ const AppRouters = () => {
             </>
           }
         />
-        <Route path="programs" element={<Outlet />}>
-        
-      </Route>
+        <Route path="programs" element={<Outlet />}></Route>
 
         <Route
           path="*"

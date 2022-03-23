@@ -1,10 +1,11 @@
 // import { useEffect } from "react";
-import { Box,Typography, Button, Fab, TextField } from "@mui/material";
+import { Box, Typography, Button, Fab, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
 import logo from "../../../../asset/icon/logo.svg";
 import * as Yup from "yup";
+import GoogleLoginButton from "../../google/googleLogin/GoogleLoginButton";
 
 const LoginComponent = ({ bloc }) => {
   const data = useContext(RootContext);
@@ -40,11 +41,16 @@ const LoginComponent = ({ bloc }) => {
           <div className="card-body">
             <div>
               <form onSubmit={formik.handleSubmit}>
-              <Typography gutterBottom variant="h5" component="div" textAlign="center">
-              <img src={logo} style={{ width: "75px", height: "75px" }} />
-              </Typography>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  textAlign="center"
+                >
+                  <img src={logo} style={{ width: "75px", height: "75px" }} />
+                </Typography>
                 <TextField
-                variant="outlined"
+                  variant="outlined"
                   className="form-control cardForm text-center"
                   type="text"
                   name="email"
@@ -56,11 +62,13 @@ const LoginComponent = ({ bloc }) => {
                 />
                 <p className="warning">
                   {formik.errors.email && formik.touched.email ? (
-                    <small style={{color:"red"}} className="text-danger">{formik.errors.email}</small>
+                    <small style={{ color: "red" }} className="text-danger">
+                      {formik.errors.email}
+                    </small>
                   ) : null}
                 </p>
                 <TextField
-                variant="outlined"
+                  variant="outlined"
                   className="form-control cardForm text-center"
                   type="password"
                   id="password"
@@ -73,7 +81,7 @@ const LoginComponent = ({ bloc }) => {
                 />
                 <p className="warning">
                   {formik.errors.password && formik.touched.password ? (
-                    <small style={{color:"red"}}>
+                    <small style={{ color: "red" }}>
                       {formik.errors.password}
                     </small>
                   ) : null}
@@ -96,6 +104,7 @@ const LoginComponent = ({ bloc }) => {
                   //   onClick={doLogin}
                 /> */}
               </form>
+              <GoogleLoginButton />
             </div>
           </div>
         </div>
