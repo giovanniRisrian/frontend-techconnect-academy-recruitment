@@ -12,6 +12,7 @@ import { RootContext } from "../../../../App";
 import jwt_decode from "jwt-decode";
 import swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const VacancyDetail = ({ bloc }) => {
   const {
@@ -45,15 +46,23 @@ const VacancyDetail = ({ bloc }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          if (programDetail.ProgramTypeName === "certification") {
-            window.open(programDetail.LinkCertification);
+          if (programDetail.IsActive) {
+            if (programDetail.ProgramTypeName === "certification") {
+              window.open(programDetail.LinkCertification);
+            } else {
+              doApplyProgram(dataApplicant, data);
+            }
           } else {
-            doApplyProgram(dataApplicant, data);
+            Swal.fire({
+              icon: "error",
+              title: "Program is closed!",
+              text: "Please look for another available active program!",
+            });
           }
         }
       });
   };
-  console.log(programDetail);
+  console.log(programDetail.IsActive);
   useEffect(() => {
     getProgrambyId();
   }, []);
@@ -73,6 +82,7 @@ const VacancyDetail = ({ bloc }) => {
                 width: "70%",
                 height: "auto",
                 borderRadius: "20px",
+                backgroundColor:'#EEF8F9'
               }}
             >
               <CardContent>
@@ -168,7 +178,8 @@ const VacancyDetail = ({ bloc }) => {
                 {data.userInfo ? (
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: "#521582", marginRight: "15px" }}
+                    color="secondary"
+                    sx={{marginRight: "15px" }}
                     onClick={() => confirmationApply()}
                   >
                     Apply
@@ -176,7 +187,8 @@ const VacancyDetail = ({ bloc }) => {
                 ) : (
                   <Button
                     variant="contained"
-                    sx={{ backgroundColor: "#521582", marginRight: "15px" }}
+                    color="secondary"
+                    sx={{marginRight: "15px" }}
                     onClick={() => navigate("/login")}
                   >
                     Apply

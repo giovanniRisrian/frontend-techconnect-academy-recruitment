@@ -15,9 +15,9 @@ const ReccomendationBloc = (ReccomendationService) => {
 
   const { getJobReccomendationId, postGetDataByListId } =
     ReccomendationService();
-  console.log(getJobReccomendationId);
+  // console.log(getJobReccomendationId);
   // let { getJobReccomendationId } = ReccomendationService();
-  console.log("apaeror");
+  // console.log("apaeror");
 
   const doReccomendation = async () => {
     console.log("masuik sini");
@@ -27,9 +27,10 @@ const ReccomendationBloc = (ReccomendationService) => {
       const config = {
         headers: {
           Authorization: `Bearer ${context.userInfo}`,
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
         },
       };
+      console.log(context.userInfo)
       let resp = await getJobReccomendationId(config);
       console.log(resp.data.data);
       console.log("OIIII");

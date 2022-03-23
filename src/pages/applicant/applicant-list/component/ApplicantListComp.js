@@ -14,17 +14,24 @@ import {
   MenuItem,
   Pagination,
   Select,
+  SliderValueLabel,
   Stack,
   Step,
   StepLabel,
   // Stepper,
+  Toolbar,
   Typography,
+  InputBase,
+  FormGroup,
+  FormHelperText,
 } from "@mui/material";
-import { styled } from "@mui/system";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled, alpha } from "@mui/material/styles";
 import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
 import Stepper from "react-stepper-horizontal/lib/Stepper";
 import { RootContext } from "../../../../App";
+import BasicPagination from "../../../globalComponent/pagination/Pagination";
 
 const MyComponent = styled("div")({
   backgroundImage: `url(${background})`,
@@ -37,24 +44,41 @@ const ApplicantListComp = ({ bloc }) => {
     applicantList,
     programList,
     program,
-    // page,
+    page,
     programId,
     isProgram,
     handleStepUp,
     handleStepDown,
     steps,
     getAge,
+    handlePage,
     handleSeeDetail,
     handleProgram,
     getListProgram,
     actualStep,
+    handleAccept,
+    handleUnqualified,
+    handleReject,
+    isAccepted,
+    handleSubmitSearch,
+    setInputSearchValue,
+    lastPage,
+    searchBy,
+    setSearchBy,
+    error,
+    setError,
   } = bloc();
 
   const data = React.useContext(RootContext);
 
   React.useEffect(() => {
-    getListProgram();
+    getListProgram(1);
   }, []);
+
+  // const setPagination = (e, value) => {
+  //   console.log("val",value);
+  //   handlePage(data,value);
+  // };
 
   return (
     <MyComponent>
@@ -103,11 +127,13 @@ const ApplicantListComp = ({ bloc }) => {
                 label="Program"
                 onChange={(e, value) => {
                   handleProgram(e.target.value, value, data);
-                  // getListApplicantByPage();
                 }}
               >
                 {programList.map((value) => {
-                  if (value.ProgramTypeName !== "certification") {
+                  if (
+                    value.ProgramTypeName !== "certification" &&
+                    value.IsActive
+                  ) {
                     return (
                       <MenuItem key={value.ID} value={value.ID}>
                         {value.ProgramName}
@@ -122,14 +148,14 @@ const ApplicantListComp = ({ bloc }) => {
           </Grid>
         </Grid>
 
-        {/* End of Dropwdown */}
+        {/* End of Dropdown */}
         {/* Start of stepper process selection */}
         {isProgram ? (
           <div>
             <Grid container>
               <Grid item md={2} sm={1} xs={1} />
               <Grid item md={8} sm={10} xs={10}>
-                <Box sx={{ width: "100%", mt: 10 }}>
+                <Box sx={{ width: "100%", mt: 5, mb: 5 }}>
                   <Stepper
                     steps={steps}
                     activeStep={actualStep}
@@ -193,8 +219,113 @@ const ApplicantListComp = ({ bloc }) => {
         ) : null}
         {/* End of stepper process selection */}
 
-        {/* Start of Table */}
+        {/* Start of Button accepted & rejected */}
+        {isProgram ? (
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Button
+              color="secondary"
+              variant={isAccepted === "true" ? "contained" : "outlined"}
+              onClick={() => handleAccept(data)}
+              sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+            >
+              On Progress Applicant
+            </Button>
+            <Button
+              color="secondary"
+              variant={isAccepted === "unqualified" ? "contained" : "outlined"}
+              onClick={() => handleUnqualified(data)}
+              sx={{
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+              }}
+            >
+              Unqualified Applicant
+            </Button>
+            <Button
+              color="secondary"
+              variant={isAccepted === "false" ? "contained" : "outlined"}
+              onClick={() => handleReject(data)}
+              sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+            >
+              Rejected Applicant
+            </Button>
+          </Box>
+        ) : (
+          <></>
+        )}
+        {/* End of Button accepted & rejected */}
+
+        {/* Start of Search input */}
         <Grid container sx={{ mt: 3 }}>
+          <Grid item md={7} sm={8} xs={8} />
+          <Grid
+            item
+            md={4}
+            sm={3}
+            xs={3}
+            display="flex"
+            justifyContent="flex-end"
+          >
+            <FormControl fullWidth>
+              <InputLabel id="search">Search</InputLabel>
+              <Select
+                labelId="search"
+                id="search"
+                value={searchBy}
+                label="search"
+                onChange={(e) => {
+                  setSearchBy(e.target.value);
+                  setError("");
+                }}
+              >
+                <MenuItem key="name" value="Name">
+                  Name
+                </MenuItem>
+                <MenuItem key="age" value="Age">
+                  Age
+                </MenuItem>
+                <MenuItem key="institution" value="College">
+                  College
+                </MenuItem>
+                <MenuItem key="gpa" value="GPA">
+                  GPA
+                </MenuItem>
+                <MenuItem key="work" value="Work Experience">
+                  Work Experience
+                </MenuItem>
+              </Select>
+              {error === "error" ? (
+                <FormHelperText sx={{ color: "red" }}>
+                  This is required!
+                </FormHelperText>
+              ) : null}
+            </FormControl>
+            <Toolbar>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder={`Search by ${searchBy}`}
+                  inputProps={{ "aria-label": "search" }}
+                  onChange={(e) => setInputSearchValue(e.target.value, data)}
+                  onKeyDown={(e) => handleSubmitSearch(e, data, page)}
+                />
+              </Search>
+            </Toolbar>
+          </Grid>
+        </Grid>
+        {/* End of Search input */}
+
+        {/* Start of Table */}
+        <Grid container>
           <Grid item md={1} />
           <Grid item md={10} sm={12} xs={12}>
             <TableContainer sx={{ width: "100%" }}>
@@ -232,7 +363,24 @@ const ApplicantListComp = ({ bloc }) => {
                 </TableHead>
                 <TableBody>
                   {applicantList.length === 0 ? (
-                    <></>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                      <TableCell>
+                        <Box
+                          minHeight="10vh"
+                          alignItems="center"
+                          display="flex"
+                        >
+                          <Typography textAlign="start">
+                            No Data exists
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
                   ) : (
                     applicantList.map((row) => (
                       <TableRow
@@ -287,25 +435,69 @@ const ApplicantListComp = ({ bloc }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-            {/* <Stack spacing={2}>
+            <Stack spacing={2}>
               <Pagination
-                count={10}
+                count={lastPage}
                 color="secondary"
                 size="large"
                 page={page}
-                onChange={(e, value) => {
-                  handlePage(value);
-                }}
+                onChange={(e, value) => handlePage(value, data)}
                 sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
               />
-            </Stack> */}
+            </Stack>
           </Grid>
         </Grid>
-        {/* End of Table */}
       </Box>
       <Footer />
     </MyComponent>
   );
 };
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor:
+    // "#cb9bd1",
+    alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor:
+      // "#cb9bd1",
+      alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(1),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "black",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(2, 2, 2, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
+  },
+}));
 
 export default ApplicantListComp;
