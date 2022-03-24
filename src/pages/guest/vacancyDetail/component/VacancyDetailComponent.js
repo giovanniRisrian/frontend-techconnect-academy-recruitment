@@ -46,19 +46,19 @@ const VacancyDetail = ({ bloc }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          if (programDetail.IsActive) {
+          // if (programDetail.IsActive) {
             if (programDetail.ProgramTypeName === "certification") {
               window.open(programDetail.LinkCertification);
             } else {
               doApplyProgram(dataApplicant, data);
             }
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Program is closed!",
-              text: "Please look for another available active program!",
-            });
-          }
+          // } else {
+          //   Swal.fire({
+          //     icon: "error",
+          //     title: "Program is closed!",
+          //     text: "Please look for another available active program!",
+          //   });
+          // }
         }
       });
   };

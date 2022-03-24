@@ -48,7 +48,9 @@ const ListProgramApply = ({ bloc }) => {
           Program Applied
         </Typography>
         {list?.ProgramPosts?.length === 0 ? (
-          <Box height="100vh"> </Box>
+          <Box height="100vh">
+            
+          </Box>
         ) : (
           <Box sx={{ mb: 50 }}>
             <Grid
