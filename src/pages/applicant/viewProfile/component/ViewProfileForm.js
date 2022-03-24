@@ -192,7 +192,6 @@ const ViewProfileForm = ({ bloc }) => {
                 color="primary"
                 variant="contained"
                 sx={{ marginTop: "10px" }}
-                onClick={() => changeDisable(!disabled)}
               >
                 <a style={{textDecoration:'none'}}
                   download={initialValues.Personal?.Name}
@@ -209,7 +208,6 @@ const ViewProfileForm = ({ bloc }) => {
                 color="primary"
                 variant="contained"
                 sx={{ marginTop: "10px" }}
-                onClick={() => changeDisable(!disabled)}
               >
                 <a style={{textDecoration:'none'}}
                   download={
