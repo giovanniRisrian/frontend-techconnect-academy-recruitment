@@ -24,7 +24,7 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
       if (role !== "user") {
         navigate("/" + role);
       } else {
-        navigate("/dashboard");
+        navigate("/applicant/status");
       }
     } catch (err) {
       try {

@@ -219,6 +219,7 @@ const UploadButtonBloc = (UploadService) => {
           result.dismiss === Swal.DismissReason.cancel
         ) {
           navigate("/applicant/profile");
+          window.location.reload()
         }
       });
       // // console.log(res2);
