@@ -12,7 +12,7 @@ import { RootContext } from "../../../../App";
 const ReccomendationBloc = (ReccomendationService) => {
   const navigate = useNavigate();
   const context = useContext(RootContext);
-
+  const [isLoading, setLoading] = useState(true);
   const { getJobReccomendationId, postGetDataByListId } =
     ReccomendationService();
   // console.log(getJobReccomendationId);
@@ -30,17 +30,19 @@ const ReccomendationBloc = (ReccomendationService) => {
           // "Content-Type": "multipart/form-data",
         },
       };
-      console.log(context.userInfo)
+      console.log(context.userInfo);
       let resp = await getJobReccomendationId(config);
       console.log(resp.data.data);
       console.log("OIIII");
       let resp2 = await postGetDataByListId({ ID: resp.data.data }, config);
       // console.log(resp2.data.data);
-      navigate("/vacancy", { state: resp2.data.data })
+      setLoading(true);
+      navigate("/vacancy", { state: resp2.data.data });
     } catch (err) {
-      alert(err);
+      setLoading(true);
+      alert("No Resume Found");
     }
   };
-  return { doReccomendation };
+  return { doReccomendation, isLoading };
 };
 export default ReccomendationBloc;

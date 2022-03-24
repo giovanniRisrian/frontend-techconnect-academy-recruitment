@@ -28,6 +28,7 @@ import ListProgramApplied from "../pages/applicant/status/ListProgramApplied";
 import StatusDetail from "../pages/applicant/status/StatusDetail";
 import RecruiterHome from "../pages/recruiter/home/RecruiterHome";
 import Reccomendation from "../pages/applicant/reccomendation/Reccomendation";
+import ActionType from "../Context/ActionType";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -36,12 +37,22 @@ const AppRouters = () => {
   let addressing;
   if (data.userInfo !== null) {
     let userInfo = jwt_decode(data.userInfo);
-    // console.log(userInfo.Role)
-    Role = userInfo.Role;
-    if (Role === "user") {
-      addressing = "/dashboard";
+
+    // console.log("INI USER INFO",  new Date(userInfo.exp*1000).toString());
+    // console.log("Date.now()", new Date(Date.now()).toString());
+    if (userInfo.exp * 1000 > Date.now()) {
+      Role = userInfo.Role;
+      if (Role === "user") {
+        addressing = "/dashboard";
+      } else {
+        addressing = "/".concat(Role);
+      }
     } else {
-      addressing = "/".concat(Role);
+      localStorage.removeItem("token");
+      data.dispatch({ type: ActionType.LOGIN, name: null, token: null });
+      Role = null;
+      alert("Token Expired");
+      addressing = "/login";
     }
   } else {
     addressing = "/login";
