@@ -23,6 +23,12 @@ const ViewProfileBloc = (viewViewProfileService) => {
       let userInfo = jwt_decode(context.userInfo);
       // console.log("Ini Values : ",values)
       const formData = new FormData();
+      let filepath =
+      values.Personal.ResumeFile.split(":")[0].split("_")[
+        values.Personal.ResumeFile.split(":")[0].split("_").length - 1
+      ];
+
+    values.Personal.ResumeFile = filepath;
       const jsonText = JSON.stringify(values);
       const jsonPretendFile = new Blob([jsonText], {
         type: "application/json",
