@@ -14,7 +14,7 @@ return(<div>
     >
       <Card 
         style={{
-          backgroundColor: "transparent",
+          backgroundColor: "#FDFCE5",
         //   height: "50vh",
           padding: "4vh",
           boxShadow: "0 13px 13px -4px lightblue",
