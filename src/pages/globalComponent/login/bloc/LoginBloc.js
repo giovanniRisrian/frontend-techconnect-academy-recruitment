@@ -27,7 +27,7 @@ const LoginBloc = (LoginService) => {
       if (role !== "user") {
         navigate("/" + role);
       } else {
-        navigate("/dashboard");
+        navigate("/applicant/status");
       }
     } catch (err) {
       Swal.fire({

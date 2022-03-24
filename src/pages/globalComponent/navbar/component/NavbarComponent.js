@@ -19,8 +19,8 @@ import avatar from "../../../../asset/image/avatar.png"
 import LogoutButton from "../../logout/LogoutButton";
 const pages = ["Home", "About Us", "Program / Certificate"];
 const pageLink = ["/", "/about", "/vacancy"];
-let settings = ["Profile", "Upload CV","Reccomendation Program/Certificate", "Status", "Logout"];
-let settingsLink = ["/applicant/profile", "/dashboard",'/applicant/reccomendation', "/applicant/status", "/logout"];
+let settings = ["Profile","Reccomendation Program/Certificate", "Status", "Logout"];
+let settingsLink = ["/applicant/profile",'/applicant/reccomendation', "/applicant/status", "/logout"];
 let settingsRecruiter = ["Recruiter Page",  "Logout"];
 let settingsLinkRecruiter = ["/recruiter", "/logout"];
 let settingAdmin =["Dasboard", "Register Recruiter", "Logout"]

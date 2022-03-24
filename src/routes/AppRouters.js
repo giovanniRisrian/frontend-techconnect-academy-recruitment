@@ -43,7 +43,7 @@ const AppRouters = () => {
     if (userInfo.exp * 1000 > Date.now()) {
       Role = userInfo.Role;
       if (Role === "user") {
-        addressing = "/dashboard";
+        addressing = "/applicant/profile";
       } else {
         addressing = "/".concat(Role);
       }

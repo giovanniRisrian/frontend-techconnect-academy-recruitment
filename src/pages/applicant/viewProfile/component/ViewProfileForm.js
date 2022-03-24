@@ -20,6 +20,7 @@ import avatar from "../../../../asset/image/avatar.png";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { convert } from "../../../../utils/ConvertDate";
+import UploadButton from "../../../globalComponent/uploadButton/UploadButton";
 
 const validationSchema = Yup.object().shape({
   Personal: Yup.object().shape({
@@ -187,34 +188,51 @@ const ViewProfileForm = ({ bloc }) => {
           <div>
             {initialValues.Personal?.ResumeFile.split(":")[0].split(".")[1] ===
             "pdf" ? (
-              <a
-                download={initialValues.Personal?.Name}
-                title="Download pdf document"
-                href={`data:application/pdf;base64,${
-                  initialValues.Personal.ResumeFile.split(":")[1]
-                }`}
+              <Button
+                color="primary"
+                variant="contained"
+                sx={{ marginTop: "10px" }}
+                onClick={() => changeDisable(!disabled)}
               >
-                Download CV
-              </a>
+                <a style={{textDecoration:'none'}}
+                  download={initialValues.Personal?.Name}
+                  title="Download pdf document"
+                  href={`data:application/pdf;base64,${
+                    initialValues.Personal.ResumeFile.split(":")[1]
+                  }`}
+                >
+                  Download Resume
+                </a>
+              </Button>
             ) : (
-              <a
-                download={
-                  initialValues.Personal.Name +
-                  "." +
-                  initialValues.Personal.ResumeFile.split(":")[0].split(".")[1]
-                }
-                title="Download Image"
-                href={`data:application/png;base64,${
-                  initialValues.Personal.ResumeFile.split(":")[1]
-                }`}
+              <Button
+                color="primary"
+                variant="contained"
+                sx={{ marginTop: "10px" }}
+                onClick={() => changeDisable(!disabled)}
               >
-                Download CV
-              </a>
+                <a style={{textDecoration:'none'}}
+                  download={
+                    initialValues.Personal.Name +
+                    "." +
+                    initialValues.Personal.ResumeFile.split(":")[0].split(
+                      "."
+                    )[1]
+                  }
+                  title="Download Image"
+                  href={`data:application/png;base64,${
+                    initialValues.Personal.ResumeFile.split(":")[1]
+                  }`}
+                >
+                  Download Resume
+                </a>
+              </Button>
             )}
           </div>
         ) : (
           <div></div>
         )}
+        <UploadButton />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box autoComplete="off">
             {disabled ? (
@@ -1168,7 +1186,6 @@ const ViewProfileForm = ({ bloc }) => {
                                 {...field}
                               />
                             )}
-                          
                           />
                         </Grid>
                         <Grid item md={1}>
