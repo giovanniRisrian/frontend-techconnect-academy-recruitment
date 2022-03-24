@@ -23,7 +23,7 @@ return(<div>
       >
        
     <Register/>
-      </Card>{" "}
+      </Card>
     </MyComponent>
     
     
