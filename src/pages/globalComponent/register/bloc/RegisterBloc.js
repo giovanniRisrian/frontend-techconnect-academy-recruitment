@@ -24,7 +24,7 @@ const RegisterBloc = (RegisterService) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          navigate("/dashboard");
+          navigate("/applicant/status");
         }
       });
     } catch (err) {
