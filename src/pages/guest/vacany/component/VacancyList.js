@@ -38,12 +38,13 @@ const VacancyList = ({ bloc }) => {
     handlePage,
     pages,
     setPage,
-    searchValue
+    searchValue,
+    state,
   } = bloc();
 
   useEffect(() => {
     getProgramTypeName();
-    getListJobInformation(1, '', '');
+    getListJobInformation(1, "", "");
   }, []);
 
   return (
@@ -84,48 +85,59 @@ const VacancyList = ({ bloc }) => {
           </Box>
         ) : (
           <>
-            <Box display="flex" justifyContent="space-between" marginY="10px">
-              <FormControl sx={{ width: "25%", marginLeft: "20px" }}>
-                <InputLabel id="typeProgram" color="secondary">
-                  Filter
-                </InputLabel>
-                <Select
-                  fullWidth
-                  variant="standard"
-                  color="secondary"
-                  id="typeProgram"
-                  value={types}
-                  label="Program"
-                  onChange={(e, value) => {
-                    console.log("change", e.target.value);
-                    handleType(e.target.value)
-                  }}
-                >
-                  {typeProgram?.map((value) => {
-                    // console.log(value);
-                    return (
-                      <MenuItem key={value.ID} value={value.ProgramName}>
-                        {value.ProgramName}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
+            {state == null ? (
+               <>
+               <Box
+                 display="flex"
+                 justifyContent="space-between"
+                 marginY="10px"
+               >
+                 <FormControl sx={{ width: "25%", marginLeft: "20px" }}>
+                   <InputLabel id="typeProgram" color="secondary">
+                     Filter
+                   </InputLabel>
+                   <Select
+                     fullWidth
+                     variant="standard"
+                     color="secondary"
+                     id="typeProgram"
+                     value={types}
+                     label="Program"
+                     onChange={(e, value) => {
+                       console.log("change", e.target.value);
+                       handleType(e.target.value);
+                     }}
+                   >
+                     {typeProgram?.map((value) => {
+                       // console.log(value);
+                       return (
+                         <MenuItem key={value.ID} value={value.ProgramName}>
+                           {value.ProgramName}
+                         </MenuItem>
+                       );
+                     })}
+                   </Select>
+                 </FormControl>
 
-              <Toolbar>
-                <Search>
-                  <SearchIconWrapper>
-                    <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ "aria-label": "search" }}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    onKeyDown={(e) => getSearchByName(e)}
-                  />
-                </Search>
-              </Toolbar>
-            </Box>
+                 <Toolbar>
+                   <Search>
+                     <SearchIconWrapper>
+                       <SearchIcon />
+                     </SearchIconWrapper>
+                     <StyledInputBase
+                       placeholder="Search…"
+                       inputProps={{ "aria-label": "search" }}
+                       onChange={(e) => setSearchValue(e.target.value)}
+                       onKeyDown={(e) => getSearchByName(e)}
+                     />
+                   </Search>
+                 </Toolbar>
+               </Box>
+             </>
+            ) : (
+             <div />
+            )}
+
             <Grid
               container
               spacing={0}
@@ -201,18 +213,18 @@ const VacancyList = ({ bloc }) => {
           justifyContent="center"
           alignItems="center"
         >
-             <Stack spacing={2}>
-              <Pagination
-                count={list.LastPage}
-                color="secondary"
-                size="large"
-                // page={pages}
-                onChange={(e, value) => {
-                  handlePage(value)
-                }}
-                sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
-              />
-            </Stack>
+          <Stack spacing={2}>
+            <Pagination
+              count={list.LastPage}
+              color="secondary"
+              size="large"
+              // page={pages}
+              onChange={(e, value) => {
+                handlePage(value);
+              }}
+              sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
+            />
+          </Stack>
         </Box>
         <Footer />
       </MyComponent>
