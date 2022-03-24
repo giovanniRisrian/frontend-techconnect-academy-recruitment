@@ -20,7 +20,7 @@ const ListProgramApply = ({ bloc }) => {
 
   let userInfo = jwt_decode(data.userInfo);
   let id = userInfo.id;
-  // console.log("ini",list);
+  console.log("ini",list);
   useEffect(() => {
     getListAppliedProgram(id, data);
   }, []);
@@ -49,7 +49,7 @@ const ListProgramApply = ({ bloc }) => {
         </Typography>
         {list?.ProgramPosts?.length === 0 ? (
           <Box height="100vh">
-            
+
           </Box>
         ) : (
           <Box sx={{ mb: 50 }}>
@@ -94,6 +94,13 @@ const ListProgramApply = ({ bloc }) => {
                               sx={{marginLeft:'10px'}}
                             >
                               {value.ProgramName}
+                            </Typography>
+                            <Typography
+                              color="#343434"
+                              gutterBottom
+                              sx={{marginLeft:'10px'}}
+                            >
+                              {value.ProgramTypeName.toUpperCase()}
                             </Typography>
                           </CardContent>
                           <CardActions>

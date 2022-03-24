@@ -87,10 +87,10 @@ const VacancyList = ({ bloc }) => {
               <>
                 <Box
                   display="flex"
-                  justifyContent="space-between"
+                  // justifyContent="space-between"
                   marginY="10px"
                 >
-                  <FormControl sx={{ width: "25%", marginLeft: "20px" }}>
+                  <FormControl sx={{ width: "20%", marginLeft: "20px" }}>
                     <InputLabel id="typeProgram" color="secondary">
                       Filter
                     </InputLabel>
