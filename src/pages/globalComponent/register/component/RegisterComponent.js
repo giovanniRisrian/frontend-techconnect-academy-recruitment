@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
 import * as Yup from "yup";
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button, Box } from "@mui/material";
 import logo from "../../../../asset/icon/logo.svg";
 
 const RegisterComponent = ({ bloc }) => {
@@ -154,7 +154,11 @@ const RegisterComponent = ({ bloc }) => {
                     </small>
                   ) : null}
                 </p> */}
-
+                <Box
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
+                >
                 <Button
                   type="submit"
                   variant="contained"
@@ -162,9 +166,12 @@ const RegisterComponent = ({ bloc }) => {
                   color="secondary"
                   textAlign="center"
                   disabled={!(formik.isValid && formik.dirty)}
+                  fullWidth
                 >
                   SIGN UP
                 </Button>
+                </Box>
+               
               </form>
             </div>
           </div>

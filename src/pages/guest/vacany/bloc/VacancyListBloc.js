@@ -80,6 +80,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
     setPage,
     searchValue,
     handlePage,
+    state
   };
 };
 

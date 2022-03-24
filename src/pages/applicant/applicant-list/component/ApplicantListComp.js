@@ -131,8 +131,7 @@ const ApplicantListComp = ({ bloc }) => {
               >
                 {programList.map((value) => {
                   if (
-                    value.ProgramTypeName !== "certification" &&
-                    value.IsActive
+                    value.ProgramTypeName !== "certification" 
                   ) {
                     return (
                       <MenuItem key={value.ID} value={value.ID}>

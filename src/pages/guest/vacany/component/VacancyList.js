@@ -16,12 +16,13 @@ import {
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import MyComponent from "../../../homepage/BackgroundImage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../../globalComponent/footer/Footer";
 import BasicPagination from "../../../globalComponent/pagination/Pagination";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
+import nodata from "../../../../asset/image/empty.png";
 
 const VacancyList = ({ bloc }) => {
   const {
@@ -36,14 +37,12 @@ const VacancyList = ({ bloc }) => {
     types,
     handleType,
     handlePage,
-    pages,
-    setPage,
-    searchValue
+    state,
   } = bloc();
 
   useEffect(() => {
     getProgramTypeName();
-    getListJobInformation(1, '', '');
+    getListJobInformation(1, "", "");
   }, []);
 
   return (
@@ -84,48 +83,59 @@ const VacancyList = ({ bloc }) => {
           </Box>
         ) : (
           <>
-            <Box display="flex" justifyContent="space-between" marginY="10px">
-              <FormControl sx={{ width: "25%", marginLeft: "20px" }}>
-                <InputLabel id="typeProgram" color="secondary">
-                  Filter
-                </InputLabel>
-                <Select
-                  fullWidth
-                  variant="standard"
-                  color="secondary"
-                  id="typeProgram"
-                  value={types}
-                  label="Program"
-                  onChange={(e, value) => {
-                    console.log("change", e.target.value);
-                    handleType(e.target.value)
-                  }}
+            {state == null ? (
+              <>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  marginY="10px"
                 >
-                  {typeProgram?.map((value) => {
-                    // console.log(value);
-                    return (
-                      <MenuItem key={value.ID} value={value.ProgramName}>
-                        {value.ProgramName}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
+                  <FormControl sx={{ width: "25%", marginLeft: "20px" }}>
+                    <InputLabel id="typeProgram" color="secondary">
+                      Filter
+                    </InputLabel>
+                    <Select
+                      fullWidth
+                      variant="standard"
+                      color="secondary"
+                      id="typeProgram"
+                      value={types}
+                      label="Program"
+                      onChange={(e, value) => {
+                        console.log("change", e.target.value);
+                        handleType(e.target.value);
+                      }}
+                    >
+                      {typeProgram?.map((value) => {
+                        // console.log(value);
+                        return (
+                          <MenuItem key={value.ID} value={value.ProgramName}>
+                            {value.ProgramName}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
 
-              <Toolbar>
-                <Search>
-                  <SearchIconWrapper>
-                    <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                    placeholder="Search…"
-                    inputProps={{ "aria-label": "search" }}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    onKeyDown={(e) => getSearchByName(e)}
-                  />
-                </Search>
-              </Toolbar>
-            </Box>
+                  <Toolbar>
+                    <Search>
+                      <SearchIconWrapper>
+                        <SearchIcon />
+                      </SearchIconWrapper>
+                      <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ "aria-label": "search" }}
+                        onChange={(e) => setSearchValue(e.target.value)}
+                        onKeyDown={(e) => getSearchByName(e)}
+                      />
+                    </Search>
+                  </Toolbar>
+                </Box>
+              </>
+            ) : (
+              <div />
+            )}
+
             <Grid
               container
               spacing={0}
@@ -134,7 +144,20 @@ const VacancyList = ({ bloc }) => {
               justifyContent="center"
               paddingTop="10px"
             >
-              {list?.ProgramList &&
+              {list?.ProgramList?.length === 0 ? (
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <img src={nodata} alt="no-data" style={{ width: "50%" }} />
+                  <Typography variant="h6" fontWeight="400">
+                    No Matching Data Found
+                  </Typography>
+                </Box>
+              ) : (
+                list?.ProgramList &&
                 list.ProgramList.map((value, idx) => {
                   // console.log("ceek",value);
                   return (
@@ -155,6 +178,7 @@ const VacancyList = ({ bloc }) => {
                           width: "250px",
                           borderRadius: "15px",
                           marginX: "10px",
+                          boxShadow: 5,
                         }}
                       >
                         <CardContent
@@ -191,7 +215,8 @@ const VacancyList = ({ bloc }) => {
                       </Card>
                     </Grid>
                   );
-                })}
+                })
+              )}
             </Grid>
           </>
         )}
@@ -201,18 +226,18 @@ const VacancyList = ({ bloc }) => {
           justifyContent="center"
           alignItems="center"
         >
-             <Stack spacing={2}>
-              <Pagination
-                count={list.LastPage}
-                color="secondary"
-                size="large"
-                // page={pages}
-                onChange={(e, value) => {
-                  handlePage(value)
-                }}
-                sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
-              />
-            </Stack>
+          <Stack spacing={2}>
+            <Pagination
+              count={list.LastPage}
+              color="secondary"
+              size="large"
+              // page={pages}
+              onChange={(e, value) => {
+                handlePage(value);
+              }}
+              sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
+            />
+          </Stack>
         </Box>
         <Footer />
       </MyComponent>
@@ -223,7 +248,7 @@ const VacancyList = ({ bloc }) => {
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.black, 0.15),
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.black, 0.1),
   },

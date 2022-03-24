@@ -48,7 +48,9 @@ const ListProgramApply = ({ bloc }) => {
           Program Applied
         </Typography>
         {list?.ProgramPosts?.length === 0 ? (
-          <Box height="100vh"> </Box>
+          <Box height="100vh">
+            
+          </Box>
         ) : (
           <Box sx={{ mb: 50 }}>
             <Grid
@@ -75,18 +77,28 @@ const ListProgramApply = ({ bloc }) => {
                         display="flex"
                         flexDirection="column"
                       >
-                        <Card sx={{ width: "auto" }}>
+                        <Card
+                          sx={{
+                            width: "auto",
+                            backgroundColor: "#EEF8F9",
+                            borderRadius: "15px",
+                            marginX: "10px",
+                            boxShadow: 5,
+                          }}
+                        >
                           <CardContent>
                             <Typography
                               variant="h6"
                               color="#343434"
                               gutterBottom
+                              sx={{marginLeft:'10px'}}
                             >
                               {value.ProgramName}
                             </Typography>
                           </CardContent>
                           <CardActions>
                             <Button
+                              sx={{marginLeft:'20px', marginBottom:'10px'}}
                               variant="contained"
                               color="secondary"
                               onClick={() =>
