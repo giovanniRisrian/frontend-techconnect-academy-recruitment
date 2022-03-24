@@ -86,15 +86,23 @@ const LoginComponent = ({ bloc }) => {
                     </small>
                   ) : null}
                 </p>
+                <Box
+                display='flex'
+                justifyContent='center'
+                alignItems='center'
+                >
                 <Button
                   type="submit"
                   color="secondary"
                   variant="contained"
                   value="submit"
                   disabled={!(formik.isValid && formik.dirty)}
+                  sx={{width:'70%', height:'40px'}}
                 >
                   LOGIN
                 </Button>
+                </Box>
+             
                 {/* <input
                   className="form-control cardForm btnp"
                   variant="contained"

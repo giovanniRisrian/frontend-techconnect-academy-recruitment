@@ -223,15 +223,15 @@ const AboutContent = () => {
           md={3}
           sm={12}
           xs={12}
-          sx={{ marginBottom: "10px" }}
+          sx={{ marginBottom: "20px" }}
           display="flex"
           justifyContent="center"
         >
           <Card
             sx={{
               borderRadius: "15px",
-              width: "225px",
-              height: "250px",
+              width: "200px",
+              height: "225px",
             }}
           >
             <CardMedia
@@ -240,7 +240,7 @@ const AboutContent = () => {
                 width: "59px",
                 height: "67px",
                 marginX: "auto",
-                marginY: 6,
+                marginY: 4,
               }}
               image={value1}
               alt=""
@@ -253,7 +253,7 @@ const AboutContent = () => {
                 fontWeight="500"
                 color="#000000"
                 textAlign="center"
-                marginY={-3}
+                // marginY={-3}
               >
                 To Inspire Innovations
               </Typography>
@@ -272,8 +272,8 @@ const AboutContent = () => {
           <Card
             sx={{
               borderRadius: "15px",
-              width: "225px",
-              height: "250px",
+              width: "200px",
+              height: "225px",
             }}
           >
             <CardMedia
@@ -282,7 +282,7 @@ const AboutContent = () => {
                 width: "68px",
                 height: "68px",
                 marginX: "auto",
-                marginY: 6,
+                marginY: 4,
               }}
               image={value2}
               alt=""
@@ -294,9 +294,9 @@ const AboutContent = () => {
                 fontWeight="500"
                 color="#000000"
                 textAlign="center"
-                marginY={-3}
+                // marginY={-3}
               >
-                Future-Driven
+                Future Driven
               </Typography>
             </CardContent>
           </Card>
@@ -313,8 +313,8 @@ const AboutContent = () => {
           <Card
             sx={{
               borderRadius: "15px",
-              width: "225px",
-              height: "250px",
+              width: "200px",
+              height: "225px",
             }}
           >
             <CardMedia
@@ -323,7 +323,7 @@ const AboutContent = () => {
                 width: "80px",
                 height: "72px",
                 marginX: "auto",
-                marginY: 6,
+                marginY: 4,
               }}
               image={value3}
               alt=""
@@ -335,7 +335,7 @@ const AboutContent = () => {
                 fontWeight="500"
                 color="#000000"
                 textAlign="center"
-                marginY={-3}
+                // marginY={-3}
               >
                 Inclusive
               </Typography>
@@ -354,8 +354,8 @@ const AboutContent = () => {
           <Card
             sx={{
               borderRadius: "15px",
-              width: "225px",
-              height: "250px",
+              width: "200px",
+              height: "225px",
             }}
           >
             <CardMedia
@@ -364,7 +364,7 @@ const AboutContent = () => {
                 width: "79px",
                 height: "79px",
                 marginX: "auto",
-                marginY: 6,
+                marginY: 4,
               }}
               image={value4}
               alt=""
@@ -376,7 +376,7 @@ const AboutContent = () => {
                 fontWeight="500"
                 color="#000000"
                 textAlign="center"
-                marginY={-3}
+                // marginY={-4}
               >
                 Collaborative
               </Typography>
@@ -401,8 +401,8 @@ const AboutContent = () => {
           <Card
             sx={{
               borderRadius: "15px",
-              width: "225px",
-              height: "250px",
+              width: "200px",
+              height: "225px",
             }}
           >
             <CardMedia
@@ -411,7 +411,7 @@ const AboutContent = () => {
                 width: "86px",
                 height: "74px",
                 marginX: "auto",
-                marginY: 6,
+                marginY: 4,
               }}
               image={value5}
               alt=""
@@ -443,8 +443,8 @@ const AboutContent = () => {
           <Card
             sx={{
               borderRadius: "15px",
-              width: "225px",
-              height: "250px",
+              width: "200px",
+              height: "225px",
             }}
           >
             <CardMedia
@@ -453,7 +453,7 @@ const AboutContent = () => {
                 width: "75px",
                 height: "77px",
                 marginX: "auto",
-                marginY: 6,
+                marginY: 4,
               }}
               image={value6}
               alt=""
@@ -484,8 +484,8 @@ const AboutContent = () => {
           <Card
             sx={{
               borderRadius: "15px",
-              width: "225px",
-              height: "250px",
+              width: "200px",
+              height: "225px",
             }}
           >
             <CardMedia
@@ -494,7 +494,7 @@ const AboutContent = () => {
                 width: "78px",
                 height: "76px",
                 marginX: "auto",
-                marginY: 6,
+                marginY: 4,
               }}
               image={value7}
               alt=""
@@ -525,8 +525,8 @@ const AboutContent = () => {
           <Card
             sx={{
               borderRadius: "15px",
-              width: "225px",
-              height: "250px",
+              width: "200px",
+              height: "225px",
             }}
           >
             <CardMedia
@@ -535,7 +535,7 @@ const AboutContent = () => {
                 width: "60px",
                 height: "94px",
                 marginX: "auto",
-                marginY: 6,
+                marginY: 3,
               }}
               image={value8}
               alt=""
