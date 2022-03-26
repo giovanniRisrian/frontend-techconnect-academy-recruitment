@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { useContext, useEffect } from "react";
 import MyComponent from "../../../homepage/BackgroundImage";
 const ReccomendationComponent = ({ bloc }) => {
@@ -8,7 +8,7 @@ const ReccomendationComponent = ({ bloc }) => {
     doReccomendation();
   });
   return (
-    <MyComponent>
+    <Box sx={{backgroundColor:'F2F2F2'}}>
       <Grid
         container
         direction="column"
@@ -25,7 +25,7 @@ const ReccomendationComponent = ({ bloc }) => {
           )}
         </Grid>
       </Grid>
-    </MyComponent>
+    </Box>
   );
 };
 export default ReccomendationComponent;

@@ -5,16 +5,17 @@ import Footer from '../globalComponent/footer/Footer';
 import Content from './Content';
 import MyComponent from './BackgroundImage';
 import { Navbar } from '../globalComponent/navbar/Navbar';
+import {Box} from '@mui/material'
 
 
 
 
 const Homepage = () =>{
     return(
-       <MyComponent>
+       <Box sx={{backgroundColor:'#F5F5F9'}}>
          <Content />
          <Footer />
-       </MyComponent>
+       </Box>
     )
 }
 

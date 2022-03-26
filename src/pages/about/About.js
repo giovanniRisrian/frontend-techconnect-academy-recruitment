@@ -5,15 +5,14 @@ import MyComponent from "../homepage/BackgroundImage";
 // import ResponsiveAppBar from "../globalComponent/navbar/Appbar";
 // import MyComponent from "../homepage/HomeStyle";
 import AboutContent from "./AboutContent";
+import {Box} from '@mui/material'
 
 const About = () => {
   return (
-    <MyComponent>
-      
-      
+    <Box  sx={{backgroundColor:'#F2F2F2'}}> 
       <AboutContent />
       <Footer/>
-    </MyComponent>
+    </Box>
     
   );
 };
