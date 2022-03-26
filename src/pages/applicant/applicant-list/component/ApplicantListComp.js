@@ -196,7 +196,7 @@ const ApplicantListComp = ({ bloc }) => {
         {/* End of header */}
 
         {/* Start of Dropwdown */}
-        <Grid container sx={{ mt: 5 }}>
+        <Grid container sx={{ mt: 5 }} marginBottom={isProgram ? "" : 5}>
           <Grid item md={5} sm={3} xs={3} />
           <Grid item md={2} sm={6} xs={6}>
             <FormControl fullWidth>
