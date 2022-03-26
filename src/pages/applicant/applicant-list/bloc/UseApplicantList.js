@@ -14,6 +14,8 @@ const UseApplicantList = () => {
   const [lastPage, setLastPage] = useState(1);
   const [searchBy, setSearchBy] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [pageSize, setPageSize] = useState(5);
 
   return {
     applicantList,
@@ -42,6 +44,10 @@ const UseApplicantList = () => {
     setSearchBy,
     error,
     setError,
+    isLoading,
+    setIsLoading,
+    pageSize,
+    setPageSize,
   };
 };
 

@@ -42,7 +42,7 @@ const DetailApplicantBloc = (
         })
         .then((result) => {
           if (result.isConfirmed) {
-            navigateTo("/recruiter/applicants");
+            // navigateTo("/recruiter/applicants");
           }
         });
     } catch (e) {
@@ -72,7 +72,7 @@ const DetailApplicantBloc = (
         })
         .then((result) => {
           if (result.isConfirmed) {
-            navigateTo("/recruiter/applicants");
+            // navigateTo("/recruiter/applicants");
           }
         });
     } catch (e) {

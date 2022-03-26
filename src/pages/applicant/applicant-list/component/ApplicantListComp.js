@@ -5,6 +5,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import notfound from "../../../../asset/image/no-data.png";
 import {
   Box,
   Button,
@@ -18,26 +19,48 @@ import {
   Stack,
   Step,
   StepLabel,
-  // Stepper,
+  Stepper,
   Toolbar,
   Typography,
   InputBase,
   FormGroup,
   FormHelperText,
+  StepButton,
+  Divider,
+  LinearProgress,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
-import Stepper from "react-stepper-horizontal/lib/Stepper";
+// import Stepper from "react-stepper-horizontal/lib/Stepper";
 import { RootContext } from "../../../../App";
-import BasicPagination from "../../../globalComponent/pagination/Pagination";
+// import BasicPagination from "../../../globalComponent/pagination/Pagination";
+import {
+  DataGrid,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarDensitySelector,
+  GridToolbarFilterButton,
+} from "@mui/x-data-grid";
 
 const MyComponent = styled("div")({
   backgroundImage: `url(${background})`,
   backgroundSize: "contain",
   minHeight: "100vh",
 });
+
+function CustomToolbar(props) {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarDensitySelector />
+      <Divider orientation="vertical" />
+      <GridToolbarFilterButton />
+      <Divider orientation="vertical" />
+      <GridToolbarColumnsButton />
+    </GridToolbarContainer>
+  );
+}
 
 const ApplicantListComp = ({ bloc }) => {
   const {
@@ -67,21 +90,79 @@ const ApplicantListComp = ({ bloc }) => {
     setSearchBy,
     error,
     setError,
+    handleStep,
+    isLoading,
+    pageSize,
+    setPageSize,
   } = bloc();
 
   const data = React.useContext(RootContext);
 
+  const columns = [
+    {
+      field: "name",
+      headerName: "Name",
+      minWidth: 300,
+      valueGetter: (params) => {
+        return params.row?.Applicant?.Personal?.Name;
+      },
+    },
+    {
+      field: "birthdate",
+      headerName: "Age",
+      minWidth: 140,
+      valueGetter: (params) => {
+        return `${getAge(
+          params.row?.Applicant?.Personal?.BirthDate
+        )} years old`;
+      },
+    },
+    {
+      field: "institution",
+      headerName: "College",
+      minWidth: 300,
+      valueGetter: (params) => {
+        return params.row?.Applicant?.Education[0].Institution;
+      },
+    },
+    {
+      field: "gpa",
+      headerName: "GPA",
+      minWidth: 100,
+      type: "number",
+      valueGetter: (params) => {
+        return Number(params.row?.Applicant?.Education[0].GPA);
+      },
+    },
+    {
+      field: "totalworkingexperience",
+      headerName: "Working Experience",
+      minWidth: 200,
+      type: "number",
+      valueGetter: (params) => {
+        return params.row?.Applicant?.Personal?.TotalWorkingExperience;
+      },
+    },
+    {
+      field: "appliedtime",
+      headerName: "Applied date",
+      minWidth: 200,
+      type: "dateTime",
+      valueGetter: (params) => {
+        return (
+          params.row?.ProgramApplicant?.CreatedAt &&
+          new Date(params.row?.ProgramApplicant?.CreatedAt)
+        );
+      },
+    },
+  ];
+
   React.useEffect(() => {
-    getListProgram(1);
+    getListProgram();
   }, []);
 
-  // const setPagination = (e, value) => {
-  //   console.log("val",value);
-  //   handlePage(data,value);
-  // };
-
   return (
-    <MyComponent>
+    <Box>
       <Box sx={{ mb: 20 }}>
         {/* Start of Header */}
         <Grid container sx={{ paddingTop: 5 }}>
@@ -116,8 +197,8 @@ const ApplicantListComp = ({ bloc }) => {
 
         {/* Start of Dropwdown */}
         <Grid container sx={{ mt: 5 }}>
-          <Grid item md={5} sm={4} xs={4} />
-          <Grid item md={2} sm={4} xs={4}>
+          <Grid item md={5} sm={3} xs={3} />
+          <Grid item md={2} sm={6} xs={6}>
             <FormControl fullWidth>
               <InputLabel id="programlist">Program</InputLabel>
               <Select
@@ -130,9 +211,7 @@ const ApplicantListComp = ({ bloc }) => {
                 }}
               >
                 {programList.map((value) => {
-                  if (
-                    value.ProgramTypeName !== "certification" 
-                  ) {
+                  if (value.ProgramTypeName !== "certification") {
                     return (
                       <MenuItem key={value.ID} value={value.ID}>
                         {value.ProgramName}
@@ -148,31 +227,77 @@ const ApplicantListComp = ({ bloc }) => {
         </Grid>
 
         {/* End of Dropdown */}
-        {/* Start of stepper process selection */}
+
+        {/* Start of Button accepted & rejected */}
         {isProgram ? (
+          <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="center"
+            marginTop={5}
+          >
+            <Button
+              color="primary"
+              variant={isAccepted === "true" ? "contained" : "outlined"}
+              onClick={() => handleAccept(data)}
+              sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+            >
+              On Progress Applicant
+            </Button>
+            <Button
+              color="primary"
+              variant={isAccepted === "unqualified" ? "contained" : "outlined"}
+              onClick={() => handleUnqualified(data)}
+              sx={{
+                borderTopLeftRadius: 0,
+                borderBottomLeftRadius: 0,
+                borderTopRightRadius: 0,
+                borderBottomRightRadius: 0,
+              }}
+            >
+              Unqualified Applicant
+            </Button>
+            <Button
+              color="primary"
+              variant={isAccepted === "false" ? "contained" : "outlined"}
+              onClick={() => handleReject(data)}
+              sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+            >
+              Rejected Applicant
+            </Button>
+          </Box>
+        ) : (
+          <></>
+        )}
+        {/* End of Button accepted & rejected */}
+
+        {/* Start of stepper process selection */}
+        {isProgram && isAccepted !== "unqualified" ? (
           <div>
             <Grid container>
-              <Grid item md={2} sm={1} xs={1} />
-              <Grid item md={8} sm={10} xs={10}>
-                <Box sx={{ width: "100%", mt: 5, mb: 5 }}>
-                  <Stepper
-                    steps={steps}
-                    activeStep={actualStep}
-                    activeColor={"#9c27b0"}
-                    completeColor={"#9c27b0"}
-                    completeBarColor={"#9c27b0"}
-                    size={58}
-                    circleFontSize={20}
-                    titleFontSize={18}
-                    completeOpacity={"0.4"}
-                  >
-                    {/* {steps.map((label) => (
-                      <Step key={label} color="secondary">
-                        <StepLabel color="secondary">{label}</StepLabel>
+              <Grid item md={3} />
+              <Grid item md={6}>
+                <Box
+                  sx={{ width: "100%", mt: 5, mb: 5 }}
+                  // display="flex"
+                  // flexDirection="row"
+                  // alignItems="center"
+                  // justifyContent="center"
+                >
+                  <Stepper nonLinear activeStep={actualStep} alternativeLabel>
+                    {steps.map((label, index) => (
+                      <Step key={label}>
+                        <StepButton
+                          color="primary"
+                          onClick={() => handleStep(index, data)}
+                        >
+                          {label}
+                        </StepButton>
                       </Step>
-                    ))} */}
+                    ))}
                   </Stepper>
-                  <Box
+                  {/* <Box
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -210,7 +335,7 @@ const ApplicantListComp = ({ bloc }) => {
                         </Button>
                       </div>
                     )}
-                  </Box>
+                  </Box> */}
                 </Box>
               </Grid>
             </Grid>
@@ -218,51 +343,8 @@ const ApplicantListComp = ({ bloc }) => {
         ) : null}
         {/* End of stepper process selection */}
 
-        {/* Start of Button accepted & rejected */}
-        {isProgram ? (
-          <Box
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Button
-              color="secondary"
-              variant={isAccepted === "true" ? "contained" : "outlined"}
-              onClick={() => handleAccept(data)}
-              sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
-            >
-              On Progress Applicant
-            </Button>
-            <Button
-              color="secondary"
-              variant={isAccepted === "unqualified" ? "contained" : "outlined"}
-              onClick={() => handleUnqualified(data)}
-              sx={{
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0,
-                borderTopRightRadius: 0,
-                borderBottomRightRadius: 0,
-              }}
-            >
-              Unqualified Applicant
-            </Button>
-            <Button
-              color="secondary"
-              variant={isAccepted === "false" ? "contained" : "outlined"}
-              onClick={() => handleReject(data)}
-              sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-            >
-              Rejected Applicant
-            </Button>
-          </Box>
-        ) : (
-          <></>
-        )}
-        {/* End of Button accepted & rejected */}
-
         {/* Start of Search input */}
-        <Grid container sx={{ mt: 3 }}>
+        {/* <Grid container sx={{ mt: 3 }}>
           <Grid item md={7} sm={8} xs={8} />
           <Grid
             item
@@ -320,11 +402,37 @@ const ApplicantListComp = ({ bloc }) => {
               </Search>
             </Toolbar>
           </Grid>
-        </Grid>
+        </Grid> */}
         {/* End of Search input */}
 
         {/* Start of Table */}
-        <Grid container>
+        <Box sx={{ height: 700, width: "90%", marginX: "auto" }}>
+          <Box sx={{ display: "flex", height: "100%" }}>
+            <Box sx={{ flexGrow: 1 }}>
+              <DataGrid
+                loading={isLoading}
+                rows={applicantList}
+                columns={columns}
+                getRowId={(row) => row.Applicant.ID}
+                onRowClick={(params) =>
+                  handleSeeDetail(params.row.Applicant.ID)
+                }
+                pagination
+                pageSize={pageSize}
+                rowsPerPageOptions={[5, 10, 20]}
+                onPageSizeChange={(newPage) => setPageSize(newPage)}
+                components={{
+                  Toolbar: CustomToolbar,
+                  LoadingOverlay: LinearProgress,
+                  NoRowsOverlay: CustomNoRowsOverlay,
+                }}
+              />
+            </Box>
+          </Box>
+        </Box>
+        {/* End of Table */}
+
+        {/* <Grid container>
           <Grid item md={1} />
           <Grid item md={10} sm={12} xs={12}>
             <TableContainer sx={{ width: "100%" }}>
@@ -441,58 +549,83 @@ const ApplicantListComp = ({ bloc }) => {
               />
             </Stack>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Box>
       <Footer />
-    </MyComponent>
+    </Box>
   );
 };
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
+function CustomNoRowsOverlay() {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+      }}
+    >
+      <img
+        width="120"
+        height="100"
+        // viewBox="0 0 184 152"
+        aria-hidden
+        focusable="false"
+        src={notfound}
+        alt={""}
+      ></img>
+      <Box sx={{ mt: 0 }}>No Applicant</Box>
+    </Box>
+  );
+}
 
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor:
-    // "#cb9bd1",
-    alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor:
-      // "#cb9bd1",
-      alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
+// const Search = styled("div")(({ theme }) => ({
+//   position: "relative",
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
+//   borderRadius: theme.shape.borderRadius,
+//   backgroundColor:
+//     // "#cb9bd1",
+//     alpha(theme.palette.common.white, 0.15),
+//   "&:hover": {
+//     backgroundColor:
+//       // "#cb9bd1",
+//       alpha(theme.palette.common.white, 0.25),
+//   },
+//   marginLeft: 0,
+//   width: "100%",
+//   [theme.breakpoints.up("sm")]: {
+//     marginLeft: theme.spacing(1),
+//     width: "auto",
+//   },
+// }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "black",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(2, 2, 2, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+// const SearchIconWrapper = styled("div")(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: "100%",
+//   position: "absolute",
+//   pointerEvents: "none",
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "center",
+// }));
+
+// const StyledInputBase = styled(InputBase)(({ theme }) => ({
+//   color: "black",
+//   "& .MuiInputBase-input": {
+//     padding: theme.spacing(2, 2, 2, 0),
+//     // vertical padding + font size from searchIcon
+//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+//     transition: theme.transitions.create("width"),
+//     width: "100%",
+//     [theme.breakpoints.up("sm")]: {
+//       width: "12ch",
+//       "&:focus": {
+//         width: "20ch",
+//       },
+//     },
+//   },
+// }));
 
 export default ApplicantListComp;

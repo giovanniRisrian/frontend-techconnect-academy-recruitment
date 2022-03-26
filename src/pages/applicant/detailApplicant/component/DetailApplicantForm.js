@@ -1213,7 +1213,7 @@ const DetailApplicantForm = ({ bloc }) => {
                     </div>
                   )}
                 </FieldArray>
-                {program.ApplyProcess?.SelectionProcessId === 6 ||
+                {program.ApplyProcess?.SelectionProcessId === 5 ||
                 applicantStatus !== "" ? (
                   <> </>
                 ) : (

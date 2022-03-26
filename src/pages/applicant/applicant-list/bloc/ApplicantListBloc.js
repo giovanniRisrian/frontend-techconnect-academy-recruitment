@@ -30,6 +30,10 @@ const ApplicantListBloc = (
     setSearchBy,
     error,
     setError,
+    isLoading,
+    setIsLoading,
+    pageSize,
+    setPageSize,
   } = useApplicantList();
 
   let {
@@ -65,7 +69,7 @@ const ApplicantListBloc = (
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
-
+      setIsLoading(true);
       const response = await getApplicantsByProgram(
         data1,
         data2,
@@ -73,12 +77,12 @@ const ApplicantListBloc = (
         data3
       );
       setLastPage(response.data.data.LastPage);
-      console.log(response);
       if (response.data.data.ApplicantInfo === null) {
         setApplicantList([]);
       } else {
         setApplicantList(response.data.data.ApplicantInfo);
       }
+      setIsLoading(false);
     } catch (e) {
       setApplicantList([]);
     }
@@ -94,18 +98,22 @@ const ApplicantListBloc = (
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
+      setIsLoading(true);
       const response = await getRejectedApplicantsByProgram(
         data1,
         data2,
         config,
         data3
       );
+      // craeated at program applicant
+      console.log(response.data.data);
       setLastPage(response.data.data.LastPage);
       if (response.data.data.ApplicantInfo === null) {
         setApplicantList([]);
       } else {
         setApplicantList(response.data.data.ApplicantInfo);
       }
+      setIsLoading(false);
     } catch (e) {
       setApplicantList([]);
     }
@@ -121,18 +129,21 @@ const ApplicantListBloc = (
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
+      setIsLoading(true);
       const response = await getUnqualifiedApplicantsByProgram(
         data1,
         data2,
         config,
         data3
       );
+      console.log(response.data.data);
       setLastPage(response.data.data.LastPage);
       if (response.data.data.ApplicantInfo === null) {
         setApplicantList([]);
       } else {
         setApplicantList(response.data.data.ApplicantInfo);
       }
+      setIsLoading(false);
     } catch (e) {
       setApplicantList([]);
     }
@@ -201,7 +212,6 @@ const ApplicantListBloc = (
             default:
               break;
           }
-
         } else if (isAccepted === "unqualified") {
           switch (searchBy) {
             case "Name":
@@ -258,7 +268,6 @@ const ApplicantListBloc = (
           }
         }
 
-        console.log("response output", response);
         setLastPage(response.data.data.LastPage);
         if (response.data.data.ApplicantInfo === null) {
           setApplicantList([]);
@@ -341,7 +350,28 @@ const ApplicantListBloc = (
   };
 
   const handleSeeDetail = (applicantId) => {
-    navigateTo(`details/${programId}/${applicantId}`);
+    window.open(
+      `applicants/details/${programId}/${applicantId}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+    // navigateTo(`details/${programId}/${applicantId}`);
+  };
+
+  const handleStep = (step, header) => {
+    let stepUp = step + 1;
+    if (isAccepted === "true") {
+      getListApplicantByPage(programId, stepUp, header, page);
+    } else if (isAccepted === "unqualified") {
+      getListUnqualifiedApplicantByPage(programId, stepUp, header, page);
+    } else if (isAccepted === "false") {
+      getListRejectedApplicantByPage(programId, stepUp, header, page);
+    }
+    // setSearchBy("");
+    // setError("");
+    // setSearchValue("");
+    setStep(stepUp);
+    setActualStep(step);
   };
 
   const handleStepUp = (header) => {
@@ -389,11 +419,11 @@ const ApplicantListBloc = (
   };
 
   const steps = [
-    { title: "Administration" },
-    { title: "Assesment" },
-    { title: "Interview" },
-    { title: "Offering Letter" },
-    { title: "Welcome to SMM" },
+    "Administration",
+    "Assesment",
+    "Interview",
+    "Offering Letter",
+    "Welcome to SMM",
   ];
 
   return {
@@ -433,6 +463,10 @@ const ApplicantListBloc = (
     setSearchBy,
     error,
     setError,
+    handleStep,
+    isLoading,
+    pageSize,
+    setPageSize,
   };
 };
 export default ApplicantListBloc;
