@@ -97,7 +97,7 @@ const ProgramForm = ({ bloc }) => {
       <>
         {/* Start of Header */}
        
-        <Grid container sx={{paddingTop:'6%',backgroundImage:`url(${header})`, backgroundSize:'cover', backgroundRepeat:'no-repeat', height:'50vh'}}>
+        <Grid container>
           <Grid item md={4} />
           <Grid item md={4} sm={11} xs={11} justifyContent='center'>
             <Typography
@@ -105,6 +105,7 @@ const ProgramForm = ({ bloc }) => {
               textAlign="center"
               gutterBottom
               sx={{
+                paddingY:'3%',
                 typography: { lg: "h3", sm: "h4", xs: "h4" },
                 fontWeight: {
                   lg: 600,
