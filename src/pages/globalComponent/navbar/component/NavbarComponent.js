@@ -170,7 +170,7 @@ const NavbarCompontent = () => {
             {!data.userInfo ? (
               <Box display="flex" justifyContent="center">
                 <Button
-                  color="secondary"
+                  color="primary"
                   variant="outlined"
                   onClick={() => navigate("/login")}
                   sx={{
@@ -189,7 +189,7 @@ const NavbarCompontent = () => {
                 </Button>{" "}
                 <Button
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   onClick={() => navigate("/register")}
                   sx={{
                     backgroundColor: "#8645FF",

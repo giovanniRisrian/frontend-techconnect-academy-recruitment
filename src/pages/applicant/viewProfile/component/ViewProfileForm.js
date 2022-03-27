@@ -154,11 +154,14 @@ const ViewProfileForm = ({ bloc }) => {
 
   const onSubmit = (values) => {
     values.Personal.BirthDate = convert(values.Personal.BirthDate);
-    values.WorkExperience.YearIn = convert(values.WorkExperience.YearIn);
-    values.WorkExperience.YearOut = convert(values.WorkExperience.YearOut);
     addProfile(values, file, data);
     changeDisable(!disabled);
   };
+
+  const handelCancel =() => {
+    changeDisable(!disabled)
+    window.location.reload()
+  }
 
   useEffect(() => {
     getDataByID(userInfo.id, data, changeInitial);
@@ -185,54 +188,6 @@ const ViewProfileForm = ({ bloc }) => {
           padding: "30px",
         }}
       >
-        {initialValues.Personal?.ResumeFile ? (
-          <div>
-            {initialValues.Personal?.ResumeFile.split(":")[0].split(".")[1] ===
-            "pdf" ? (
-              <Button
-                color="secondary"
-                variant="outlined"
-                sx={{ marginTop: "10px" }}
-              >
-                <a
-                  style={{ textDecoration: "none" }}
-                  download={initialValues.Personal?.Name}
-                  title="Download pdf document"
-                  href={`data:application/pdf;base64,${
-                    initialValues.Personal.ResumeFile.split(":")[1]
-                  }`}
-                >
-                  Download Resume
-                </a>
-              </Button>
-            ) : (
-              <Button
-                color="secondary"
-                variant="outlined"
-                sx={{ marginTop: "10px" }}
-              >
-                <a
-                  style={{ textDecoration: "none" }}
-                  download={
-                    initialValues.Personal.Name +
-                    "." +
-                    initialValues.Personal.ResumeFile.split(":")[0].split(
-                      "."
-                    )[1]
-                  }
-                  title="Download Image"
-                  href={`data:application/png;base64,${
-                    initialValues.Personal.ResumeFile.split(":")[1]
-                  }`}
-                >
-                  Download Resume
-                </a>
-              </Button>
-            )}
-          </div>
-        ) : (
-          <div></div>
-        )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box autoComplete="off">
             {disabled ? (
@@ -258,27 +213,81 @@ const ViewProfileForm = ({ bloc }) => {
                   marginTop="10px"
                   marginBottom="10px"
                 >
-                  <Button
-                    color="secondary"
-                    variant="outlined"
-                    sx={{ marginRight: "10px" }}
-                    onClick={() => changeDisable(!disabled)}
-                  >
-                    <FontAwesomeIcon
-                      icon={faUserEdit}
-                      style={{ marginRight: "5px" }}
-                    />
-                    Edit Profile
+                  <Button>
+                    <UploadButton />
                   </Button>
 
-                  <UploadButton />
+                  <Button>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      sx={{ marginRight: "10px" }}
+                      onClick={() => changeDisable(!disabled)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faUserEdit}
+                        style={{ marginRight: "5px" }}
+                      />
+                      Edit Profile
+                    </Button>
+                  </Button>
+
+                  {initialValues.Personal?.ResumeFile ? (
+                    <div>
+                      {initialValues.Personal?.ResumeFile.split(":")[0].split(
+                        "."
+                      )[1] === "pdf" ? (
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          sx={{ marginTop: "6px" }}
+                        >
+                          <a
+                            style={{ textDecoration: "none" }}
+                            download={initialValues.Personal?.Name}
+                            title="Download pdf document"
+                            href={`data:application/pdf;base64,${
+                              initialValues.Personal.ResumeFile.split(":")[1]
+                            }`}
+                          >
+                            Download Resume
+                          </a>
+                        </Button>
+                      ) : (
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          sx={{ marginTop: "10px" }}
+                        >
+                          <a
+                            style={{ textDecoration: "none" }}
+                            download={
+                              initialValues.Personal.Name +
+                              "." +
+                              initialValues.Personal.ResumeFile.split(
+                                ":"
+                              )[0].split(".")[1]
+                            }
+                            title="Download Image"
+                            href={`data:application/png;base64,${
+                              initialValues.Personal.ResumeFile.split(":")[1]
+                            }`}
+                          >
+                            Download Resume
+                          </a>
+                        </Button>
+                      )}
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </Box>
               </>
             ) : (
               <>
                 {file ? (
                   <Input
-                    color="secondary"
+                    color="primary"
                     variant="contained"
                     accept="image/*"
                     id="contained-button-file"
@@ -291,9 +300,9 @@ const ViewProfileForm = ({ bloc }) => {
                   <Button
                     margin="normal"
                     type="button"
-                    color="secondary"
+                    color="primary"
                     variant="outlined"
-                    sx={{ height: "30px", marginTop: "20px" }}
+                    sx={{ height: "30px", marginY: "20px" }}
                     onClick={() => setFile(true)}
                   >
                     Add / Edit Photo
@@ -313,7 +322,7 @@ const ViewProfileForm = ({ bloc }) => {
                 variant="h5"
                 fontFamily="Montserrat"
                 textAlign="center"
-                sx={{ textDecoration: "underline", marginBottom:'2%' }}
+                sx={{ textDecoration: "underline", marginBottom: "2%" }}
               >
                 Data Personal
               </Typography>
@@ -1286,7 +1295,7 @@ const ViewProfileForm = ({ bloc }) => {
                 >
                   Skill
                 </Typography>
-                <Grid item md={12}>
+                <Grid container>
                   {SkillSetField.map((SkillSet, index) => {
                     const handleDelete = () => {
                       if (window.confirm("Are you sure delete this data?")) {
@@ -1295,8 +1304,8 @@ const ViewProfileForm = ({ bloc }) => {
                     };
                     return (
                       <div key={index}>
-                        <Grid container spacing={2}>
-                          <Grid item md={5} sm={12} xs={12}>
+                        <Grid container spacing={1}>
+                          <Grid item>
                             <Controller
                               render={({ field }) => (
                                 <TextField
@@ -1322,40 +1331,36 @@ const ViewProfileForm = ({ bloc }) => {
                               control={control}
                             />
                           </Grid>
-                          <Grid item md={1}>
-                            {index === 0 ? (
-                              <div />
-                            ) : (
-                              <Box>
-                                {disabled ? (
-                                  <div />
-                                ) : (
-                                  <Button
-                                    margin="normal"
-                                    type="button"
-                                    color="primary"
-                                    variant="outlined"
-                                    sx={{
-                                      height: "30px",
-                                      marginTop: "20px",
-                                      marginLeft: "15px",
-                                    }}
-                                    onClick={() => handleDelete()}
-                                    InputProps={{
-                                      readOnly: disabled,
-                                    }}
-                                  >
-                                    X
-                                  </Button>
-                                )}
-                              </Box>
-                            )}
+                          <Grid item md={1} sx={{marginRight:'20px'}}>
+                            <Box>
+                              {disabled ? (
+                                <div />
+                              ) : (
+                                <Button
+                                  margin="normal"
+                                  type="button"
+                                  color="primary"
+                                  variant="outlined"
+                                  sx={{
+                                    height: "30px",
+                                    marginTop: "20px",
+                                    marginLeft: "15px",
+                                  }}
+                                  onClick={() => handleDelete()}
+                                  InputProps={{
+                                    readOnly: disabled,
+                                  }}
+                                >
+                                  X
+                                </Button>
+                              )}
+                            </Box>
                           </Grid>
-                          <Grid item md={6} />
                         </Grid>
                       </div>
                     );
                   })}
+                  <Grid item sx={{marginTop:'15px'}}>
                   {disabled ? (
                     <></>
                   ) : (
@@ -1374,6 +1379,8 @@ const ViewProfileForm = ({ bloc }) => {
                       Add SkillSet
                     </Button>
                   )}
+                  </Grid>
+                  
                 </Grid>
               </Box>
             </div>
@@ -1391,8 +1398,8 @@ const ViewProfileForm = ({ bloc }) => {
                 <>
                   <Button
                     color="primary"
-                    variant="contained"
-                    onClick={() => changeDisable(!disabled)}
+                    variant="outlined"
+                    onClick={() => handelCancel()}
                     sx={{ marginRight: "20px" }}
                   >
                     Cancel

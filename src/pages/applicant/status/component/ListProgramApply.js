@@ -187,11 +187,10 @@ const ListProgramApply = ({ bloc }) => {
                           sx={{
                             marginLeft: "20px",
                             marginBottom: "10px",
-                            backgroundColor: "#8645FF",
                             color: "white",
                           }}
                           variant="contained"
-                          color="secondary"
+                          color="primary"
                           onClick={() => handleOpen(value.Program.ID)}
                         >
                           Details
@@ -223,7 +222,7 @@ const ListProgramApply = ({ bloc }) => {
           <Stack spacing={2}>
             <Pagination
               count={list.LastPage}
-              color="secondary"
+              color="primary"
               size="large"
               // page={pages}
               onChange={(e, value) => {

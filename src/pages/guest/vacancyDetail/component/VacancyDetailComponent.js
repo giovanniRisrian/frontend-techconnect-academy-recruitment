@@ -193,10 +193,9 @@ const VacancyDetail = ({ bloc }) => {
             >
               <Button
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 sx={{
                   marginRight: "15px",
-                  color:'#8645FF',
                   backgroudColor:"#FFF",
                   fontWeight:'500',
                   borderRadius:'20px',
@@ -213,7 +212,7 @@ const VacancyDetail = ({ bloc }) => {
               {data.userInfo ? (
                 <Button
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   sx={{ marginRight: "15px",   color:'#FFF',
                   backgroudColor:"#8645FF",   fontWeight:'500',
                   borderRadius:'20px',
@@ -229,7 +228,7 @@ const VacancyDetail = ({ bloc }) => {
               ) : (
                 <Button
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   sx={{ marginRight: "15px",   color:'#FFF',
                   backgroudColor:"#8645FF",   fontWeight:'500',
                   borderRadius:'20px',
