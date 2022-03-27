@@ -177,7 +177,7 @@ const ViewProfileForm = ({ bloc }) => {
         fontWeight="400"
         sx={{ paddingTop: "20px" }}
       >
-        Data Personal View Profile
+        Profile
       </Typography>
       <br />
       <Box
@@ -309,6 +309,14 @@ const ViewProfileForm = ({ bloc }) => {
                 boxShadow: 3,
               }}
             >
+              <Typography
+                variant="h5"
+                fontFamily="Montserrat"
+                textAlign="center"
+                sx={{ textDecoration: "underline", marginBottom:'2%' }}
+              >
+                Data Personal
+              </Typography>
               <Grid container>
                 <Grid container spacing={2}>
                   <Grid item md={5} sm={12} xs={12}>
@@ -553,25 +561,24 @@ const ViewProfileForm = ({ bloc }) => {
             {/* End Personal */}
             {/* Start Education */}
 
-           
             <Box
               sx={{
                 backgroundColor: "#FFF",
                 borderRadius: "10px",
                 padding: "20px",
                 boxShadow: 3,
-                marginTop:'2%'
+                marginTop: "2%",
               }}
             >
-               <Typography
-              variant="h5"
-              fontFamily="Montserrat"
-              // sx={{ marginTop: "15px" }}
-              textAlign="center"
-              sx={{textDecoration:'underline'}}
-            >
-              Education
-            </Typography>
+              <Typography
+                variant="h5"
+                fontFamily="Montserrat"
+                // sx={{ marginTop: "15px" }}
+                textAlign="center"
+                sx={{ textDecoration: "underline" }}
+              >
+                Education
+              </Typography>
               <Typography variant="body2" color="#4D4D4D">
                 *Maximum 3 Education
               </Typography>
@@ -807,24 +814,24 @@ const ViewProfileForm = ({ bloc }) => {
             </Box>
 
             {/* Organization */}
-           
+
             <Box
               sx={{
                 backgroundColor: "#FFF",
                 borderRadius: "10px",
                 padding: "20px",
                 boxShadow: 3,
-                marginTop:'2%'
+                marginTop: "2%",
               }}
             >
-               <Typography
-              variant="h5"
-              fontFamily="Montserrat"
-              textAlign="center"
-              sx={{textDecoration:'underline'}}
-            >
-              Organization
-            </Typography>
+              <Typography
+                variant="h5"
+                fontFamily="Montserrat"
+                textAlign="center"
+                sx={{ textDecoration: "underline" }}
+              >
+                Organization
+              </Typography>
               <Typography
                 variant="body2"
                 color="#4D4D4D"
@@ -1004,7 +1011,6 @@ const ViewProfileForm = ({ bloc }) => {
               </div>
             </Box>
             {/* Work Experience */}
-            
 
             <div>
               <Box
@@ -1013,17 +1019,17 @@ const ViewProfileForm = ({ bloc }) => {
                   borderRadius: "10px",
                   padding: "20px",
                   boxShadow: 3,
-                  marginTop:'2%'
+                  marginTop: "2%",
                 }}
               >
                 <Typography
-              variant="h5"
-              fontFamily="Montserrat"
-              sx={{textDecoration:'underline'}}
-              textAlign="center"
-            >
-              Work Experience
-            </Typography>
+                  variant="h5"
+                  fontFamily="Montserrat"
+                  sx={{ textDecoration: "underline" }}
+                  textAlign="center"
+                >
+                  Work Experience
+                </Typography>
                 <Typography
                   variant="body2"
                   color="#4D4D4D"
@@ -1262,25 +1268,24 @@ const ViewProfileForm = ({ bloc }) => {
 
             {/* SkillSet */}
             <div>
-            
               <Box
                 sx={{
                   backgroundColor: "#FFF",
                   borderRadius: "10px",
                   padding: "20px",
                   boxShadow: 3,
-                  marginTop:'2%'
+                  marginTop: "2%",
                 }}
               >
-                  <Typography
-                variant="h5"
-                fontFamily="Montserrat"
-                // sx={{ marginTop: "15px" }}
-                sx={{textDecoration:'underline'}}
-                textAlign="center"
-              >
-                Skill
-              </Typography>
+                <Typography
+                  variant="h5"
+                  fontFamily="Montserrat"
+                  // sx={{ marginTop: "15px" }}
+                  sx={{ textDecoration: "underline" }}
+                  textAlign="center"
+                >
+                  Skill
+                </Typography>
                 <Grid item md={12}>
                   {SkillSetField.map((SkillSet, index) => {
                     const handleDelete = () => {
