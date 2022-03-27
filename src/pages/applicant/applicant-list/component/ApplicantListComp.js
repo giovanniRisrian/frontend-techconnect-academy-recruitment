@@ -1,10 +1,4 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import notfound from "../../../../asset/image/no-data.png";
 import {
   Box,
@@ -35,7 +29,6 @@ import background from "../../../../asset/image/background.jpg";
 import Footer from "../../../globalComponent/footer/Footer";
 // import Stepper from "react-stepper-horizontal/lib/Stepper";
 import { RootContext } from "../../../../App";
-// import BasicPagination from "../../../globalComponent/pagination/Pagination";
 import {
   DataGrid,
   GridToolbarColumnsButton,
@@ -110,11 +103,10 @@ const ApplicantListComp = ({ bloc }) => {
     {
       field: "birthdate",
       headerName: "Age",
-      minWidth: 140,
+      minWidth: 100,
+      type: "number",
       valueGetter: (params) => {
-        return `${getAge(
-          params.row?.Applicant?.Personal?.BirthDate
-        )} years old`;
+        return getAge(params.row?.Applicant?.Personal?.BirthDate);
       },
     },
     {
@@ -206,6 +198,7 @@ const ApplicantListComp = ({ bloc }) => {
                 id="programlist"
                 value={programId}
                 label="Program"
+                color="secondary"
                 onChange={(e, value) => {
                   handleProgram(e.target.value, value, data);
                 }}
@@ -236,9 +229,10 @@ const ApplicantListComp = ({ bloc }) => {
             alignItems="center"
             justifyContent="center"
             marginTop={5}
+            marginBottom={isAccepted !== "unqualified" ? "" : 5}
           >
             <Button
-              color="primary"
+              color="secondary"
               variant={isAccepted === "true" ? "contained" : "outlined"}
               onClick={() => handleAccept(data)}
               sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
@@ -246,7 +240,7 @@ const ApplicantListComp = ({ bloc }) => {
               On Progress Applicant
             </Button>
             <Button
-              color="primary"
+              color="secondary"
               variant={isAccepted === "unqualified" ? "contained" : "outlined"}
               onClick={() => handleUnqualified(data)}
               sx={{
@@ -259,7 +253,7 @@ const ApplicantListComp = ({ bloc }) => {
               Unqualified Applicant
             </Button>
             <Button
-              color="primary"
+              color="secondary"
               variant={isAccepted === "false" ? "contained" : "outlined"}
               onClick={() => handleReject(data)}
               sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
@@ -277,7 +271,7 @@ const ApplicantListComp = ({ bloc }) => {
           <div>
             <Grid container>
               <Grid item md={3} />
-              <Grid item md={6}>
+              <Grid item md={6} sm={12} xs={12}>
                 <Box
                   sx={{ width: "100%", mt: 5, mb: 5 }}
                   // display="flex"
@@ -287,55 +281,33 @@ const ApplicantListComp = ({ bloc }) => {
                 >
                   <Stepper nonLinear activeStep={actualStep} alternativeLabel>
                     {steps.map((label, index) => (
-                      <Step key={label}>
-                        <StepButton
-                          color="primary"
-                          onClick={() => handleStep(index, data)}
-                        >
+                      <Step
+                        key={label}
+                        sx={{
+                          "& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel":
+                            {
+                              color: "grey.500", // Just text label (COMPLETED)
+                            },
+                          "& .MuiStepLabel-root .Mui-active": {
+                            color: "secondary.main", // circle color (ACTIVE)
+                          },
+                          "& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel":
+                            {
+                              fontWeight: "500",
+                              color: "black", // Just text label (ACTIVE)
+                            },
+                          "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text":
+                            {
+                              fill: "white", // circle's number (ACTIVE)
+                            },
+                        }}
+                      >
+                        <StepButton onClick={() => handleStep(index, data)}>
                           {label}
                         </StepButton>
                       </Step>
                     ))}
                   </Stepper>
-                  {/* <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      paddingTop: 5,
-                    }}
-                  >
-                    {actualStep === 0 ? (
-                      <div></div>
-                    ) : (
-                      <div>
-                        <Button
-                          color="secondary"
-                          variant="contained"
-                          onClick={() => {
-                            handleStepDown(data);
-                          }}
-                        >
-                          Previous
-                        </Button>
-                      </div>
-                    )}
-                    <div></div>
-                    {actualStep === 5 ? (
-                      <div></div>
-                    ) : (
-                      <div>
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          onClick={() => {
-                            handleStepUp(data);
-                          }}
-                        >
-                          Next
-                        </Button>
-                      </div>
-                    )}
-                  </Box> */}
                 </Box>
               </Grid>
             </Grid>
@@ -421,6 +393,7 @@ const ApplicantListComp = ({ bloc }) => {
                 pageSize={pageSize}
                 rowsPerPageOptions={[5, 10, 20]}
                 onPageSizeChange={(newPage) => setPageSize(newPage)}
+                componentsProps={{}}
                 components={{
                   Toolbar: CustomToolbar,
                   LoadingOverlay: LinearProgress,
@@ -431,125 +404,6 @@ const ApplicantListComp = ({ bloc }) => {
           </Box>
         </Box>
         {/* End of Table */}
-
-        {/* <Grid container>
-          <Grid item md={1} />
-          <Grid item md={10} sm={12} xs={12}>
-            <TableContainer sx={{ width: "100%" }}>
-              <Table aria-label="">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <Typography sx={{ fontWeight: "medium" }}>
-                        Name
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Typography sx={{ fontWeight: "medium" }}>Age</Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Typography sx={{ fontWeight: "medium" }}>
-                        College
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Typography sx={{ fontWeight: "medium" }}>GPA</Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Typography sx={{ fontWeight: "medium" }}>
-                        Working Experience
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Typography sx={{ fontWeight: "medium" }}>
-                        Program
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="right"></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {applicantList.length === 0 ? (
-                    <TableRow>
-                      <TableCell></TableCell>
-                      <TableCell></TableCell>
-                      <TableCell></TableCell>
-                      <TableCell></TableCell>
-                      <TableCell>
-                        <Box minHeight="5vh" alignItems="center" display="flex">
-                          <Typography textAlign="start">
-                            No Data exists
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell></TableCell>
-                    </TableRow>
-                  ) : (
-                    applicantList.map((row) => (
-                      <TableRow
-                        key={row.Applicant.UserAccountID}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          <Typography sx={{ fontWeight: "medium" }}>
-                            {row.Applicant.Personal.Name}
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                          <Typography sx={{ fontWeight: "medium" }}>
-                            {getAge(row.Applicant.Personal.BirthDate)}
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                          <Typography sx={{ fontWeight: "medium" }}>
-                            {row.Applicant.Education[0].Institution}
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                          <Typography sx={{ fontWeight: "medium" }}>
-                            {row.Applicant.Education[0].GPA}
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                          <Typography sx={{ fontWeight: "medium" }}>
-                            {row.Applicant.Personal.TotalWorkingExperience}
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="center">
-                          <Typography sx={{ fontWeight: "medium" }}>
-                            {program}
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="right">
-                          <Button
-                            color="secondary"
-                            onClick={() =>
-                              handleSeeDetail(row.Applicant.UserAccountID)
-                            }
-                          >
-                            See Detail
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Stack spacing={2}>
-              <Pagination
-                count={lastPage}
-                color="secondary"
-                size="large"
-                page={page}
-                onChange={(e, value) => handlePage(value, data)}
-                sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
-              />
-            </Stack>
-          </Grid>
-        </Grid> */}
       </Box>
       <Footer />
     </Box>
@@ -580,52 +434,5 @@ function CustomNoRowsOverlay() {
     </Box>
   );
 }
-
-// const Search = styled("div")(({ theme }) => ({
-//   position: "relative",
-
-//   borderRadius: theme.shape.borderRadius,
-//   backgroundColor:
-//     // "#cb9bd1",
-//     alpha(theme.palette.common.white, 0.15),
-//   "&:hover": {
-//     backgroundColor:
-//       // "#cb9bd1",
-//       alpha(theme.palette.common.white, 0.25),
-//   },
-//   marginLeft: 0,
-//   width: "100%",
-//   [theme.breakpoints.up("sm")]: {
-//     marginLeft: theme.spacing(1),
-//     width: "auto",
-//   },
-// }));
-
-// const SearchIconWrapper = styled("div")(({ theme }) => ({
-//   padding: theme.spacing(0, 2),
-//   height: "100%",
-//   position: "absolute",
-//   pointerEvents: "none",
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-// }));
-
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//   color: "black",
-//   "& .MuiInputBase-input": {
-//     padding: theme.spacing(2, 2, 2, 0),
-//     // vertical padding + font size from searchIcon
-//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//     transition: theme.transitions.create("width"),
-//     width: "100%",
-//     [theme.breakpoints.up("sm")]: {
-//       width: "12ch",
-//       "&:focus": {
-//         width: "20ch",
-//       },
-//     },
-//   },
-// }));
 
 export default ApplicantListComp;
