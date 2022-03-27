@@ -11,7 +11,7 @@ const GoogleLoginButtonComponent = ({ bloc }) => {
     display='flex'
     alignItems='center'
     justifyContent='center'
-    sx={{marginTop:'10px'}}
+    sx={{marginTop:'10px', paddingBottom:'15%'}}
     >
       <GoogleLogin
         clientId={clientId}

@@ -16,49 +16,76 @@ const VacancyDetailBloc = (programService) => {
       const res = await getDataApplicantbyId(context);
       let counter = 0;
       let data = res.data.data;
+      let arrayNotFill = [];
       if (data.Personal.Name) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Name")
       }
       if (data.Personal.Email) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Email")
       }
       if (data.Personal.Domicile) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Domicile")
       }
       if (data.Personal.TelephoneNo) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Phone")
       }
       if (data.Personal.BirthDate) {
         counter += 1;
+      }else{
+        arrayNotFill.push("BirthDate")
       }
       if (data.Personal.Gender) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Gender")
       }
       if(data.SkillSet[0].Skill){
         counter += 1;
+      }else{
+        arrayNotFill.push("Skill")
       }
       if (data.Education[0].Title) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Title in Education")
       }
       if (data.Education[0].Major) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Major in Education")
       }
       if (data.Education[0].Institution) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Institution in Education")
       }
       if (data.Education[0].YearIn) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Year In")
       }
       if (data.Education[0].YearOut) {
         counter += 1;
+      }else{
+        arrayNotFill.push("Year Out")
       }
       if (data.Education[0].GPA) {
         counter += 1;
+      }else{
+        arrayNotFill.push("GPA")
       }
       if (counter >= 13) {
-        return true;
+        return true
       } else {
-        return false;
+        return {status:false, notFill:arrayNotFill};
       }
       // return res
     } catch (err) {
@@ -88,7 +115,7 @@ const VacancyDetailBloc = (programService) => {
       setLoading(true);
       let res;
       let status = await getUserbyId(config);
-      // console.log("cekkk", status);
+    console.log("",status);
       if (status === true) {
         res = await applyProgram(values, config);
         swal.fire("Saved!", "", "success").then(() => {
@@ -98,7 +125,7 @@ const VacancyDetailBloc = (programService) => {
         swal
           .fire({
             icon: "warning",
-            text: "You must fill mandatory field",
+            text: `You must fill mandatory field, and Unfilled fields are ${status?.notFill}`,
           })
           .then(() => {
             navigate("/applicant/profile");

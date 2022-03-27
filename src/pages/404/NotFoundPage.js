@@ -3,35 +3,33 @@ import notfound from "../../asset/image/404.png";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router";
 import { styled } from "@mui/system";
-import background from "../../asset/image/background.jpg";
 
 const BodyBackground = styled("div")({
-  backgroundImage: `url(${background})`,
-  backgroundSize: "cover",
-  minHeight: "100vh",
+  backgroundColor:'#F2F2F2',
+  height:'89vh'
 });
 
 const NotFoundPage = () => {
   let navigate = useNavigate();
   return (
     <BodyBackground>
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        marginBottom='50px'
-      > 
-      
-        <img src={notfound} alt="page-not-found" style={{ width: "50%" }} />
-        <Button
-          sx={{ fontSize: "18px" }}
+      <Box sx={{backgroundImage:`url(${notfound})`, backgroundSize:'cover', height:'70vh'}}>
+    
+      </Box>
+      <Box display='flex' justifyContent='center' sx={{marginTop:'3%', backgroundColor:'#F2F2F2'}}>
+      <Button
+          sx={{ fontSize: "18px", display:'flex', justifyContent:'center' }}
           color="secondary"
+          variant='outlined'
+          
           onClick={() => navigate("/")}
         >
           Go To Home
         </Button>
       </Box>
+    
+
+    
     </BodyBackground>
   );
 };

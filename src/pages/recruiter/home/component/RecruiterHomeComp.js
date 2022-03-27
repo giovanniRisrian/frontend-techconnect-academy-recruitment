@@ -3,17 +3,22 @@ import background from "../../../../asset/image/background.jpg";
 import posting from "../../../../asset/image/posting.png";
 import applicant from "../../../../asset/image/applicant.png";
 import Footer from "../../../globalComponent/footer/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFolderPlus, faCircleInfo
+} from "@fortawesome/free-solid-svg-icons";
 
 const RecruiterHomeComp = ({ bloc }) => {
   const { handleSeeApplicantList, handleJobPosting } = bloc();
   return (
     <div>
       <Box
-        sx={{
-          backgroundImage: `url(${background})`,
-          backgroundSize: "contain",
-          minHeight: "100vh",
-        }}
+      sx={{backgroundColor:'#F2F2F2'}}
+        // sx={{
+        //   backgroundImage: `url(${background})`,
+        //   backgroundSize: "contain",
+        //   minHeight: "100vh",
+        // }}
       >
         {/* Start of Header */}
         <Grid container sx={{ paddingTop: 5 }}>
@@ -57,6 +62,7 @@ const RecruiterHomeComp = ({ bloc }) => {
                 type="submit"
                 onClick={handleSeeApplicantList}
               >
+                 <FontAwesomeIcon icon={faFolderPlus} style={{marginRight:'10px', marginBottom:'5px'}} />
                 See Applicant List
               </Button>
             </Box>
@@ -69,6 +75,7 @@ const RecruiterHomeComp = ({ bloc }) => {
                 type="submit"
                 onClick={handleJobPosting}
               >
+                <FontAwesomeIcon icon={faCircleInfo}  style={{marginRight:'10px', marginBottom:'5px'}} />
                 Program Posting
               </Button>
             </Box>
