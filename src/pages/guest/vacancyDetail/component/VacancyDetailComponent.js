@@ -75,7 +75,7 @@ const VacancyDetail = ({ bloc }) => {
   }, []);
 
   return (
-    <Box sx={{ backgroundImage:`url(${header})`, height:'89vh' ,backgroundSize:'contain', width:'100%', backgroundRepeat:'no-repeat' }}>
+    <Box sx={{ backgroundImage:`url(${header})`, height:'90vh' ,backgroundSize:'cover',  backgroundRepeat:'no-repeat' }}>
       <Box
         display="flex"
         justifyContent="center"

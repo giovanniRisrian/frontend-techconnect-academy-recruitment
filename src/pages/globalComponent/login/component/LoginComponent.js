@@ -100,7 +100,7 @@ const LoginComponent = ({ bloc }) => {
               <Box display="flex" justifyContent="center" alignItems="center">
                 <Button
                   type="submit"
-                  color="primary"
+                  color="secondary"
                   variant="contained"
                   value="submit"
                   disabled={!(formik.isValid && formik.dirty)}

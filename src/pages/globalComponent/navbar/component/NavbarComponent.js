@@ -18,7 +18,11 @@ import jwt_decode from "jwt-decode";
 import avatar from "../../../../asset/image/avatar.png";
 import LogoutButton from "../../logout/LogoutButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRegistered, faRightFromBracket, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faRegistered,
+  faRightFromBracket,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 const pages = ["Home", "About Us", "Program / Certificate"];
 const pageLink = ["/", "/about", "/vacancy"];
 let settings = [
@@ -78,23 +82,25 @@ const NavbarCompontent = () => {
   };
 
   return (
-    <AppBar position='sticky' style={{ backgroundColor: "#171059" }}>
+    <AppBar position="sticky" style={{ backgroundColor: "#171059" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" }, textShadow:3 }}
           >
-            <img
-              src={logo}
-              alt="logo-tca"
-              style={{ height: "60px", width: "80px"}}
-
-            />
+          <img
+            src={logo}
+            alt="logo-tca"
+            style={{
+              height: "60px",
+              width: "80px",
+              boxShadow: 3
+            }}
+          />
           </Typography>
-          
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -164,22 +170,37 @@ const NavbarCompontent = () => {
             {!data.userInfo ? (
               <Box display="flex" justifyContent="center">
                 <Button
-                color='secondary'
+                  color="secondary"
                   variant="outlined"
                   onClick={() => navigate("/login")}
-                  sx={{color:'#FFF', marginRight:'10px', borderColor:'#8645FF', borderRadius:'15px',fontWeight:'600'}}
+                  sx={{
+                    color: "#FFF",
+                    marginRight: "10px",
+                    borderColor: "#8645FF",
+                    borderRadius: "15px",
+                    fontWeight: "600",
+                  }}
                 >
-                  <FontAwesomeIcon icon={faRightFromBracket} style={{marginRight:'10px'}}/>
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    style={{ marginRight: "10px" }}
+                  />
                   Login
                 </Button>{" "}
-             
                 <Button
                   variant="contained"
-                  color='secondary'
+                  color="secondary"
                   onClick={() => navigate("/register")}
-                  sx={{backgroundColor:'#8645FF', borderRadius:'15px', fontWeight:'600'}}
+                  sx={{
+                    backgroundColor: "#8645FF",
+                    borderRadius: "15px",
+                    fontWeight: "600",
+                  }}
                 >
-                   <FontAwesomeIcon icon={faUserPlus} style={{marginRight:'10px'}}/>
+                  <FontAwesomeIcon
+                    icon={faUserPlus}
+                    style={{ marginRight: "10px" }}
+                  />
                   register
                 </Button>{" "}
               </Box>

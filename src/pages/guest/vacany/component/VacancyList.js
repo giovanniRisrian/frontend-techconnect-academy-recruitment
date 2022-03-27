@@ -20,14 +20,11 @@ import Footer from "../../../globalComponent/footer/Footer";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import nodata from "../../../../asset/image/empty.png";
+import nodata from "../../../../asset/image/notdata.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCalendar,
-  faTags,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faTags } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
-import header from '../../../../asset/image/headervacancy.png'
+import header from "../../../../asset/image/headervacancy.png";
 
 const VacancyList = ({ bloc }) => {
   const {
@@ -43,7 +40,7 @@ const VacancyList = ({ bloc }) => {
     handlePage,
     state,
     searchValue,
-    navigate
+    navigate,
   } = bloc();
 
   useEffect(() => {
@@ -57,89 +54,104 @@ const VacancyList = ({ bloc }) => {
   };
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
-      <Box sx={{backgroundImage:`url(${header})`, height:'50vh', backgroundSize:'cover', backgroundRepeat:'no-repeat'}} display="flex" justifyContent='center' alignItems='center'>
-      <Typography
-        textAlign="center"
+      <Box
         sx={{
-          // paddingTop:'4%',
-          typography: { lg: "h3", sm: "h4", xs: "h4" },
-          fontWeight: {
-            lg: "600",
-            md: "600",
-            sm: "600",
-            xs: "600",
-          },
-          fontFamily: {
-            lg: "Montserrat Alternates",
-            md: "Montserrat Alternates",
-            sm: "Montserrat Alternates",
-            xs: "Montserrat Alternates",
-          },
+          backgroundImage: `url(${header})`,
+          height: "50vh",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
       >
-       Vacancy List
-      </Typography>
-
+        <Typography
+          textAlign="center"
+          sx={{
+            // paddingTop:'4%',
+            typography: { lg: "h3", sm: "h4", xs: "h4" },
+            fontWeight: {
+              lg: "600",
+              md: "600",
+              sm: "600",
+              xs: "600",
+            },
+            fontFamily: {
+              lg: "Montserrat Alternates",
+              md: "Montserrat Alternates",
+              sm: "Montserrat Alternates",
+              xs: "Montserrat Alternates",
+            },
+          }}
+        >
+          Vacancy List
+        </Typography>
       </Box>
 
       {state == null ? (
-            <>
-              <Box
-                display="flex"
-                // justifyContent="space-between"
-                // marginY="10px"
-                // paddingTop='5%'
+        <>
+          <Box
+            display="flex"
+            // justifyContent="space-between"
+            // marginY="10px"
+            // paddingTop='5%'
+          >
+            <FormControl
+              sx={{ width: "25%", marginLeft: "20px", borderRadius: "20px" }}
+            >
+              <InputLabel id="typeProgram" color="secondary">
+                Filter
+              </InputLabel>
+              <Select
+                sx={{ backgroundColor: "#F2F2F2" }}
+                fullWidth
+                variant="standard"
+                color="secondary"
+                id="typeProgram"
+                value={types}
+                label="Program"
+                onChange={(e, value) => {
+                  console.log("change", e.target.value);
+                  handleType(e.target.value);
+                }}
               >
-                <FormControl sx={{ width: "25%", marginLeft: "20px" }}>
-                  <InputLabel id="typeProgram" color="secondary">
-                    Filter
-                  </InputLabel>
-                  <Select
-                    sx={{ borderRadius: "10px" }}
-                    fullWidth
-                    variant="standard"
-                    color="secondary"
-                    id="typeProgram"
-                    value={types}
-                    label="Program"
-                    onChange={(e, value) => {
-                      console.log("change", e.target.value);
-                      handleType(e.target.value);
-                    }}
-                  >
-                    {typeProgram?.map((value) => {
-                      // console.log(value);
-                      return (
-                        <MenuItem key={value.ID} value={value.ProgramName}>
-                          {value.ProgramName}
-                        </MenuItem>
-                      );
-                    })}
-                  </Select>
-                </FormControl>
+                {typeProgram?.map((value) => {
+                  // console.log(value);
+                  return (
+                    <MenuItem
+                      key={value.ID}
+                      value={value.ProgramName}
+                      sx={{ backgroundColor: "#FFF", borderRadius: "20px" }}
+                    >
+                      {value.ProgramName}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
 
-                <Toolbar>
-                  <Search>
-                    <SearchIconWrapper>
-                      <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                      placeholder="Search…"
-                      inputProps={{ "aria-label": "search" }}
-                      onChange={(e) => setSearchValue(e.target.value)}
-                      onKeyDown={(e) => getSearchByName(e)}
-                    />
-                  </Search>
-                </Toolbar>
-                {/* <Button onClick={(e) => onClickSearch(searchValue)}>
+            <Toolbar>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  onKeyDown={(e) => getSearchByName(e)}
+                />
+              </Search>
+            </Toolbar>
+            {/* <Button onClick={(e) => onClickSearch(searchValue)}>
                   Search
                 </Button> */}
-              </Box>
-            </>
-          ) : (
-            <div />
-          )}
-   
+          </Box>
+        </>
+      ) : (
+        <div />
+      )}
+
       {loading ? (
         <Box
           display="flex"
@@ -158,21 +170,17 @@ const VacancyList = ({ bloc }) => {
               display: "flex",
               justifyContent: "flex-start",
               flexWrap: "wrap",
-              marginTop:'3%'
+              marginTop: "3%",
             }}
           >
             {list?.ProgramList?.length === 0 ? (
-              <Box
-                display="flex"
-                flexDirection="column"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <img src={nodata} alt="no-data" style={{ width: "50%" }} />
-                <Typography variant="h6" fontWeight="400">
-                  No Matching Data Found
-                </Typography>
-              </Box>
+              <Grid container>
+                <Grid item md={4} />
+                <Grid item md={4}>
+                  <img src={nodata} alt="no-data" style={{ width: "auto" }} />
+                </Grid>
+                <Grid item md={4} />
+              </Grid>
             ) : (
               list?.ProgramList &&
               list.ProgramList.map((value, idx) => {
@@ -249,29 +257,24 @@ const VacancyList = ({ bloc }) => {
                         <CardActions
                           sx={{
                             paddingBottom: "5%",
-                            marginLeft:'30%',
+                            marginLeft: "30%",
                             paddingRight: "5%",
                           }}
                         >
-                          
                           <Button
                             color="secondary"
                             variant="contained"
                             sx={{
                               fontFamily: "Montserrat",
                               fontSize: "16px",
-                              color:'#FFF',
-                              backgroudColor:"#8645FF",
-                              borderRadius:'20px'
+                              color: "#FFF",
+                              backgroudColor: "#8645FF",
+                              borderRadius: "20px",
                             }}
-                            onClick={() =>
-                              navigate(`/vacancy/${value.ID}`)
-                            }
+                            onClick={() => navigate(`/vacancy/${value.ID}`)}
                           >
                             See Details
                           </Button>
-                          
-                          
                         </CardActions>
                       </StyledCard>
                     </Grid>
@@ -288,7 +291,7 @@ const VacancyList = ({ bloc }) => {
         flexDirection="row"
         justifyContent="center"
         alignItems="center"
-        marginTop='5%'
+        marginTop="5%"
       >
         <Stack spacing={2}>
           <Pagination

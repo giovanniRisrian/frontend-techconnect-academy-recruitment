@@ -190,7 +190,7 @@ const ViewProfileForm = ({ bloc }) => {
             {initialValues.Personal?.ResumeFile.split(":")[0].split(".")[1] ===
             "pdf" ? (
               <Button
-                color="primary"
+                color="secondary"
                 variant="outlined"
                 sx={{ marginTop: "10px" }}
               >
@@ -207,7 +207,7 @@ const ViewProfileForm = ({ bloc }) => {
               </Button>
             ) : (
               <Button
-                color="primary"
+                color="secondary"
                 variant="outlined"
                 sx={{ marginTop: "10px" }}
               >
@@ -259,7 +259,7 @@ const ViewProfileForm = ({ bloc }) => {
                   marginBottom="10px"
                 >
                   <Button
-                    color="primary"
+                    color="secondary"
                     variant="outlined"
                     sx={{ marginRight: "10px" }}
                     onClick={() => changeDisable(!disabled)}
@@ -278,7 +278,7 @@ const ViewProfileForm = ({ bloc }) => {
               <>
                 {file ? (
                   <Input
-                    color="primary"
+                    color="secondary"
                     variant="contained"
                     accept="image/*"
                     id="contained-button-file"
@@ -291,7 +291,7 @@ const ViewProfileForm = ({ bloc }) => {
                   <Button
                     margin="normal"
                     type="button"
-                    color="primary"
+                    color="secondary"
                     variant="outlined"
                     sx={{ height: "30px", marginTop: "20px" }}
                     onClick={() => setFile(true)}

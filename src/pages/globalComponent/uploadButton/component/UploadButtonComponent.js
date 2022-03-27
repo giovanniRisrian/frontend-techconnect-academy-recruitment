@@ -61,7 +61,7 @@ const UploadButtonComponent = ({ bloc }) => {
           type="file"
           onChange={handleUpload}
         />
-        <Button variant="contained" color="primary" component="span">
+        <Button variant="contained" color="secondary" component="span">
         <FontAwesomeIcon icon={faFileUpload} style={{marginRight:'5px'}} />
           Upload Resume
         </Button>
