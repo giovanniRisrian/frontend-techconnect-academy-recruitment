@@ -11,7 +11,7 @@ const LogoutButtonComponent = ({ bloc }) => {
   };
   return (
     <Button
-      color="secondary"
+      color="primary"
       variant="contained"
       sx={{
         fontFamily: "Montserrat",

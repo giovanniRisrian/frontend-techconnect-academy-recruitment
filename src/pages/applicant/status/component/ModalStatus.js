@@ -123,7 +123,7 @@ export default function BasicModal({ open, status, handleClose, loading }) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button variant="contained" color="secondary" onClick={handleClose} sx={{backgroundColor:'#8645FF', color:'white'}}>
+            <Button variant="contained" color="primary" onClick={handleClose} sx={{color:'white'}}>
             <FontAwesomeIcon icon={faArrowLeft} style={{marginRight:'10px'}}/>
 
               Back
