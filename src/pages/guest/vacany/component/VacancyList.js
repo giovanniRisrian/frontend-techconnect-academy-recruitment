@@ -165,14 +165,15 @@ const VacancyList = ({ bloc }) => {
         </Box>
       ) : (
         <>
-          <div
+          {/* <div
             style={{
               display: "flex",
               justifyContent: "flex-start",
               flexWrap: "wrap",
               marginTop: "3%",
             }}
-          >
+          > */}
+            <Grid container>
             {list?.ProgramList?.length === 0 ? (
               <Grid container>
                 <Grid item md={4} />
@@ -187,18 +188,8 @@ const VacancyList = ({ bloc }) => {
                 // console.log("ceek",value);
                 return (
                   <Fragment key={idx}>
-                  <Grid
-                    item
-                    md={4}
-                    sm={12}
-                    xs={12}
-                    // key={idx}
-                    justifyContent="left"
-                    display="flex"
-                    flexDirection="column"
-                    marginTop="20px"
-                  >
-                    <StyledCard
+                      <Grid item md={4} sx={{marginBottom:'1%', marginTop:'2%'}}>
+                      <StyledCard
                       sx={{
                         backgroundColor: "#FFF",
                         height: "100%",
@@ -209,7 +200,7 @@ const VacancyList = ({ bloc }) => {
                         marginLeft: "10px",
                       }}
                     >
-                      <div style={{height:'20vh', padding:'20px'}}>
+                      <div style={{ height: "20vh", padding: "20px" }}>
                         <Typography
                           variant="h5"
                           component="div"
@@ -261,8 +252,15 @@ const VacancyList = ({ bloc }) => {
                           paddingRight: "5%",
                         }}
                       > */}
-                      <div style={{display:'flex', justifyContent:'center', alignItems:'center', minHeight:'10vh'}}>
-                      <Button
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          minHeight: "10vh",
+                        }}
+                      >
+                        <Button
                           color="primary"
                           variant="contained"
                           sx={{
@@ -277,15 +275,18 @@ const VacancyList = ({ bloc }) => {
                           See Details
                         </Button>
                       </div>
-                      
+
                       {/* </CardActions> */}
                     </StyledCard>
-                  </Grid>
-                </Fragment>
+                      </Grid>
+                  
+                  </Fragment>
                 );
               })
             )}
-          </div>
+            </Grid>
+            
+          {/* </div> */}
           {/* </Grid> */}
         </>
       )}
