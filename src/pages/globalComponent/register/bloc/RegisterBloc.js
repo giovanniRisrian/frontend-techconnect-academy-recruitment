@@ -10,11 +10,11 @@ const RegisterBloc = (RegisterService) => {
       let res = await postRegister(formik.values);
 
       // console.log(res);
-      localStorage.setItem("token", res.data.data.token)
+      // localStorage.setItem("token", res.data.data.token)
       context.dispatch({
         // type: ActionType.LOGIN,
         type: ActionType.LOGOUT,
-        token: res.data.data.token,
+        // token: res.data.data.token,
         name: res.data.data.name,
       })
       Swal

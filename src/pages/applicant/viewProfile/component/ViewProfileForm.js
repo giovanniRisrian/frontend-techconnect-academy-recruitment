@@ -203,6 +203,12 @@ const ViewProfileForm = ({ bloc }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleSubmitLinkedin = async () => {
+    await putProfileLinkedin(initialValues, data);
+    setOpen(false);
+  };
+
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
       <Typography
@@ -391,7 +397,7 @@ const ViewProfileForm = ({ bloc }) => {
                           />
                           <IconButton
                             onClick={() =>
-                              putProfileLinkedin(initialValues, data)
+                              handleSubmitLinkedin()
                             }
                             color="primary"
                             sx={{ p: "10px" }}
