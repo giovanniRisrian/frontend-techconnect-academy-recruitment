@@ -104,32 +104,7 @@ const DetailApplicantForm = ({ bloc }) => {
         GPA: Yup.string().required("This field is required"),
       })
     ),
-    // Organization: Yup.array().of(
-    //   Yup.object().shape({
-    //     Organization: Yup.string().required("This field is required"),
-    //     Scope: Yup.string().required("This field is required"),
-    //     Duration: Yup.string().required("This field is required"),
-    //     Description: Yup.string().required("This field is required"),
-    //     Position: Yup.string().required("This field is required"),
-    //   })
-    // ),
-    // WorkExperience: Yup.array().of(
-    //   Yup.object().shape({
-    //     CompanyName: Yup.string().required("This field is required"),
-    //     Position: Yup.string().required("This field is required"),
-    //     Level: Yup.string().required("This field is required"),
-    //     Industry: Yup.string().required("This field is required"),
-    //     YearIn: Yup.string()
-    //       .required("This field is required")
-    //       .min(4, "Year in must be 4 character")
-    //       .max(4, "Year in must be 4 character"),
-    //     YearOut: Yup.string()
-    //       .required("This field is required")
-    //       .min(4, "Year out must be 4 character")
-    //       .max(4, "Year out must be 4 character"),
-    //     Description: Yup.string().required("This field is required"),
-    //   })
-    // ),
+
     SkillSet: Yup.array().of(
       Yup.object().shape({
         Skill: Yup.string().required("This field is required"),
@@ -195,7 +170,7 @@ const DetailApplicantForm = ({ bloc }) => {
   }, []);
 
   return (
-    <MyComponent>
+    <Box sx={{ backgroundColor: "#F2F2F2" }}>
       <Typography
         variant="h4"
         textAlign="center"
@@ -295,494 +270,446 @@ const DetailApplicantForm = ({ bloc }) => {
                     )}
                   </>
                 )}
-
-                <Grid container>
-                  <Grid container spacing={2}>
-                    <Grid item md={6}>
-                      <TextField
-                        fullWidth
-                        size="small"
-                        InputProps={{
-                          readOnly: disabled,
-                        }}
-                        color="secondary"
-                        margin="normal"
-                        variant="outlined"
-                        label="Name"
-                        name="Personal.Name"
-                        value={values.Personal.Name}
-                        required
-                        error={Boolean(
-                          getIn(touched, "Personal.Name") &&
-                            getIn(errors, "Personal.Name")
-                        )}
-                        helperText={
-                          getIn(touched, "Personal.Name") &&
-                          getIn(errors, "Personal.Name")
-                        }
-                        onChange={handleChange}
-                      />
-                      <br />
-                      <TextField
-                        fullWidth
-                        size="small"
-                        color="secondary"
-                        margin="normal"
-                        variant="outlined"
-                        label="Gender"
-                        name="Personal.Gender"
-                        value={values.Personal.Gender}
-                        required
-                        error={Boolean(
-                          getIn(touched, "Personal.Gender") &&
-                            getIn(errors, "Personal.Gender")
-                        )}
-                        helperText={
-                          getIn(touched, "Personal.Gender") &&
-                          getIn(errors, "Personal.Gender")
-                        }
-                        onChange={handleChange}
-                        InputProps={{
-                          readOnly: disabled,
-                        }}
-                      />
-                      <br />
-                      <TextField
-                        fullWidth
-                        size="small"
-                        color="secondary"
-                        margin="normal"
-                        variant="outlined"
-                        label="Birth Date"
-                        name="Personal.BirthDate"
-                        value={dayjs(values.Personal.BirthDate).format(
-                          "YYYY-MM-DD"
-                        )}
-                        required
-                        error={Boolean(
-                          getIn(touched, "Personal.BirthDate") &&
-                            getIn(errors, "Personal.BirthDate")
-                        )}
-                        helperText={
-                          getIn(touched, "Personal.BirthDate") &&
-                          getIn(errors, "Personal.BirthDate")
-                        }
-                        onChange={handleChange}
-                        type="date"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        InputProps={{
-                          readOnly: disabled,
-                        }}
-                      />
-                      <br />
-                      <TextField
-                        fullWidth
-                        size="small"
-                        color="secondary"
-                        margin="normal"
-                        variant="outlined"
-                        label="Domicile"
-                        name="Personal.Domicile"
-                        value={values.Personal.Domicile}
-                        required
-                        error={Boolean(
-                          getIn(touched, "Personal.Domicile") &&
-                            getIn(errors, "Personal.Domicile")
-                        )}
-                        helperText={
-                          getIn(touched, "Personal.Domicile") &&
-                          getIn(errors, "Personal.Domicile")
-                        }
-                        onChange={handleChange}
-                        InputProps={{
-                          readOnly: disabled,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item md={6}>
-                      <TextField
-                        fullWidth
-                        size="small"
-                        color="secondary"
-                        margin="normal"
-                        variant="outlined"
-                        label="Email"
-                        name="Personal.Email"
-                        value={values.Personal.Email}
-                        required
-                        error={Boolean(
-                          getIn(touched, "Personal.Email") &&
-                            getIn(errors, "Personal.Email")
-                        )}
-                        helperText={
-                          getIn(touched, "Personal.Email") &&
-                          getIn(errors, "Personal.Email")
-                        }
-                        onChange={handleChange}
-                        InputProps={{
-                          readOnly: disabled,
-                        }}
-                        type="email"
-                      />
-                      <br />
-                      <TextField
-                        fullWidth
-                        size="small"
-                        color="secondary"
-                        margin="normal"
-                        variant="outlined"
-                        label="Phone"
-                        name="Personal.TelephoneNo"
-                        value={values.Personal.TelephoneNo}
-                        required
-                        error={Boolean(
-                          getIn(touched, "Personal.TelephoneNo") &&
-                            getIn(errors, "Personal.TelephoneNo")
-                        )}
-                        helperText={
-                          getIn(touched, "Personal.TelephoneNo") &&
-                          getIn(errors, "Personal.TelephoneNo")
-                        }
-                        onChange={handleChange}
-                        InputProps={{
-                          readOnly: disabled,
-                        }}
-                      />
-                      <TextField
-                        margin="normal"
-                        color="secondary"
-                        id="TotalWorkingExperience"
-                        label="Experience in Year"
-                        variant="outlined"
-                        size="small"
-                        name="Personal.TotalWorkingExperience"
-                        value={values.Personal.TotalWorkingExperience}
-                        error={Boolean(
-                          getIn(touched, "Personal.TotalWorkingExperience") &&
-                            getIn(errors, "Personal.TotalWorkingExperience")
-                        )}
-                        helperText={
-                          getIn(touched, "Personal.TotalWorkingExperience") &&
-                          getIn(errors, "Personal.TotalWorkingExperience")
-                        }
-                        onChange={handleChange}
-                        InputProps={{
-                          readOnly: disabled,
-                        }}
-                        type="number"
-                      />
-                      {/* <Grid container>
-                        <Grid item md={6}>
-                          
-                        </Grid>
-                        <Grid item md={6}>
-                          <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            color="secondary"
-                            id=" monthWorkExperience"
-                            label="Month"
-                            variant="outlined"
-                            size="small"
-                            name="monthWorkExperience"
-                            value={values.Personal.monthWorkExperience}
-                            error={
-                              touched.Personal.monthWorkExperience &&
-                              Boolean(errors.Personal.monthWorkExperience)
-                            }
-                            helperText={
-                              touched.monthWorkExperience &&
-                              errors.monthWorkExperience
-                            }
-                            onChange={handleChange}
-                            type="number"
-                          />
-                        </Grid>
-                      </Grid> */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        color="secondary"
-                        id="SalaryExpectation"
-                        label="Salary Expectation"
-                        variant="outlined"
-                        size="small"
-                        name="Personal.SalaryExpectation"
-                        value={values.Personal.SalaryExpectation}
-                        error={Boolean(
-                          getIn(touched, "Personal.SalaryExpectation") &&
-                            getIn(errors, "Personal.SalaryExpectation")
-                        )}
-                        helperText={
-                          getIn(touched, "Personal.SalaryExpectation") &&
-                          getIn(errors, "Personal.SalaryExpectation")
-                        }
-                        onChange={handleChange}
-                        InputProps={{
-                          readOnly: disabled,
-                        }}
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid item md={12}>
-                    <FieldArray name="SkillSet">
-                      {({ push, remove }) => (
-                        <div>
-                          {values.SkillSet.map((SkillSetName, idx) => {
-                            const name = `SkillSet[${idx}].Skill`;
-                            const touchedName = getIn(touched, name);
-                            const errorName = getIn(errors, name);
-                            return (
-                              <div key={idx}>
-                                <Grid container spacing={5}>
-                                  <Grid item md={12}>
-                                    <TextField
-                                      fullWidth
-                                      margin="normal"
-                                      color="secondary"
-                                      label="SkillSet Skill"
-                                      variant="outlined"
-                                      size="small"
-                                      name={name}
-                                      value={SkillSetName.Skill}
-                                      error={touchedName && Boolean(errorName)}
-                                      helperText={touchedName && errorName}
-                                      onChange={handleChange}
-                                      InputProps={{
-                                        readOnly: disabled,
-                                      }}
-                                    />
-                                  </Grid>
-                                </Grid>
-                              </div>
-                            );
-                          })}
-                          {disabled ? (
-                            <></>
-                          ) : (
-                            <Button
-                              type="button"
-                              variant="outlined"
-                              color="secondary"
-                              disabled={values.SkillSet.length >= 10}
-                              onClick={() =>
-                                push({
-                                  Name: "",
-                                })
-                              }
-                            >
-                              Add SkillSet
-                            </Button>
-                          )}
-                        </div>
-                      )}
-                    </FieldArray>
-                  </Grid>
-                </Grid>
-                <br />
-                <FieldArray name="Education">
-                  {({ push, remove }) => (
-                    <div>
-                      <Typography variant="h6" fontFamily="Montserrat">
-                        Education
-                      </Typography>
-                      <Typography variant="body2" color="#4D4D4D">
-                        *Maximum 3 Education
-                      </Typography>
-                      {values.Education.map((edu, idx) => {
-                        const title = `Education[${idx}].Title`;
-                        const touchedTitle = getIn(touched, title);
-                        const errorTitle = getIn(errors, title);
-
-                        const Institution = `Education[${idx}].Institution`;
-                        const touchedInstitution = getIn(touched, Institution);
-                        const errorInstitution = getIn(errors, Institution);
-
-                        const Major = `Education[${idx}].Major`;
-                        const touchedMajor = getIn(touched, Major);
-                        const errorMajor = getIn(errors, Major);
-
-                        const yearInEdu = `Education[${idx}].YearIn`;
-                        const touchedYearInEdu = getIn(touched, yearInEdu);
-                        const errorYearInEdu = getIn(errors, yearInEdu);
-
-                        const yearOutEdu = `Education[${idx}].YearOut`;
-                        const touchedYearOutEdu = getIn(touched, yearOutEdu);
-                        const errorYearOutEdu = getIn(errors, yearOutEdu);
-
-                        const GPA = `Education[${idx}].GPA`;
-                        const touchedGPA = getIn(touched, GPA);
-                        const errorGPA = getIn(errors, GPA);
-                        return (
-                          <div key={idx}>
-                            <Grid container spacing={2}>
-                              <Grid item md={6}>
-                                <TextField
-                                  size="small"
-                                  color="secondary"
-                                  margin="normal"
-                                  variant="outlined"
-                                  label="Title"
-                                  InputProps={{
-                                    readOnly: disabled,
-                                  }}
-                                  name={title}
-                                  value={edu.Title}
-                                  required
-                                  helperText={
-                                    touchedTitle && errorTitle ? errorTitle : ""
-                                  }
-                                  error={Boolean(touchedTitle && errorTitle)}
-                                  onChange={handleChange}
-                                />
-                                <br />
-                                <TextField
-                                  size="small"
-                                  color="secondary"
-                                  margin="normal"
-                                  variant="outlined"
-                                  label="Institution"
-                                  name={Institution}
-                                  value={edu.Institution}
-                                  required
-                                  helperText={
-                                    touchedInstitution && errorInstitution
-                                      ? errorInstitution
-                                      : ""
-                                  }
-                                  error={Boolean(
-                                    touchedInstitution && errorInstitution
-                                  )}
-                                  onChange={handleChange}
-                                  InputProps={{
-                                    readOnly: disabled,
-                                  }}
-                                />
-                                <br />
-                                <TextField
-                                  size="small"
-                                  color="secondary"
-                                  margin="normal"
-                                  variant="outlined"
-                                  label="Major"
-                                  name={Major}
-                                  value={edu.Major}
-                                  required
-                                  helperText={
-                                    touchedMajor && errorMajor ? errorMajor : ""
-                                  }
-                                  error={Boolean(touchedMajor && errorMajor)}
-                                  onChange={handleChange}
-                                />
-                              </Grid>
-                              <Grid item md={6}>
-                                <TextField
-                                  size="small"
-                                  color="secondary"
-                                  margin="normal"
-                                  variant="outlined"
-                                  label="Year In"
-                                  name={yearInEdu}
-                                  value={edu.YearIn}
-                                  required
-                                  helperText={
-                                    touchedYearInEdu && errorYearInEdu
-                                      ? errorYearInEdu
-                                      : ""
-                                  }
-                                  error={Boolean(
-                                    touchedYearInEdu && errorYearInEdu
-                                  )}
-                                  onChange={handleChange}
-                                  InputProps={{
-                                    readOnly: disabled,
-                                  }}
-                                />
-                                <br />
-                                <TextField
-                                  size="small"
-                                  color="secondary"
-                                  margin="normal"
-                                  variant="outlined"
-                                  label="Year Out"
-                                  name={yearOutEdu}
-                                  value={edu.YearOut}
-                                  required
-                                  helperText={
-                                    touchedYearOutEdu && errorYearOutEdu
-                                      ? errorYearOutEdu
-                                      : ""
-                                  }
-                                  error={Boolean(
-                                    touchedYearOutEdu && errorYearOutEdu
-                                  )}
-                                  onChange={handleChange}
-                                  InputProps={{
-                                    readOnly: disabled,
-                                  }}
-                                />
-                                <br />
-                                <TextField
-                                  size="small"
-                                  color="secondary"
-                                  margin="normal"
-                                  variant="outlined"
-                                  label="GPA"
-                                  name={GPA}
-                                  value={edu.GPA}
-                                  required
-                                  helperText={
-                                    touchedGPA && errorGPA ? errorGPA : ""
-                                  }
-                                  error={Boolean(touchedGPA && errorGPA)}
-                                  onChange={handleChange}
-                                  InputProps={{
-                                    readOnly: disabled,
-                                  }}
-                                />
-                              </Grid>
-                              <Grid item md={1}></Grid>
-                            </Grid>
-                          </div>
-                        );
-                      })}
-
-                      {disabled ? (
-                        <></>
-                      ) : (
-                        <Button
-                          type="button"
-                          variant="outlined"
+                <Box
+                  sx={{
+                    backgroundColor: "#FFF",
+                    borderRadius: "10px",
+                    padding: "20px",
+                    boxShadow: 3,
+                    mt: 5,
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    fontFamily="Montserrat"
+                    sx={{ textDecoration: "underline" }}
+                    textAlign="center"
+                    mb={3}
+                  >
+                    Data Personal
+                  </Typography>
+                  <Grid container>
+                    <Grid container spacing={2}>
+                      <Grid item md={5} sm={12} xs={12}>
+                        <TextField
+                          fullWidth
+                          size="small"
+                          InputProps={{
+                            readOnly: disabled,
+                          }}
                           color="secondary"
-                          disabled={values.Education.length >= 3}
-                          onClick={() =>
-                            push({
-                              Title: "",
-                              Institution: "",
-                              Major: "",
-                              YearIn: "",
-                              YearOut: "",
-                              GPA: "",
-                            })
+                          margin="normal"
+                          variant="outlined"
+                          label="Name"
+                          name="Personal.Name"
+                          value={values.Personal.Name}
+                          required
+                          error={Boolean(
+                            getIn(touched, "Personal.Name") &&
+                              getIn(errors, "Personal.Name")
+                          )}
+                          helperText={
+                            getIn(touched, "Personal.Name") &&
+                            getIn(errors, "Personal.Name")
                           }
-                        >
-                          Add
-                        </Button>
-                      )}
-                    </div>
-                  )}
-                </FieldArray>
-                <br />
-                <FieldArray name="Organization">
-                  {({ push, remove }) => (
+                          onChange={handleChange}
+                        />
+                        <br />
+                        <TextField
+                          fullWidth
+                          size="small"
+                          color="secondary"
+                          margin="normal"
+                          variant="outlined"
+                          label="Gender"
+                          name="Personal.Gender"
+                          value={values.Personal.Gender}
+                          required
+                          error={Boolean(
+                            getIn(touched, "Personal.Gender") &&
+                              getIn(errors, "Personal.Gender")
+                          )}
+                          helperText={
+                            getIn(touched, "Personal.Gender") &&
+                            getIn(errors, "Personal.Gender")
+                          }
+                          onChange={handleChange}
+                          InputProps={{
+                            readOnly: disabled,
+                          }}
+                        />
+                        <br />
+                        <TextField
+                          fullWidth
+                          size="small"
+                          color="secondary"
+                          margin="normal"
+                          variant="outlined"
+                          label="Birth Date"
+                          name="Personal.BirthDate"
+                          value={dayjs(values.Personal.BirthDate).format(
+                            "YYYY-MM-DD"
+                          )}
+                          required
+                          error={Boolean(
+                            getIn(touched, "Personal.BirthDate") &&
+                              getIn(errors, "Personal.BirthDate")
+                          )}
+                          helperText={
+                            getIn(touched, "Personal.BirthDate") &&
+                            getIn(errors, "Personal.BirthDate")
+                          }
+                          onChange={handleChange}
+                          type="date"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          InputProps={{
+                            readOnly: disabled,
+                          }}
+                        />
+                        <br />
+                        <TextField
+                          fullWidth
+                          size="small"
+                          color="secondary"
+                          margin="normal"
+                          variant="outlined"
+                          label="Domicile"
+                          name="Personal.Domicile"
+                          value={values.Personal.Domicile}
+                          required
+                          error={Boolean(
+                            getIn(touched, "Personal.Domicile") &&
+                              getIn(errors, "Personal.Domicile")
+                          )}
+                          helperText={
+                            getIn(touched, "Personal.Domicile") &&
+                            getIn(errors, "Personal.Domicile")
+                          }
+                          onChange={handleChange}
+                          InputProps={{
+                            readOnly: disabled,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item md={1} />
+                      <Grid item md={5} sm={12} xs={12}>
+                        <TextField
+                          fullWidth
+                          size="small"
+                          color="secondary"
+                          margin="normal"
+                          variant="outlined"
+                          label="Email"
+                          name="Personal.Email"
+                          value={values.Personal.Email}
+                          required
+                          error={Boolean(
+                            getIn(touched, "Personal.Email") &&
+                              getIn(errors, "Personal.Email")
+                          )}
+                          helperText={
+                            getIn(touched, "Personal.Email") &&
+                            getIn(errors, "Personal.Email")
+                          }
+                          onChange={handleChange}
+                          InputProps={{
+                            readOnly: disabled,
+                          }}
+                          type="email"
+                        />
+                        <br />
+                        <TextField
+                          fullWidth
+                          size="small"
+                          color="secondary"
+                          margin="normal"
+                          variant="outlined"
+                          label="Phone"
+                          name="Personal.TelephoneNo"
+                          value={values.Personal.TelephoneNo}
+                          required
+                          error={Boolean(
+                            getIn(touched, "Personal.TelephoneNo") &&
+                              getIn(errors, "Personal.TelephoneNo")
+                          )}
+                          helperText={
+                            getIn(touched, "Personal.TelephoneNo") &&
+                            getIn(errors, "Personal.TelephoneNo")
+                          }
+                          onChange={handleChange}
+                          InputProps={{
+                            readOnly: disabled,
+                          }}
+                        />
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          color="secondary"
+                          id="TotalWorkingExperience"
+                          label="Experience in Year"
+                          variant="outlined"
+                          size="small"
+                          name="Personal.TotalWorkingExperience"
+                          value={values.Personal.TotalWorkingExperience}
+                          error={Boolean(
+                            getIn(touched, "Personal.TotalWorkingExperience") &&
+                              getIn(errors, "Personal.TotalWorkingExperience")
+                          )}
+                          helperText={
+                            getIn(touched, "Personal.TotalWorkingExperience") &&
+                            getIn(errors, "Personal.TotalWorkingExperience")
+                          }
+                          onChange={handleChange}
+                          InputProps={{
+                            readOnly: disabled,
+                          }}
+                          type="number"
+                        />
+
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          color="secondary"
+                          id="SalaryExpectation"
+                          label="Salary Expectation"
+                          variant="outlined"
+                          size="small"
+                          name="Personal.SalaryExpectation"
+                          value={values.Personal.SalaryExpectation}
+                          error={Boolean(
+                            getIn(touched, "Personal.SalaryExpectation") &&
+                              getIn(errors, "Personal.SalaryExpectation")
+                          )}
+                          helperText={
+                            getIn(touched, "Personal.SalaryExpectation") &&
+                            getIn(errors, "Personal.SalaryExpectation")
+                          }
+                          onChange={handleChange}
+                          InputProps={{
+                            readOnly: disabled,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item md={1} />
+                    </Grid>
+                  </Grid>
+                </Box>
+
+                <Box
+                  sx={{
+                    backgroundColor: "#FFF",
+                    borderRadius: "10px",
+                    padding: "20px",
+                    boxShadow: 3,
+                    marginTop: "2%",
+                  }}
+                >
+                  <div>
+                    <Typography
+                      variant="h5"
+                      fontFamily="Montserrat"
+                      // sx={{ marginTop: "15px" }}
+                      textAlign="center"
+                      sx={{ textDecoration: "underline" }}
+                    >
+                      Education
+                    </Typography>
+                    <Typography variant="body2" color="#4D4D4D">
+                      *Maximum 3 Education
+                    </Typography>
+                    {values.Education.map((edu, idx) => {
+                      const title = `Education[${idx}].Title`;
+                      const touchedTitle = getIn(touched, title);
+                      const errorTitle = getIn(errors, title);
+
+                      const Institution = `Education[${idx}].Institution`;
+                      const touchedInstitution = getIn(touched, Institution);
+                      const errorInstitution = getIn(errors, Institution);
+
+                      const Major = `Education[${idx}].Major`;
+                      const touchedMajor = getIn(touched, Major);
+                      const errorMajor = getIn(errors, Major);
+
+                      const yearInEdu = `Education[${idx}].YearIn`;
+                      const touchedYearInEdu = getIn(touched, yearInEdu);
+                      const errorYearInEdu = getIn(errors, yearInEdu);
+
+                      const yearOutEdu = `Education[${idx}].YearOut`;
+                      const touchedYearOutEdu = getIn(touched, yearOutEdu);
+                      const errorYearOutEdu = getIn(errors, yearOutEdu);
+
+                      const GPA = `Education[${idx}].GPA`;
+                      const touchedGPA = getIn(touched, GPA);
+                      const errorGPA = getIn(errors, GPA);
+                      return (
+                        <div key={idx}>
+                          <Grid container spacing={2}>
+                            <Grid item md={5} sm={12} xs={12}>
+                              <TextField
+                                fullWidth
+                                size="small"
+                                color="secondary"
+                                margin="normal"
+                                variant="outlined"
+                                label="Title"
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
+                                name={title}
+                                value={edu.Title}
+                                required
+                                helperText={
+                                  touchedTitle && errorTitle ? errorTitle : ""
+                                }
+                                error={Boolean(touchedTitle && errorTitle)}
+                                onChange={handleChange}
+                              />
+                              <br />
+                              <TextField
+                                fullWidth
+                                size="small"
+                                color="secondary"
+                                margin="normal"
+                                variant="outlined"
+                                label="Institution"
+                                name={Institution}
+                                value={edu.Institution}
+                                required
+                                helperText={
+                                  touchedInstitution && errorInstitution
+                                    ? errorInstitution
+                                    : ""
+                                }
+                                error={Boolean(
+                                  touchedInstitution && errorInstitution
+                                )}
+                                onChange={handleChange}
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
+                              />
+                              <br />
+                              <TextField
+                                fullWidth
+                                size="small"
+                                color="secondary"
+                                margin="normal"
+                                variant="outlined"
+                                label="Major"
+                                name={Major}
+                                value={edu.Major}
+                                required
+                                helperText={
+                                  touchedMajor && errorMajor ? errorMajor : ""
+                                }
+                                error={Boolean(touchedMajor && errorMajor)}
+                                onChange={handleChange}
+                              />
+                            </Grid>
+                            <Grid item md={1} />
+                            <Grid item md={5} sm={12} xs={12}>
+                              <TextField
+                                fullWidth
+                                size="small"
+                                color="secondary"
+                                margin="normal"
+                                variant="outlined"
+                                label="Year In"
+                                name={yearInEdu}
+                                value={edu.YearIn}
+                                required
+                                helperText={
+                                  touchedYearInEdu && errorYearInEdu
+                                    ? errorYearInEdu
+                                    : ""
+                                }
+                                error={Boolean(
+                                  touchedYearInEdu && errorYearInEdu
+                                )}
+                                onChange={handleChange}
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
+                              />
+                              <br />
+                              <TextField
+                                fullWidth
+                                size="small"
+                                color="secondary"
+                                margin="normal"
+                                variant="outlined"
+                                label="Year Out"
+                                name={yearOutEdu}
+                                value={edu.YearOut}
+                                required
+                                helperText={
+                                  touchedYearOutEdu && errorYearOutEdu
+                                    ? errorYearOutEdu
+                                    : ""
+                                }
+                                error={Boolean(
+                                  touchedYearOutEdu && errorYearOutEdu
+                                )}
+                                onChange={handleChange}
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
+                              />
+                              <br />
+                              <TextField
+                                fullWidth
+                                size="small"
+                                color="secondary"
+                                margin="normal"
+                                variant="outlined"
+                                label="GPA"
+                                name={GPA}
+                                value={edu.GPA}
+                                required
+                                helperText={
+                                  touchedGPA && errorGPA ? errorGPA : ""
+                                }
+                                error={Boolean(touchedGPA && errorGPA)}
+                                onChange={handleChange}
+                                InputProps={{
+                                  readOnly: disabled,
+                                }}
+                              />
+                            </Grid>
+                            <Grid item md={1} />
+                          </Grid>
+                          <hr />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </Box>
+                <Box
+                  sx={{
+                    backgroundColor: "#FFF",
+                    borderRadius: "10px",
+                    padding: "20px",
+                    boxShadow: 3,
+                    marginTop: "2%",
+                  }}
+                >
+                  <FieldArray name="Organization">
                     <div>
-                      <Typography variant="h6" fontFamily="Montserrat">
+                      <Typography
+                        variant="h5"
+                        fontFamily="Montserrat"
+                        textAlign="center"
+                        sx={{ textDecoration: "underline" }}
+                      >
                         Organization
                       </Typography>
-                      <Typography variant="body2" color="#4D4D4D">
+                      <Typography
+                        variant="body2"
+                        color="#4D4D4D"
+                        // sx={{ marginLeft: "20px" }}
+                      >
                         *Maximum 3 Organization
                       </Typography>
                       {values.Organization.map((org, idx) => {
@@ -815,6 +742,7 @@ const DetailApplicantForm = ({ bloc }) => {
                               <Grid container spacing={2}>
                                 <Grid item md={6}>
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -834,6 +762,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   />
                                   <br />
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -855,6 +784,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                 </Grid>
                                 <Grid item md={6}>
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -874,6 +804,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   />
                                   <br />
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -923,39 +854,31 @@ const DetailApplicantForm = ({ bloc }) => {
                                 onChange={handleChange}
                               />
                             </Grid>
+                            <hr />
                           </div>
                         );
                       })}
-
-                      {disabled ? (
-                        <></>
-                      ) : (
-                        <Button
-                          type="button"
-                          variant="outlined"
-                          color="secondary"
-                          disabled={values.Organization.length >= 3}
-                          onClick={() =>
-                            push({
-                              Organization: "",
-                              Scope: "",
-                              Duration: "",
-                              Description: "",
-                              Position: "",
-                            })
-                          }
-                        >
-                          Add
-                        </Button>
-                      )}
                     </div>
-                  )}
-                </FieldArray>
-                <br />
-                <FieldArray name="WorkExperience">
-                  {({ push, remove }) => (
+                  </FieldArray>
+                </Box>
+
+                <Box
+                  sx={{
+                    backgroundColor: "#FFF",
+                    borderRadius: "10px",
+                    padding: "20px",
+                    boxShadow: 3,
+                    marginTop: "2%",
+                  }}
+                >
+                  <FieldArray name="WorkExperience">
                     <div>
-                      <Typography variant="h6" fontFamily="Montserrat">
+                      <Typography
+                        variant="h5"
+                        fontFamily="Montserrat"
+                        sx={{ textDecoration: "underline" }}
+                        textAlign="center"
+                      >
                         Work Experience
                       </Typography>
                       <Typography variant="body2" color="#4D4D4D">
@@ -996,8 +919,9 @@ const DetailApplicantForm = ({ bloc }) => {
                           <div key={idx}>
                             <Grid container>
                               <Grid container spacing={2}>
-                                <Grid item md={6}>
+                                <Grid item md={5} sm={12} xs={12}>
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -1020,6 +944,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   />
                                   <br />
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -1042,6 +967,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   />
                                   <br />
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -1061,8 +987,10 @@ const DetailApplicantForm = ({ bloc }) => {
                                     onChange={handleChange}
                                   />
                                 </Grid>
-                                <Grid item md={5}>
+                                <Grid item md={1} />
+                                <Grid item md={5} sm={12} xs={12}>
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -1085,6 +1013,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   />
                                   <br />
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -1107,6 +1036,7 @@ const DetailApplicantForm = ({ bloc }) => {
                                   />
                                   <br />
                                   <TextField
+                                    fullWidth
                                     size="small"
                                     color="secondary"
                                     margin="normal"
@@ -1128,92 +1058,139 @@ const DetailApplicantForm = ({ bloc }) => {
                                     onChange={handleChange}
                                   />
                                 </Grid>
-                                <Grid item md={1}></Grid>
+                                <Grid item md={1} />
                               </Grid>
-                              <TextField
-                                size="small"
-                                fullWidth
-                                multiline
-                                minRows={3}
-                                color="secondary"
-                                margin="normal"
-                                variant="outlined"
-                                label="Description"
-                                name={descriptionWork}
-                                value={work.Description}
-                                InputProps={{
-                                  readOnly: disabled,
-                                }}
-                                helperText={
-                                  touchedDescription && errorDescription
-                                    ? errorDescription
-                                    : ""
-                                }
-                                error={Boolean(
-                                  touchedDescription && errorDescription
-                                )}
-                                onChange={handleChange}
-                              />
-                              {applicantStatus !== "" ? (
-                                <TextField
-                                  size="small"
-                                  fullWidth
-                                  multiline
-                                  minRows={3}
-                                  color="secondary"
-                                  margin="normal"
-                                  variant="outlined"
-                                  label="Reject Reason"
-                                  // name={descriptionWork}
-                                  value={applicantStatus}
-                                  InputProps={{
-                                    readOnly: disabled,
-                                  }}
-                                  helperText={
-                                    touchedDescription && errorDescription
-                                      ? errorDescription
-                                      : ""
-                                  }
-                                  error={Boolean(
-                                    touchedDescription && errorDescription
-                                  )}
-                                  onChange={handleChange}
-                                />
-                              ) : (
-                                <></>
-                              )}
+                              <Grid container>
+                                <Grid item md={11} sm={12} xs={12}>
+                                  <TextField
+                                    size="small"
+                                    fullWidth
+                                    multiline
+                                    minRows={3}
+                                    color="secondary"
+                                    margin="normal"
+                                    variant="outlined"
+                                    label="Description"
+                                    name={descriptionWork}
+                                    value={work.Description}
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
+                                    helperText={
+                                      touchedDescription && errorDescription
+                                        ? errorDescription
+                                        : ""
+                                    }
+                                    error={Boolean(
+                                      touchedDescription && errorDescription
+                                    )}
+                                    onChange={handleChange}
+                                  />
+                                </Grid>
+                              </Grid>
                             </Grid>
                           </div>
                         );
                       })}
-
-                      {disabled ? (
-                        <></>
-                      ) : (
-                        <Button
-                          type="button"
-                          variant="outlined"
-                          disabled={values.WorkExperience.length >= 3}
-                          color="secondary"
-                          onClick={() =>
-                            push({
-                              CompanyName: "",
-                              Position: "",
-                              Level: "",
-                              Industry: "",
-                              YearIn: "",
-                              YearOut: "",
-                              Description: "",
-                            })
-                          }
-                        >
-                          Add
-                        </Button>
-                      )}
                     </div>
-                  )}
-                </FieldArray>
-                {program.ApplyProcess?.SelectionProcessId === 6 ||
+                  </FieldArray>
+                </Box>
+
+                <Box
+                  sx={{
+                    backgroundColor: "#FFF",
+                    borderRadius: "10px",
+                    padding: "20px",
+                    boxShadow: 3,
+                    marginTop: "2%",
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    fontFamily="Montserrat"
+                    // sx={{ marginTop: "15px" }}
+                    sx={{ textDecoration: "underline" }}
+                    textAlign="center"
+                  >
+                    Skill
+                  </Typography>
+                  <Grid item md={12}>
+                    <FieldArray name="SkillSet">
+                      <div>
+                        {values.SkillSet.map((SkillSetName, idx) => {
+                          const name = `SkillSet[${idx}].Skill`;
+                          const touchedName = getIn(touched, name);
+                          const errorName = getIn(errors, name);
+                          return (
+                            <div key={idx}>
+                              <Grid container spacing={5}>
+                                <Grid item md={5} sm={12} xs={12}>
+                                  <TextField
+                                    fullWidth
+                                    margin="normal"
+                                    color="secondary"
+                                    label="Skill"
+                                    variant="outlined"
+                                    size="small"
+                                    name={name}
+                                    value={SkillSetName.Skill}
+                                    error={touchedName && Boolean(errorName)}
+                                    helperText={touchedName && errorName}
+                                    onChange={handleChange}
+                                    InputProps={{
+                                      readOnly: disabled,
+                                    }}
+                                  />
+                                </Grid>
+                                {/* <Grid item md={6} /> */}
+                              </Grid>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </FieldArray>
+                  </Grid>
+                </Box>
+
+                {applicantStatus !== "" ? (
+                  <Box
+                    sx={{
+                      backgroundColor: "#FFF",
+                      borderRadius: "10px",
+                      padding: "20px",
+                      boxShadow: 3,
+                      marginTop: "2%",
+                    }}
+                  >
+                    <Typography
+                      variant="h5"
+                      fontFamily="Montserrat"
+                      // sx={{ marginTop: "15px" }}
+                      sx={{ textDecoration: "underline" }}
+                      textAlign="center"
+                    >
+                      Rejected Reason
+                    </Typography>
+                    <TextField
+                      size="small"
+                      fullWidth
+                      multiline
+                      minRows={3}
+                      color="secondary"
+                      margin="normal"
+                      variant="outlined"
+                      label="Rejected Reason"
+                      // name={descriptionWork}
+                      value={applicantStatus}
+                      InputProps={{
+                        readOnly: disabled,
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  <></>
+                )}
+                {program.ApplyProcess?.SelectionProcessId === 5 ||
                 applicantStatus !== "" ? (
                   <> </>
                 ) : (
@@ -1222,10 +1199,12 @@ const DetailApplicantForm = ({ bloc }) => {
                     flexDirection="row"
                     alignItems="center"
                     justifyContent="center"
+                    marginTop={3}
                   >
                     <Button
                       color="error"
                       variant="contained"
+                      sx={{ marginRight: "20px" }}
                       onClick={confirmationReject}
                     >
                       Reject
@@ -1245,7 +1224,7 @@ const DetailApplicantForm = ({ bloc }) => {
           </Box>
         )}
       </Formik>
-    </MyComponent>
+    </Box>
   );
 };
 
