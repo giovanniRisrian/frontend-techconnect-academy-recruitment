@@ -42,7 +42,7 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
           token: res.data.data.token,
           name: res.data.data.name,
         });
-        navigate("/dashboard");
+        navigate("/applicant/status");
       } catch (err) {
         console.log(err);
       }

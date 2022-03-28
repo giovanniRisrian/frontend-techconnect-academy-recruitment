@@ -187,101 +187,101 @@ const VacancyList = ({ bloc }) => {
                 // console.log("ceek",value);
                 return (
                   <Fragment key={idx}>
-                    <Grid
-                      item
-                      md={4}
-                      sm={12}
-                      xs={12}
-                      // key={idx}
-                      justifyContent="left"
-                      display="flex"
-                      flexDirection="column"
-                      marginTop="20px"
+                  <Grid
+                    item
+                    md={4}
+                    sm={12}
+                    xs={12}
+                    // key={idx}
+                    justifyContent="left"
+                    display="flex"
+                    flexDirection="column"
+                    marginTop="20px"
+                  >
+                    <StyledCard
+                      sx={{
+                        backgroundColor: "#FFF",
+                        height: "100%",
+                        width: "85%",
+                        borderRadius: "15px",
+                        // marginX: "10px",
+                        boxShadow: 5,
+                        marginLeft: "10px",
+                      }}
                     >
-                      <StyledCard
-                        sx={{
-                          backgroundColor: "#FFF",
-                          height: "100%",
-                          width: "85%",
-                          borderRadius: "15px",
-                          // marginX: "10px",
-                          boxShadow: 5,
-                          marginLeft: "10px",
-                        }}
-                      >
-                        <div style={{height:'20vh', padding:'20px'}}>
+                      <div style={{height:'20vh', padding:'20px'}}>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          textAlign="left"
+                          color="#000"
+                          fontFamily="Montserrat"
+                          fontWeight="600"
+                        >
+                          {value.ProgramName}
+                        </Typography>
+                        <Box display="flex" marginLeft="10px" marginTop="5px">
+                          <FontAwesomeIcon
+                            icon={faTags}
+                            style={{ color: "#7C7474" }}
+                          />
                           <Typography
-                            variant="h5"
-                            component="div"
-                            textAlign="left"
-                            color="#000"
-                            fontFamily="Montserrat"
+                            color="#7C7474"
+                            gutterBottom
                             fontWeight="600"
+                            sx={{ marginLeft: "10px" }}
                           >
-                            {value.ProgramName}
+                            {value.ProgramTypeName.toUpperCase()}
                           </Typography>
-                          <Box display="flex" marginLeft="10px" marginTop="5px">
-                            <FontAwesomeIcon
-                              icon={faTags}
-                              style={{ color: "#7C7474" }}
-                            />
-                            <Typography
-                              color="#7C7474"
-                              gutterBottom
-                              fontWeight="600"
-                              sx={{ marginLeft: "10px" }}
-                            >
-                              {value.ProgramTypeName.toUpperCase()}
-                            </Typography>
-                          </Box>
-                          <Box display="flex" marginLeft="10px">
-                            <FontAwesomeIcon
-                              icon={faCalendar}
-                              style={{ color: "#7C7474" }}
-                            />
-                            <Typography
-                              color="#7C7474"
-                              fontWeight="600"
-                              sx={{ marginLeft: "10px" }}
-                            >
-                              {dayjs(value.ProgramActivity?.OpenDate).format(
-                                "DD/MM/YYYY"
-                              )}{" "}
-                              -{" "}
-                              {dayjs(value.ProgramActivity?.CloseDate).format(
-                                "DD/MM/YYYY"
-                              )}
-                            </Typography>
-                          </Box>
-                        </div>
-                        {/* <CardActions
-                          sx={{
-                            paddingBottom: "5%",
-                            marginLeft: "30%",
-                            paddingRight: "5%",
-                          }}
-                        > */}
-                        <div style={{display:'flex', justifyContent:'center', alignItems:'center', minHeight:'10vh'}}>
-                        <Button
-                            color="primary"
-                            variant="contained"
-                            sx={{
-                              fontFamily: "Montserrat",
-                              fontSize: "16px",
-                              color: "#FFF",
-                              backgroudColor: "#8645FF",
-                              borderRadius: "20px",
-                            }}
-                            onClick={() => navigate(`/vacancy/${value.ID}`)}
+                        </Box>
+                        <Box display="flex" marginLeft="10px">
+                          <FontAwesomeIcon
+                            icon={faCalendar}
+                            style={{ color: "#7C7474" }}
+                          />
+                          <Typography
+                            color="#7C7474"
+                            fontWeight="600"
+                            sx={{ marginLeft: "10px" }}
                           >
-                            See Details
-                          </Button>
-                        </div>
-                        
-                        {/* </CardActions> */}
-                      </StyledCard>
-                    </Grid>
-                  </Fragment>
+                            {dayjs(value.ProgramActivity?.OpenDate).format(
+                              "DD/MM/YYYY"
+                            )}{" "}
+                            -{" "}
+                            {dayjs(value.ProgramActivity?.CloseDate).format(
+                              "DD/MM/YYYY"
+                            )}
+                          </Typography>
+                        </Box>
+                      </div>
+                      {/* <CardActions
+                        sx={{
+                          paddingBottom: "5%",
+                          marginLeft: "30%",
+                          paddingRight: "5%",
+                        }}
+                      > */}
+                      <div style={{display:'flex', justifyContent:'center', alignItems:'center', minHeight:'10vh'}}>
+                      <Button
+                          color="primary"
+                          variant="contained"
+                          sx={{
+                            fontFamily: "Montserrat",
+                            fontSize: "16px",
+                            color: "#FFF",
+                            backgroudColor: "#8645FF",
+                            borderRadius: "20px",
+                          }}
+                          onClick={() => navigate(`/vacancy/${value.ID}`)}
+                        >
+                          See Details
+                        </Button>
+                      </div>
+                      
+                      {/* </CardActions> */}
+                    </StyledCard>
+                  </Grid>
+                </Fragment>
                 );
               })
             )}
