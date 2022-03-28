@@ -19,6 +19,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faXmark, faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons";
+import header from '../../../../asset/image/headervacancy.png'
 
 const ProgramForm = ({ bloc }) => {
   const data = useContext(RootContext);
@@ -96,21 +97,20 @@ const ProgramForm = ({ bloc }) => {
       <>
         {/* Start of Header */}
        
-        <Grid container sx={{ paddingTop: 5 }}>
+        <Grid container sx={{paddingTop:'6%',backgroundImage:`url(${header})`, backgroundSize:'cover', backgroundRepeat:'no-repeat', height:'50vh'}}>
           <Grid item md={4} />
-          <Grid item md={4} sm={11} xs={11}>
+          <Grid item md={4} sm={11} xs={11} justifyContent='center'>
             <Typography
               component="div"
               textAlign="center"
               gutterBottom
               sx={{
-                marginBottom: 5,
                 typography: { lg: "h3", sm: "h4", xs: "h4" },
                 fontWeight: {
-                  lg: 500,
-                  md: 500,
-                  sm: 500,
-                  xs: 500,
+                  lg: 600,
+                  md: 600,
+                  sm: 600,
+                  xs: 600,
                 },
                 fontFamily: {
                   lg: "Montserrat Alternates",
@@ -120,7 +120,7 @@ const ProgramForm = ({ bloc }) => {
                 },
               }}
             >
-              <Box sx={{ letterSpacing: 6 }}>New Program</Box>
+              <Box sx={{ letterSpacing: 5 }}>New Program</Box>
             </Typography>
             <Grid item md={3} />
           </Grid>
@@ -509,7 +509,7 @@ const ProgramForm = ({ bloc }) => {
               <Box textAlign="center">
                 <Button
                   variant="outlined"
-                  color="primary"
+                  color="secondary"
                   onClick={handleCancel}
                   sx={{ marginBottom: 12 }}
                 >
@@ -517,6 +517,7 @@ const ProgramForm = ({ bloc }) => {
                   Cancel
                 </Button>{" "}
                 <Button
+                  color='secondary'
                   variant="contained"
                   type="submit"
                   sx={{ marginBottom: 12 }}

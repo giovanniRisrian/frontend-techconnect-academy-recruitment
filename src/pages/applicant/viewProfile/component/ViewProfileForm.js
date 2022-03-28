@@ -10,6 +10,15 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import Modal from "@mui/material/Modal";
+
+import Paper from "@mui/material/Paper";
+import InputBase from "@mui/material/InputBase";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import DirectionsIcon from "@mui/icons-material/Directions";
 import dayjs from "dayjs";
 import * as Yup from "yup";
 import { useContext, useEffect, useState } from "react";
@@ -23,6 +32,26 @@ import UploadButton from "../../../globalComponent/uploadButton/UploadButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserEdit } from "@fortawesome/free-solid-svg-icons";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+};
+
+const styleBox = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  height: 200,
+  bgcolor: "background.paper",
+  // border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "25px",
+};
 const validationSchema = Yup.object().shape({
   Personal: Yup.object().shape({
     Name: Yup.string().required("This field is required"),
@@ -58,7 +87,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const ViewProfileForm = ({ bloc }) => {
-  const { addProfile, getDataByID } = bloc();
+  const { addProfile, getDataByID, putProfileLinkedin, setLinkedin,linkedin } = bloc();
   const [file, setFile] = useState(false);
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
@@ -168,6 +197,9 @@ const ViewProfileForm = ({ bloc }) => {
     reset(initialValues);
   }, [initialValues]);
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
       <Typography
@@ -177,7 +209,7 @@ const ViewProfileForm = ({ bloc }) => {
         fontWeight="400"
         sx={{ paddingTop: "20px" }}
       >
-        Data Personal View Profile
+        Profile
       </Typography>
       <br />
       <Box
@@ -288,16 +320,80 @@ const ViewProfileForm = ({ bloc }) => {
                     onChange={handleFile}
                   />
                 ) : (
-                  <Button
-                    margin="normal"
-                    type="button"
-                    color="secondary"
-                    variant="outlined"
-                    sx={{ height: "30px", marginTop: "20px" }}
-                    onClick={() => setFile(true)}
+                  <div
+                    style={{
+                      margin: "auto",
+                      width: "50%",
+                      paddingLeft: "15%",
+                    }}
                   >
-                    Add / Edit Photo
-                  </Button>
+                    <Button
+                      margin="normal"
+                      type="button"
+                      color="secondary"
+                      variant="outlined"
+                      sx={{ height: "30px", marginTop: "20px" }}
+                      onClick={() => setFile(true)}
+                    >
+                      Add / Edit Photo
+                    </Button>
+
+                    <Button
+                      margin="normal"
+                      type="button"
+                      color="secondary"
+                      variant="outlined"
+                      sx={{ height: "30px", marginTop: "20px" }}
+                      onClick={handleOpen}
+                    >
+                      Fill Data Using Linkedin
+                    </Button>
+                    <Modal
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={styleBox}>
+                        <p style={{ textAlign: "center", margin: "auto" }}>
+                          Fill this bar with your linkedin link to auto fill
+                          data with your linkedin information<br></br>
+                        </p>
+                        <Paper
+                          component="form"
+                          style={style}
+                          sx={{
+                            p: "2px 4px",
+                            display: "flex",
+                            alignItems: "center",
+                            width: 400,
+                          }}
+                        >
+                          <InputBase
+                            value={linkedin}
+                            onChange={(val) => setLinkedin(val.target.value)}
+                            sx={{ ml: 1, flex: 1 }}
+                            placeholder="Fill your Linkedin link here"
+                            inputProps={{ "aria-label": "search google maps" }}
+                          />
+                          <Divider
+                            sx={{ height: 28, m: 0.5 }}
+                            orientation="vertical"
+                          />
+                          <IconButton
+                            onClick={() =>
+                              putProfileLinkedin(initialValues, data)
+                            }
+                            color="primary"
+                            sx={{ p: "10px" }}
+                            aria-label="directions"
+                          >
+                            <DirectionsIcon />
+                          </IconButton>
+                        </Paper>
+                      </Box>
+                    </Modal>
+                  </div>
                 )}
               </>
             )}
@@ -309,6 +405,14 @@ const ViewProfileForm = ({ bloc }) => {
                 boxShadow: 3,
               }}
             >
+              <Typography
+                variant="h5"
+                fontFamily="Montserrat"
+                textAlign="center"
+                sx={{ textDecoration: "underline", marginBottom: "2%" }}
+              >
+                Data Personal
+              </Typography>
               <Grid container>
                 <Grid container spacing={2}>
                   <Grid item md={5} sm={12} xs={12}>
@@ -553,25 +657,24 @@ const ViewProfileForm = ({ bloc }) => {
             {/* End Personal */}
             {/* Start Education */}
 
-           
             <Box
               sx={{
                 backgroundColor: "#FFF",
                 borderRadius: "10px",
                 padding: "20px",
                 boxShadow: 3,
-                marginTop:'2%'
+                marginTop: "2%",
               }}
             >
-               <Typography
-              variant="h5"
-              fontFamily="Montserrat"
-              // sx={{ marginTop: "15px" }}
-              textAlign="center"
-              sx={{textDecoration:'underline'}}
-            >
-              Education
-            </Typography>
+              <Typography
+                variant="h5"
+                fontFamily="Montserrat"
+                // sx={{ marginTop: "15px" }}
+                textAlign="center"
+                sx={{ textDecoration: "underline" }}
+              >
+                Education
+              </Typography>
               <Typography variant="body2" color="#4D4D4D">
                 *Maximum 3 Education
               </Typography>
@@ -807,24 +910,24 @@ const ViewProfileForm = ({ bloc }) => {
             </Box>
 
             {/* Organization */}
-           
+
             <Box
               sx={{
                 backgroundColor: "#FFF",
                 borderRadius: "10px",
                 padding: "20px",
                 boxShadow: 3,
-                marginTop:'2%'
+                marginTop: "2%",
               }}
             >
-               <Typography
-              variant="h5"
-              fontFamily="Montserrat"
-              textAlign="center"
-              sx={{textDecoration:'underline'}}
-            >
-              Organization
-            </Typography>
+              <Typography
+                variant="h5"
+                fontFamily="Montserrat"
+                textAlign="center"
+                sx={{ textDecoration: "underline" }}
+              >
+                Organization
+              </Typography>
               <Typography
                 variant="body2"
                 color="#4D4D4D"
@@ -1004,7 +1107,6 @@ const ViewProfileForm = ({ bloc }) => {
               </div>
             </Box>
             {/* Work Experience */}
-            
 
             <div>
               <Box
@@ -1013,17 +1115,17 @@ const ViewProfileForm = ({ bloc }) => {
                   borderRadius: "10px",
                   padding: "20px",
                   boxShadow: 3,
-                  marginTop:'2%'
+                  marginTop: "2%",
                 }}
               >
                 <Typography
-              variant="h5"
-              fontFamily="Montserrat"
-              sx={{textDecoration:'underline'}}
-              textAlign="center"
-            >
-              Work Experience
-            </Typography>
+                  variant="h5"
+                  fontFamily="Montserrat"
+                  sx={{ textDecoration: "underline" }}
+                  textAlign="center"
+                >
+                  Work Experience
+                </Typography>
                 <Typography
                   variant="body2"
                   color="#4D4D4D"
@@ -1262,25 +1364,24 @@ const ViewProfileForm = ({ bloc }) => {
 
             {/* SkillSet */}
             <div>
-            
               <Box
                 sx={{
                   backgroundColor: "#FFF",
                   borderRadius: "10px",
                   padding: "20px",
                   boxShadow: 3,
-                  marginTop:'2%'
+                  marginTop: "2%",
                 }}
               >
-                  <Typography
-                variant="h5"
-                fontFamily="Montserrat"
-                // sx={{ marginTop: "15px" }}
-                sx={{textDecoration:'underline'}}
-                textAlign="center"
-              >
-                Skill
-              </Typography>
+                <Typography
+                  variant="h5"
+                  fontFamily="Montserrat"
+                  // sx={{ marginTop: "15px" }}
+                  sx={{ textDecoration: "underline" }}
+                  textAlign="center"
+                >
+                  Skill
+                </Typography>
                 <Grid item md={12}>
                   {SkillSetField.map((SkillSet, index) => {
                     const handleDelete = () => {

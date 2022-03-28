@@ -30,12 +30,17 @@ const LoginBloc = (LoginService) => {
         navigate("/applicant/status");
       }
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-
-        text: "Username or Password is invalid",
-      });
-      // alert('Username or Password is invalid')
+      if (err.response.data.code === 403) {
+        Swal.fire({
+          icon: "error",
+          text: "Your account hasn't been activated yet, please check your email to activate your account",
+        });
+      }else{
+        Swal.fire({
+          icon: "error",
+          text: "Username or Password is invalid",
+        });
+      }
     }
   };
   return { doLogin };

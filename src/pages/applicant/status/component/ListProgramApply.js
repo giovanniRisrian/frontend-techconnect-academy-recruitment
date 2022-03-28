@@ -32,7 +32,7 @@ const ListProgramApply = ({ bloc }) => {
     statusProgram,
     getStatusbyId,
     loading,
-    handlePage,
+    setPage,
   } = bloc();
 
   const data = useContext(RootContext);
@@ -50,6 +50,11 @@ const ListProgramApply = ({ bloc }) => {
   useEffect(() => {
     getListAppliedProgram(1,id, data);
   }, []);
+
+  const handlePage = (page) => {
+    getListAppliedProgram(page, id, data)
+    setPage(page)
+  }
 
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>

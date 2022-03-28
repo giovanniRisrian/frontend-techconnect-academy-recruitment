@@ -75,13 +75,14 @@ const VacancyDetail = ({ bloc }) => {
   }, []);
 
   return (
-    <Box sx={{ backgroundImage:`url(${header})`, height:'90vh' ,backgroundSize:'cover',  backgroundRepeat:'no-repeat' }}>
+    <Box sx={{ backgroundImage:`url(${header})`, height:'91vh' ,backgroundSize:'cover',  backgroundRepeat:'no-repeat'}}>
       <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
         // paddingY="25px"
-        paddingTop='2%'
+        paddingTop='1%'
+
       >
         {programDetail && (
           <Card

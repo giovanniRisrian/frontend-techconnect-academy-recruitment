@@ -37,10 +37,6 @@ const ListProgramApplyBloc = (statusService) => {
       throw err;
     }
   };
-  const handlePage = (page) => {
-    getListAppliedProgram(page);
-    setPage(page);
-  };
   
   return {
     list,
@@ -48,7 +44,7 @@ const ListProgramApplyBloc = (statusService) => {
     getListAppliedProgram,
     statusProgram,
     getStatusbyId,
-    handlePage
+    setPage
   };
 };
 
