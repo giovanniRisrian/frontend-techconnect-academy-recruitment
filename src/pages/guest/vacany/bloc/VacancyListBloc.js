@@ -11,7 +11,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
   const [searchValue, setSearchValue] = useState("");
   let [pages, setPage] = useState(1);
   let navigate = useNavigate();
-  let { getInformationProgram, getProgramType } = programService();
+  let { getInformationProgram, getProgramType} = programService();
 
   const getListJobInformation = async (page, filter, search) => {
     try {
@@ -32,6 +32,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
   };
 
   const getSearchByName = async (e) => {
+    // console.log(e);
     try {
       if (e.keyCode === 13) {
         setPage(1);
@@ -80,7 +81,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
     setPage,
     searchValue,
     handlePage,
-    state
+    state,
   };
 };
 

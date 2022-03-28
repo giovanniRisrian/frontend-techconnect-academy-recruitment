@@ -2,10 +2,11 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import { RootContext } from "../../../../App";
 import * as Yup from "yup";
-import { Typography, TextField, Button, Box } from "@mui/material";
+import { Typography, TextField, Button, Box, Grid } from "@mui/material";
 import logo from "../../../../asset/icon/logo.svg";
 import { useNavigate } from "react-router-dom";
 import MyComponent from "../../../homepage/BackgroundImage";
+import login from '../../../../asset/image/loginLeft.png'
 
 const RegisterComponent = ({ bloc }) => {
   const data = useContext(RootContext);
@@ -39,26 +40,22 @@ const RegisterComponent = ({ bloc }) => {
   };
 
   return (
-    <MyComponent>
-      <div className="formBody">
-        <div>
-          <div className="card cardForm">
-            <div className="box"></div>
-            <div className="card-body">
-              <Typography textAlign="center" variant="h4" fontFamily="Montserrat">
-                Register Recruiter Form
-              </Typography>
+    <Grid container
+    sx={{
+      backgroundColor: "#F2F2F2",
+      height: "89vh",
+    }}
+  >
+    <Grid item md={6} justifyContent="flex-start">
+      <img src={login} alt="img-form" width="600px" height="599px" />
+    </Grid>
+    <Grid item md={5} sm={12} xs={12} sx={{marginLeft:'3%'}}>
+    <Typography textAlign='center' variant='h5' paddingTop='5%'>Register Recruiter Form</Typography>
 
-              <div>
-                <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                padding="20px"
-                >
-                <form onSubmit={formik.handleSubmit}>
+     <Box  sx={{ marginX: "20%", boxShadow: 3, paddingX: "20px", marginTop:'5%', paddingBottom:'5%' }}>
+           <form onSubmit={formik.handleSubmit}>
                   <Typography textAlign="center">
-                    <img src={logo} style={{ width: "75px", height: "75px" }} />
+                    <img src={logo} style={{ width: "120px", height: "150px" }} />
                   </Typography>
 
                   <TextField
@@ -117,62 +114,11 @@ const RegisterComponent = ({ bloc }) => {
                       </small>
                     ) : null}
                   </p>
-
-                  {/* <label>Full Name </label>
-                <input
-                  className="form-control cardForm text-center"
-                  type="text"
-                  name="fullname"
-                  placeholder="fullname"
-                  value={formik.values.fullname || ""}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <p className="warning">
-                  {formik.errors.fullname && formik.touched.fullname ? (
-                    <small className="text-danger">
-                      {formik.errors.fullname}
-                    </small>
-                  ) : null}
-                </p>
-                <label>Email </label>
-                <input
-                  className="form-control cardForm text-center"
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  value={formik.values.email || ""}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <p className="warning">
-                  {formik.errors.email && formik.touched.email ? (
-                    <small className="text-danger">{formik.errors.email}</small>
-                  ) : null}
-                </p>
-                <label>Password : </label>
-                <input
-                  className="form-control cardForm text-center"
-                  type="password"
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  value={formik.values.password || ""}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                <p className="warning">
-                  {formik.errors.password && formik.touched.password ? (
-                    <small className="text-danger">
-                      {formik.errors.password}
-                    </small>
-                  ) : null}
-                </p> */}
-
+                  <Box display='flex' justifyContent='center'>
                   <Button
                     // type="submit"
                     variant="contained"
-                    // value="submit"
+                    sx={{marginRight:'5%'}}
                     color="secondary"
                     textAlign="center"
                     onClick={() => {
@@ -193,14 +139,15 @@ const RegisterComponent = ({ bloc }) => {
                   >
                     SIGN UP
                   </Button>
+                  </Box>
+                
                 </form>
-                </Box>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </MyComponent>
+     </Box>
+    </Grid>
+    </Grid>
+
+     
+    
   );
 };
 
