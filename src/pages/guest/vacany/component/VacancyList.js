@@ -106,7 +106,7 @@ const VacancyList = ({ bloc }) => {
                 sx={{ backgroundColor: "#F2F2F2" }}
                 fullWidth
                 variant="standard"
-                color="secondary"
+                color="primary"
                 id="typeProgram"
                 value={types}
                 label="Program"
@@ -209,7 +209,7 @@ const VacancyList = ({ bloc }) => {
                           marginLeft: "10px",
                         }}
                       >
-                        <CardContent>
+                        <div style={{height:'20vh', padding:'20px'}}>
                           <Typography
                             variant="h5"
                             component="div"
@@ -253,16 +253,17 @@ const VacancyList = ({ bloc }) => {
                               )}
                             </Typography>
                           </Box>
-                        </CardContent>
-                        <CardActions
+                        </div>
+                        {/* <CardActions
                           sx={{
                             paddingBottom: "5%",
                             marginLeft: "30%",
                             paddingRight: "5%",
                           }}
-                        >
-                          <Button
-                            color="secondary"
+                        > */}
+                        <div style={{display:'flex', justifyContent:'center', alignItems:'center', minHeight:'10vh'}}>
+                        <Button
+                            color="primary"
                             variant="contained"
                             sx={{
                               fontFamily: "Montserrat",
@@ -275,7 +276,9 @@ const VacancyList = ({ bloc }) => {
                           >
                             See Details
                           </Button>
-                        </CardActions>
+                        </div>
+                        
+                        {/* </CardActions> */}
                       </StyledCard>
                     </Grid>
                   </Fragment>
@@ -296,7 +299,7 @@ const VacancyList = ({ bloc }) => {
         <Stack spacing={2}>
           <Pagination
             count={list.LastPage}
-            color="secondary"
+            color="primary"
             size="large"
             // page={pages}
             onChange={(e, value) => {
