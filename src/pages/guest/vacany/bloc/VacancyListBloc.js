@@ -55,13 +55,13 @@ const VacancyListBloc = (programService, useVacancyList) => {
   const handleType = (types) => {
     const lowerType = types.toLowerCase();
     setPage(1);
-    getListJobInformation((pages = 1), lowerType, "");
+    getListJobInformation((pages = 1), types, "");
     setPage(pages);
     setType(types);
   };
 
   const handlePage = (page) => {
-    getListJobInformation(page, types.toLocaleLowerCase(), searchValue);
+    getListJobInformation(page, types, searchValue);
 
     setPage(page);
   };

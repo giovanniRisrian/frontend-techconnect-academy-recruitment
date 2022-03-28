@@ -54,7 +54,7 @@ const VacancyDetail = ({ bloc }) => {
       .then((result) => {
         if (result.isConfirmed) {
           // if (programDetail.IsActive) {
-          if (programDetail.ProgramTypeName === "certification") {
+          if (programDetail.ProgramTypeName === "Certification") {
             window.open(programDetail.LinkCertification);
           } else {
             doApplyProgram(dataApplicant, data);
