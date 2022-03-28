@@ -198,7 +198,7 @@ const ApplicantListComp = ({ bloc }) => {
                 id="programlist"
                 value={programId}
                 label="Program"
-                color="secondary"
+                color="primary"
                 onChange={(e, value) => {
                   handleProgram(e.target.value, value, data);
                 }}
@@ -232,7 +232,7 @@ const ApplicantListComp = ({ bloc }) => {
             marginBottom={isAccepted !== "unqualified" ? "" : 5}
           >
             <Button
-              color="secondary"
+              color="primary"
               variant={isAccepted === "true" ? "contained" : "outlined"}
               onClick={() => handleAccept(data)}
               sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
@@ -240,7 +240,7 @@ const ApplicantListComp = ({ bloc }) => {
               On Progress Applicant
             </Button>
             <Button
-              color="secondary"
+              color="primary"
               variant={isAccepted === "unqualified" ? "contained" : "outlined"}
               onClick={() => handleUnqualified(data)}
               sx={{
@@ -253,7 +253,7 @@ const ApplicantListComp = ({ bloc }) => {
               Unqualified Applicant
             </Button>
             <Button
-              color="secondary"
+              color="primary"
               variant={isAccepted === "false" ? "contained" : "outlined"}
               onClick={() => handleReject(data)}
               sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
@@ -283,24 +283,24 @@ const ApplicantListComp = ({ bloc }) => {
                     {steps.map((label, index) => (
                       <Step
                         key={label}
-                        sx={{
-                          "& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel":
-                            {
-                              color: "grey.500", // Just text label (COMPLETED)
-                            },
-                          "& .MuiStepLabel-root .Mui-active": {
-                            color: "secondary.main", // circle color (ACTIVE)
-                          },
-                          "& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel":
-                            {
-                              fontWeight: "500",
-                              color: "black", // Just text label (ACTIVE)
-                            },
-                          "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text":
-                            {
-                              fill: "white", // circle's number (ACTIVE)
-                            },
-                        }}
+                        // sx={{
+                        //   "& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel":
+                        //     {
+                        //       color: "grey.500", // Just text label (COMPLETED)
+                        //     },
+                        //   "& .MuiStepLabel-root .Mui-active": {
+                        //     color: "secondary.main", // circle color (ACTIVE)
+                        //   },
+                        //   "& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel":
+                        //     {
+                        //       fontWeight: "500",
+                        //       color: "black", // Just text label (ACTIVE)
+                        //     },
+                        //   "& .MuiStepLabel-root .Mui-active .MuiStepIcon-text":
+                        //     {
+                        //       fill: "white", // circle's number (ACTIVE)
+                        //     },
+                        // }}
                       >
                         <StepButton onClick={() => handleStep(index, data)}>
                           {label}
