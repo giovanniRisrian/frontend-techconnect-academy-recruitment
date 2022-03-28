@@ -29,6 +29,7 @@ import StatusDetail from "../pages/applicant/status/StatusDetail";
 import RecruiterHome from "../pages/recruiter/home/RecruiterHome";
 import Reccomendation from "../pages/applicant/reccomendation/Reccomendation";
 import ActionType from "../Context/ActionType";
+import ActivationAccount from "../activation/activation_account";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -38,8 +39,6 @@ const AppRouters = () => {
   if (data.userInfo !== null) {
     let userInfo = jwt_decode(data.userInfo);
 
-    // console.log("INI USER INFO",  new Date(userInfo.exp*1000).toString());
-    // console.log("Date.now()", new Date(Date.now()).toString());
     if (userInfo.exp * 1000 > Date.now()) {
       Role = userInfo.Role;
       if (Role === "user") {
@@ -73,11 +72,19 @@ const AppRouters = () => {
 
         <Route
           path="/login"
-          element={Role === null ? <Login /> : <Navigate to={addressing} />}
-        />
+          element={Role === null ? <Login /> : <Navigate to={addressing} />}>
+          <Route
+            path=":id/:email"
+            element={<Login />}
+          />
+        </Route>
         <Route
           path="/register"
           element={Role === null ? <Registers /> : <Navigate to={addressing} />}
+        />
+        <Route
+          path="/activate/:id/:email"
+          element={<ActivationAccount />}
         />
         <Route path="/dashboard" element={<MiddlewareAuth />}>
           <Route index element={<Dashboard />} />
