@@ -67,6 +67,7 @@ const ActivationComponent = ({ bloc }) => {
                 paddingBottom: "15px", 
                 fontFamily: 'Montserrat',
                 fontWeight: 500,
+                color:"darkmagenta"
                 }}>
                 Resend Activation Link
               </Typography>
