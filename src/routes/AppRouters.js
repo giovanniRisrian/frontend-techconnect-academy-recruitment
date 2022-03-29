@@ -30,6 +30,7 @@ import RecruiterHome from "../pages/recruiter/home/RecruiterHome";
 import Reccomendation from "../pages/applicant/reccomendation/Reccomendation";
 import ActionType from "../Context/ActionType";
 import ActivationAccount from "../activation/activation_account";
+import ListRecruiter from "../pages/administrator/listRecruiter/List";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -152,6 +153,7 @@ const AppRouters = () => {
         <Route path="/administrator" element={<MiddlewareAuthAdministrator />}>
           <Route index element={<AdministratorHome />} />
           <Route path="register/recruiter" element={<RegisterRecruiter />} />
+          <Route path="list/recruiter"  element={<ListRecruiter />}/>
         </Route>
 
         <Route

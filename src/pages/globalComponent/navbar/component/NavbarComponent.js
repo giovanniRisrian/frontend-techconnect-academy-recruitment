@@ -39,10 +39,11 @@ let settingsLink = [
 ];
 let settingsRecruiter = ["Recruiter Page", "Logout"];
 let settingsLinkRecruiter = ["/recruiter", "/logout"];
-let settingAdmin = ["Dasboard", "Register Recruiter", "Logout"];
+let settingAdmin = ["Dasboard", "Register Recruiter", "List Recruiter", "Logout"];
 let settingsLinkAdmin = [
   "/administrator",
   "/administrator/register/recruiter",
+  "/administrator/list/recruiter",
   "/logout",
 ];
 const NavbarCompontent = () => {
