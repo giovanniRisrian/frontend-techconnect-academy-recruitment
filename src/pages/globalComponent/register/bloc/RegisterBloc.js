@@ -2,11 +2,14 @@
 import ActionType from "../../../../Context/ActionType";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useState } from "react";
 const RegisterBloc = (RegisterService) => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   let { postRegister, postRegisterRecruiter } = RegisterService();
   const doRegister = async (formik, context) => {
     try {
+      setLoading(true);
       let res = await postRegister(formik.values);
 
       // console.log(res);
@@ -17,9 +20,9 @@ const RegisterBloc = (RegisterService) => {
         // token: res.data.data.token,
         name: res.data.data.name,
       });
+      setLoading(false);
       Swal.fire({
-        title:
-          "Register success, please check your email to activate your account!",
+        title: "Success!",
         icon: "success",
         confirmButtonText: "OK",
       }).then((result) => {
@@ -65,6 +68,6 @@ const RegisterBloc = (RegisterService) => {
       throw err;
     }
   };
-  return { doRegister, doRegisterRecruiter };
+  return { doRegister, doRegisterRecruiter, loading };
 };
 export default RegisterBloc;

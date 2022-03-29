@@ -69,14 +69,14 @@ let pagesAdmin = [
   "Home",
   "About Us",
   "Program / Certificate",
-  "Dashboard",
+  "List Recruiter",
   "Register Recruiter",
 ];
 let pageLinkAdmin = [
   "/",
   "/about",
   "/vacancy",
-  "/administrator",
+  "/administrator/list/recruiter",
   "/administrator/register/recruiter",
 ];
 let settingAdmin = ["Logout"];

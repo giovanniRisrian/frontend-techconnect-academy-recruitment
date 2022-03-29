@@ -1,6 +1,4 @@
 import {
-  CardActions,
-  CardContent,
   Card,
   Typography,
   Button,
@@ -48,10 +46,12 @@ const VacancyList = ({ bloc }) => {
     getListJobInformation(1, "", "");
   }, []);
 
-  const onClickSearch = (e, text) => {
-    setSearchValue(text);
-    getSearchByName(e);
-  };
+  console.log(list);
+
+  // const onClickSearch = (e, text) => {
+  //   setSearchValue(text);
+  //   getSearchByName(e);
+  // };
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
       <Box
@@ -173,7 +173,7 @@ const VacancyList = ({ bloc }) => {
               marginTop: "3%",
             }}
           > */}
-            <Grid container>
+          <Grid container>
             {list?.ProgramList?.length === 0 ? (
               <Grid container>
                 <Grid item md={4} />
@@ -188,104 +188,116 @@ const VacancyList = ({ bloc }) => {
                 // console.log("ceek",value);
                 return (
                   <Fragment key={idx}>
-                      <Grid item md={4} sx={{marginBottom:'1%', marginTop:'2%'}}>
-                      <StyledCard
-                      sx={{
-                        backgroundColor: "#FFF",
-                        height: "100%",
-                        width: "85%",
-                        borderRadius: "15px",
-                        // marginX: "10px",
-                        boxShadow: 5,
-                        marginLeft: "10px",
-                      }}
+                    <Grid
+                      item
+                      md={4}
+                      sm={12}
+                      xs={12}
+                      sx={{ marginBottom: "1%", marginTop: "2%" }}
                     >
-                      <div style={{ height: "20vh", padding: "20px" }}>
-                        <Typography
-                          variant="h5"
-                          component="div"
-                          textAlign="left"
-                          color="#000"
-                          fontFamily="Montserrat"
-                          fontWeight="600"
+                      <StyledCard
+                        sx={{
+                          backgroundColor: "#FFF",
+                          height: "100%",
+                          width: "85%",
+                          borderRadius: "15px",
+                          // marginX: "10px",
+                          boxShadow: 5,
+                          marginLeft: "10px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "20vh",
+                            padding: "20px",
+                            marginBottom: "5%",
+                          }}
                         >
-                          {value.ProgramName}
-                        </Typography>
-                        <Box display="flex" marginLeft="10px" marginTop="5px">
-                          <FontAwesomeIcon
-                            icon={faTags}
-                            style={{ color: "#7C7474" }}
-                          />
                           <Typography
-                            color="#7C7474"
-                            gutterBottom
+                            variant="h5"
+                            component="div"
+                            textAlign="left"
+                            color="#000"
+                            fontFamily="Montserrat"
                             fontWeight="600"
-                            sx={{ marginLeft: "10px" }}
                           >
-                            {value.ProgramTypeName.toUpperCase()}
+                            {value.ProgramName}
                           </Typography>
-                        </Box>
-                        <Box display="flex" marginLeft="10px">
-                          <FontAwesomeIcon
-                            icon={faCalendar}
-                            style={{ color: "#7C7474" }}
-                          />
-                          <Typography
-                            color="#7C7474"
-                            fontWeight="600"
-                            sx={{ marginLeft: "10px" }}
-                          >
-                            {dayjs(value.ProgramActivity?.OpenDate).format(
-                              "DD/MM/YYYY"
-                            )}{" "}
-                            -{" "}
-                            {dayjs(value.ProgramActivity?.CloseDate).format(
-                              "DD/MM/YYYY"
-                            )}
-                          </Typography>
-                        </Box>
-                      </div>
-                      {/* <CardActions
+                          <Box display="flex" marginLeft="10px" marginTop="5px">
+                            <FontAwesomeIcon
+                              icon={faTags}
+                              style={{ color: "#7C7474" }}
+                            />
+                            <Typography
+                              color="#7C7474"
+                              gutterBottom
+                              fontWeight="600"
+                              sx={{ marginLeft: "10px" }}
+                            >
+                              {value.ProgramTypeName.toUpperCase()}
+                            </Typography>
+                          </Box>
+                          <Box display="flex" marginLeft="10px">
+                            <FontAwesomeIcon
+                              icon={faCalendar}
+                              style={{ color: "#7C7474" }}
+                            />
+                            <Typography
+                              color="#7C7474"
+                              fontWeight="600"
+                              sx={{ marginLeft: "10px" }}
+                            >
+                              {dayjs(value.ProgramActivity?.OpenDate).format(
+                                "DD/MM/YYYY"
+                              )}{" "}
+                              -{" "}
+                              {dayjs(value.ProgramActivity?.CloseDate).format(
+                                "DD/MM/YYYY"
+                              )}
+                            </Typography>
+                          </Box>
+                        </div>
+                        {/* <CardActions
                         sx={{
                           paddingBottom: "5%",
                           marginLeft: "30%",
                           paddingRight: "5%",
                         }}
                       > */}
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          minHeight: "10vh",
-                        }}
-                      >
-                        <Button
-                          color="primary"
-                          variant="contained"
-                          sx={{
-                            fontFamily: "Montserrat",
-                            fontSize: "16px",
-                            color: "#FFF",
-                            backgroudColor: "#8645FF",
-                            borderRadius: "20px",
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            minHeight: "10vh",
+                            marginTop: "5%",
                           }}
-                          onClick={() => navigate(`/vacancy/${value.ID}`)}
                         >
-                          See Details
-                        </Button>
-                      </div>
+                          <Button
+                            color="primary"
+                            variant="contained"
+                            sx={{
+                              fontFamily: "Montserrat",
+                              fontSize: "16px",
+                              color: "#FFF",
+                              backgroudColor: "#8645FF",
+                              borderRadius: "20px",
+                            }}
+                            onClick={() => navigate(`/vacancy/${value.ID}`)}
+                          >
+                            See Details
+                          </Button>
+                        </div>
 
-                      {/* </CardActions> */}
-                    </StyledCard>
-                      </Grid>
-                  
+                        {/* </CardActions> */}
+                      </StyledCard>
+                    </Grid>
                   </Fragment>
                 );
               })
             )}
-            </Grid>
-            
+          </Grid>
+
           {/* </div> */}
           {/* </Grid> */}
         </>

@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBarsProgress,
   faCalendar,
-  faCircleInfo,
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
@@ -94,7 +93,7 @@ const ListProgramApply = ({ bloc }) => {
       {list?.ProgramInfo == null ? (
          <Grid container>
          <Grid item md={4} />
-         <Grid item md={4}>
+         <Grid item md={4} sm={12} xs={12}>
            <img src={nodata} alt="no-data" style={{ width: "auto" }} />
          </Grid>
          <Grid item md={4} />

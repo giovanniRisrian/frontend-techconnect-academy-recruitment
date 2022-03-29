@@ -36,7 +36,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
     try {
       if (e.keyCode === 13) {
         setPage(1);
-        const response = await getInformationProgram(pages, "", searchValue);
+        const response = await getInformationProgram(pages, types, searchValue);
         setList(response.data.data);
       }
     } catch (err) {
@@ -53,9 +53,8 @@ const VacancyListBloc = (programService, useVacancyList) => {
   };
 
   const handleType = (types) => {
-    const lowerType = types.toLowerCase();
     setPage(1);
-    getListJobInformation((pages = 1), types, "");
+    getListJobInformation((pages = 1), types,searchValue);
     setPage(pages);
     setType(types);
   };
