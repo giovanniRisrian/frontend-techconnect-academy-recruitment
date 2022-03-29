@@ -53,6 +53,7 @@ const VacancyList = ({ bloc }) => {
       getListJobInformation(1, "", "", data);
    
   }, []);
+  
 
   const onClickSearch = (e, text) => {
     setSearchValue(text);
@@ -95,6 +96,22 @@ const VacancyList = ({ bloc }) => {
           </Typography>
         </Box>
 
+        {data.userInfo ? (
+          <>
+            <ListProgramApply
+              bloc={() => ListProgramApplyBloc(StatusService)}
+            />
+          </>
+        ) : (
+          <div></div>
+        )}
+       
+      
+       <Box sx={{boxShadow:3, width:'30%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'3%', height:'7vh'}}>
+          <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'2%'}}>
+            All Vacancy
+          </Typography>
+          </Box>
         {state == null ? (
           <>
             <Box
@@ -119,7 +136,7 @@ const VacancyList = ({ bloc }) => {
                   label="Program"
                   onChange={(e, value) => {
                     console.log("change", e.target.value);
-                    handleType(e.target.value);
+                    handleType(e.target.value, data);
                   }}
                 >
                   {typeProgram?.map((value) => {
@@ -146,7 +163,7 @@ const VacancyList = ({ bloc }) => {
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    onKeyDown={(e) => getSearchByName(e)}
+                    onKeyDown={(e) => getSearchByName(e, data)}
                   />
                 </Search>
               </Toolbar>
@@ -159,22 +176,6 @@ const VacancyList = ({ bloc }) => {
           <div />
         )}
 
-        {data.userInfo ? (
-          <>
-            <ListProgramApply
-              bloc={() => ListProgramApplyBloc(StatusService)}
-            />
-          </>
-        ) : (
-          <div></div>
-        )}
-        <Typography
-          variant="h5"
-          fontFamily="Montserrat"
-          sx={{ marginLeft: "2%", marginTop: "2%" }}
-        >
-          All Vacancy
-        </Typography>
         {loading ? (
           <Box
             display="flex"

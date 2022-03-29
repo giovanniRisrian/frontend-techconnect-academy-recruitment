@@ -69,9 +69,12 @@ const ListProgramApply = ({ bloc }) => {
       ) : (
       <Box>
         <Box>
-          <Typography variant="h5" fontFamily="Montserrat" sx={{marginLeft:'2%', marginTop:'2%'}}>
+        <Box sx={{boxShadow:3, width:'30%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'7vh'}}>
+          <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'2%'}}>
             List of Program Applied
           </Typography>
+          </Box>
+          
         <Grid
           container
           spacing={2}
@@ -79,7 +82,6 @@ const ListProgramApply = ({ bloc }) => {
           display="flex"
           justifyContent="flex-start"
           alignItems="center"
-          marginTop="1%"
         >
           {list?.ProgramInfo &&
             list.ProgramInfo.map((value, idx) => {
@@ -181,9 +183,9 @@ const ListProgramApply = ({ bloc }) => {
             })}
         </Grid>
         </Box>
-       <hr style={{border:'2px', marginTop:'2%'}}/>
       </Box>
       )}
+    
         {/* <Box
           display="flex"
           flexDirection="row"
