@@ -16,7 +16,6 @@ const LoginBloc = (LoginService) => {
         password: formik.values.password,
       };
       let res = await postLogin(basicAuth);
-      // // console.log(res)
       localStorage.setItem("token", res.data.data.token);
       context.dispatch({
         type: ActionType.LOGIN,
@@ -34,7 +33,7 @@ const LoginBloc = (LoginService) => {
         Swal.fire({
           icon: "info",
           text: "Your account hasn't been activated yet, please check your email to activate your account",
-          footer:'<a href="http://localhost:3000/register">Resend activation link to your email</a>',
+          footer:'<a href="http://localhost:3000/activation">Resend activation link to your email</a>',
         });
       }else{
         Swal.fire({
