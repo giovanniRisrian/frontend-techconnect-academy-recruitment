@@ -11,192 +11,111 @@ import value5 from "../../asset/image/value5.png";
 import value6 from "../../asset/image/value6.png";
 import value7 from "../../asset/image/value7.png";
 import value8 from "../../asset/image/value8.png";
+import { styled } from "@mui/material/styles";
+import home from "../../asset/image/home.jpg";
+
+const StyledCard = styled(Card)`
+  ${({ theme }) => `
+  cursor: pointer;
+  background-color: ${"white"};
+  transition: ${theme.transitions.create(["background-color", "transform"], {
+    duration: theme.transitions.duration.standard,
+  })};
+  &:hover {
+    background-color: ${"#1976d2"};
+    transform: scale(1.05);
+  }
+  `}
+`;
 
 const AboutContent = () => {
   return (
     <Box>
-      {/* Start of Header */}
       <Box
         sx={{
-          pt: 8,
-          display: "flex",
-          justifyContent: "center",
+          backgroundImage: `url(${home})`,
+          backgroundSize: "cover",
+          height: "500px",
+          backgroundRepeat: "no-repeat",
         }}
       >
-        <Grid container>
-          <Box
-            sx={{
-              marginX: "auto",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Grid item md={5} sm={12} xs={12}>
-              <Typography
-                component="div"
-                textAlign="center"
-                gutterBottom
-                sx={{
-                  typography: { lg: "h3", sm: "h4", xs: "h4" },
-                  fontWeight: {
-                    lg: "600",
-                    md: "600",
-                    sm: "600",
-                    xs: "600",
-                  },
-                  fontFamily: {
-                    lg: "Montserrat Alternates",
-                    md: "Montserrat Alternates",
-                    sm: "Montserrat Alternates",
-                    xs: "Montserrat Alternates",
-                  },
-                }}
-              >
-                <Box sx={{ letterSpacing: 8 }}>Techconnect academy</Box>
-              </Typography>
-              <Typography
-                align="center"
-                textAlign="center"
-                fontFamily="Montserrat Alternates"
-                paragraph
-              >
-                is a place of diserve community that encourages students to
-                think globally and citizens that crave for a better future, for
-                themselves, society, community through digital and technology
-                education
-              </Typography>
-            </Grid>
-          </Box>
-        </Grid>
+        <Typography
+          textAlign="left"
+          sx={{
+            paddingY: "30%",
+            marginLeft: "5%",
+            color: "white",
+            typography: { lg: "h3", sm: "h4", xs: "h4" },
+            fontWeight: {
+              lg: "600",
+              md: "600",
+              sm: "600",
+              xs: "600",
+            },
+            fontFamily: {
+              lg: "Montserrat Alternates",
+              md: "Montserrat Alternates",
+              sm: "Montserrat Alternates",
+              xs: "Montserrat Alternates",
+            },
+          }}
+        >
+          Get To Know Us Better
+        </Typography>
       </Box>
 
-      {/* End of Header */}
-      {/* Start Of Our Vision */}
+      <Box sx={{padding:'5%'}}>
+        <Typography
+          variant="h5"
+          fontFamily="Montserrat"
+          fontWeight="500"
+          color="#434343"
+          textAlign="justify"
+          sx={{marginBottom:'3%'}}
+          // marginY={-3}
+        >
+          Techconnect Academy is a place of diverse community that encourages
+          students to think globally and become future-driven citizens that
+          crave for a better future, for themselves, society, community through
+          digital and technology education.
+        </Typography>
+        <Typography
+          variant="h5"
+          fontFamily="Montserrat"
+          fontWeight="500"
+          color="#434343"
+          textAlign="justify"
+          sx={{marginBottom:'3%'}}
+        >
+          Our vision is be on-top of a global
+          edu-tech ecosystem to support a varied vibrant business in a large
+          wide-scale. We aim to be the center of progressiveness, innovation,
+          diversity and empowerment. Moreover, we visualise compelling promises
+          in how the digital-technology educational institution should be
+          perceived from global landscape. 
+        </Typography>
+        <Typography
+          variant="h5"
+          fontFamily="Montserrat"
+          fontWeight="500"
+          color="#434343"
+          textAlign="justify"
+          // marginY={-3}
+        >
+          We're also the first Indonesian
+          technology-focused educational institution that holds a mission to
+          link and match between industry and education, as well as making
+          education changes to embrace the future's needs.
+        </Typography>
 
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        <Grid container>
-          <Grid item md={1} />
-          <Grid item md={4} sm={12} xs={12}>
-            <Typography
-              textAlign="left"
-              sx={{
-                pt: 16,
-                typography: { lg: "h4", sm: "h5", xs: "h5" },
-                fontWeight: {
-                  lg: "600",
-                  md: "600",
-                  sm: "600",
-                  xs: "600",
-                },
-                fontFamily: {
-                  lg: "Montserrat Alternates",
-                  md: "Montserrat Alternates",
-                  sm: "Montserrat Alternates",
-                  xs: "Montserrat Alternates",
-                },
-              }}
-            >
-              OUR VISION
-            </Typography>
-            <Typography
-              align="center"
-              textAlign="left"
-              fontFamily="Montserrat Alternates"
-              paragraph
-              sx={{
-                pt: 4,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              To be the center of progressiveness, innovation, diversity, and
-              empowerment.
-              <br />
-              Moreover, we visualize compelling promises in how the
-              digital-technology educational institution should be perceived
-              from global landscape
-            </Typography>
-          </Grid>
-          {/* <Grid item md={1} /> */}
-          <Grid item md={6}>
-            <img src={vision} style={{ width: "100%" }} alt="" />
-          </Grid>
-          <Grid item md={1} />
-        </Grid>
       </Box>
 
-      {/* End Of Our Vision */}
-      {/* Start Of Our Misson */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          alignItems: "center",
-        }}
-      >
-        <Grid container>
-          <Grid item md={1} />
-          <Grid item md={6} sm={12} xs={12}>
-            <img src={mission} style={{ width: "100%" }} alt="" />
-          </Grid>
-
-          <Grid item md={4} sm={12} xs={12}>
-            <Typography
-              textAlign="right"
-              sx={{
-                pt: 16,
-                typography: { lg: "h4", sm: "h5", xs: "h5" },
-                fontWeight: {
-                  lg: "600",
-                  md: "600",
-                  sm: "600",
-                  xs: "600",
-                },
-                fontFamily: {
-                  lg: "Montserrat Alternates",
-                  md: "Montserrat Alternates",
-                  sm: "Montserrat Alternates",
-                  xs: "Montserrat Alternates",
-                },
-              }}
-            >
-              OUR MISSION
-            </Typography>
-            <Typography
-              align="center"
-              textAlign="right"
-              fontFamily="Montserrat Alternates"
-              paragraph
-              sx={{
-                pt: 4,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              We’re also the first indonesian technology-focused educational
-              institution that holds a mission to link and match between
-              industry and education, as well as making education changes
-              embraces the future needs for everyone
-            </Typography>
-          </Grid>
-          <Grid item md={1} />
-        </Grid>
-      </Box>
-
-      {/* End Of Our Misson */}
       {/* Start Of Our Values */}
 
       <Typography
         letterSpacing="5px"
-        color="#343434"
+        color="#1A1A1A"
         textAlign="center"
-        paddingTop="10px"
         sx={{
           typography: { lg: "h4", sm: "h5", xs: "h5" },
           fontWeight: {
@@ -217,7 +136,7 @@ const AboutContent = () => {
       </Typography>
 
       {/* Start Cards Section Top */}
-      <Grid container marginTop="70px">
+      <Grid container marginTop="20px">
         <Grid
           item
           md={3}
@@ -227,12 +146,14 @@ const AboutContent = () => {
           display="flex"
           justifyContent="center"
         >
-          <Card
+          <StyledCard
             sx={{
               borderRadius: "15px",
               width: "200px",
               height: "225px",
+              backgroundColor: "#FFF",
             }}
+            raised={true}
           >
             <CardMedia
               component="img"
@@ -258,7 +179,7 @@ const AboutContent = () => {
                 To Inspire Innovations
               </Typography>
             </CardContent>
-          </Card>
+          </StyledCard>
         </Grid>
         <Grid
           item
@@ -269,7 +190,7 @@ const AboutContent = () => {
           display="flex"
           justifyContent="center"
         >
-          <Card
+          <StyledCard
             sx={{
               borderRadius: "15px",
               width: "200px",
@@ -299,7 +220,7 @@ const AboutContent = () => {
                 Future Driven
               </Typography>
             </CardContent>
-          </Card>
+          </StyledCard>
         </Grid>
         <Grid
           item
@@ -310,7 +231,7 @@ const AboutContent = () => {
           display="flex"
           justifyContent="center"
         >
-          <Card
+          <StyledCard
             sx={{
               borderRadius: "15px",
               width: "200px",
@@ -340,7 +261,7 @@ const AboutContent = () => {
                 Inclusive
               </Typography>
             </CardContent>
-          </Card>
+          </StyledCard>
         </Grid>
         <Grid
           item
@@ -351,7 +272,7 @@ const AboutContent = () => {
           display="flex"
           justifyContent="center"
         >
-          <Card
+          <StyledCard
             sx={{
               borderRadius: "15px",
               width: "200px",
@@ -381,7 +302,7 @@ const AboutContent = () => {
                 Collaborative
               </Typography>
             </CardContent>
-          </Card>
+          </StyledCard>
         </Grid>
       </Grid>
 
@@ -398,7 +319,7 @@ const AboutContent = () => {
           display="flex"
           justifyContent="center"
         >
-          <Card
+          <StyledCard
             sx={{
               borderRadius: "15px",
               width: "200px",
@@ -429,7 +350,7 @@ const AboutContent = () => {
                 Full of Opportunities
               </Typography>
             </CardContent>
-          </Card>
+          </StyledCard>
         </Grid>
         <Grid
           item
@@ -440,7 +361,7 @@ const AboutContent = () => {
           display="flex"
           justifyContent="center"
         >
-          <Card
+          <StyledCard
             sx={{
               borderRadius: "15px",
               width: "200px",
@@ -470,7 +391,7 @@ const AboutContent = () => {
                 Work Closely with Top Leaders
               </Typography>
             </CardContent>
-          </Card>
+          </StyledCard>
         </Grid>
         <Grid
           item
@@ -481,7 +402,7 @@ const AboutContent = () => {
           display="flex"
           justifyContent="center"
         >
-          <Card
+          <StyledCard
             sx={{
               borderRadius: "15px",
               width: "200px",
@@ -511,7 +432,7 @@ const AboutContent = () => {
                 Challenging IT Projects
               </Typography>
             </CardContent>
-          </Card>
+          </StyledCard>
         </Grid>
         <Grid
           item
@@ -522,7 +443,7 @@ const AboutContent = () => {
           display="flex"
           justifyContent="center"
         >
-          <Card
+          <StyledCard
             sx={{
               borderRadius: "15px",
               width: "200px",
@@ -552,7 +473,7 @@ const AboutContent = () => {
                 Creative Growth
               </Typography>
             </CardContent>
-          </Card>
+          </StyledCard>
         </Grid>
       </Grid>
 

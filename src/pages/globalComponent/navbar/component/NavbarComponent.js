@@ -13,36 +13,56 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { RootContext } from "../../../../App";
-import logo from "../../../../asset/icon/logo.svg";
+import logo from "../../../../asset/image/logo.png";
 import jwt_decode from "jwt-decode";
-import avatar from "../../../../asset/image/avatar.png"
+import avatar from "../../../../asset/image/avatar.png";
 import LogoutButton from "../../logout/LogoutButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faRegistered,
+  faRightFromBracket,
+  faUserPlus,
+} from "@fortawesome/free-solid-svg-icons";
 const pages = ["Home", "About Us", "Program / Certificate"];
 const pageLink = ["/", "/about", "/vacancy"];
-let settings = ["Profile","Reccomendation Program/Certificate", "Status", "Logout"];
-let settingsLink = ["/applicant/profile",'/applicant/reccomendation', "/applicant/status", "/logout"];
-let settingsRecruiter = ["Recruiter Page",  "Logout"];
+let settings = [
+  "Profile",
+  "Reccomendation Program/Certificate",
+  "Status",
+  "Logout",
+];
+let settingsLink = [
+  "/applicant/profile",
+  "/applicant/reccomendation",
+  "/applicant/status",
+  "/logout",
+];
+let settingsRecruiter = ["Recruiter Page", "Logout"];
 let settingsLinkRecruiter = ["/recruiter", "/logout"];
-let settingAdmin =["Dasboard", "Register Recruiter", "Logout"]
-let settingsLinkAdmin=["/administrator", "/administrator/register/recruiter", "/logout"]
-let pagesAdmin =[""]
-let pagesLinkAdmin=[""]
+let settingAdmin = ["Dasboard", "Register Recruiter", "Logout"];
+let settingsLinkAdmin = [
+  "/administrator",
+  "/administrator/register/recruiter",
+  "/logout",
+];
 const NavbarCompontent = () => {
   const data = React.useContext(RootContext);
 
   if (data.userInfo) {
     let userInfo = jwt_decode(data.userInfo);
-    if(userInfo.Role === "recruiter"){
-    settings = settingsRecruiter;
-    settingsLink = settingsLinkRecruiter;
-    }else if(userInfo.Role === "administrator"){
-      settings = settingAdmin
-      settingsLink = settingsLinkAdmin
+
+    console.log(userInfo);
+    if (userInfo.Role === "recruiter") {
+      settings = settingsRecruiter;
+      settingsLink = settingsLinkRecruiter;
+    } else if (userInfo.Role === "administrator") {
+      settings = settingAdmin;
+      settingsLink = settingsLinkAdmin;
     }
   }
- 
+  console.log();
   const navigate = useNavigate();
-  
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -62,20 +82,24 @@ const NavbarCompontent = () => {
   };
 
   return (
-    <AppBar position="static" style={{ background: "#CAFDFF" }}>
+    <AppBar position="sticky" style={{ backgroundColor: "#171059" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" }, textShadow:3 }}
           >
-            <img
-              src={logo}
-              alt="logo-tca"
-              style={{ height: "75px", width: "75px" }}
-            />
+          <img
+            src={logo}
+            alt="logo-tca"
+            style={{
+              height: "60px",
+              width: "80px",
+              boxShadow: 3
+            }}
+          />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -108,7 +132,10 @@ const NavbarCompontent = () => {
               }}
             >
               {pages.map((page, index) => (
-                <MenuItem key={page} onClick={()=> handleCloseNavMenu(navigate(pageLink[index]))}>
+                <MenuItem
+                  key={page}
+                  onClick={() => handleCloseNavMenu(navigate(pageLink[index]))}
+                >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -129,11 +156,10 @@ const NavbarCompontent = () => {
           </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, index) => (
-              
               <Button
                 key={page}
                 onClick={() => navigate(pageLink[index])}
-                sx={{ my: 2, color: "#343434", display: "block" }}
+                sx={{ my: 2, color: "#FFF", display: "block" }}
               >
                 {page}
               </Button>
@@ -142,14 +168,42 @@ const NavbarCompontent = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             {!data.userInfo ? (
-              <Box
-              display="flex"
-              justifyContent="center"
-              >
-                <Button variant="outlined" color="secondary" onClick={() => navigate("/login")}>Login</Button> |{" "}
-                <Button variant="contained" color="secondary" onClick={() => navigate("/register")}>register</Button>{" "}
+              <Box display="flex" justifyContent="center">
+                <Button
+                  color="primary"
+                  variant="outlined"
+                  onClick={() => navigate("/login")}
+                  sx={{
+                    color: "#FFF",
+                    marginRight: "10px",
+                    borderColor: "#8645FF",
+                    borderRadius: "15px",
+                    fontWeight: "600",
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    style={{ marginRight: "10px" }}
+                  />
+                  Login
+                </Button>{" "}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => navigate("/register")}
+                  sx={{
+                    backgroundColor: "#8645FF",
+                    borderRadius: "15px",
+                    fontWeight: "600",
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={faUserPlus}
+                    style={{ marginRight: "10px" }}
+                  />
+                  register
+                </Button>{" "}
               </Box>
-          
             ) : (
               <Tooltip title="Open settings">
                 {/* <Button></Button> */}
@@ -192,9 +246,9 @@ const NavbarCompontent = () => {
             </Menu>
           </Box>
         </Toolbar>
-        <hr 
+        {/* <hr 
         style={{color:"#ADDEE1"}}
-        />
+        /> */}
       </Container>
     </AppBar>
   );

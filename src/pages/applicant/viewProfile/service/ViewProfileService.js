@@ -13,6 +13,11 @@ const ViewProfileService = () =>{
       const response = await client.get("/user",header)
       return response 
     }
-    return { uploadDataApplicant,updateDataApplicant, getDataApplicantbyId };
+
+    const postGettingDataLinkedinProfile = async(params,header) =>{
+      const response = await client.post("/resume/linkedin",params,header)
+      return response 
+    }
+    return { uploadDataApplicant,updateDataApplicant, getDataApplicantbyId ,postGettingDataLinkedinProfile};
 }
 export default ViewProfileService;

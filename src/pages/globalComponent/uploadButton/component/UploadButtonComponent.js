@@ -4,6 +4,8 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import {Button, Box} from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileUpload } from "@fortawesome/free-solid-svg-icons";
 // import IconButton from "@mui/material/IconButton";
 // import PhotoCamera from "@mui/icons-material/PhotoCamera";
 // import Stack from "@mui/material/Stack";
@@ -59,7 +61,8 @@ const UploadButtonComponent = ({ bloc }) => {
           type="file"
           onChange={handleUpload}
         />
-        <Button variant="contained" color="secondary" component="span">
+        <Button variant="outlined" color="primary" component="span">
+        <FontAwesomeIcon icon={faFileUpload} style={{marginRight:'5px'}} />
           Upload Resume
         </Button>
       </label>

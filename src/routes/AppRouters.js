@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { RootContext } from "../App";
 import MiddlewareAuth from "../middleware/middlewareAuth";
@@ -11,7 +11,7 @@ import AdministratorHome from "../pages/administrator/home/AdministratorHome";
 import MiddlewareAuthRecruiter from "../middleware/middlewareAuthRecruiter";
 import MiddlewareAuthAdministrator from "../middleware/middlewareAuthAdministrator";
 import { Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import RegisterRecruiter from "../pages/administrator/registerRecruiter/RegisterRecruiter";
 import About from "../pages/about/About";
@@ -25,7 +25,7 @@ import DetailApplicant from "../pages/applicant/detailApplicant/DetailApplicant"
 // import StatusBar from "../pages/applicant/status/StatusBar";
 import ViewProfile from "../pages/applicant/viewProfile/ViewProfile";
 import ListProgramApplied from "../pages/applicant/status/ListProgramApplied";
-import StatusDetail from "../pages/applicant/status/StatusDetail";
+// import StatusDetail from "../pages/applicant/status/StatusDetail";
 import RecruiterHome from "../pages/recruiter/home/RecruiterHome";
 import Reccomendation from "../pages/applicant/reccomendation/Reccomendation";
 import ActionType from "../Context/ActionType";
@@ -33,7 +33,7 @@ import ActivationAccount from "../activation/activation_account";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   let Role = null;
   let addressing;
   if (data.userInfo !== null) {
@@ -123,14 +123,14 @@ const AppRouters = () => {
               </>
             }
           ></Route>
-          <Route
+          {/* <Route
             path="status/:id"
             element={
               <>
                 <StatusDetail />
               </>
             }
-          ></Route>
+          ></Route> */}
         </Route>
 
         <Route path="/about" element={<About />} />

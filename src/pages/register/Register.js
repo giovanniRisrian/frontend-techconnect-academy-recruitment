@@ -4,8 +4,8 @@ import Card from "@mui/material/Card";
 
 
 const Registers = ()=>{
-return(<div>
-      <MyComponent
+return(<>
+      {/* <
       style={{
         display: "flex",
         alignItems: "center",
@@ -21,12 +21,11 @@ return(<div>
         }}
         variant="outlined"
       >
-       
+        */}
     <Register/>
-      </Card>
-    </MyComponent>
+      {/* </Card> */}
+    </>
     
-    
-    </div>)
+)
 }
 export default Registers
