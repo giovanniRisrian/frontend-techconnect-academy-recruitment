@@ -3,7 +3,7 @@ import ActionType from "../../../../Context/ActionType";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 const RegisterBloc = (RegisterService) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   let { postRegister, postRegisterRecruiter } = RegisterService();
   const doRegister = async (formik, context) => {
     try {
@@ -16,16 +16,15 @@ const RegisterBloc = (RegisterService) => {
         type: ActionType.LOGOUT,
         // token: res.data.data.token,
         name: res.data.data.name,
-      })
-      Swal
-      .fire({
-        title: "Success!",
+      });
+      Swal.fire({
+        title:
+          "Register success, please check your email to activate your account!",
         icon: "success",
         confirmButtonText: "OK",
-      })
-      .then((result) => {
+      }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/applicant/status");
+          navigate("/login");
         }
       });
     } catch (err) {
@@ -33,7 +32,7 @@ const RegisterBloc = (RegisterService) => {
         icon: "error",
         text: "Email has already exist",
       });
-      throw err
+      throw err;
     }
   };
   const doRegisterRecruiter = async (formik, context) => {
@@ -41,7 +40,7 @@ const RegisterBloc = (RegisterService) => {
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
-      let res = await postRegisterRecruiter(formik.values,config);
+      let res = await postRegisterRecruiter(formik.values, config);
 
       // console.log(res);
       context.dispatch({
@@ -49,13 +48,11 @@ const RegisterBloc = (RegisterService) => {
         token: res.data.data.token,
         name: res.data.data.name,
       });
-      Swal
-      .fire({
+      Swal.fire({
         title: "Success!",
         icon: "success",
         confirmButtonText: "OK",
-      })
-      .then((result) => {
+      }).then((result) => {
         if (result.isConfirmed) {
           navigate("..");
         }
@@ -65,7 +62,7 @@ const RegisterBloc = (RegisterService) => {
         icon: "error",
         text: "Email has already exist",
       });
-      throw err
+      throw err;
     }
   };
   return { doRegister, doRegisterRecruiter };

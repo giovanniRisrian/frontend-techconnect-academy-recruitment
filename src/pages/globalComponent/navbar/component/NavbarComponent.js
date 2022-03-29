@@ -23,28 +23,64 @@ import {
   faRightFromBracket,
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
-const pages = ["Home", "About Us", "Program / Certificate"];
-const pageLink = ["/", "/about", "/vacancy"];
-let settings = [
-  "Profile",
+import { Divider } from "@mui/material";
+
+let pages = [
+  "Home",
+  "About Us",
+  "Program / Certificate",
+  // "Reccomendation Program/Certificate",
+  // "Status",
+];
+let pageLink = [
+  "/",
+  "/about",
+  "/vacancy",
+  // "/applicant/reccomendation",
+  // "/applicant/status",
+];
+let settings = ["Profile", "Logout"];
+let settingsLink = ["/applicant/profile", "/logout"];
+
+// Applicant configuration
+let pagesApplicant = [
+  "Home",
+  "About Us",
+  "Program / Certificate",
   "Reccomendation Program/Certificate",
   "Status",
-  "Logout",
 ];
-let settingsLink = [
-  "/applicant/profile",
+let pageLinkApplicant = [
+  "/",
+  "/about",
+  "/vacancy",
   "/applicant/reccomendation",
   "/applicant/status",
-  "/logout",
 ];
-let settingsRecruiter = ["Recruiter Page", "Logout"];
-let settingsLinkRecruiter = ["/recruiter", "/logout"];
-let settingAdmin = ["Dasboard", "Register Recruiter", "Logout"];
-let settingsLinkAdmin = [
+
+// Recruiter Configuration
+let pagesRecruiter = ["Home", "About Us", "Program / Certificate", "Dashboard"];
+let pageLinkRecruiter = ["/", "/about", "/vacancy", "/recruiter"];
+let settingsRecruiter = ["Logout"];
+let settingsLinkRecruiter = ["/logout"];
+
+// Admin Configuration
+let pagesAdmin = [
+  "Home",
+  "About Us",
+  "Program / Certificate",
+  "Dashboard",
+  "Register Recruiter",
+];
+let pageLinkAdmin = [
+  "/",
+  "/about",
+  "/vacancy",
   "/administrator",
   "/administrator/register/recruiter",
-  "/logout",
 ];
+let settingAdmin = ["Logout"];
+let settingsLinkAdmin = ["/logout"];
 const NavbarCompontent = () => {
   const data = React.useContext(RootContext);
 
@@ -55,9 +91,16 @@ const NavbarCompontent = () => {
     if (userInfo.Role === "recruiter") {
       settings = settingsRecruiter;
       settingsLink = settingsLinkRecruiter;
+      pages = pagesRecruiter;
+      pageLink = pageLinkRecruiter;
     } else if (userInfo.Role === "administrator") {
       settings = settingAdmin;
       settingsLink = settingsLinkAdmin;
+      pages = pagesAdmin;
+      pageLink = pageLinkAdmin;
+    } else {
+      pages = pagesApplicant;
+      pageLink = pageLinkApplicant;
     }
   }
   console.log();
@@ -89,17 +132,17 @@ const NavbarCompontent = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" }, textShadow:3 }}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" }, textShadow: 3 }}
           >
-          <img
-            src={logo}
-            alt="logo-tca"
-            style={{
-              height: "60px",
-              width: "80px",
-              boxShadow: 3
-            }}
-          />
+            <img
+              src={logo}
+              alt="logo-tca"
+              style={{
+                height: "60px",
+                width: "80px",
+                boxShadow: 3,
+              }}
+            />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -113,6 +156,7 @@ const NavbarCompontent = () => {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -156,13 +200,32 @@ const NavbarCompontent = () => {
           </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, index) => (
+              // <Box>
               <Button
                 key={page}
                 onClick={() => navigate(pageLink[index])}
-                sx={{ my: 2, color: "#FFF", display: "block" }}
+                sx={{
+                  my: "auto",
+                  color: "#FFF",
+                  display: "block",
+                  // borderRight: "0.01em solid white",
+                  // borderTopRightRadius: "0",
+                  // borderBottomRightRadius: "0",
+                  // padding: "0.1em",
+                  // height: "120%",
+                }}
               >
                 {page}
+                {/* <Box
+                    sx={{
+                      my: "auto",
+                      borderRight: "0.01em solid white",
+                      padding: "0.1em",
+                      height: "100px",
+                    }}
+                  /> */}
               </Button>
+              // </Box>
             ))}
           </Box>
 

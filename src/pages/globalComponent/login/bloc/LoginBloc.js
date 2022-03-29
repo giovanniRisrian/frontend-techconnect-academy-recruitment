@@ -27,7 +27,7 @@ const LoginBloc = (LoginService) => {
       if (role !== "user") {
         navigate("/" + role);
       } else {
-        navigate("/applicant/status");
+        navigate("/vacancy");
       }
     } catch (err) {
       if (err.response.data.code === 403) {
@@ -35,7 +35,7 @@ const LoginBloc = (LoginService) => {
           icon: "error",
           text: "Your account hasn't been activated yet, please check your email to activate your account",
         });
-      }else{
+      } else {
         Swal.fire({
           icon: "error",
           text: "Username or Password is invalid",

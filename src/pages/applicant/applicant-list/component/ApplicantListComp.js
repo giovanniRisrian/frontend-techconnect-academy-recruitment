@@ -95,7 +95,7 @@ const ApplicantListComp = ({ bloc }) => {
     {
       field: "name",
       headerName: "Name",
-      minWidth: 300,
+      minWidth: 250,
       valueGetter: (params) => {
         return params.row?.Applicant?.Personal?.Name;
       },
@@ -103,7 +103,7 @@ const ApplicantListComp = ({ bloc }) => {
     {
       field: "birthdate",
       headerName: "Age",
-      minWidth: 100,
+      minWidth: 110,
       type: "number",
       valueGetter: (params) => {
         return getAge(params.row?.Applicant?.Personal?.BirthDate);
@@ -112,7 +112,8 @@ const ApplicantListComp = ({ bloc }) => {
     {
       field: "institution",
       headerName: "College",
-      minWidth: 300,
+      minWidth: 250,
+      // renderCell: RenderCellExpand,
       valueGetter: (params) => {
         return params.row?.Applicant?.Education[0].Institution;
       },
@@ -120,7 +121,7 @@ const ApplicantListComp = ({ bloc }) => {
     {
       field: "gpa",
       headerName: "GPA",
-      minWidth: 100,
+      minWidth: 110,
       type: "number",
       valueGetter: (params) => {
         return Number(params.row?.Applicant?.Education[0].GPA);
@@ -129,7 +130,7 @@ const ApplicantListComp = ({ bloc }) => {
     {
       field: "totalworkingexperience",
       headerName: "Working Experience",
-      minWidth: 200,
+      minWidth: 180,
       type: "number",
       valueGetter: (params) => {
         return params.row?.Applicant?.Personal?.TotalWorkingExperience;
@@ -145,6 +146,14 @@ const ApplicantListComp = ({ bloc }) => {
           params.row?.ProgramApplicant?.CreatedAt &&
           new Date(params.row?.ProgramApplicant?.CreatedAt)
         );
+      },
+    },
+    {
+      field: "rejectReason",
+      headerName: "Rejected Reason",
+      minWidth: 200,
+      valueGetter: (params) => {
+        return params.row?.ProgramApplicant?.Message;
       },
     },
   ];
@@ -189,8 +198,8 @@ const ApplicantListComp = ({ bloc }) => {
 
         {/* Start of Dropwdown */}
         <Grid container sx={{ mt: 5 }} marginBottom={isProgram ? "" : 5}>
-          <Grid item md={5} sm={3} xs={3} />
-          <Grid item md={2} sm={6} xs={6}>
+          <Grid item md={4} sm={3} xs={3} />
+          <Grid item md={4} sm={6} xs={6}>
             <FormControl fullWidth>
               <InputLabel id="programlist">Program</InputLabel>
               <Select
@@ -378,7 +387,7 @@ const ApplicantListComp = ({ bloc }) => {
         {/* End of Search input */}
 
         {/* Start of Table */}
-        <Box sx={{ height: 700, width: "90%", marginX: "auto" }}>
+        <Box sx={{ height: 500, width: "90%", marginX: "auto" }}>
           <Box sx={{ display: "flex", height: "100%" }}>
             <Box sx={{ flexGrow: 1 }}>
               <DataGrid
@@ -398,6 +407,13 @@ const ApplicantListComp = ({ bloc }) => {
                   Toolbar: CustomToolbar,
                   LoadingOverlay: LinearProgress,
                   NoRowsOverlay: CustomNoRowsOverlay,
+                }}
+                initialState={{
+                  columns: {
+                    columnVisibilityModel: {
+                      rejectReason: false,
+                    },
+                  },
                 }}
               />
             </Box>
@@ -430,7 +446,7 @@ function CustomNoRowsOverlay() {
         src={notfound}
         alt={""}
       ></img>
-      <Box sx={{ mt: 0 }}>No Applicant</Box>
+      <Box sx={{ mt: -1 }}>No Applicant</Box>
     </Box>
   );
 }
