@@ -87,7 +87,8 @@ const validationSchema = Yup.object().shape({
 });
 
 const ViewProfileForm = ({ bloc }) => {
-  const { addProfile, getDataByID, putProfileLinkedin, setLinkedin,linkedin } = bloc();
+  const { addProfile, getDataByID, putProfileLinkedin, setLinkedin, linkedin } =
+    bloc();
   const [file, setFile] = useState(false);
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
@@ -142,6 +143,7 @@ const ViewProfileForm = ({ bloc }) => {
       },
     ],
   });
+
 
   const handleFile = (e) => {
     setFile(e.target.files[0]);
@@ -200,6 +202,11 @@ const ViewProfileForm = ({ bloc }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleSubmitLinkedin = async () => {
+    await putProfileLinkedin(initialValues, data);
+    setOpen(false);
+  };
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
       <Typography
@@ -381,9 +388,7 @@ const ViewProfileForm = ({ bloc }) => {
                             orientation="vertical"
                           />
                           <IconButton
-                            onClick={() =>
-                              putProfileLinkedin(initialValues, data)
-                            }
+                            onClick={() => handleSubmitLinkedin()}
                             color="primary"
                             sx={{ p: "10px" }}
                             aria-label="directions"

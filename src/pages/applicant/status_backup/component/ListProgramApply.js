@@ -58,6 +58,39 @@ const ListProgramApply = ({ bloc }) => {
 
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
+      <Box
+        sx={{
+          backgroundImage: `url(${header})`,
+          height: "50vh",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography
+          textAlign="center"
+          sx={{
+            typography: { lg: "h3", sm: "h4", xs: "h4" },
+            fontWeight: {
+              lg: "600",
+              md: "600",
+              sm: "600",
+              xs: "600",
+            },
+            fontFamily: {
+              lg: "Montserrat Alternates",
+              md: "Montserrat Alternates",
+              sm: "Montserrat Alternates",
+              xs: "Montserrat Alternates",
+            },
+          }}
+        >
+          Program Applied
+        </Typography>
+      </Box>
+
       {list?.ProgramInfo == null ? (
          <Grid container>
          <Grid item md={4} />
@@ -200,6 +233,7 @@ const ListProgramApply = ({ bloc }) => {
             />
           </Stack>
         </Box>
+      <Footer />
     </Box>
   );
 };
