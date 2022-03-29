@@ -31,6 +31,7 @@ import Reccomendation from "../pages/applicant/reccomendation/Reccomendation";
 import ActionType from "../Context/ActionType";
 import ActivationAccount from "../activation/activation_account";
 import ListRecruiter from "../pages/administrator/listRecruiter/List";
+import UpdateRecruiter from "../pages/administrator/updateRecruiter/UpdateRecruiter";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -73,20 +74,15 @@ const AppRouters = () => {
 
         <Route
           path="/login"
-          element={Role === null ? <Login /> : <Navigate to={addressing} />}>
-          <Route
-            path=":id/:email"
-            element={<Login />}
-          />
+          element={Role === null ? <Login /> : <Navigate to={addressing} />}
+        >
+          <Route path=":id/:email" element={<Login />} />
         </Route>
         <Route
           path="/register"
           element={Role === null ? <Registers /> : <Navigate to={addressing} />}
         />
-        <Route
-          path="/activate/:id/:email"
-          element={<ActivationAccount />}
-        />
+        <Route path="/activate/:id/:email" element={<ActivationAccount />} />
         <Route path="/dashboard" element={<MiddlewareAuth />}>
           <Route index element={<Dashboard />} />
           <Route
@@ -153,7 +149,8 @@ const AppRouters = () => {
         <Route path="/administrator" element={<MiddlewareAuthAdministrator />}>
           <Route index element={<AdministratorHome />} />
           <Route path="register/recruiter" element={<RegisterRecruiter />} />
-          <Route path="list/recruiter"  element={<ListRecruiter />}/>
+          <Route path="list/recruiter" element={<ListRecruiter />} />
+          <Route path="update/recruiter/:id" element={<UpdateRecruiter />} />
         </Route>
 
         <Route

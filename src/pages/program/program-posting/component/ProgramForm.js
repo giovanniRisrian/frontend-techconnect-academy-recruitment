@@ -424,7 +424,8 @@ const ProgramForm = ({ bloc }) => {
                         fullWidth
                         color="secondary"
                         id="RequirementSkill"
-                        label="Skill separated by commas"
+                        label="Skill"
+                        placeholder="example Sql, Javascript, Python, C#"
                         variant="outlined"
                         size="small"
                         name="RequirementSkill"
@@ -525,18 +526,6 @@ const ProgramForm = ({ bloc }) => {
                   variant="contained"
                   type="submit"
                   sx={{ marginBottom: 12, marginRight: "2%" }}
-                >
-                  <FontAwesomeIcon
-                    icon={faArrowUpRightFromSquare}
-                    style={{ marginRight: "10px" }}
-                  />
-                  Submit
-                </Button>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  type="submit"
-                  sx={{ marginBottom: 12, marginRight: 3 }}
                 >
                   <FontAwesomeIcon
                     icon={faArrowUpRightFromSquare}

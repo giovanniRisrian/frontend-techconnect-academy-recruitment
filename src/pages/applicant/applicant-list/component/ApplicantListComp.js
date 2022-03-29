@@ -37,11 +37,11 @@ import {
   GridToolbarFilterButton,
 } from "@mui/x-data-grid";
 
-const MyComponent = styled("div")({
-  backgroundImage: `url(${background})`,
-  backgroundSize: "contain",
-  minHeight: "100vh",
-});
+// const MyComponent = styled("div")({
+//   backgroundImage: `url(${background})`,
+//   backgroundSize: "contain",
+//   minHeight: "100vh",
+// });
 
 function CustomToolbar(props) {
   return (

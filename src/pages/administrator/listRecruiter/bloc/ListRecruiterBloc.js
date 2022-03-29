@@ -1,45 +1,49 @@
-import { useState } from "react";
-import { useParams } from "react-router";
+import Swal from "sweetalert2";
 
-const ListRecruiterBloc = (service) => {
+const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
   let { getListRecruiter, getRecruiterbyId, deleteRecruiter } = service();
-  const [listRecruiter, setList] = useState([])
-  let params = useParams();
+  let { listRecruiter, setList, isLoading, setIsLoading } = useRecruiterList();
+  let { navigateTo } = navigate();
 
-  const allRecruiter = async (context) =>{
-      try{
-        const config = {
-          headers: { Authorization: `Bearer ${context.userInfo}` },
-        };
-        const response = await getListRecruiter(config)
-        console.log("resss",response);
-        setList(response.data.data)
-      }catch(err){
-          throw err
-      }
-  }
-  const deleteRecruiterbyId = async (data) =>{
-      try{
-        await deleteRecruiter(data)
-      }catch(err){
-          throw err
-      }
-  }
-  const recruiterById = async () =>{
-    try{
-        const response = await getRecruiterbyId(params.id)
-        return response
-      }catch(err){
-          throw err
-      }
-  }
-  return{
+  const allRecruiter = async (context) => {
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      setIsLoading(true);
+      const response = await getListRecruiter(config);
+      setList(response.data.data);
+      setIsLoading(false);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  };
+  const deleteRecruiterbyId = async (id, context) => {
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      setIsLoading(true);
+      await deleteRecruiter(id, config);
+      setIsLoading(false);
+      window.location.reload();
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const handleClickRow = (id) => {
+    navigateTo(`/administrator/update/recruiter/${id}`);
+  };
+
+  return {
     allRecruiter,
     deleteRecruiterbyId,
     listRecruiter,
-    recruiterById
-  }
-
+    handleClickRow,
+    isLoading,
+  };
 };
 
 export default ListRecruiterBloc;
