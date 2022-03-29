@@ -30,7 +30,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
         userInfo = jwt_decode(context.userInfo);
         console.log("Informasi Token", userInfo);
         responseAppliedId = await getAppliedProgram(userInfo.id, config);
-        responseAppliedId = responseAppliedId.data.data
+        responseAppliedId = responseAppliedId.data.data;
       }
 
       if (!state) {
@@ -39,11 +39,10 @@ const VacancyListBloc = (programService, useVacancyList) => {
       } else {
         tempList = { ProgramList: state, LastPage: 1 };
       }
-      console.log(context.userInfo)
+      console.log(context.userInfo);
       for (let x = 0; x < tempList.ProgramList.length; x++) {
         console.log(x + "=>", tempList.ProgramList[x].ID);
         if (context.userInfo) {
-          
           if (responseAppliedId.includes(tempList.ProgramList[x].ID)) {
             tempList.ProgramList[x].applied = true;
           } else {
@@ -83,21 +82,21 @@ const VacancyListBloc = (programService, useVacancyList) => {
     }
   };
 
-  const handleType = (types) => {
-    const lowerType = types.toLowerCase();
-    setPage(1);
-    getListJobInformation((pages = 1), lowerType, "");
-    setPage(pages);
-    setType(types);
+  const handleType = async (types) => {
+    // const lowerType = types.toLowerCase();
+    try {
+      setPage(1);
+      const response = await getInformationProgram((pages = 1), types, "");
+      setList(response.data.data);
+      setPage(pages);
+      setType(types);
+    } catch (e) {
+      throw e;
+    }
   };
 
   const handlePage = (page, context) => {
-    getListJobInformation(
-      page,
-      types.toLocaleLowerCase(),
-      searchValue,
-      context
-    );
+    getListJobInformation(page, types, searchValue, context);
 
     setPage(page);
   };

@@ -68,23 +68,26 @@ const ListProgramApply = ({ bloc }) => {
        </Grid>
       ) : (
       <Box>
+        <Box>
+          <Typography variant="h5" fontFamily="Montserrat" sx={{marginLeft:'2%', marginTop:'2%'}}>
+            List of Program Applied
+          </Typography>
         <Grid
           container
           spacing={2}
-          padding="20px"
+          // padding="20px"
           display="flex"
-          justifyContent="center"
+          justifyContent="flex-start"
           alignItems="center"
-          marginTop="30px"
+          marginTop="1%"
         >
           {list?.ProgramInfo &&
             list.ProgramInfo.map((value, idx) => {
               return (
                 <Fragment key={idx}>
-                  <Grid item md={3} />
                   <Grid
                     item
-                    md={6}
+                    md={4}
                     sm={12}
                     xs={12}
                     // key={idx}
@@ -94,7 +97,7 @@ const ListProgramApply = ({ bloc }) => {
                   >
                     <Card
                       sx={{
-                        width: "auto",
+                        width: "85%",
                         backgroundColor: "#FFF",
                         borderRadius: "15px",
                         marginX: "10px",
@@ -154,11 +157,11 @@ const ListProgramApply = ({ bloc }) => {
                           sx={{
                             marginLeft: "20px",
                             marginBottom: "10px",
-                            backgroundColor: "#8645FF",
                             color: "white",
+                            borderRadius: "15px",
                           }}
                           variant="contained"
-                          color="secondary"
+                          color="primary"
                           onClick={() => handleOpen(value.Program.ID)}
                         >
                           Details
@@ -173,14 +176,15 @@ const ListProgramApply = ({ bloc }) => {
                       </CardActions>
                     </Card>
                   </Grid>
-                  <Grid item md={3} />
                 </Fragment>
               );
             })}
         </Grid>
+        </Box>
+       <hr style={{border:'2px', marginTop:'2%'}}/>
       </Box>
       )}
-        <Box
+        {/* <Box
           display="flex"
           flexDirection="row"
           justifyContent="center"
@@ -199,7 +203,7 @@ const ListProgramApply = ({ bloc }) => {
               sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
             />
           </Stack>
-        </Box>
+        </Box> */}
     </Box>
   );
 };

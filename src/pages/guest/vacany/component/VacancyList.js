@@ -50,7 +50,8 @@ const VacancyList = ({ bloc }) => {
 
   useEffect(() => {
     getProgramTypeName();
-    getListJobInformation(1, "", "", data);
+      getListJobInformation(1, "", "", data);
+   
   }, []);
 
   const onClickSearch = (e, text) => {
@@ -90,36 +91,10 @@ const VacancyList = ({ bloc }) => {
               },
             }}
           >
-            Applied Program
+            Vacancy List
           </Typography>
         </Box>
-        {data.userInfo ? (
-          <ListProgramApply bloc={() => ListProgramApplyBloc(StatusService)} />
-        ) : (
-          <div></div>
-        )}
 
-        <Typography
-          textAlign="center"
-          sx={{
-            // paddingTop:'4%',
-            typography: { lg: "h3", sm: "h4", xs: "h4" },
-            fontWeight: {
-              lg: "600",
-              md: "600",
-              sm: "600",
-              xs: "600",
-            },
-            fontFamily: {
-              lg: "Montserrat Alternates",
-              md: "Montserrat Alternates",
-              sm: "Montserrat Alternates",
-              xs: "Montserrat Alternates",
-            },
-          }}
-        >
-          Vacancy List
-        </Typography>
         {state == null ? (
           <>
             <Box
@@ -184,6 +159,22 @@ const VacancyList = ({ bloc }) => {
           <div />
         )}
 
+        {data.userInfo ? (
+          <>
+            <ListProgramApply
+              bloc={() => ListProgramApplyBloc(StatusService)}
+            />
+          </>
+        ) : (
+          <div></div>
+        )}
+        <Typography
+          variant="h5"
+          fontFamily="Montserrat"
+          sx={{ marginLeft: "2%", marginTop: "2%" }}
+        >
+          All Vacancy
+        </Typography>
         {loading ? (
           <Box
             display="flex"
@@ -197,14 +188,7 @@ const VacancyList = ({ bloc }) => {
           </Box>
         ) : (
           <>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                flexWrap: "wrap",
-                marginTop: "3%",
-              }}
-            >
+            <Grid container>
               {list?.ProgramList?.length === 0 ? (
                 <Grid container>
                   <Grid item md={4} />
@@ -290,22 +274,26 @@ const VacancyList = ({ bloc }) => {
                               </Typography>
                             </Box>
                           </CardContent>
-                          <CardActions
-                            sx={{
-                              paddingBottom: "5%",
-                              marginLeft: "30%",
-                              paddingRight: "5%",
+
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              minHeight: "10vh",
+                              marginTop: "5%",
                             }}
                           >
                             <Button
-                              color="secondary"
+                              color="primary"
                               variant="contained"
                               sx={{
                                 fontFamily: "Montserrat",
                                 fontSize: "16px",
                                 color: "#FFF",
                                 backgroudColor: "#8645FF",
-                                borderRadius: "20px",
+                                borderRadius: "15px",
+                                marginRight: "2%",
                               }}
                               onClick={() => navigate(`/vacancy/${value.ID}`)}
                             >
@@ -314,14 +302,14 @@ const VacancyList = ({ bloc }) => {
 
                             {list.ProgramList[idx].applied ? (
                               <Button
-                                color="secondary"
+                                color="primary"
                                 variant="contained"
                                 sx={{
                                   fontFamily: "Montserrat",
                                   fontSize: "16px",
                                   color: "#FFF",
                                   backgroudColor: "#8645FF",
-                                  borderRadius: "20px",
+                                  borderRadius: "15px",
                                 }}
                                 disabled={true}
                               >
@@ -330,14 +318,14 @@ const VacancyList = ({ bloc }) => {
                             ) : (
                               <div></div>
                             )}
-                          </CardActions>
+                          </div>
                         </StyledCard>
                       </Grid>
                     </Fragment>
                   );
                 })
               )}
-            </div>
+            </Grid>
             {/* </Grid> */}
           </>
         )}
