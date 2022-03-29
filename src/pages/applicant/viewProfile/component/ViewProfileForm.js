@@ -345,9 +345,9 @@ const ViewProfileForm = ({ bloc }) => {
                     <Button
                       margin="normal"
                       type="button"
-                      color="secondary"
+                      color="primary"
                       variant="outlined"
-                      sx={{ height: "30px", marginTop: "20px" }}
+                      sx={{ height: "30px", marginTop: "20px", marginRight:'3%' }}
                       onClick={() => setFile(true)}
                     >
                       Add / Edit Photo
@@ -356,8 +356,8 @@ const ViewProfileForm = ({ bloc }) => {
                     <Button
                       margin="normal"
                       type="button"
-                      color="secondary"
-                      variant="outlined"
+                      color="primary"
+                      variant="contained"
                       sx={{ height: "30px", marginTop: "20px" }}
                       onClick={handleOpen}
                     >
@@ -418,13 +418,14 @@ const ViewProfileForm = ({ bloc }) => {
                 borderRadius: "10px",
                 padding: "20px",
                 boxShadow: 3,
+                marginTop:"2%" 
               }}
             >
               <Typography
                 variant="h5"
                 fontFamily="Montserrat"
                 textAlign="center"
-                sx={{ textDecoration: "underline", marginBottom: "2%" }}
+                sx={{ textDecoration: "underline", marginBottom: "2%"}}
               >
                 Data Personal
               </Typography>

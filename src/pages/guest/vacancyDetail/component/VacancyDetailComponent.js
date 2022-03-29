@@ -19,7 +19,8 @@ import {
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
-import header from '../../../../asset/image/bg-image.png';
+import header from "../../../../asset/image/bg-image.png";
+import { LoadingButton } from "@mui/lab";
 
 const VacancyDetail = ({ bloc }) => {
   const {
@@ -29,6 +30,7 @@ const VacancyDetail = ({ bloc }) => {
     doApplyProgram,
     params,
     getUserbyId,
+    loading,
   } = bloc();
   const data = useContext(RootContext);
   let userInfo;
@@ -53,36 +55,34 @@ const VacancyDetail = ({ bloc }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          // if (programDetail.IsActive) {
           if (programDetail.ProgramTypeName === "Certification") {
             window.open(programDetail.LinkCertification);
           } else {
             doApplyProgram(dataApplicant, data);
           }
-          // } else {
-          //   Swal.fire({
-          //     icon: "error",
-          //     title: "Program is closed!",
-          //     text: "Please look for another available active program!",
-          //   });
-          // }
         }
       });
   };
-  // console.log(programDetail.IsActive);
+
   useEffect(() => {
     getProgrambyId();
   }, []);
 
   return (
-    <Box sx={{ backgroundImage:`url(${header})`, height:'91vh' ,backgroundSize:'cover',  backgroundRepeat:'no-repeat'}}>
+    <Box
+      sx={{
+        backgroundImage: `url(${header})`,
+        height: "91vh",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
         // paddingY="25px"
-        paddingTop='1%'
-
+        paddingTop="1%"
       >
         {programDetail && (
           <Card
@@ -130,9 +130,10 @@ const VacancyDetail = ({ bloc }) => {
                 <Typography color="#343434" sx={{ marginLeft: "10px" }}>
                   {dayjs(programDetail.ProgramActivity?.OpenDate).format(
                     "DD/MM/YYYY"
-                  )}{"-"}
-                  
-                    {  dayjs(programDetail.ProgramActivity?.CloseDate).format(
+                  )}
+                  {"-"}
+
+                  {dayjs(programDetail.ProgramActivity?.CloseDate).format(
                     "DD/MM/YYYY"
                   )}
                 </Typography>
@@ -196,10 +197,10 @@ const VacancyDetail = ({ bloc }) => {
                 color="primary"
                 sx={{
                   marginRight: "15px",
-                  backgroudColor:"#FFF",
-                  fontWeight:'500',
-                  borderRadius:'20px',
-                  boxShadow:3
+                  backgroudColor: "#FFF",
+                  fontWeight: "500",
+                  borderRadius: "20px",
+                  boxShadow: 3,
                 }}
                 onClick={() => navigate("/vacancy")}
               >
@@ -209,38 +210,69 @@ const VacancyDetail = ({ bloc }) => {
                 />
                 Back
               </Button>
-              {data.userInfo ? (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ marginRight: "15px",   color:'#FFF',
-                  backgroudColor:"#8645FF",   fontWeight:'500',
-                  borderRadius:'20px',
-                  boxShadow:3 }}
-                  onClick={() => confirmationApply()}
+
+              {loading ? (
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="center"
+                  sx={{marginRight:'2%'}}
                 >
-                  <FontAwesomeIcon
-                    icon={faCirclePlus}
-                    style={{ marginRight: "10px" }}
-                  />
-                  Apply
-                </Button>
+                  <LoadingButton
+                    loading={loading}
+                    loadingPosition="start"
+                    variant="outlined"
+                    loadingIndicator="Loading"
+                    sx={{borderRadius:'20px'}}
+                  >
+                    Loading
+                  </LoadingButton>
+                </Box>
               ) : (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ marginRight: "15px",   color:'#FFF',
-                  backgroudColor:"#8645FF",   fontWeight:'500',
-                  borderRadius:'20px',
-                  boxShadow:3 }}
-                  onClick={() => navigate("/login")}
-                >
-                  <FontAwesomeIcon
-                    icon={faCirclePlus}
-                    style={{ marginRight: "10px" }}
-                  />
-                  Apply
-                </Button>
+                <Box>
+                  {data.userInfo ? (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      sx={{
+                        marginRight: "15px",
+                        color: "#FFF",
+                        backgroudColor: "#8645FF",
+                        fontWeight: "500",
+                        borderRadius: "20px",
+                        boxShadow: 3,
+                      }}
+                      onClick={() => confirmationApply()}
+                    >
+                      <FontAwesomeIcon
+                        icon={faCirclePlus}
+                        style={{ marginRight: "10px" }}
+                      />
+                      Apply
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      sx={{
+                        marginRight: "15px",
+                        color: "#FFF",
+                        backgroudColor: "#8645FF",
+                        fontWeight: "500",
+                        borderRadius: "20px",
+                        boxShadow: 3,
+                      }}
+                      onClick={() => navigate("/login")}
+                    >
+                      <FontAwesomeIcon
+                        icon={faCirclePlus}
+                        style={{ marginRight: "10px" }}
+                      />
+                      Apply
+                    </Button>
+                  )}
+                </Box>
               )}
             </Box>
           </Card>

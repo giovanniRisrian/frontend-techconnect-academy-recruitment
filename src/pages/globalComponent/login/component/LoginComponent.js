@@ -7,7 +7,6 @@ import logo from "../../../../asset/icon/logo.svg";
 import * as Yup from "yup";
 import GoogleLoginButton from "../../google/googleLogin/GoogleLoginButton";
 import login from "../../../../asset/image/loginLeft.jpg";
-import { Card } from "reactstrap";
 
 const LoginComponent = ({ bloc }) => {
   const data = useContext(RootContext);
@@ -73,7 +72,7 @@ const LoginComponent = ({ bloc }) => {
               type="text"
               name="email"
               label="Email"
-              color="secondary"
+              color="primary"
               value={formik.values.email || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -92,7 +91,7 @@ const LoginComponent = ({ bloc }) => {
               id="password"
               name="password"
               label="Password"
-              color="secondary"
+              color="primary"
               value={formik.values.password || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -106,7 +105,7 @@ const LoginComponent = ({ bloc }) => {
             <Box display="flex" justifyContent="center" alignItems="center">
               <Button
                 type="submit"
-                color="secondary"
+                color="primary"
                 variant="contained"
                 value="submit"
                 disabled={!(formik.isValid && formik.dirty)}

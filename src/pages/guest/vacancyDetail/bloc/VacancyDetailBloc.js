@@ -148,6 +148,7 @@ const VacancyDetailBloc = (programService) => {
           text: "You've already apply this program",
         });
       }
+      setLoading(false);
       throw err;
     }
   };

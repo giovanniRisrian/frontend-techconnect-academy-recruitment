@@ -508,24 +508,25 @@ const ProgramForm = ({ bloc }) => {
                 </Grid>
               </Grid>
               <Box textAlign="center">
+              <Button
+                  color='primary'
+                  variant="contained"
+                  type="submit"
+                  sx={{ marginBottom: 12, marginRight:'2%' }}
+                >
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} style={{ marginRight: "10px" }} />
+                  Submit
+                </Button>
                 <Button
                   variant="outlined"
-                  color="secondary"
+                  color="primary"
                   onClick={handleCancel}
                   sx={{ marginBottom: 12 }}
                 >
                   <FontAwesomeIcon icon={faXmark} style={{ marginRight: "10px" }} />
                   Cancel
                 </Button>{" "}
-                <Button
-                  color='secondary'
-                  variant="contained"
-                  type="submit"
-                  sx={{ marginBottom: 12 }}
-                >
-                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} style={{ marginRight: "10px" }} />
-                  Submit
-                </Button>
+               
               </Box>
             </Box>
           </form>

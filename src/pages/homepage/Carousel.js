@@ -1,6 +1,6 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button, Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import img1 from '../../asset/image/msig.jpeg';
 import img2 from '../../asset/image/home.jpg';
 import img3 from '../../asset/image/home2.jpg';
@@ -46,15 +46,16 @@ function Item(props)
             <Typography
           textAlign="left"
           sx={{
+
             paddingTop: "20%",
             marginLeft: "3%",
             color: "white",
             typography: { lg: "h4", sm: "h5", xs: "h5" },
             fontWeight: {
-              lg: "600",
-              md: "600",
-              sm: "600",
-              xs: "600",
+              lg: "900",
+              md: "900",
+              sm: "900",
+              xs: "900",
             },
             fontFamily: {
               lg: "Montserrat Alternates",

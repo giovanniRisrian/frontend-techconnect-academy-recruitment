@@ -5,8 +5,6 @@ import * as Yup from "yup";
 import { Typography, TextField, Button, Box, Grid } from "@mui/material";
 import logo from "../../../../asset/icon/logo.svg";
 import { useNavigate } from "react-router-dom";
-import MyComponent from "../../../homepage/BackgroundImage";
-import login from "../../../../asset/image/loginLeft.jpg";
 
 const RegisterComponent = ({ bloc }) => {
   const data = useContext(RootContext);
@@ -44,15 +42,13 @@ const RegisterComponent = ({ bloc }) => {
       container
       sx={{
         backgroundColor: "#F2F2F2",
-        height: "89vh",
+        height:'89vh'
       }}
+      justifyContent='center'
     >
-      <Grid item md={6} justifyContent="flex-start">
-        <img src={login} alt="img-form" width="100%" height={"101%"} />
-      </Grid>
-      <Grid item md={5} sm={12} xs={12} sx={{ marginLeft: "3%" }}>
-        <Typography textAlign="center" variant="h5" paddingTop="5%">
-          Register Recruiter Form
+      <Grid item md={6} sm={12} xs={12} sx={{ marginLeft: "3%", marginTop:'2%' }}>
+        <Typography textAlign="center" variant="h4">
+         Add Recruiter Account
         </Typography>
 
         <Box
@@ -60,18 +56,18 @@ const RegisterComponent = ({ bloc }) => {
             marginX: "20%",
             boxShadow: 3,
             paddingX: "20px",
-            marginTop: "5%",
+            marginTop: "2%",
             paddingBottom: "5%",
           }}
         >
           <form onSubmit={formik.handleSubmit}>
             <Typography textAlign="center">
-              <img src={logo} style={{ width: "120px", height: "150px" }} />
+              <img src={logo} style={{ width: "120px", height: "150px" }} alt='logo-tca'/>
             </Typography>
 
             <TextField
               variant="outlined"
-              color="secondary"
+              color="primary"
               className="form-control cardForm text-center"
               type="text"
               name="fullname"
@@ -90,7 +86,7 @@ const RegisterComponent = ({ bloc }) => {
 
             <TextField
               variant="outlined"
-              color="secondary"
+              color="primary"
               className="form-control cardForm text-center"
               type="email"
               name="email"
@@ -109,7 +105,7 @@ const RegisterComponent = ({ bloc }) => {
 
             <TextField
               variant="outlined"
-              color="secondary"
+              color="primary"
               className="form-control cardForm text-center"
               type="password"
               name="password"
@@ -130,7 +126,7 @@ const RegisterComponent = ({ bloc }) => {
                 // type="submit"
                 variant="contained"
                 sx={{ marginRight: "5%" }}
-                color="secondary"
+                color="primary"
                 textAlign="center"
                 onClick={() => {
                   navigate("..");
@@ -143,12 +139,12 @@ const RegisterComponent = ({ bloc }) => {
                 type="submit"
                 variant="contained"
                 value="submit"
-                color="secondary"
+                color="primary"
                 textAlign="center"
                 disabled={!(formik.isValid && formik.dirty)}
                 marginLeft="20px"
               >
-                SIGN UP
+                SUBMIT
               </Button>
             </Box>
           </form>
