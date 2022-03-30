@@ -52,6 +52,7 @@ const AppRouters = () => {
       }
     } else {
       localStorage.removeItem("token");
+      localStorage.removeItem("photo");
       data.dispatch({ type: ActionType.LOGIN, name: null, token: null });
       Role = null;
       alert("Token Expired");

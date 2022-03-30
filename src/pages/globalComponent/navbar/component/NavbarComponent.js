@@ -54,6 +54,13 @@ let pageLinkRecruiter = ["/", "/about", "/vacancy", "/recruiter"];
 let settingsRecruiter = ["Change Password", "Logout"];
 let settingsLinkRecruiter = ["/recruiter/change/password", "/logout"];
 
+let photo = localStorage.getItem("photo");
+let srcPhoto;
+if (photo) {
+  srcPhoto = "data:image/jpeg/png;base64," + photo;
+} else {
+  srcPhoto = null;
+}
 // Admin Configuration
 let pagesAdmin = [
   "Home",
@@ -259,7 +266,7 @@ const NavbarCompontent = () => {
               <Tooltip title="Open settings">
                 {/* <Button></Button> */}
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src={avatar} />
+                  <Avatar alt="Remy Sharp" src={photo ? srcPhoto : avatar} />
                 </IconButton>
               </Tooltip>
             )}

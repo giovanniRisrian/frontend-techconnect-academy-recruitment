@@ -100,7 +100,7 @@ const UploadButtonBloc = (UploadService) => {
 
       mock.Personal = dataReceive.Personal;
       mock.Personal.TelephoneNo = summary.phone_number[0];
-      mock.Personal.Email = summary.email[0];
+      // mock.Personal.Email = summary.email[0];
       mock.Personal.ResumeFile = file.file.name;
 
       mock.Education = dataReceive.Education;
