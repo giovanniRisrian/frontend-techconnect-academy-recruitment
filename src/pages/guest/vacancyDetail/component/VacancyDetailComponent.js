@@ -19,7 +19,7 @@ import {
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
-import header from '../../../../asset/image/bg-image.png';
+import header from "../../../../asset/image/bg-image.png";
 
 const VacancyDetail = ({ bloc }) => {
   const {
@@ -75,14 +75,20 @@ const VacancyDetail = ({ bloc }) => {
   }, []);
 
   return (
-    <Box sx={{ backgroundImage:`url(${header})`, height:'91vh' ,backgroundSize:'cover',  backgroundRepeat:'no-repeat'}}>
+    <Box
+      sx={{
+        backgroundImage: `url(${header})`,
+        height: "91vh",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
         // paddingY="25px"
-        paddingTop='1%'
-
+        paddingTop="1%"
       >
         {programDetail && (
           <Card
@@ -130,9 +136,10 @@ const VacancyDetail = ({ bloc }) => {
                 <Typography color="#343434" sx={{ marginLeft: "10px" }}>
                   {dayjs(programDetail.ProgramActivity?.OpenDate).format(
                     "DD/MM/YYYY"
-                  )}{"-"}
-                  
-                    {  dayjs(programDetail.ProgramActivity?.CloseDate).format(
+                  )}
+                  {"-"}
+
+                  {dayjs(programDetail.ProgramActivity?.CloseDate).format(
                     "DD/MM/YYYY"
                   )}
                 </Typography>
@@ -196,11 +203,11 @@ const VacancyDetail = ({ bloc }) => {
                 color="secondary"
                 sx={{
                   marginRight: "15px",
-                  color:'#8645FF',
-                  backgroudColor:"#FFF",
-                  fontWeight:'500',
-                  borderRadius:'20px',
-                  boxShadow:3
+                  color: "#8645FF",
+                  backgroudColor: "#FFF",
+                  fontWeight: "500",
+                  borderRadius: "20px",
+                  boxShadow: 3,
                 }}
                 onClick={() => navigate("/vacancy")}
               >
@@ -214,10 +221,14 @@ const VacancyDetail = ({ bloc }) => {
                 <Button
                   variant="contained"
                   color="secondary"
-                  sx={{ marginRight: "15px",   color:'#FFF',
-                  backgroudColor:"#8645FF",   fontWeight:'500',
-                  borderRadius:'20px',
-                  boxShadow:3 }}
+                  sx={{
+                    marginRight: "15px",
+                    color: "#FFF",
+                    backgroudColor: "#615B93",
+                    fontWeight: "500",
+                    borderRadius: "20px",
+                    boxShadow: 3,
+                  }}
                   onClick={() => confirmationApply()}
                 >
                   <FontAwesomeIcon
@@ -230,10 +241,14 @@ const VacancyDetail = ({ bloc }) => {
                 <Button
                   variant="contained"
                   color="secondary"
-                  sx={{ marginRight: "15px",   color:'#FFF',
-                  backgroudColor:"#8645FF",   fontWeight:'500',
-                  borderRadius:'20px',
-                  boxShadow:3 }}
+                  sx={{
+                    marginRight: "15px",
+                    color: "#FFF",
+                    backgroudColor: "#615B93",
+                    fontWeight: "500",
+                    borderRadius: "20px",
+                    boxShadow: 3,
+                  }}
                   onClick={() => navigate("/login")}
                 >
                   <FontAwesomeIcon

@@ -55,10 +55,6 @@ const VacancyList = ({ bloc }) => {
   }, []);
   
 
-  const onClickSearch = (e, text) => {
-    setSearchValue(text);
-    getSearchByName(e);
-  };
   return (
     <div>
       <Box sx={{ backgroundColor: "#F2F2F2" }}>
@@ -286,15 +282,15 @@ const VacancyList = ({ bloc }) => {
                             }}
                           >
                             <Button
-                              color="primary"
+                            color='secondary'
                               variant="contained"
                               sx={{
                                 fontFamily: "Montserrat",
                                 fontSize: "16px",
                                 color: "#FFF",
-                                backgroudColor: "#8645FF",
                                 borderRadius: "15px",
                                 marginRight: "2%",
+                                backgroundColor:'#615B93'
                               }}
                               onClick={() => navigate(`/vacancy/${value.ID}`)}
                             >
@@ -340,8 +336,8 @@ const VacancyList = ({ bloc }) => {
           <Stack spacing={2}>
             <Pagination
               count={list.LastPage}
-              color="secondary"
               size="large"
+              color='secondary'
               // page={pages}
               onChange={(e, value) => {
                 handlePage(value, data);

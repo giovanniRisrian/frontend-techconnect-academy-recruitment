@@ -131,6 +131,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
         // setIdlist(responseAppliedId)
         
       }
+      setSearchValue("")
       setPage(1);
       const response = await getInformationProgram((pages = 1), types, "");
       tempList = response.data.data;

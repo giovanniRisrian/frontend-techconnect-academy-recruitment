@@ -23,7 +23,7 @@ import {
 import dayjs from "dayjs";
 import BasicModal from "./ModalStatus";
 import header from "../../../../asset/image/headervacancy.png";
-import nodata from '../../../../asset/image/noapply.png';
+import notfound from "../../../../asset/image/no-data.png"
 
 const ListProgramApply = ({ bloc }) => {
   const {
@@ -59,13 +59,34 @@ const ListProgramApply = ({ bloc }) => {
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
       {list?.ProgramInfo == null ? (
-         <Grid container>
-         <Grid item md={4} />
-         <Grid item md={4}>
-           <img src={nodata} alt="no-data" style={{ width: "auto" }} />
-         </Grid>
-         <Grid item md={4} />
-       </Grid>
+        <Box></Box>
+      //     <Box sx={{boxShadow:3, width:'30%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'8vh'}}>
+      //     <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'2%'}}>
+      //       List of Program Applied
+      //     </Typography>
+      //     <Box
+      //    sx={{
+      //      display: "flex",
+      //      flexDirection: "column",
+      //      alignItems: "center",
+      //      justifyContent: "center",
+      //    }}
+      //  >
+          
+          
+      //    <img
+      //      width="120"
+      //      height="100"
+      //      // viewBox="0 0 184 152"
+      //      aria-hidden
+      //      focusable="false"
+      //      src={notfound}
+      //      alt={""}
+      //    ></img>
+      //    <Box sx={{ mt: 0 }}>No Applicant</Box>
+      //  </Box>
+      //     </Box>
+       
       ) : (
       <Box>
         <Box>
@@ -161,9 +182,10 @@ const ListProgramApply = ({ bloc }) => {
                             marginBottom: "10px",
                             color: "white",
                             borderRadius: "15px",
+                            backgroundColor:'#615B93'
                           }}
                           variant="contained"
-                          color="primary"
+                          color="secondary"
                           onClick={() => handleOpen(value.Program.ID)}
                         >
                           Details
