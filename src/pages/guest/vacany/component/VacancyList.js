@@ -125,7 +125,7 @@ const VacancyList = ({ bloc }) => {
         <Box
           className={classes.root}
           sx={{
-            boxShadow: 3,
+            // boxShadow: 3,
             width: "30%",
             borderTopRightRadius:"15px",
             borderBottomRightRadius:"15px",
@@ -141,7 +141,7 @@ const VacancyList = ({ bloc }) => {
               fontFamily="Montserrat"
               textAlign="center"
               color="white"
-              sx={{ marginLeft: "2%", paddingTop: "5px", textShadow:3}}
+              sx={{ marginLeft: "2%", paddingTop: "5px"}}
             >
               All Vacancy
             </Typography>
@@ -152,7 +152,7 @@ const VacancyList = ({ bloc }) => {
               fontFamily="Montserrat"
               textAlign="center"
               color="white"
-              sx={{ marginLeft: "2%", paddingTop: "2%" }}
+              sx={{ marginLeft: "2%", paddingTop: "5px" }}
             >
               Recommendation Program
             </Typography>

@@ -23,6 +23,8 @@ import dayjs from "dayjs";
 import BasicModal from "./ModalStatus";
 import header from "../../../../asset/image/headervacancy.png";
 import notfound from "../../../../asset/image/no-data.png"
+import { makeStyles } from '@mui/styles';
+
 
 const ListProgramApply = ({ bloc }) => {
   const {
@@ -55,7 +57,7 @@ const ListProgramApply = ({ bloc }) => {
     getListAppliedProgram(page, id, data)
     setPage(page)
   }
-
+  const classes = useStyles();
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
       {list?.ProgramInfo == null ? (
@@ -90,8 +92,8 @@ const ListProgramApply = ({ bloc }) => {
       ) : (
       <Box>
         <Box>
-        <Box sx={{boxShadow:3, width:'35%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'7vh'}}>
-          <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'2%'}}>
+        <Box  className={classes.root} sx={{width:'35%', backgroundColor:'#615B93', borderTopRightRadius:'15px', borderBottomRightRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'7vh'}}>
+          <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'5px'}}>
             List of Program Applied
           </Typography>
           </Box>
@@ -234,5 +236,15 @@ const ListProgramApply = ({ bloc }) => {
     </Box>
   );
 };
+
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #615B93 60%, #F2F2F2 95%)',
+    border: 0,
+    color: 'white',
+    height: 48,
+    width:'100%'
+  },
+});
 
 export default ListProgramApply;
