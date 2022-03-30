@@ -19,7 +19,6 @@ const LoginBloc = (LoginService) => {
       };
       setLoading(true)
       let res = await postLogin(basicAuth);
-      // // console.log(res)
       localStorage.setItem("token", res.data.data.token);
       context.dispatch({
         type: ActionType.LOGIN,
@@ -36,8 +35,9 @@ const LoginBloc = (LoginService) => {
     } catch (err) {
       if (err.response.data.code === 403) {
         Swal.fire({
-          icon: "error",
+          icon: "info",
           text: "Your account hasn't been activated yet, please check your email to activate your account",
+          footer:'<a href="http://localhost:3000/activation">Resend activation link to your email</a>',
         });
       } else {
         Swal.fire({

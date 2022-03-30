@@ -32,6 +32,7 @@ import ActionType from "../Context/ActionType";
 import ActivationAccount from "../activation/activation_account";
 import ListRecruiter from "../pages/administrator/listRecruiter/List";
 import UpdateRecruiter from "../pages/administrator/updateRecruiter/UpdateRecruiter";
+import Activations from "../pages/activation/Activation";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -82,7 +83,10 @@ const AppRouters = () => {
           path="/register"
           element={Role === null ? <Registers /> : <Navigate to={addressing} />}
         />
-        <Route path="/activate/:id/:email" element={<ActivationAccount />} />
+        <Route
+          path="/activation"
+          element={Role === null ? <Activations /> : <Navigate to={addressing} />}
+        />
         <Route path="/dashboard" element={<MiddlewareAuth />}>
           <Route index element={<Dashboard />} />
           <Route
