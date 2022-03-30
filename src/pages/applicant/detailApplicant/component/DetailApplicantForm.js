@@ -20,6 +20,8 @@ const DetailApplicantForm = ({ bloc }) => {
     program,
     applicantStatus,
     getDataRejectedById,
+    action,
+    setAction,
   } = bloc();
   const [file, setFile] = useState(false);
   const data = useContext(RootContext);
@@ -127,6 +129,7 @@ const DetailApplicantForm = ({ bloc }) => {
       .then((result) => {
         if (result.isConfirmed) {
           handleAccept(data);
+          setAction(true);
         }
       });
   };
@@ -142,6 +145,7 @@ const DetailApplicantForm = ({ bloc }) => {
       .then((result) => {
         if (result.isConfirmed) {
           inputConfirmationReject();
+          setAction(true);
         }
       });
   };
@@ -1191,7 +1195,8 @@ const DetailApplicantForm = ({ bloc }) => {
                   <></>
                 )}
                 {program.ApplyProcess?.SelectionProcessId === 5 ||
-                applicantStatus !== "" ? (
+                applicantStatus !== "" ||
+                action ? (
                   <> </>
                 ) : (
                   <Box
