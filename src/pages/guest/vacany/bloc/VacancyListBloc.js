@@ -11,7 +11,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   let [pages, setPage] = useState(1);
-  const [idList, setIdlist] = useState(null)
+  const [idList, setIdlist] = useState(null);
   let navigate = useNavigate();
   let { getInformationProgram, getProgramType, getAppliedProgram } =
     programService();
@@ -32,7 +32,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
         console.log("Informasi Token", userInfo);
         responseAppliedId = await getAppliedProgram(userInfo.id, config);
         responseAppliedId = responseAppliedId.data.data;
-        setIdlist(responseAppliedId)
+        setIdlist(responseAppliedId);
       }
 
       if (!state) {
@@ -45,8 +45,12 @@ const VacancyListBloc = (programService, useVacancyList) => {
       for (let x = 0; x < tempList.ProgramList.length; x++) {
         console.log(x + "=>", tempList.ProgramList[x].ID);
         if (context.userInfo) {
-          if (responseAppliedId.includes(tempList.ProgramList[x].ID)) {
-            tempList.ProgramList[x].applied = true;
+          if (responseAppliedId) {
+            if (responseAppliedId.includes(tempList.ProgramList[x].ID)) {
+              tempList.ProgramList[x].applied = true;
+            } else {
+              tempList.ProgramList[x].applied = false;
+            }
           } else {
             tempList.ProgramList[x].applied = false;
           }
@@ -54,7 +58,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
           tempList.ProgramList[x].applied = false;
         }
       }
-      console.log(tempList);
+      console.log("temp", tempList);
       setList(tempList);
       setLoading(false);
       return list;
@@ -63,7 +67,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
     }
   };
 
-  const getSearchByName = async (e,context) => {
+  const getSearchByName = async (e, context) => {
     // console.log(e);
     let config;
     let userInfo;
@@ -78,13 +82,12 @@ const VacancyListBloc = (programService, useVacancyList) => {
           };
           userInfo = jwt_decode(context.userInfo);
           // responseAppliedId = await getAppliedProgram(userInfo.id, config);
-          responseAppliedId = idList
+          responseAppliedId = idList;
           // setIdlist(responseAppliedId)
-          
         }
         setPage(1);
-        setType("All")
-        const response = await getInformationProgram(pages , "", searchValue);
+        setType("All");
+        const response = await getInformationProgram(pages, "", searchValue);
         tempList = response.data.data;
         for (let x = 0; x < tempList.ProgramList.length; x++) {
           console.log(x + "=>", tempList.ProgramList[x].ID);
@@ -127,11 +130,10 @@ const VacancyListBloc = (programService, useVacancyList) => {
         };
         userInfo = jwt_decode(context.userInfo);
         // responseAppliedId = await getAppliedProgram(userInfo.id, config);
-        responseAppliedId = idList
+        responseAppliedId = idList;
         // setIdlist(responseAppliedId)
-        
       }
-      setSearchValue("")
+      setSearchValue("");
       setPage(1);
       const response = await getInformationProgram((pages = 1), types, "");
       tempList = response.data.data;

@@ -11,6 +11,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
     postGettingDataLinkedinProfile,
   } = viewViewProfileService();
   let navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
   const [linkedin, setLinkedin] = useState("");
 
   const putProfileLinkedin = async (values, context) => {
@@ -21,6 +22,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
         Authorization: `Bearer ${context.userInfo}`,
       },
     };
+    setLoading(true)
     const resp = await postGettingDataLinkedinProfile(
       { profile_id: linkedin },
       config
@@ -219,6 +221,8 @@ const ViewProfileBloc = (viewViewProfileService) => {
           window.location.reload();
         }
       });
+    setLoading(false)
+
   };
 
   const addProfile = async (values, file, context) => {
@@ -239,9 +243,9 @@ const ViewProfileBloc = (viewViewProfileService) => {
         values.Personal.ResumeFile.split(":")[0].split("_")[
           values.Personal.ResumeFile.split(":")[0].split("_").length - 1
         ];
-
       values.Personal.ResumeFile = filepath;
       const jsonText = JSON.stringify(values);
+      console.log("data profile",values);
       const jsonPretendFile = new Blob([jsonText], {
         type: "application/json",
       });
@@ -328,20 +332,31 @@ const ViewProfileBloc = (viewViewProfileService) => {
       // console.log("resp:",dataReceive)
       // console.log("mock:",mock)
       mock.Personal = dataReceive.Personal;
-      mock.Personal.BirthDate = dayjs(dataReceive.Personal.BirthDate).format(
-        "YYYY-MM-DD"
-      );
 
-      // console.log(mock.Personal.BirthDate)
+      if (
+        mock.Personal.BirthDate === "0001-01-01T07:07:12+07:07" ||
+        mock.Personal.BirthDate === "1-01-01" ||
+        mock.Personal.BirthDate == null
+      ) {
+        mock.Personal.BirthDate = null;
+      } else {
+        mock.Personal.BirthDate = mock.Personal.BirthDate = dayjs(
+          dataReceive.Personal.BirthDate
+        ).format("YYYY-MM-DD");
+      }
+      console.log("birthdate", mock.Personal)
       mock.Education = dataReceive.Education;
       mock.SkillSet = dataReceive.SkillSet;
       mock.WorkExperience = dataReceive.WorkExperience;
-      mock.WorkExperience[0].YearIn = dayjs(
-        dataReceive.WorkExperience[0].YearIn
-      ).format("YYYY-MM-DD");
-      mock.WorkExperience[0].YearOut = dayjs(
-        dataReceive.WorkExperience[0].YearOut
-      ).format("YYYY-MM-DD");
+      for (let i = 0; i < mock.WorkExperience.length; i++) {
+        mock.WorkExperience[i].YearIn = dayjs(
+          dataReceive.WorkExperience[i].YearIn
+        ).format("YYYY-MM-DD");
+        mock.WorkExperience[i].YearOut = dayjs(
+          dataReceive.WorkExperience[i].YearOut
+        ).format("YYYY-MM-DD");
+      }
+
       mock.Organization = dataReceive.Organization;
       mock.ID = dataReceive.ID;
       mock.UserAccountID = dataReceive.UserAccountID;
@@ -352,7 +367,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
       throw err;
     }
   };
-  return { addProfile, getDataByID, putProfileLinkedin, setLinkedin, linkedin };
+  return { addProfile, getDataByID, putProfileLinkedin, setLinkedin, linkedin,loading };
 };
 
 export default ViewProfileBloc;

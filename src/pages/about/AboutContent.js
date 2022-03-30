@@ -22,7 +22,7 @@ const StyledCard = styled(Card)`
     duration: theme.transitions.duration.standard,
   })};
   &:hover {
-    background-color: ${"#8645FF"};
+    background-color: ${"#615B93"};
     transform: scale(1.05);
   }
   `}

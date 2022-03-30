@@ -18,8 +18,11 @@ import { RootContext } from "../../../../App";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faXmark, faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons";
-import header from '../../../../asset/image/headervacancy.png'
+import {
+  faXmark,
+  faArrowUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
+import header from "../../../../asset/image/headervacancy.png";
 
 const ProgramForm = ({ bloc }) => {
   const data = useContext(RootContext);
@@ -96,15 +99,16 @@ const ProgramForm = ({ bloc }) => {
     >
       <>
         {/* Start of Header */}
-       
-        <Grid container sx={{paddingTop:'6%',backgroundImage:`url(${header})`, backgroundSize:'cover', backgroundRepeat:'no-repeat', height:'50vh'}}>
+
+        <Grid container>
           <Grid item md={4} />
-          <Grid item md={4} sm={11} xs={11} justifyContent='center'>
+          <Grid item md={4} sm={11} xs={11} justifyContent="center">
             <Typography
               component="div"
               textAlign="center"
               gutterBottom
               sx={{
+                paddingY: "3%",
                 typography: { lg: "h3", sm: "h4", xs: "h4" },
                 fontWeight: {
                   lg: 600,
@@ -158,7 +162,15 @@ const ProgramForm = ({ bloc }) => {
         {/* End of Upload Image */}
 
         {/* Form */}
-        <Box  sx={{ boxShadow: 3, backgroundColor: "#FFF", paddingTop: "2%", marginX:'15%', borderRadius:'10px'}}>
+        <Box
+          sx={{
+            boxShadow: 3,
+            backgroundColor: "#FFF",
+            paddingTop: "2%",
+            marginX: "15%",
+            borderRadius: "10px",
+          }}
+        >
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box
               sx={{
@@ -167,8 +179,8 @@ const ProgramForm = ({ bloc }) => {
               }}
             >
               <Grid container>
-                <Grid item md={3} />
-                <Grid item md={6} sm={11} xs={11}>
+                <Grid item md={2} />
+                <Grid item md={8} sm={11} xs={11}>
                   <Controller
                     name={"ProgramTypeName"}
                     control={control}
@@ -212,8 +224,8 @@ const ProgramForm = ({ bloc }) => {
 
               {watch("ProgramTypeName") === "certification" ? ( // ini masih pr
                 <Grid container>
-                  <Grid item md={3} />
-                  <Grid item md={6} sm={11} xs={11}>
+                  <Grid item md={2} />
+                  <Grid item md={8} sm={11} xs={11}>
                     <Controller
                       name={"LinkCertification"}
                       control={control}
@@ -243,8 +255,8 @@ const ProgramForm = ({ bloc }) => {
               )}
 
               <Grid container>
-                <Grid item md={3} />
-                <Grid item md={6} sm={11} xs={11}>
+                <Grid item md={2} />
+                <Grid item md={8} sm={11} xs={11}>
                   <Controller
                     name={"ProgramName"}
                     control={control}
@@ -269,8 +281,8 @@ const ProgramForm = ({ bloc }) => {
               </Grid>
 
               <Grid container>
-                <Grid item md={3} />
-                <Grid item md={6} sm={11} xs={11}>
+                <Grid item md={2} />
+                <Grid item md={8} sm={11} xs={11}>
                   <Controller
                     name={"headline"}
                     control={control}
@@ -295,8 +307,8 @@ const ProgramForm = ({ bloc }) => {
               </Grid>
 
               <Grid container>
-                <Grid item md={3} />
-                <Grid item md={6} sm={11} xs={11}>
+                <Grid item md={2} />
+                <Grid item md={8} sm={11} xs={11}>
                   <Controller
                     name={"description"}
                     control={control}
@@ -323,8 +335,8 @@ const ProgramForm = ({ bloc }) => {
               </Grid>
 
               <Grid container>
-                <Grid item md={3} />
-                <Grid item md={6} sm={11} xs={11}>
+                <Grid item md={2} />
+                <Grid item md={8} sm={11} xs={11}>
                   <Controller
                     name={"requirement"}
                     control={control}
@@ -351,8 +363,8 @@ const ProgramForm = ({ bloc }) => {
               </Grid>
 
               <Grid container>
-                <Grid item md={3} />
-                <Grid item md={6} sm={11} xs={11}>
+                <Grid item md={2} />
+                <Grid item md={8} sm={11} xs={11}>
                   <Controller
                     name={"age"}
                     control={control}
@@ -376,8 +388,8 @@ const ProgramForm = ({ bloc }) => {
               </Grid>
 
               <Grid container>
-                <Grid item md={3} />
-                <Grid item md={6} sm={11} xs={11}>
+                <Grid item md={2} />
+                <Grid item md={8} sm={11} xs={11}>
                   <Controller
                     name={"gpa"}
                     control={control}
@@ -402,8 +414,8 @@ const ProgramForm = ({ bloc }) => {
 
               {/* This is auto complete */}
               <Grid container>
-                <Grid item md={3} />
-                <Grid item md={6} sm={11} xs={11}>
+                <Grid item md={2} />
+                <Grid item md={8} sm={11} xs={11}>
                   <Controller
                     name={"RequirementSkill"}
                     control={control}
@@ -413,6 +425,7 @@ const ProgramForm = ({ bloc }) => {
                         color="secondary"
                         id="RequirementSkill"
                         label="Skill"
+                        placeholder="example Sql, Javascript, Python, C#"
                         variant="outlined"
                         size="small"
                         name="RequirementSkill"
@@ -430,57 +443,58 @@ const ProgramForm = ({ bloc }) => {
               </Grid>
 
               {/* This is Date input */}
-              <Grid container>
-                <Grid item md={3} />
-                <Grid item md={3} sm={4} xs={4}>
-                  <Controller
-                    name={"openDate"}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        color="secondary"
-                        id="openDate"
-                        label="Open Date"
-                        variant="outlined"
-                        size="small"
-                        name="openDate"
-                        type="date"
-                        {...field}
-                        error={Boolean(errors.openDate)}
-                        helperText={
-                          errors.openDate ? errors.openDate.message : ""
-                        }
-                      />
-                    )}
-                  ></Controller>
-                </Grid>
-                <Grid item md={3} sm={4} xs={4}>
-                  <Controller
-                    name={"closeDate"}
-                    control={control}
-                    render={({ field }) => (
-                      <TextField
-                        color="secondary"
-                        id="closeDate"
-                        label="Close Date"
-                        variant="outlined"
-                        size="small"
-                        name="closeDate"
-                        type="date"
-                        {...field}
-                        error={Boolean(errors.closeDate)}
-                        helperText={
-                          errors.closeDate ? errors.closeDate.message : ""
-                        }
-                      />
-                    )}
-                  ></Controller>
-                </Grid>
-              </Grid>
+              <Box container display={"flex"} justifyContent={"space-evenly"}>
+                {/* <Grid item md={2} />
+                <Grid item md={3} sm={4} xs={4}> */}
+                <Controller
+                  name={"openDate"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      color="secondary"
+                      id="openDate"
+                      label="Open Date"
+                      variant="outlined"
+                      size="small"
+                      name="openDate"
+                      type="date"
+                      {...field}
+                      error={Boolean(errors.openDate)}
+                      helperText={
+                        errors.openDate ? errors.openDate.message : ""
+                      }
+                    />
+                  )}
+                ></Controller>
+                {/* </Grid>
+                <Grid item md={2} />
+                <Grid item md={3} sm={4} xs={4}> */}
+                <Controller
+                  name={"closeDate"}
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      color="secondary"
+                      id="closeDate"
+                      label="Close Date"
+                      variant="outlined"
+                      size="small"
+                      name="closeDate"
+                      type="date"
+                      {...field}
+                      error={Boolean(errors.closeDate)}
+                      helperText={
+                        errors.closeDate ? errors.closeDate.message : ""
+                      }
+                    />
+                  )}
+                ></Controller>
+                {/* </Grid> */}
+              </Box>
 
               <Grid container>
-                <Grid item md={3} />
-                <Grid item md={6} sm={11} xs={11}>
+                <Grid item md={2} />
+                <Grid item md={8} sm={11} xs={11}>
                   <Controller
                     name={"address"}
                     control={control}
@@ -508,23 +522,29 @@ const ProgramForm = ({ bloc }) => {
               </Grid>
               <Box textAlign="center">
                 <Button
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  sx={{ marginBottom: 12, marginRight: "2%" }}
+                >
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    style={{ marginRight: "10px" }}
+                  />
+                  Submit
+                </Button>
+                <Button
                   variant="outlined"
-                  color="secondary"
+                  color="primary"
                   onClick={handleCancel}
                   sx={{ marginBottom: 12 }}
                 >
-                  <FontAwesomeIcon icon={faXmark} style={{ marginRight: "10px" }} />
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    style={{ marginRight: "10px" }}
+                  />
                   Cancel
                 </Button>{" "}
-                <Button
-                  color='secondary'
-                  variant="contained"
-                  type="submit"
-                  sx={{ marginBottom: 12 }}
-                >
-                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} style={{ marginRight: "10px" }} />
-                  Submit
-                </Button>
               </Box>
             </Box>
           </form>

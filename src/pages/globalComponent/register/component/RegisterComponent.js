@@ -5,10 +5,11 @@ import * as Yup from "yup";
 import { Typography, TextField, Button, Box, Grid } from "@mui/material";
 import logo from "../../../../asset/icon/logo.svg";
 import login from "../../../../asset/image/loginLeft.jpg";
+import { LoadingButton } from "@mui/lab";
 
 const RegisterComponent = ({ bloc }) => {
   const data = useContext(RootContext);
-  const { doRegister } = bloc();
+  const { doRegister, loading } = bloc();
   const formik = useFormik({
     initialValues: {
       fullname: "",
@@ -45,7 +46,7 @@ const RegisterComponent = ({ bloc }) => {
       }}
     >
       <Grid item md={6} justifyContent="flex-start">
-        <img src={login} alt="img-form" width="100%" height={"101%"} />
+        <img src={login} alt="img-form" width="100%" height={"102%"} />
       </Grid>
       <Grid item md={5} sm={12} xs={12} sx={{ marginLeft: "3%" }}>
         <Box
@@ -69,7 +70,7 @@ const RegisterComponent = ({ bloc }) => {
             <TextField
               fullWidth
               variant="outlined"
-              color="secondary"
+              color="primary"
               className="form-control cardForm text-center"
               type="text"
               name="fullname"
@@ -89,7 +90,7 @@ const RegisterComponent = ({ bloc }) => {
             <TextField
               fullWidth
               variant="outlined"
-              color="secondary"
+              color="primary"
               className="form-control cardForm text-center"
               type="email"
               name="email"
@@ -109,7 +110,7 @@ const RegisterComponent = ({ bloc }) => {
             <TextField
               fullWidth
               variant="outlined"
-              color="secondary"
+              color="primary"
               className="form-control cardForm text-center"
               type="password"
               name="password"
@@ -125,24 +126,42 @@ const RegisterComponent = ({ bloc }) => {
                 </small>
               ) : null}
             </p>
-            <Box
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              marginBottom="10%"
-            >
-              <Button
-                type="submit"
-                variant="contained"
-                value="submit"
-                color="secondary"
-                textAlign="center"
-                disabled={!(formik.isValid && formik.dirty)}
-                fullWidth
+            {loading ? (
+              <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="center"
               >
-                SIGN UP
-              </Button>
-            </Box>
+                <LoadingButton
+                    loading={loading}
+                    loadingPosition="center"
+                    variant="outlined"
+                    loadingIndicator="Loading"
+                  >
+                    Loading
+                  </LoadingButton>
+              </Box>
+            ) : (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                marginBottom="10%"
+              >
+                <Button
+                  type="submit"
+                  variant="contained"
+                  value="submit"
+                  color="primary"
+                  textAlign="center"
+                  disabled={!(formik.isValid && formik.dirty)}
+                  fullWidth
+                >
+                  SIGN UP
+                </Button>
+              </Box>
+            )}
           </form>
         </Box>
       </Grid>

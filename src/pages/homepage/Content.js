@@ -90,7 +90,7 @@ const Content = () => {
               <Button
                 variant="contained"
                 color="secondary"
-                sx={{ backgroundColor: "#8645FF", borderRadius: "15px" }}
+                sx={{ borderRadius: "15px", backgroundColor:'#615B93', color:'#FFF' }}
                 onClick={() => navigate("/about")}
               >
                 See Details
@@ -139,7 +139,7 @@ const Content = () => {
                 borderRadius: "15px",
                 width: "200px",
                 height: "200px",
-                backgroundColor:'#8645FF'
+                backgroundColor:'#615B93'
               }}
             >
               <CardContent>
@@ -179,7 +179,7 @@ const Content = () => {
                   variant="h6"
                   fontFamily="Montserrat"
                   fontWeight="600"
-                  color="#8645FF"
+                  color="#615B93"
                   textAlign="center"
                   marginTop="50px"
                 >
@@ -202,7 +202,7 @@ const Content = () => {
                 borderRadius: "15px",
                 width: "200px",
                 height: "200px",
-                backgroundColor:'#8645FF'
+                backgroundColor:'#615B93'
               }}
             >
               <CardContent>
@@ -242,7 +242,7 @@ const Content = () => {
                   variant="h6"
                   fontFamily="Montserrat"
                   fontWeight="600"
-                  color="#8645FF"
+                  color="#615B93"
                   textAlign="center"
                   marginTop="50px"
                 >

@@ -1,6 +1,4 @@
 import {
-  CardActions,
-  CardContent,
   Card,
   Typography,
   Button,
@@ -29,9 +27,22 @@ import { RootContext } from "../../../../App";
 import ListProgramApply from "../../../applicant/status/component/ListProgramApply";
 import ListProgramApplyBloc from "../../../applicant/status/bloc/ListProgramApplyBloc";
 import StatusService from "../../../applicant/status/service/StatusService";
+import jwt_decode from "jwt-decode";
 
 const VacancyList = ({ bloc }) => {
-  const data = useContext(RootContext);
+  let data = useContext(RootContext);
+  let show = true;
+  let dataFalse = { userInfo: null };
+  let decodeInfo;
+  console.log("context", data);
+  if (data?.userInfo) {
+    console.log("data", data.userInfo);
+    decodeInfo = jwt_decode(data?.userInfo);
+    if (decodeInfo.Role !== "user") {
+      show = false;
+    }
+  }
+
   const {
     list,
     getListJobInformation,
@@ -50,10 +61,12 @@ const VacancyList = ({ bloc }) => {
 
   useEffect(() => {
     getProgramTypeName();
+    if (show === true) {
       getListJobInformation(1, "", "", data);
-   
+    } else {
+      getListJobInformation(1, "", "", dataFalse);
+    }
   }, []);
-  
 
   return (
     <div>
@@ -92,7 +105,7 @@ const VacancyList = ({ bloc }) => {
           </Typography>
         </Box>
 
-        {data.userInfo ? (
+        {data.userInfo && show ? (
           <>
             <ListProgramApply
               bloc={() => ListProgramApplyBloc(StatusService)}
@@ -101,13 +114,28 @@ const VacancyList = ({ bloc }) => {
         ) : (
           <div></div>
         )}
-       
-      
-       <Box sx={{boxShadow:3, width:'30%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'3%', height:'7vh'}}>
-          <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'2%'}}>
+
+        <Box
+          sx={{
+            boxShadow: 3,
+            width: "30%",
+            backgroundColor: "#615B93",
+            borderRadius: "15px",
+            marginBottom: "2%",
+            marginTop: "3%",
+            height: "7vh",
+          }}
+        >
+          <Typography
+            variant="h5"
+            fontFamily="Montserrat"
+            textAlign="center"
+            color="white"
+            sx={{ marginLeft: "2%", paddingTop: "2%" }}
+          >
             All Vacancy
           </Typography>
-          </Box>
+        </Box>
         {state == null ? (
           <>
             <Box
@@ -132,7 +160,11 @@ const VacancyList = ({ bloc }) => {
                   label="Program"
                   onChange={(e, value) => {
                     console.log("change", e.target.value);
-                    handleType(e.target.value, data);
+                    if (show === true) {
+                      handleType(e.target.value, data);
+                    } else {
+                      handleType(e.target.value, dataFalse);
+                    }
                   }}
                 >
                   {typeProgram?.map((value) => {
@@ -159,7 +191,11 @@ const VacancyList = ({ bloc }) => {
                     placeholder="Search…"
                     inputProps={{ "aria-label": "search" }}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    onKeyDown={(e) => getSearchByName(e, data)}
+                    onKeyDown={(e) => {
+                      show
+                        ? getSearchByName(e, data)
+                        : getSearchByName(e, dataFalse);
+                    }}
                   />
                 </Search>
               </Toolbar>
@@ -185,6 +221,14 @@ const VacancyList = ({ bloc }) => {
           </Box>
         ) : (
           <>
+            {/* <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              flexWrap: "wrap",
+              marginTop: "3%",
+            }}
+          > */}
             <Grid container>
               {list?.ProgramList?.length === 0 ? (
                 <Grid container>
@@ -205,24 +249,24 @@ const VacancyList = ({ bloc }) => {
                         md={4}
                         sm={12}
                         xs={12}
-                        // key={idx}
-                        justifyContent="left"
-                        display="flex"
-                        flexDirection="column"
-                        marginTop="20px"
+                        sx={{ marginBottom: "1%", marginTop: "2%" }}
                       >
                         <StyledCard
                           sx={{
                             backgroundColor: "#FFF",
-                            height: "100%",
                             width: "85%",
                             borderRadius: "15px",
+                  
                             // marginX: "10px",
                             boxShadow: 5,
                             marginLeft: "10px",
                           }}
                         >
-                          <CardContent>
+                          <div
+                            style={{
+                              padding: "30px",
+                            }}
+                          >
                             <Typography
                               variant="h5"
                               component="div"
@@ -240,27 +284,23 @@ const VacancyList = ({ bloc }) => {
                             >
                               <FontAwesomeIcon
                                 icon={faTags}
-                                style={{ color: "#7C7474" }}
+                                style={{ color: "#7C7474", marginRight: "2%" }}
                               />
-                              <Typography
-                                color="#7C7474"
-                                gutterBottom
-                                fontWeight="600"
-                                sx={{ marginLeft: "10px" }}
-                              >
+                              <Typography>
                                 {value.ProgramTypeName.toUpperCase()}
                               </Typography>
                             </Box>
-                            <Box display="flex" marginLeft="10px">
+                            <Box
+                              display="flex"
+                              marginLeft="10px"
+                              marginTop="5px"
+                              marginBottom='5%'
+                            >
                               <FontAwesomeIcon
                                 icon={faCalendar}
-                                style={{ color: "#7C7474" }}
+                                style={{ color: "#7C7474", marginRight: "2%" }}
                               />
-                              <Typography
-                                color="#7C7474"
-                                fontWeight="600"
-                                sx={{ marginLeft: "10px" }}
-                              >
+                              <Typography>
                                 {dayjs(value.ProgramActivity?.OpenDate).format(
                                   "DD/MM/YYYY"
                                 )}{" "}
@@ -270,19 +310,8 @@ const VacancyList = ({ bloc }) => {
                                 )}
                               </Typography>
                             </Box>
-                          </CardContent>
-
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              minHeight: "10vh",
-                              marginTop: "5%",
-                            }}
-                          >
                             <Button
-                            color='secondary'
+                              color="secondary"
                               variant="contained"
                               sx={{
                                 fontFamily: "Montserrat",
@@ -290,7 +319,7 @@ const VacancyList = ({ bloc }) => {
                                 color: "#FFF",
                                 borderRadius: "15px",
                                 marginRight: "2%",
-                                backgroundColor:'#615B93'
+                                backgroundColor: "#615B93",
                               }}
                               onClick={() => navigate(`/vacancy/${value.ID}`)}
                             >
@@ -337,10 +366,14 @@ const VacancyList = ({ bloc }) => {
             <Pagination
               count={list.LastPage}
               size="large"
-              color='secondary'
+              color="secondary"
               // page={pages}
               onChange={(e, value) => {
-                handlePage(value, data);
+                if (show === true) {
+                  handlePage(value, data);
+                } else {
+                  handlePage(value, dataFalse);
+                }
               }}
               sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
             />

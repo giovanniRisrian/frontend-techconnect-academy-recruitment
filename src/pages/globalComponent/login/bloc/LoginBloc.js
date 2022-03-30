@@ -4,8 +4,10 @@ import ActionType from "../../../../Context/ActionType";
 // import { AsyncStorage } from 'react-native';
 import jwt_decode from "jwt-decode";
 import Swal from "sweetalert2";
+import { useState } from "react";
 const LoginBloc = (LoginService) => {
   let { postLogin } = LoginService();
+  const [loading, setLoading] = useState(false)
 
   let navigate = useNavigate();
   const doLogin = async (formik, context) => {
@@ -15,6 +17,7 @@ const LoginBloc = (LoginService) => {
         username: formik.values.email,
         password: formik.values.password,
       };
+      setLoading(true)
       let res = await postLogin(basicAuth);
       // // console.log(res)
       localStorage.setItem("token", res.data.data.token);
@@ -23,21 +26,27 @@ const LoginBloc = (LoginService) => {
         token: res.data.data.token,
         name: res.data.data.name,
       });
+      setLoading(false)
       let role = jwt_decode(res.data.data.token).Role;
       if (role !== "user") {
         navigate("/" + role);
       } else {
-        navigate("/applicant/status");
+        navigate("/vacancy");
       }
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-
-        text: "Username or Password is invalid",
-      });
-      // alert('Username or Password is invalid')
+      if (err.response.data.code === 403) {
+        Swal.fire({
+          icon: "error",
+          text: "Your account hasn't been activated yet, please check your email to activate your account",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          text: "Username or Password is invalid",
+        });
+      }
     }
   };
-  return { doLogin };
+  return { doLogin, loading };
 };
 export default LoginBloc;

@@ -11,13 +11,13 @@ const LogoutButtonComponent = ({ bloc }) => {
   };
   return (
     <Button
-      color="secondary"
+      color="primary"
       variant="contained"
       sx={{
         fontFamily: "Montserrat",
         fontSize: "12px",
         color: "#FFF",
-        backgroudColor: "#8645FF",
+        backgroundColor:'#171059',
         borderRadius: "20px",
       }}
       onClick={handleLogout}

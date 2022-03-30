@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBarsProgress,
   faCalendar,
-  faCircleInfo,
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
@@ -90,7 +89,7 @@ const ListProgramApply = ({ bloc }) => {
       ) : (
       <Box>
         <Box>
-        <Box sx={{boxShadow:3, width:'30%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'7vh'}}>
+        <Box sx={{boxShadow:3, width:'35%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'7vh'}}>
           <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'2%'}}>
             List of Program Applied
           </Typography>
@@ -123,11 +122,11 @@ const ListProgramApply = ({ bloc }) => {
                         width: "85%",
                         backgroundColor: "#FFF",
                         borderRadius: "15px",
-                        marginX: "10px",
+                        marginLeft:'3%',
                         boxShadow: 5,
                       }}
                     >
-                      <CardContent>
+                      <div style={{padding:'3%'}}>
                         <Typography
                           variant="h6"
                           color="#343434"
@@ -174,12 +173,11 @@ const ListProgramApply = ({ bloc }) => {
                             {value.ProgramApplicant?.ProcessStatus}
                           </Typography>
                         </Box>
-                      </CardContent>
-                      <CardActions>
+                        
                         <Button
                           sx={{
-                            marginLeft: "20px",
-                            marginBottom: "10px",
+                            // marginLeft: "20px",
+                            // marginBottom: "10px"
                             color: "white",
                             borderRadius: "15px",
                             backgroundColor:'#615B93'
@@ -197,7 +195,7 @@ const ListProgramApply = ({ bloc }) => {
                           status={statusProgram}
                           loading={loading}
                         />
-                      </CardActions>
+                      </div>
                     </Card>
                   </Grid>
                 </Fragment>
@@ -218,7 +216,7 @@ const ListProgramApply = ({ bloc }) => {
           <Stack spacing={2}>
             <Pagination
               count={list.LastPage}
-              color="secondary"
+              color="primary"
               size="large"
               // page={pages}
               onChange={(e, value) => {

@@ -6,7 +6,7 @@ const GoogleLoginButtonService = () => {
     return response;
   };
   const postRegister = async (params) => {
-    const response = await client.post("/user/register", params);
+    const response = await client.post("/user/register/google", params);
     return response;
   };
   return { postLogin,postRegister };
