@@ -17,8 +17,14 @@ const DetailApplicantBloc = (
     rejectApplicant,
   } = viewDetailApplicantService();
   let { paramsNav, navigateTo } = navigation();
-  let { program, setProgram, applicantStatus, setApplicantStatus } =
-    useDetailApplicant();
+  let {
+    program,
+    setProgram,
+    applicantStatus,
+    setApplicantStatus,
+    action,
+    setAction,
+  } = useDetailApplicant();
   let params = paramsNav();
 
   const handleAccept = async (context) => {
@@ -195,6 +201,8 @@ const DetailApplicantBloc = (
     program,
     applicantStatus,
     getDataRejectedById,
+    action,
+    setAction,
   };
 };
 

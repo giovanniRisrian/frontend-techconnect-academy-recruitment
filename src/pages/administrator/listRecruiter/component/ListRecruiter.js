@@ -1,5 +1,14 @@
 import * as React from "react";
-import { Box, LinearProgress, Divider, Typography, Grid } from "@mui/material";
+import {
+  Box,
+  LinearProgress,
+  Divider,
+  Typography,
+  Grid,
+  Button,
+  TextField,
+  Modal,
+} from "@mui/material";
 import { RootContext } from "../../../../App";
 import {
   DataGrid,
@@ -12,6 +21,9 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import Footer from "../../../globalComponent/footer/Footer";
 import notfound from "../../../../asset/image/no-data.png";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import logo from "../../../../asset/icon/logo.svg";
 
 function CustomNoRowsOverlay() {
   return (
@@ -40,17 +52,67 @@ function CustomNoRowsOverlay() {
 
 export default function ListRecruiter({ bloc }) {
   const data = React.useContext(RootContext);
-
   let {
     allRecruiter,
     deleteRecruiterbyId,
     listRecruiter,
-    handleClickRow,
     isLoading,
     pageSize,
     setPageSize,
+    modalRegister,
+    setModalRegister,
+    modalUpdate,
+    setModalUpdate,
+    doRegisterRecruiter,
+    recruiterById,
+    updateRecruiterById,
+    setId,
   } = bloc();
 
+  // Formik Register
+  const formikRegister = useFormik({
+    initialValues: {
+      fullname: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .required("This field is required")
+        .email("Invalid email format"),
+      password: Yup.string()
+        .required("This field is required")
+        .min(5, "minimum 6 characters"),
+      fullname: Yup.string()
+        .required("This field is required")
+        .min(5, "minimum 6 characters"),
+    }),
+    onSubmit: () => {
+      handleRegisterFront();
+    },
+  });
+
+  // Formik Update
+  const formikUpdate = useFormik({
+    initialValues: {
+      fullname: "",
+      email: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .required("This field is required")
+        .email("Invalid email format"),
+      fullname: Yup.string()
+        .required("This field is required")
+        .min(5, "minimum 6 characters"),
+    }),
+    onSubmit: () => {
+      handleUpdateFront();
+      // navigateTo("/administrator/list/recruiter");
+    },
+  });
+
+  // Columns configuration
   const columns = [
     {
       field: "name",
@@ -92,6 +154,23 @@ export default function ListRecruiter({ bloc }) {
     },
   ];
 
+  const handleRegisterFront = () => {
+    doRegisterRecruiter(formikRegister, data);
+  };
+
+  const getDataById = async (id) => {
+    setModalUpdate(true);
+    setId(id);
+    const res = await recruiterById(id, data);
+    formikUpdate.values.fullname = res.fullname;
+    formikUpdate.values.email = res.email;
+    formikUpdate.setFieldValue();
+  };
+
+  const handleUpdateFront = () => {
+    updateRecruiterById(formikUpdate, data);
+  };
+
   const confirmDelete = (dataDelete) => {
     console.log("data delete", dataDelete);
     if (window.confirm(`Are you sure to delete ${dataDelete.fullname}?`)) {
@@ -103,7 +182,6 @@ export default function ListRecruiter({ bloc }) {
     allRecruiter(data);
   }, []);
 
-  // console.log("cobaa", listRecruiter);
   return (
     <>
       {/* Start of Header */}
@@ -147,16 +225,242 @@ export default function ListRecruiter({ bloc }) {
         </Grid>
       </Grid>
 
+      {/* Start of Register Recruiter */}
+      <Modal open={modalRegister}>
+        <Box
+          sx={{
+            marginX: "20%",
+            boxShadow: 3,
+            paddingX: "20px",
+            marginTop: "2%",
+            paddingBottom: "5%",
+            ...style,
+          }}
+        >
+          <form onSubmit={formikRegister.handleSubmit}>
+            <Typography textAlign="center">
+              <img
+                src={logo}
+                style={{ width: "120px", height: "200px" }}
+                alt="logo-tca"
+              />
+            </Typography>
+            <Box mt={-7} mb={3}>
+              <Typography
+                textAlign="center"
+                color="gray"
+                variant="h5"
+                component="div"
+                gutterBottom
+              >
+                Register Recruiter Account
+              </Typography>
+            </Box>
+            <TextField
+              variant="outlined"
+              color="primary"
+              className="form-control cardForm text-center"
+              type="text"
+              name="fullname"
+              label="Name"
+              value={formikRegister.values.fullname || ""}
+              onChange={formikRegister.handleChange}
+              onBlur={formikRegister.handleBlur}
+            />
+            <p className="warning">
+              {formikRegister.errors.fullname &&
+              formikRegister.touched.fullname ? (
+                <small style={{ color: "red" }} className="text-danger">
+                  {formikRegister.errors.fullname}
+                </small>
+              ) : null}
+            </p>
+
+            <TextField
+              variant="outlined"
+              color="primary"
+              className="form-control cardForm text-center"
+              type="email"
+              name="email"
+              label="Email"
+              value={formikRegister.values.email || ""}
+              onChange={formikRegister.handleChange}
+              onBlur={formikRegister.handleBlur}
+            />
+            <p className="warning">
+              {formikRegister.errors.email && formikRegister.touched.email ? (
+                <small style={{ color: "red" }} className="text-danger">
+                  {formikRegister.errors.email}
+                </small>
+              ) : null}
+            </p>
+
+            <TextField
+              variant="outlined"
+              color="primary"
+              className="form-control cardForm text-center"
+              type="password"
+              name="password"
+              label="Password"
+              value={formikRegister.values.password || ""}
+              onChange={formikRegister.handleChange}
+              onBlur={formikRegister.handleBlur}
+            />
+            <p className="warning">
+              {formikRegister.errors.password &&
+              formikRegister.touched.password ? (
+                <small style={{ color: "red" }} className="text-danger">
+                  {formikRegister.errors.password}
+                </small>
+              ) : null}
+            </p>
+            <Box display="flex" justifyContent="center">
+              <Button
+                variant="outlined"
+                sx={{ marginRight: "5%" }}
+                color="primary"
+                textAlign="center"
+                onClick={() => {
+                  setModalRegister(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                value="submit"
+                color="primary"
+                textAlign="center"
+                disabled={!(formikRegister.isValid && formikRegister.dirty)}
+                marginLeft="20px"
+              >
+                SUBMIT
+              </Button>
+            </Box>
+          </form>
+        </Box>
+      </Modal>
+      {/* End of Register Recruiter */}
+
+      {/* Start of Update Recruiter */}
+      <Modal open={modalUpdate}>
+        <Box
+          sx={{
+            marginX: "20%",
+            boxShadow: 3,
+            paddingX: "20px",
+            marginTop: "2%",
+            paddingBottom: "5%",
+            ...style,
+          }}
+        >
+          <form onSubmit={formikUpdate.handleSubmit}>
+            <Typography textAlign="center">
+              <img
+                src={logo}
+                style={{ width: "120px", height: "200px" }}
+                alt="logo-tca"
+              />
+            </Typography>
+            <Box mt={-7} mb={3}>
+              <Typography
+                textAlign="center"
+                color="gray"
+                variant="h5"
+                component="div"
+                gutterBottom
+              >
+                Edit Recruiter Account
+              </Typography>
+            </Box>
+
+            <TextField
+              variant="outlined"
+              color="primary"
+              className="form-control cardForm text-center"
+              type="text"
+              name="fullname"
+              label="Name"
+              value={formikUpdate.values.fullname || ""}
+              onChange={formikUpdate.handleChange}
+              onBlur={formikUpdate.handleBlur}
+            />
+            <p className="warning">
+              {formikUpdate.errors.fullname && formikUpdate.touched.fullname ? (
+                <small style={{ color: "red" }} className="text-danger">
+                  {formikUpdate.errors.fullname}
+                </small>
+              ) : null}
+            </p>
+
+            <TextField
+              variant="outlined"
+              color="primary"
+              className="form-control cardForm text-center"
+              type="email"
+              name="email"
+              label="Email"
+              value={formikUpdate.values.email || ""}
+              onChange={formikUpdate.handleChange}
+              onBlur={formikUpdate.handleBlur}
+            />
+            <p className="warning">
+              {formikUpdate.errors.email && formikUpdate.touched.email ? (
+                <small style={{ color: "red" }} className="text-danger">
+                  {formikUpdate.errors.email}
+                </small>
+              ) : null}
+            </p>
+
+            <Box display="flex" justifyContent="center">
+              <Button
+                // type="submit"
+                variant="outlined"
+                sx={{ marginRight: "5%" }}
+                color="primary"
+                textAlign="center"
+                onClick={() => {
+                  setModalUpdate(false);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                value="submit"
+                color="primary"
+                textAlign="center"
+                disabled={!(formikUpdate.isValid && formikUpdate.dirty)}
+                marginLeft="20px"
+              >
+                SUBMIT
+              </Button>
+            </Box>
+          </form>
+        </Box>
+      </Modal>
+      {/* End of Update Recruiter */}
+
       {/* Start of Table */}
       <Box sx={{ height: 500, width: "80%", marginX: "auto", marginY: 10 }}>
         <Box sx={{ display: "flex", height: "100%" }}>
           <Box sx={{ flexGrow: 1 }}>
+            <Box>
+              <Button
+                variant="contained"
+                onClick={() => setModalRegister(true)}
+              >
+                Add Recruiter
+              </Button>
+            </Box>
             <DataGrid
               loading={isLoading}
               rows={listRecruiter}
               columns={columns}
               getRowId={(row) => row.ID}
-              onRowClick={(params) => handleClickRow(params?.row?.ID)}
+              onRowClick={(params) => getDataById(params?.row?.ID)}
               pagination
               pageSize={pageSize}
               rowsPerPageOptions={[5, 10, 25, 50, 100]}
@@ -176,6 +480,18 @@ export default function ListRecruiter({ bloc }) {
     </>
   );
 }
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "30%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 function CustomToolbar(props) {
   return (

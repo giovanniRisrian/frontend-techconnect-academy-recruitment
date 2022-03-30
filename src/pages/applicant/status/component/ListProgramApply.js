@@ -23,6 +23,8 @@ import dayjs from "dayjs";
 import BasicModal from "./ModalStatus";
 import header from "../../../../asset/image/headervacancy.png";
 import notfound from "../../../../asset/image/no-data.png"
+import { makeStyles } from '@mui/styles';
+
 
 const ListProgramApply = ({ bloc }) => {
   const {
@@ -45,6 +47,7 @@ const ListProgramApply = ({ bloc }) => {
     getStatusbyId(idProgram, id, data);
     setOpen(true);
   };
+  console.log(list);
 
   useEffect(() => {
     getListAppliedProgram(1,id, data);
@@ -54,7 +57,7 @@ const ListProgramApply = ({ bloc }) => {
     getListAppliedProgram(page, id, data)
     setPage(page)
   }
-
+  const classes = useStyles();
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
       {list?.ProgramInfo == null ? (
@@ -89,15 +92,15 @@ const ListProgramApply = ({ bloc }) => {
       ) : (
       <Box>
         <Box>
-        <Box sx={{boxShadow:3, width:'35%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'7vh'}}>
-          <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'2%'}}>
+        <Box  className={classes.root} sx={{width:'35%', backgroundColor:'#615B93', borderTopRightRadius:'15px', borderBottomRightRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'7vh'}}>
+          <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'5px'}}>
             List of Program Applied
           </Typography>
           </Box>
           
         <Grid
           container
-          spacing={2}
+          spacing={1}
           // padding="20px"
           display="flex"
           justifyContent="flex-start"
@@ -119,11 +122,12 @@ const ListProgramApply = ({ bloc }) => {
                   >
                     <Card
                       sx={{
-                        width: "85%",
+                        width: "80%",
                         backgroundColor: "#FFF",
                         borderRadius: "15px",
                         marginLeft:'3%',
                         boxShadow: 5,
+                        height:'35vh'
                       }}
                     >
                       <div style={{padding:'3%'}}>
@@ -170,7 +174,9 @@ const ListProgramApply = ({ bloc }) => {
                             color="#343434"
                             sx={{ marginLeft: "10px", marginTop: "3px" }}
                           >
-                            {value.ProgramApplicant?.ProcessStatus}
+                            {value.ProgramApplicant?.ProcessStatus} on   {dayjs(
+                              value.ProgramApplicant?.CreatedAt
+                            ).format("DD/MM/YYYY")}
                           </Typography>
                         </Box>
                         
@@ -180,7 +186,8 @@ const ListProgramApply = ({ bloc }) => {
                             // marginBottom: "10px"
                             color: "white",
                             borderRadius: "15px",
-                            backgroundColor:'#615B93'
+                            backgroundColor:'#615B93',
+                            marginTop:'5%'
                           }}
                           variant="contained"
                           color="secondary"
@@ -206,7 +213,7 @@ const ListProgramApply = ({ bloc }) => {
       </Box>
       )}
     
-        {/* <Box
+        <Box
           display="flex"
           flexDirection="row"
           justifyContent="center"
@@ -216,18 +223,28 @@ const ListProgramApply = ({ bloc }) => {
           <Stack spacing={2}>
             <Pagination
               count={list.LastPage}
-              color="primary"
+              color="secondary"
               size="large"
               // page={pages}
               onChange={(e, value) => {
                 handlePage(value);
               }}
-              sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
+              sx={{ mt: 1, marginX: "auto" }}
             />
           </Stack>
-        </Box> */}
+        </Box>
     </Box>
   );
 };
+
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #615B93 60%, #F2F2F2 95%)',
+    border: 0,
+    color: 'white',
+    height: 48,
+    width:'100%'
+  },
+});
 
 export default ListProgramApply;

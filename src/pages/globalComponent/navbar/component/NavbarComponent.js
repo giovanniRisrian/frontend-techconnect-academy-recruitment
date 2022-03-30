@@ -25,22 +25,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Divider } from "@mui/material";
 
-let pages = [
-  "Home",
-  "About Us",
-  "Program / Certificate",
-  // "Reccomendation Program/Certificate",
-  // "Status",
+let pages = ["Home", "About Us", "Program / Certificate"];
+let pageLink = ["/", "/about", "/vacancy"];
+let settings = ["Profile", "Change Password", "Logout"];
+let settingsLink = [
+  "/applicant/profile",
+  "/applicant/change/password",
+  "/logout",
 ];
-let pageLink = [
-  "/",
-  "/about",
-  "/vacancy",
-  // "/applicant/reccomendation",
-  // "/applicant/status",
-];
-let settings = ["Profile", "Logout"];
-let settingsLink = ["/applicant/profile", "/logout"];
 
 // Applicant configuration
 let pagesApplicant = [
@@ -59,8 +51,9 @@ let pageLinkApplicant = [
 // Recruiter Configuration
 let pagesRecruiter = ["Home", "About Us", "Program / Certificate", "Dashboard"];
 let pageLinkRecruiter = ["/", "/about", "/vacancy", "/recruiter"];
-let settingsRecruiter = ["Logout"];
-let settingsLinkRecruiter = ["/logout"];
+let settingsRecruiter = ["Change Password", "Logout"];
+let settingsLinkRecruiter = ["/recruiter/change/password", "/logout"];
+
 let photo = localStorage.getItem("photo");
 let srcPhoto;
 if (photo) {
@@ -74,14 +67,12 @@ let pagesAdmin = [
   "About Us",
   "Program / Certificate",
   "List Recruiter",
-  "Register Recruiter",
 ];
 let pageLinkAdmin = [
   "/",
   "/about",
   "/vacancy",
   "/administrator/list/recruiter",
-  "/administrator/register/recruiter",
 ];
 let settingAdmin = ["Logout"];
 let settingsLinkAdmin = ["/logout"];

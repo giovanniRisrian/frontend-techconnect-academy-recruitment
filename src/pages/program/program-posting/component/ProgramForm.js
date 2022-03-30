@@ -425,7 +425,7 @@ const ProgramForm = ({ bloc }) => {
                         color="secondary"
                         id="RequirementSkill"
                         label="Skill"
-                        placeholder="example Sql, Javascript, Python, C#"
+                        placeholder="separated by commas e.g. Sql, Javascript, Python, C#"
                         variant="outlined"
                         size="small"
                         name="RequirementSkill"
