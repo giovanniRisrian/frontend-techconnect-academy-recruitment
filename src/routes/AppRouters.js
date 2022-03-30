@@ -33,6 +33,7 @@ import ActivationAccount from "../activation/activation_account";
 import ListRecruiter from "../pages/administrator/listRecruiter/List";
 import UpdateRecruiter from "../pages/administrator/updateRecruiter/UpdateRecruiter";
 import Activations from "../pages/activation/Activation";
+import ChangeRecruiterPassword from "../pages/globalComponent/changePassword/ChangeRecruiterPassword";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -85,7 +86,9 @@ const AppRouters = () => {
         />
         <Route
           path="/activation"
-          element={Role === null ? <Activations /> : <Navigate to={addressing} />}
+          element={
+            Role === null ? <Activations /> : <Navigate to={addressing} />
+          }
         />
         <Route path="/dashboard" element={<MiddlewareAuth />}>
           <Route index element={<Dashboard />} />
@@ -107,7 +110,7 @@ const AppRouters = () => {
               </>
             }
           />
-
+          <Route path="change/password" element={<ChangeRecruiterPassword />} />
           <Route
             path="status"
             element={
@@ -148,6 +151,7 @@ const AppRouters = () => {
             path="applicants/:programId/:applicantId"
             element={<ApplicantList />}
           />
+          <Route path="change/password" element={<ChangeRecruiterPassword />} />
         </Route>
 
         <Route path="/administrator" element={<MiddlewareAuthAdministrator />}>
