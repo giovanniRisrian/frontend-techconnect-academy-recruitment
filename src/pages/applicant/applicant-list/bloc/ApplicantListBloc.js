@@ -34,6 +34,10 @@ const ApplicantListBloc = (
     setIsLoading,
     pageSize,
     setPageSize,
+    showModal,
+    setShowModal,
+    pageSize2,
+    setPageSize2,
   } = useApplicantList();
 
   let {
@@ -57,8 +61,12 @@ const ApplicantListBloc = (
   const getListProgram = async () => {
     try {
       const response = await getPrograms();
-      console.log(response);
-      setProgramList(response.data.data.ProgramList);
+      console.log("array of bloc", response.data.data.ProgramList);
+      const result = response.data.data.ProgramList.filter(
+        (item) => item.ProgramTypeName !== "Certification"
+      );
+      setProgramList(result);
+      // setProgramList(response.data.data.ProgramList);
     } catch (e) {
       setProgramList([]);
     }
@@ -297,6 +305,7 @@ const ApplicantListBloc = (
     setError("");
     setSearchValue("");
     setActualStep(0);
+    setIsAccepted("");
     setStep(1);
     setPage(1);
     setProgramId(programId);
@@ -418,6 +427,13 @@ const ApplicantListBloc = (
     return age;
   };
 
+  const doShowModal = () => {
+    setShowModal(true);
+  };
+
+  const closeShowModal = () => {
+    setShowModal(false);
+  };
   const steps = [
     "Administration",
     "Assesment",
@@ -467,6 +483,11 @@ const ApplicantListBloc = (
     isLoading,
     pageSize,
     setPageSize,
+    showModal,
+    doShowModal,
+    closeShowModal,
+    pageSize2,
+    setPageSize2,
   };
 };
 export default ApplicantListBloc;
