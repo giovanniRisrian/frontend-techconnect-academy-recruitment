@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { Typography, TextField, Button, Box, Grid } from "@mui/material";
 import logo from "../../../../asset/icon/logo.svg";
 import Footer from "../../../globalComponent/footer/Footer";
+import Swal from "sweetalert2";
 
 const UpdateRecruiterComponent = ({ bloc }) => {
   const dataToken = useContext(RootContext);
@@ -24,7 +25,15 @@ const UpdateRecruiterComponent = ({ bloc }) => {
     }),
     onSubmit: () => {
       handleRegisterFront();
-      navigateTo("/administrator/list/recruiter");
+      Swal.fire({
+        title: "Success!",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigateTo("/administrator/list/recruiter");
+        }
+      });
     },
   });
 

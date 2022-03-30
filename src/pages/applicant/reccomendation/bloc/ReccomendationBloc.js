@@ -40,7 +40,11 @@ const ReccomendationBloc = (ReccomendationService) => {
       navigate("/vacancy", { state: resp2.data.data });
     } catch (err) {
       setLoading(true);
-      alert("No Resume Found");
+      Swal.fire({
+        icon: "error",
+        title: "",
+        text: "No Resume Found",
+      });
     }
   };
   return { doReccomendation, isLoading };

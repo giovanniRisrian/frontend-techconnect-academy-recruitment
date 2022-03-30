@@ -18,7 +18,11 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
     try {
       const response = await getProgramTypes();
       // console.log(response.data.data);
-      setProgramType(response.data.data);
+      let result = response.data.data.filter((item) => {
+        return(item?.ProgramName !== "All")
+      })
+      // console.log("program type",result);
+      setProgramType(result);
     } catch (e) {
       setProgramType([]);
     }

@@ -25,7 +25,7 @@ const UpdateRecruiterBloc = (service, useUpdateRecruiter, navigation) => {
       };
       console.log(paramsUpdate);
       let mock = { ...paramsUpdate.values, ID: params.id };
-      console.log("hasil mock",mock);
+      console.log("hasil mock", mock);
       const response = await updateRecruiter(mock, config);
       return response;
     } catch (e) {
