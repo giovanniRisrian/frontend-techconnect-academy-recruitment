@@ -11,8 +11,7 @@ import {
 } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Footer from "../../../globalComponent/footer/Footer";
-import notfound from "../../../../asset/image/no-data.png"
-
+import notfound from "../../../../asset/image/no-data.png";
 
 function CustomNoRowsOverlay() {
   return (
@@ -48,6 +47,8 @@ export default function ListRecruiter({ bloc }) {
     listRecruiter,
     handleClickRow,
     isLoading,
+    pageSize,
+    setPageSize,
   } = bloc();
 
   const columns = [
@@ -113,7 +114,7 @@ export default function ListRecruiter({ bloc }) {
             component="div"
             textAlign="center"
             gutterBottom
-            color='white'
+            color="white"
             sx={{
               typography: { lg: "h3", sm: "h4", xs: "h4" },
               fontWeight: {
@@ -130,7 +131,17 @@ export default function ListRecruiter({ bloc }) {
               },
             }}
           >
-            <Box sx={{ letterSpacing: 6, boxShadow:3, backgroundColor:'#171059', borderRadius:'15px', height:'10vh' }}>List of Recruiter</Box>
+            <Box
+              sx={{
+                letterSpacing: 6,
+                boxShadow: 3,
+                backgroundColor: "#171059",
+                borderRadius: "15px",
+                height: "10vh",
+              }}
+            >
+              List of Recruiter
+            </Box>
           </Typography>
           <Grid item md={3} />
         </Grid>
@@ -146,10 +157,10 @@ export default function ListRecruiter({ bloc }) {
               columns={columns}
               getRowId={(row) => row.ID}
               onRowClick={(params) => handleClickRow(params?.row?.ID)}
-              // pagination
-              // pageSize={pageSize}
-              // rowsPerPageOptions={[5, 10, 20]}
-              // onPageSizeChange={(newPage) => setPageSize(newPage)}
+              pagination
+              pageSize={pageSize}
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              onPageSizeChange={(newPage) => setPageSize(newPage)}
               componentsProps={{}}
               components={{
                 Toolbar: CustomToolbar,
@@ -165,7 +176,6 @@ export default function ListRecruiter({ bloc }) {
     </>
   );
 }
-
 
 function CustomToolbar(props) {
   return (

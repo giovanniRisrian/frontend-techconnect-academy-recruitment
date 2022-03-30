@@ -2,7 +2,14 @@ import Swal from "sweetalert2";
 
 const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
   let { getListRecruiter, getRecruiterbyId, deleteRecruiter } = service();
-  let { listRecruiter, setList, isLoading, setIsLoading } = useRecruiterList();
+  let {
+    listRecruiter,
+    setList,
+    isLoading,
+    setIsLoading,
+    pageSize,
+    setPageSize,
+  } = useRecruiterList();
   let { navigateTo } = navigate();
 
   const allRecruiter = async (context) => {
@@ -43,6 +50,8 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
     listRecruiter,
     handleClickRow,
     isLoading,
+    pageSize,
+    setPageSize,
   };
 };
 

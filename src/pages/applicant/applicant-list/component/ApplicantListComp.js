@@ -322,6 +322,7 @@ const ApplicantListComp = ({ bloc }) => {
           <Box sx={{ height: "80%", width: "90%", marginX: "auto", ...style }}>
             <Box sx={{ display: "flex", height: "100%" }}>
               <Box sx={{ flexGrow: 1 }}>
+                <Typography>Click on the row to select the program </Typography>
                 <DataGrid
                   rows={programList}
                   columns={columsProgram}
