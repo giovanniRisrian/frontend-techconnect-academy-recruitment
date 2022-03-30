@@ -210,7 +210,7 @@ const ProgramForm = ({ bloc }) => {
                           {programType.map((programType) => (
                             <MenuItem
                               key={programType.ProgramName}
-                              value={programType.ProgramName.toLowerCase()}
+                              value={programType.ProgramName}
                             >
                               {programType.ProgramName}
                             </MenuItem>
@@ -222,7 +222,7 @@ const ProgramForm = ({ bloc }) => {
                 </Grid>
               </Grid>
 
-              {watch("ProgramTypeName") === "certification" ? ( // ini masih pr
+              {watch("ProgramTypeName") === "Certification" ? ( // ini masih pr
                 <Grid container>
                   <Grid item md={2} />
                   <Grid item md={8} sm={11} xs={11}>

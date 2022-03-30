@@ -16,6 +16,8 @@ const UseApplicantList = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [pageSize, setPageSize] = useState(5);
+  const [pageSize2, setPageSize2] = useState(5);
+  const [showModal, setShowModal] = useState(false);
 
   return {
     applicantList,
@@ -48,6 +50,10 @@ const UseApplicantList = () => {
     setIsLoading,
     pageSize,
     setPageSize,
+    pageSize2,
+    setPageSize2,
+    showModal,
+    setShowModal,
   };
 };
 

@@ -22,6 +22,7 @@ import {
   StepButton,
   Divider,
   LinearProgress,
+  Modal,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
@@ -87,10 +88,16 @@ const ApplicantListComp = ({ bloc }) => {
     isLoading,
     pageSize,
     setPageSize,
+    showModal,
+    doShowModal,
+    closeShowModal,
+    pageSize2,
+    setPageSize2,
   } = bloc();
 
   const data = React.useContext(RootContext);
 
+  // Colums Applicant Configuration
   const columns = [
     {
       field: "name",
@@ -113,7 +120,6 @@ const ApplicantListComp = ({ bloc }) => {
       field: "institution",
       headerName: "College",
       minWidth: 250,
-      // renderCell: RenderCellExpand,
       valueGetter: (params) => {
         return params.row?.Applicant?.Education[0].Institution;
       },
@@ -158,6 +164,80 @@ const ApplicantListComp = ({ bloc }) => {
     },
   ];
 
+  // Colums Program Configuration
+  const columsProgram = [
+    {
+      field: "programName",
+      headerName: "Program",
+      minWidth: 280,
+      valueGetter: (params) => {
+        return params.row?.ProgramName;
+      },
+    },
+    {
+      field: "programTypeName",
+      headerName: "Program Type",
+      minWidth: 125,
+      valueGetter: (params) => {
+        return params.row?.ProgramTypeName;
+      },
+    },
+    {
+      field: "maxAge",
+      headerName: "Max Age",
+      minWidth: 100,
+      type: "number",
+      valueGetter: (params) => {
+        return params.row?.Age;
+      },
+    },
+    {
+      field: "minGPA",
+      headerName: "Min GPA",
+      minWidth: 100,
+      type: "number",
+      valueGetter: (params) => {
+        return params.row?.Gpa;
+      },
+    },
+    {
+      field: "openDate",
+      headerName: "Open Date",
+      minWidth: 180,
+      type: "dateTime",
+      valueGetter: (params) => {
+        return (
+          params.row?.ProgramActivity?.OpenDate &&
+          new Date(params.row?.ProgramActivity?.OpenDate)
+        );
+      },
+    },
+    {
+      field: "closeDate",
+      headerName: "Close Date",
+      minWidth: 180,
+      type: "dateTime",
+      valueGetter: (params) => {
+        return (
+          params.row?.ProgramActivity?.CloseDate &&
+          new Date(params.row?.ProgramActivity?.CloseDate)
+        );
+      },
+    },
+    {
+      field: "createdAt",
+      headerName: "Created At",
+      minWidth: 180,
+      type: "dateTime",
+      valueGetter: (params) => {
+        return (
+          params.row?.ProgramActivity?.CreatedAt &&
+          new Date(params.row?.ProgramActivity?.CreatedAt)
+        );
+      },
+    },
+  ];
+
   React.useEffect(() => {
     getListProgram();
   }, []);
@@ -197,7 +277,7 @@ const ApplicantListComp = ({ bloc }) => {
         {/* End of header */}
 
         {/* Start of Dropwdown */}
-        <Grid container sx={{ mt: 5 }} marginBottom={isProgram ? "" : 5}>
+        {/* <Grid container sx={{ mt: 5 }} marginBottom={isProgram ? "" : 5}>
           <Grid item md={4} sm={3} xs={3} />
           <Grid item md={4} sm={6} xs={6}>
             <FormControl fullWidth>
@@ -226,8 +306,51 @@ const ApplicantListComp = ({ bloc }) => {
               </Select>
             </FormControl>
           </Grid>
-        </Grid>
+        </Grid> */}
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          marginTop={5}
+          marginBottom={5}
+        >
+          <Button variant="contained" onClick={doShowModal}>
+            Select Program
+          </Button>
+        </Box>
 
+        <Modal open={showModal} onClose={closeShowModal}>
+          <Box sx={{ height: "80%", width: "90%", marginX: "auto", ...style }}>
+            <Box sx={{ display: "flex", height: "100%" }}>
+              <Box sx={{ flexGrow: 1 }}>
+                <Typography>Click on the row to select the program </Typography>
+                <DataGrid
+                  rows={programList}
+                  columns={columsProgram}
+                  getRowId={(row) => row?.ID}
+                  onRowClick={(params) => handleProgram(params.row.ID, data)}
+                  components={{
+                    Toolbar: CustomToolbar,
+                    LoadingOverlay: LinearProgress,
+                    NoRowsOverlay: CustomNoRowsOverlay,
+                  }}
+                  pagination
+                  pageSize={pageSize2}
+                  rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                  onPageSizeChange={(newPage) => setPageSize2(newPage)}
+                />
+                <Box display={"flex"} justifyContent={"flex-end"} mt={"5px"}>
+                  {/* <Button
+                    size="small"
+                    variant="contained"
+                    onClick={closeShowModal}
+                  >
+                    Close
+                  </Button> */}
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Modal>
         {/* End of Dropdown */}
 
         {/* Start of Button accepted & rejected */}
@@ -391,6 +514,7 @@ const ApplicantListComp = ({ bloc }) => {
           <Box sx={{ display: "flex", height: "100%" }}>
             <Box sx={{ flexGrow: 1 }}>
               <DataGrid
+                sx={styleOverflow}
                 loading={isLoading}
                 rows={applicantList}
                 columns={columns}
@@ -400,7 +524,7 @@ const ApplicantListComp = ({ bloc }) => {
                 }
                 pagination
                 pageSize={pageSize}
-                rowsPerPageOptions={[5, 10, 20]}
+                rowsPerPageOptions={[5, 10, 25, 50, 100]}
                 onPageSizeChange={(newPage) => setPageSize(newPage)}
                 componentsProps={{}}
                 components={{
@@ -450,5 +574,66 @@ function CustomNoRowsOverlay() {
     </Box>
   );
 }
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "90%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  borderRadius: "5px",
+
+  ".MuiDataGrid-viewport": {
+    maxHeight: "fit-content !important",
+  },
+
+  ".MuiDataGrid-row": {
+    maxHeight: "fit-content !important",
+  },
+
+  ".MuiDataGrid-renderingZone": {
+    maxHeight: "fit-content !important",
+  },
+
+  ".MuiDataGrid-cell": {
+    maxHeight: "fit-content !important",
+    overflow: "auto",
+    whiteSpace: "initial !important",
+    lineHeight: "16px !important",
+    display: "flex !important",
+    alignItems: "center",
+    paddingTop: "10px !important",
+    paddingBottom: "10px !important",
+  },
+};
+
+const styleOverflow = {
+  ".MuiDataGrid-viewport": {
+    maxHeight: "fit-content !important",
+  },
+
+  ".MuiDataGrid-row": {
+    maxHeight: "fit-content !important",
+  },
+
+  ".MuiDataGrid-renderingZone": {
+    maxHeight: "fit-content !important",
+  },
+
+  ".MuiDataGrid-cell": {
+    maxHeight: "fit-content !important",
+    overflow: "auto",
+    whiteSpace: "initial !important",
+    lineHeight: "16px !important",
+    display: "flex !important",
+    alignItems: "center",
+    paddingTop: "10px !important",
+    paddingBottom: "10px !important",
+  },
+};
 
 export default ApplicantListComp;
