@@ -6,8 +6,8 @@ import jwt_decode from "jwt-decode";
 import Swal from "sweetalert2";
 import { useState } from "react";
 const LoginBloc = (LoginService) => {
-  let { postLogin } = LoginService();
-  const [loading, setLoading] = useState(false)
+  let { postLogin, getInfo } = LoginService();
+  const [loading, setLoading] = useState(false);
 
   let navigate = useNavigate();
   const doLogin = async (formik, context) => {
@@ -17,7 +17,7 @@ const LoginBloc = (LoginService) => {
         username: formik.values.email,
         password: formik.values.password,
       };
-      setLoading(true)
+      setLoading(true);
       let res = await postLogin(basicAuth);
       localStorage.setItem("token", res.data.data.token);
       context.dispatch({
@@ -25,8 +25,18 @@ const LoginBloc = (LoginService) => {
         token: res.data.data.token,
         name: res.data.data.name,
       });
-      setLoading(false)
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${res.data.data.token}`,
+        },
+      };
+      // localStorage.setItem("token", res.data.data.token);
+      const resp3 = await getInfo(config);
+      localStorage.setItem("photo", resp3.data.data.Personal.PhotoFile);
+      setLoading(false);
       let role = jwt_decode(res.data.data.token).Role;
+
       if (role !== "user") {
         navigate("/" + role);
       } else {
@@ -37,7 +47,8 @@ const LoginBloc = (LoginService) => {
         Swal.fire({
           icon: "info",
           text: "Your account hasn't been activated yet, please check your email to activate your account",
-          footer:'<a href="http://localhost:3000/activation">Resend activation link to your email</a>',
+          footer:
+            '<a href="http://localhost:3000/activation">Resend activation link to your email</a>',
         });
       } else {
         Swal.fire({

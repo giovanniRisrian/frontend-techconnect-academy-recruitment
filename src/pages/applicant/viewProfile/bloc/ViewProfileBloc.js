@@ -11,7 +11,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
     postGettingDataLinkedinProfile,
   } = viewViewProfileService();
   let navigate = useNavigate();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [linkedin, setLinkedin] = useState("");
 
   const putProfileLinkedin = async (values, context) => {
@@ -22,7 +22,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
         Authorization: `Bearer ${context.userInfo}`,
       },
     };
-    setLoading(true)
+    setLoading(true);
     const resp = await postGettingDataLinkedinProfile(
       { profile_id: linkedin },
       config
@@ -191,38 +191,37 @@ const ViewProfileBloc = (viewViewProfileService) => {
 
       // To calculate the no. of days between two dates
       let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-      let Different_In_Year = Difference_In_Days/365
+      let Different_In_Year = Difference_In_Days / 365;
       console.log("Differentnya", Difference_In_Days);
-      mock.Personal.TotalWorkingExperience =  Different_In_Year.toFixed(2).toString();
+      mock.Personal.TotalWorkingExperience =
+        Different_In_Year.toFixed(2).toString();
     }
     console.log(mock);
 
+    const formData = new FormData();
+    let filepath =
+      values.Personal.ResumeFile.split(":")[0].split("_")[
+        values.Personal.ResumeFile.split(":")[0].split("_").length - 1
+      ];
 
-     const formData = new FormData();
-      let filepath =
-        values.Personal.ResumeFile.split(":")[0].split("_")[
-          values.Personal.ResumeFile.split(":")[0].split("_").length - 1
-        ];
-
-      values.Personal.ResumeFile = filepath;
-      const jsonText = JSON.stringify(values);
-      const jsonPretendFile = new Blob([jsonText], {
-        type: "application/json",
-      });
-      formData.append("json", jsonPretendFile);
-      const response = await updateDataApplicant(formData, config);
-      Swal.fire({
-        title: "Success!",
-        icon: "success",
-        confirmButtonText: "OK",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate("/applicant/profile");
-          window.location.reload();
-        }
-      });
-    setLoading(false)
-
+    values.Personal.ResumeFile = filepath;
+    const jsonText = JSON.stringify(values);
+    const jsonPretendFile = new Blob([jsonText], {
+      type: "application/json",
+    });
+    formData.append("json", jsonPretendFile);
+    const response = await updateDataApplicant(formData, config);
+    Swal.fire({
+      title: "Success!",
+      icon: "success",
+      confirmButtonText: "OK",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/applicant/profile");
+        window.location.reload();
+      }
+    });
+    setLoading(false);
   };
 
   const addProfile = async (values, file, context) => {
@@ -245,7 +244,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
         ];
       values.Personal.ResumeFile = filepath;
       const jsonText = JSON.stringify(values);
-      console.log("data profile",values);
+      console.log("data profile", values);
       const jsonPretendFile = new Blob([jsonText], {
         type: "application/json",
       });
@@ -262,6 +261,10 @@ const ViewProfileBloc = (viewViewProfileService) => {
           window.location.reload();
         }
       });
+
+      const resp3 = await getDataApplicantbyId(null, config);
+
+      localStorage.setItem("photo", resp3.data.data.Personal.PhotoFile);
       return response;
     } catch (err) {
       throw err;
@@ -344,7 +347,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
           dataReceive.Personal.BirthDate
         ).format("YYYY-MM-DD");
       }
-      console.log("birthdate", mock.Personal)
+      console.log("birthdate", mock.Personal);
       mock.Education = dataReceive.Education;
       mock.SkillSet = dataReceive.SkillSet;
       mock.WorkExperience = dataReceive.WorkExperience;
@@ -360,14 +363,21 @@ const ViewProfileBloc = (viewViewProfileService) => {
       mock.Organization = dataReceive.Organization;
       mock.ID = dataReceive.ID;
       mock.UserAccountID = dataReceive.UserAccountID;
-      // let combine =
+      // let combine =\
       changeInitial(mock);
       return response;
     } catch (err) {
       throw err;
     }
   };
-  return { addProfile, getDataByID, putProfileLinkedin, setLinkedin, linkedin,loading };
+  return {
+    addProfile,
+    getDataByID,
+    putProfileLinkedin,
+    setLinkedin,
+    linkedin,
+    loading,
+  };
 };
 
 export default ViewProfileBloc;

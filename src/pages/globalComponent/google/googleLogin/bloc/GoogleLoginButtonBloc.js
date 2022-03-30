@@ -6,7 +6,7 @@ import md5 from "blueimp-md5";
 import { RootContext } from "../../../../../App";
 import { useContext } from "react";
 const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
-  let { postLogin, postRegister } = GoogleLoginButtonService();
+  let { postLogin, postRegister, getInfo } = GoogleLoginButtonService();
   const context = useContext(RootContext);
   let navigate = useNavigate();
   const doLogin = async (obj, fullname) => {
@@ -19,6 +19,17 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
         token: res.data.data.token,
         name: res.data.data.name,
       });
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${res.data.data.token}`,
+        },
+      };
+
+      const resp3 = await getInfo(config);
+      console.log("ini response 3", resp3.data.data);
+
+      localStorage.setItem("photo", resp3.data.data.Personal.PhotoFile);
       let role = jwt_decode(res.data.data.token).Role;
       console.log("Login Google Berhasil");
       if (role !== "user") {

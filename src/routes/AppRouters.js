@@ -51,6 +51,7 @@ const AppRouters = () => {
       }
     } else {
       localStorage.removeItem("token");
+      localStorage.removeItem("photo");
       data.dispatch({ type: ActionType.LOGIN, name: null, token: null });
       Role = null;
       alert("Token Expired");
@@ -85,7 +86,9 @@ const AppRouters = () => {
         />
         <Route
           path="/activation"
-          element={Role === null ? <Activations /> : <Navigate to={addressing} />}
+          element={
+            Role === null ? <Activations /> : <Navigate to={addressing} />
+          }
         />
         <Route path="/dashboard" element={<MiddlewareAuth />}>
           <Route index element={<Dashboard />} />
