@@ -24,7 +24,7 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
       if (role !== "user") {
         navigate("/" + role);
       } else {
-        navigate("/applicant/status");
+        navigate("/vacancy");
       }
     } catch (err) {
       try {
@@ -42,7 +42,7 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
           token: res.data.data.token,
           name: res.data.data.name,
         });
-        navigate("/applicant/status");
+        navigate("/vacancy");
       } catch (err) {
         console.log(err);
       }

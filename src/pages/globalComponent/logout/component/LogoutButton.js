@@ -17,7 +17,7 @@ const LogoutButtonComponent = ({ bloc }) => {
         fontFamily: "Montserrat",
         fontSize: "12px",
         color: "#FFF",
-        backgroudColor: "#8645FF",
+        backgroundColor:'#171059',
         borderRadius: "20px",
       }}
       onClick={handleLogout}

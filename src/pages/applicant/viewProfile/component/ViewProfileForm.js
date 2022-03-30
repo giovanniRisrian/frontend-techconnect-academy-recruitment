@@ -11,7 +11,7 @@ import {
   FormControl,
 } from "@mui/material";
 import Modal from "@mui/material/Modal";
-
+import { LoadingButton } from "@mui/lab";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -87,7 +87,14 @@ const validationSchema = Yup.object().shape({
 });
 
 const ViewProfileForm = ({ bloc }) => {
-  const { addProfile, getDataByID, putProfileLinkedin, setLinkedin,linkedin } = bloc();
+  const {
+    addProfile,
+    getDataByID,
+    putProfileLinkedin,
+    setLinkedin,
+    linkedin,
+    loading,
+  } = bloc();
   const [file, setFile] = useState(false);
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
@@ -187,10 +194,10 @@ const ViewProfileForm = ({ bloc }) => {
     changeDisable(!disabled);
   };
 
-  const handelCancel =() => {
-    changeDisable(!disabled)
-    window.location.reload()
-  }
+  const handelCancel = () => {
+    changeDisable(!disabled);
+    window.location.reload();
+  };
 
   useEffect(() => {
     getDataByID(userInfo.id, data, changeInitial);
@@ -206,6 +213,18 @@ const ViewProfileForm = ({ bloc }) => {
 
   const handleSubmitLinkedin = async () => {
     await putProfileLinkedin(initialValues, data);
+    if (loading) {
+      <Box
+        display="flex"
+        flexDirection="row"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <LoadingButton loading={loading} loadingPosition="center">
+          Loading
+        </LoadingButton>
+      </Box>;
+    }
     setOpen(false);
   };
 
@@ -345,9 +364,13 @@ const ViewProfileForm = ({ bloc }) => {
                     <Button
                       margin="normal"
                       type="button"
-                      color="secondary"
+                      color="primary"
                       variant="outlined"
-                      sx={{ height: "30px", marginTop: "20px" }}
+                      sx={{
+                        height: "30px",
+                        marginTop: "20px",
+                        marginRight: "3%",
+                      }}
                       onClick={() => setFile(true)}
                     >
                       Add / Edit Photo
@@ -356,8 +379,8 @@ const ViewProfileForm = ({ bloc }) => {
                     <Button
                       margin="normal"
                       type="button"
-                      color="secondary"
-                      variant="outlined"
+                      color="primary"
+                      variant="contained"
                       sx={{ height: "30px", marginTop: "20px" }}
                       onClick={handleOpen}
                     >
@@ -396,9 +419,7 @@ const ViewProfileForm = ({ bloc }) => {
                             orientation="vertical"
                           />
                           <IconButton
-                            onClick={() =>
-                              handleSubmitLinkedin()
-                            }
+                            onClick={() => handleSubmitLinkedin()}
                             color="primary"
                             sx={{ p: "10px" }}
                             aria-label="directions"
@@ -418,6 +439,7 @@ const ViewProfileForm = ({ bloc }) => {
                 borderRadius: "10px",
                 padding: "20px",
                 boxShadow: 3,
+                marginTop: "2%",
               }}
             >
               <Typography
@@ -1433,7 +1455,7 @@ const ViewProfileForm = ({ bloc }) => {
                               control={control}
                             />
                           </Grid>
-                          <Grid item md={1} sx={{marginRight:'20px'}}>
+                          <Grid item md={1} sx={{ marginRight: "20px" }}>
                             <Box>
                               {disabled ? (
                                 <div />
@@ -1462,27 +1484,26 @@ const ViewProfileForm = ({ bloc }) => {
                       </div>
                     );
                   })}
-                  <Grid item sx={{marginTop:'15px'}}>
-                  {disabled ? (
-                    <></>
-                  ) : (
-                    <Button
-                      type="button"
-                      variant="outlined"
-                      color="primary"
-                      disabled={SkillSetField.length >= 10}
-                      onClick={() =>
-                        SkillSetAppend({
-                          Name: "",
-                        })
-                      }
-                      sx={{ marginLeft: "20px", marginBottom: "10px" }}
-                    >
-                      Add SkillSet
-                    </Button>
-                  )}
+                  <Grid item sx={{ marginTop: "15px" }}>
+                    {disabled ? (
+                      <></>
+                    ) : (
+                      <Button
+                        type="button"
+                        variant="outlined"
+                        color="primary"
+                        disabled={SkillSetField.length >= 10}
+                        onClick={() =>
+                          SkillSetAppend({
+                            Name: "",
+                          })
+                        }
+                        sx={{ marginLeft: "20px", marginBottom: "10px" }}
+                      >
+                        Add SkillSet
+                      </Button>
+                    )}
                   </Grid>
-                  
                 </Grid>
               </Box>
             </div>

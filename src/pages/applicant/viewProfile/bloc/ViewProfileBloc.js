@@ -11,6 +11,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
     postGettingDataLinkedinProfile,
   } = viewViewProfileService();
   let navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
   const [linkedin, setLinkedin] = useState("");
 
   const putProfileLinkedin = async (values, context) => {
@@ -21,6 +22,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
         Authorization: `Bearer ${context.userInfo}`,
       },
     };
+    setLoading(true)
     const resp = await postGettingDataLinkedinProfile(
       { profile_id: linkedin },
       config
@@ -219,6 +221,8 @@ const ViewProfileBloc = (viewViewProfileService) => {
           window.location.reload();
         }
       });
+    setLoading(false)
+
   };
 
   const addProfile = async (values, file, context) => {
@@ -363,7 +367,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
       throw err;
     }
   };
-  return { addProfile, getDataByID, putProfileLinkedin, setLinkedin, linkedin };
+  return { addProfile, getDataByID, putProfileLinkedin, setLinkedin, linkedin,loading };
 };
 
 export default ViewProfileBloc;

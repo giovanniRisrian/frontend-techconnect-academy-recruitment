@@ -17,12 +17,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBarsProgress,
   faCalendar,
+  faCircleInfo,
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
 import BasicModal from "./ModalStatus";
 import header from "../../../../asset/image/headervacancy.png";
-import notfound from "../../../../asset/image/no-data.png"
+import nodata from '../../../../asset/image/noapply.png';
 
 const ListProgramApply = ({ bloc }) => {
   const {
@@ -57,59 +58,66 @@ const ListProgramApply = ({ bloc }) => {
 
   return (
     <Box sx={{ backgroundColor: "#F2F2F2" }}>
+      <Box
+        sx={{
+          backgroundImage: `url(${header})`,
+          height: "50vh",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography
+          textAlign="center"
+          sx={{
+            typography: { lg: "h3", sm: "h4", xs: "h4" },
+            fontWeight: {
+              lg: "600",
+              md: "600",
+              sm: "600",
+              xs: "600",
+            },
+            fontFamily: {
+              lg: "Montserrat Alternates",
+              md: "Montserrat Alternates",
+              sm: "Montserrat Alternates",
+              xs: "Montserrat Alternates",
+            },
+          }}
+        >
+          Program Applied
+        </Typography>
+      </Box>
+
       {list?.ProgramInfo == null ? (
-        <Box></Box>
-      //     <Box sx={{boxShadow:3, width:'30%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'8vh'}}>
-      //     <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'2%'}}>
-      //       List of Program Applied
-      //     </Typography>
-      //     <Box
-      //    sx={{
-      //      display: "flex",
-      //      flexDirection: "column",
-      //      alignItems: "center",
-      //      justifyContent: "center",
-      //    }}
-      //  >
-          
-          
-      //    <img
-      //      width="120"
-      //      height="100"
-      //      // viewBox="0 0 184 152"
-      //      aria-hidden
-      //      focusable="false"
-      //      src={notfound}
-      //      alt={""}
-      //    ></img>
-      //    <Box sx={{ mt: 0 }}>No Applicant</Box>
-      //  </Box>
-      //     </Box>
-       
+         <Grid container>
+         <Grid item md={4} />
+         <Grid item md={4}>
+           <img src={nodata} alt="no-data" style={{ width: "auto" }} />
+         </Grid>
+         <Grid item md={4} />
+       </Grid>
       ) : (
       <Box>
-        <Box>
-        <Box sx={{boxShadow:3, width:'35%', backgroundColor:'#615B93', borderRadius:'15px', marginBottom:'2%', marginTop:'2%', height:'7vh'}}>
-          <Typography variant="h5" fontFamily="Montserrat" textAlign='center' color='white' sx={{marginLeft:'2%', paddingTop:'2%'}}>
-            List of Program Applied
-          </Typography>
-          </Box>
-          
         <Grid
           container
           spacing={2}
-          // padding="20px"
+          padding="20px"
           display="flex"
-          justifyContent="flex-start"
+          justifyContent="center"
           alignItems="center"
+          marginTop="30px"
         >
           {list?.ProgramInfo &&
             list.ProgramInfo.map((value, idx) => {
               return (
                 <Fragment key={idx}>
+                  <Grid item md={3} />
                   <Grid
                     item
-                    md={4}
+                    md={6}
                     sm={12}
                     xs={12}
                     // key={idx}
@@ -119,14 +127,14 @@ const ListProgramApply = ({ bloc }) => {
                   >
                     <Card
                       sx={{
-                        width: "85%",
+                        width: "auto",
                         backgroundColor: "#FFF",
                         borderRadius: "15px",
-                        marginLeft:'3%',
+                        marginX: "10px",
                         boxShadow: 5,
                       }}
                     >
-                      <div style={{padding:'3%'}}>
+                      <CardContent>
                         <Typography
                           variant="h6"
                           color="#343434"
@@ -173,14 +181,14 @@ const ListProgramApply = ({ bloc }) => {
                             {value.ProgramApplicant?.ProcessStatus}
                           </Typography>
                         </Box>
-                        
+                      </CardContent>
+                      <CardActions>
                         <Button
                           sx={{
-                            // marginLeft: "20px",
-                            // marginBottom: "10px"
+                            marginLeft: "20px",
+                            marginBottom: "10px",
+                            backgroundColor: "#8645FF",
                             color: "white",
-                            borderRadius: "15px",
-                            backgroundColor:'#615B93'
                           }}
                           variant="contained"
                           color="secondary"
@@ -195,18 +203,17 @@ const ListProgramApply = ({ bloc }) => {
                           status={statusProgram}
                           loading={loading}
                         />
-                      </div>
+                      </CardActions>
                     </Card>
                   </Grid>
+                  <Grid item md={3} />
                 </Fragment>
               );
             })}
         </Grid>
-        </Box>
       </Box>
       )}
-    
-        {/* <Box
+        <Box
           display="flex"
           flexDirection="row"
           justifyContent="center"
@@ -216,7 +223,7 @@ const ListProgramApply = ({ bloc }) => {
           <Stack spacing={2}>
             <Pagination
               count={list.LastPage}
-              color="primary"
+              color="secondary"
               size="large"
               // page={pages}
               onChange={(e, value) => {
@@ -225,7 +232,8 @@ const ListProgramApply = ({ bloc }) => {
               sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
             />
           </Stack>
-        </Box> */}
+        </Box>
+      <Footer />
     </Box>
   );
 };

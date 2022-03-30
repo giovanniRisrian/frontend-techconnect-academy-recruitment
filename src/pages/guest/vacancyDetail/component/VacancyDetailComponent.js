@@ -19,7 +19,8 @@ import {
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
-import header from '../../../../asset/image/bg-image.png';
+import header from "../../../../asset/image/bg-image.png";
+import { LoadingButton } from "@mui/lab";
 
 const VacancyDetail = ({ bloc }) => {
   const {
@@ -29,20 +30,30 @@ const VacancyDetail = ({ bloc }) => {
     doApplyProgram,
     params,
     getUserbyId,
+    loading,
   } = bloc();
   const data = useContext(RootContext);
-  let userInfo;
-  let id;
-  if (data.userInfo) {
-    userInfo = jwt_decode(data.userInfo);
-    id = userInfo.id;
+  let idUser;
+  let show = true;
+  let dataFalse = { userInfo: null };
+  let decodeInfo;
+  console.log("context", data);
+  if (data?.userInfo) {
+    console.log("data", data.userInfo);
+    decodeInfo = jwt_decode(data?.userInfo);
+    idUser = decodeInfo;
+    if (decodeInfo.Role !== "user") {
+      show = false;
+    }
   }
+
   let dataApplicant = {
     ProgramId: params.id,
-    ApplicantId: id,
+    ApplicantId: idUser?.id,
   };
 
   const confirmationApply = () => {
+    console.log("apakah masuk sini?");
     swal
       .fire({
         title: "Do you want to apply this program?",
@@ -53,36 +64,38 @@ const VacancyDetail = ({ bloc }) => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          // if (programDetail.IsActive) {
           if (programDetail.ProgramTypeName === "Certification") {
             window.open(programDetail.LinkCertification);
           } else {
             doApplyProgram(dataApplicant, data);
           }
-          // } else {
-          //   Swal.fire({
-          //     icon: "error",
-          //     title: "Program is closed!",
-          //     text: "Please look for another available active program!",
-          //   });
-          // }
         }
       });
   };
-  // console.log(programDetail.IsActive);
+
   useEffect(() => {
-    getProgrambyId();
+    if (show === true) {
+      getProgrambyId(idUser, data);
+    } else {
+      getProgrambyId(null, dataFalse);
+    }
   }, []);
 
   return (
-    <Box sx={{ backgroundImage:`url(${header})`, height:'91vh' ,backgroundSize:'cover',  backgroundRepeat:'no-repeat'}}>
+    <Box
+      sx={{
+        backgroundImage: `url(${header})`,
+        height: "91vh",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
         // paddingY="25px"
-        paddingTop='1%'
-
+        paddingTop="1%"
       >
         {programDetail && (
           <Card
@@ -130,9 +143,10 @@ const VacancyDetail = ({ bloc }) => {
                 <Typography color="#343434" sx={{ marginLeft: "10px" }}>
                   {dayjs(programDetail.ProgramActivity?.OpenDate).format(
                     "DD/MM/YYYY"
-                  )}{"-"}
-                  
-                    {  dayjs(programDetail.ProgramActivity?.CloseDate).format(
+                  )}
+                  {"-"}
+
+                  {dayjs(programDetail.ProgramActivity?.CloseDate).format(
                     "DD/MM/YYYY"
                   )}
                 </Typography>
@@ -193,13 +207,14 @@ const VacancyDetail = ({ bloc }) => {
             >
               <Button
                 variant="outlined"
-                color="primary"
+                color="secondary"
                 sx={{
                   marginRight: "15px",
-                  backgroudColor:"#FFF",
-                  fontWeight:'500',
-                  borderRadius:'20px',
-                  boxShadow:3
+                  color: "#8645FF",
+                  backgroudColor: "#FFF",
+                  fontWeight: "500",
+                  borderRadius: "20px",
+                  boxShadow: 3,
                 }}
                 onClick={() => navigate("/vacancy")}
               >
@@ -209,38 +224,71 @@ const VacancyDetail = ({ bloc }) => {
                 />
                 Back
               </Button>
-              {data.userInfo ? (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ marginRight: "15px",   color:'#FFF',
-                  backgroudColor:"#8645FF",   fontWeight:'500',
-                  borderRadius:'20px',
-                  boxShadow:3 }}
-                  onClick={() => confirmationApply()}
+
+              {loading ? (
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  justifyContent="center"
+                  sx={{ marginRight: "2%" }}
                 >
-                  <FontAwesomeIcon
-                    icon={faCirclePlus}
-                    style={{ marginRight: "10px" }}
-                  />
-                  Apply
-                </Button>
+                  <LoadingButton
+                    loading={loading}
+                    loadingPosition="start"
+                    variant="outlined"
+                    // loadingIndicator=""
+                    sx={{ borderRadius: "20px" }}
+                  >
+                    Loading
+                  </LoadingButton>
+                </Box>
               ) : (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ marginRight: "15px",   color:'#FFF',
-                  backgroudColor:"#8645FF",   fontWeight:'500',
-                  borderRadius:'20px',
-                  boxShadow:3 }}
-                  onClick={() => navigate("/login")}
-                >
-                  <FontAwesomeIcon
-                    icon={faCirclePlus}
-                    style={{ marginRight: "10px" }}
-                  />
-                  Apply
-                </Button>
+                <Box>
+                  {data.userInfo  ? (
+                    <Button
+                      disabled={programDetail.applied}
+                      variant="contained"
+                      color="secondary"
+                      sx={{
+                        marginRight: "15px",
+                        color: "#FFF",
+                        fontWeight: "500",
+                        borderRadius: "20px",
+                        boxShadow: 3,
+
+                        backgroudColor: "#8645FF",
+                      }}
+                      onClick={() => confirmationApply()}
+                    >
+                      <FontAwesomeIcon
+                        icon={faCirclePlus}
+                        style={{ marginRight: "10px" }}
+                      />
+                      {programDetail.applied ? "Applied" : "Apply"}
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      sx={{
+                        marginRight: "15px",
+                        color: "#FFF",
+                        backgroudColor: "#8645FF",
+                        fontWeight: "500",
+                        borderRadius: "20px",
+                        boxShadow: 3,
+                      }}
+                      onClick={() => navigate("/login")}
+                    >
+                      <FontAwesomeIcon
+                        icon={faCirclePlus}
+                        style={{ marginRight: "10px" }}
+                      />
+                      Apply
+                    </Button>
+                  )}
+                </Box>
               )}
             </Box>
           </Card>

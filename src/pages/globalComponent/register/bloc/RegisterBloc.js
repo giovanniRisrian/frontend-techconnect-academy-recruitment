@@ -2,24 +2,28 @@
 import ActionType from "../../../../Context/ActionType";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useState } from "react";
 const RegisterBloc = (RegisterService) => {
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   let { postRegister, postRegisterRecruiter } = RegisterService();
   const doRegister = async (formik, context) => {
     try {
+      setLoading(true);
       let res = await postRegister(formik.values);
       context.dispatch({
         type: ActionType.LOGOUT,
-      })
-      Swal
-      .fire({
+        // token: res.data.data.token,
+        // name: res.data.data.name,
+      });
+      setLoading(false);
+      Swal.fire({
         title: "Success!",
         icon: "success",
         confirmButtonText: "OK",
-      })
-      .then((result) => {
+      }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/applicant/status");
+          navigate("/login");
         }
       });
     } catch (err) {
@@ -27,7 +31,7 @@ const RegisterBloc = (RegisterService) => {
         icon: "error",
         text: "Email has already exist",
       });
-      throw err
+      throw err;
     }
   };
   const doRegisterRecruiter = async (formik, context) => {
@@ -35,7 +39,7 @@ const RegisterBloc = (RegisterService) => {
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
-      let res = await postRegisterRecruiter(formik.values,config);
+      let res = await postRegisterRecruiter(formik.values, config);
 
       // console.log(res);
       context.dispatch({
@@ -43,15 +47,13 @@ const RegisterBloc = (RegisterService) => {
         token: res.data.data.token,
         name: res.data.data.name,
       });
-      Swal
-      .fire({
+      Swal.fire({
         title: "Success!",
         icon: "success",
         confirmButtonText: "OK",
-      })
-      .then((result) => {
+      }).then((result) => {
         if (result.isConfirmed) {
-          navigate("..");
+          navigate("/administrator/list/recruiter");
         }
       });
     } catch (err) {
@@ -59,9 +61,9 @@ const RegisterBloc = (RegisterService) => {
         icon: "error",
         text: "Email has already exist",
       });
-      throw err
+      throw err;
     }
   };
-  return { doRegister, doRegisterRecruiter };
+  return { doRegister, doRegisterRecruiter, loading };
 };
 export default RegisterBloc;
