@@ -25,20 +25,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Divider } from "@mui/material";
 
-let pages = [
-  "Home",
-  "About Us",
-  "Program / Certificate",
-  // "Reccomendation Program/Certificate",
-  // "Status",
-];
-let pageLink = [
-  "/",
-  "/about",
-  "/vacancy",
-  // "/applicant/reccomendation",
-  // "/applicant/status",
-];
+let pages = ["Home", "About Us", "Program / Certificate"];
+let pageLink = ["/", "/about", "/vacancy"];
 let settings = ["Profile", "Logout"];
 let settingsLink = ["/applicant/profile", "/logout"];
 
@@ -68,14 +56,12 @@ let pagesAdmin = [
   "About Us",
   "Program / Certificate",
   "List Recruiter",
-  "Register Recruiter",
 ];
 let pageLinkAdmin = [
   "/",
   "/about",
   "/vacancy",
   "/administrator/list/recruiter",
-  "/administrator/register/recruiter",
 ];
 let settingAdmin = ["Logout"];
 let settingsLinkAdmin = ["/logout"];

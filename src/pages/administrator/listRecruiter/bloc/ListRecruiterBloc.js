@@ -1,7 +1,14 @@
 import Swal from "sweetalert2";
+import ActionType from "../../../../Context/ActionType";
 
 const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
-  let { getListRecruiter, getRecruiterbyId, deleteRecruiter } = service();
+  let {
+    getListRecruiter,
+    getRecruiterbyId,
+    deleteRecruiter,
+    postRegisterRecruiter,
+    updateRecruiter,
+  } = service();
   let {
     listRecruiter,
     setList,
@@ -9,8 +16,13 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
     setIsLoading,
     pageSize,
     setPageSize,
+    modalRegister,
+    setModalRegister,
+    modalUpdate,
+    setModalUpdate,
+    id,
+    setId,
   } = useRecruiterList();
-  let { navigateTo } = navigate();
 
   const allRecruiter = async (context) => {
     try {
@@ -40,18 +52,91 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
     }
   };
 
-  const handleClickRow = (id) => {
-    navigateTo(`/administrator/update/recruiter/${id}`);
+  const doRegisterRecruiter = async (formik, context) => {
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      let res = await postRegisterRecruiter(formik.values, config);
+      setModalRegister(false);
+      window.location.reload();
+      // console.log(res);
+      context.dispatch({
+        type: ActionType.Register,
+        token: res.data.data.token,
+        name: res.data.data.name,
+      });
+      Swal.fire({
+        title: "Success!",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then((result) => {
+        if (result.isConfirmed) {
+        }
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: "Email has already exist",
+      });
+      throw err;
+    }
+  };
+
+  const recruiterById = async (id, context) => {
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      const response = await getRecruiterbyId(id, config);
+      return response.data.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const updateRecruiterById = async (paramsUpdate, context) => {
+    try {
+      const config = {
+        headers: { Authorization: `Bearer ${context.userInfo}` },
+      };
+      let mock = { ...paramsUpdate.values, ID: id };
+      const response = await updateRecruiter(mock, config);
+      setModalUpdate(false);
+      window.location.reload();
+      Swal.fire({
+        title: "Success!",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          return response;
+        }
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: "Email has already exist",
+      });
+      throw err;
+    }
   };
 
   return {
     allRecruiter,
     deleteRecruiterbyId,
     listRecruiter,
-    handleClickRow,
     isLoading,
     pageSize,
     setPageSize,
+    modalRegister,
+    setModalRegister,
+    modalUpdate,
+    setModalUpdate,
+    doRegisterRecruiter,
+    recruiterById,
+    updateRecruiterById,
+    setId,
   };
 };
 

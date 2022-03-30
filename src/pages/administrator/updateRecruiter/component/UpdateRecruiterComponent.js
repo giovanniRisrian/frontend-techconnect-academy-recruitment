@@ -13,15 +13,11 @@ const UpdateRecruiterComponent = ({ bloc }) => {
     initialValues: {
       fullname: "",
       email: "",
-      //   password: "",
     },
     validationSchema: Yup.object({
       email: Yup.string()
         .required("This field is required")
         .email("Invalid email format"),
-      //   password: Yup.string()
-      //     .required("This field is required")
-      //     .min(5, "minimum 6 characters"),
       fullname: Yup.string()
         .required("This field is required")
         .min(5, "minimum 6 characters"),
@@ -49,131 +45,124 @@ const UpdateRecruiterComponent = ({ bloc }) => {
   }, []);
 
   return (
-     <Grid    container
-     sx={{
-       backgroundColor: "#F2F2F2",
-       height:'89vh'
-     }}
-     justifyContent='center'>
-        <Grid
-          item
-          md={6}
-          sm={12}
-          xs={12}
-          justifyContent="center"
-          sx={{ marginLeft: "3%", marginTop:'2%' }}
+    <Grid
+      container
+      sx={{
+        backgroundColor: "#F2F2F2",
+        height: "89vh",
+      }}
+      justifyContent="center"
+    >
+      <Grid
+        item
+        md={6}
+        sm={12}
+        xs={12}
+        justifyContent="center"
+        sx={{ marginLeft: "3%", marginTop: "2%" }}
+      >
+        <Box
+          sx={{
+            boxShadow: 3,
+            backgroundColor: "#171059",
+            borderRadius: "15px",
+            height: "10vh",
+            width: "70%",
+            marginLeft: "15%",
+            paddingTop: "2%",
+          }}
         >
-          <Box sx={{boxShadow:3, backgroundColor:'#171059', borderRadius:'15px', height:'10vh', width:'70%', marginLeft:'15%', paddingTop:'2%' }}>
-        <Typography textAlign="center" variant="h4" color='white'>
-         Edit Recruiter Account
-         </Typography>
-         </Box>
+          <Typography textAlign="center" variant="h4" color="white">
+            Edit Recruiter Account
+          </Typography>
+        </Box>
 
-          <Box
-            sx={{
-              marginX: "20%",
-              boxShadow: 3,
-              paddingX: "20px",
-              marginTop: "2%",
-              paddingBottom: "5%",
-            }}
-          >
-            <form onSubmit={formik.handleSubmit}>
-              <Typography textAlign="center">
-                <img
-                  src={logo}
-                  style={{ width: "120px", height: "150px" }}
-                  alt="logo-tca"
-                />
-              </Typography>
-
-              <TextField
-                variant="outlined"
-                color="primary"
-                className="form-control cardForm text-center"
-                type="text"
-                name="fullname"
-                label="Name"
-                value={formik.values.fullname || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+        <Box
+          sx={{
+            marginX: "20%",
+            boxShadow: 3,
+            paddingX: "20px",
+            marginTop: "2%",
+            paddingBottom: "5%",
+          }}
+        >
+          <form onSubmit={formik.handleSubmit}>
+            <Typography textAlign="center">
+              <img
+                src={logo}
+                style={{ width: "120px", height: "200px" }}
+                alt="logo-tca"
               />
-              <p className="warning">
-                {formik.errors.fullname && formik.touched.fullname ? (
-                  <small style={{ color: "red" }} className="text-danger">
-                    {formik.errors.fullname}
-                  </small>
-                ) : null}
-              </p>
+            </Typography>
 
-              <TextField
-                variant="outlined"
-                color="primary"
-                className="form-control cardForm text-center"
-                type="email"
-                name="email"
-                label="Email"
-                value={formik.values.email || ""}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              <p className="warning">
-                {formik.errors.email && formik.touched.email ? (
-                  <small style={{ color: "red" }} className="text-danger">
-                    {formik.errors.email}
-                  </small>
-                ) : null}
-              </p>
-
-              {/* <TextField
+            <TextField
               variant="outlined"
               color="primary"
               className="form-control cardForm text-center"
-              type="password"
-              name="password"
-              label="Password"
-              value={formik.values.password || ""}
+              type="text"
+              name="fullname"
+              label="Name"
+              value={formik.values.fullname || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
             <p className="warning">
-              {formik.errors.password && formik.touched.password ? (
+              {formik.errors.fullname && formik.touched.fullname ? (
                 <small style={{ color: "red" }} className="text-danger">
-                  {formik.errors.password}
+                  {formik.errors.fullname}
                 </small>
               ) : null}
-            </p> */}
+            </p>
 
-              <Box display="flex" justifyContent="center">
-                <Button
-                  // type="submit"
-                  variant="outlined"
-                  sx={{ marginRight: "5%" }}
-                  color="primary"
-                  textAlign="center"
-                  onClick={() => {
-                    navigateTo("/administrator/list/recruiter");
-                  }}
-                  // disabled={!(formik.isValid && formik.dirty)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  value="submit"
-                  color="primary"
-                  textAlign="center"
-                  disabled={!(formik.isValid && formik.dirty)}
-                  marginLeft="20px"
-                >
-                  SUBMIT
-                </Button>
-              </Box>
-            </form>
-          </Box>
-        </Grid>
+            <TextField
+              variant="outlined"
+              color="primary"
+              className="form-control cardForm text-center"
+              type="email"
+              name="email"
+              label="Email"
+              value={formik.values.email || ""}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <p className="warning">
+              {formik.errors.email && formik.touched.email ? (
+                <small style={{ color: "red" }} className="text-danger">
+                  {formik.errors.email}
+                </small>
+              ) : null}
+            </p>
+
+            <Box display="flex" justifyContent="center">
+              <Button
+                // type="submit"
+                variant="outlined"
+                sx={{ marginRight: "5%" }}
+                color="primary"
+                textAlign="center"
+                onClick={() => {
+                  navigateTo("/administrator/list/recruiter");
+                }}
+                // disabled={!(formik.isValid && formik.dirty)}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                value="submit"
+                color="primary"
+                textAlign="center"
+                disabled={!(formik.isValid && formik.dirty)}
+                marginLeft="20px"
+              >
+                SUBMIT
+              </Button>
+            </Box>
+          </form>
+        </Box>
       </Grid>
+    </Grid>
   );
 };
 
