@@ -605,6 +605,7 @@ const ViewProfileForm = ({ bloc }) => {
                           InputProps={{
                             readOnly: disabled,
                           }}
+                          disabled={true}
                           type="email"
                           error={Boolean(errors.Personal?.Email)}
                           helperText={
@@ -631,7 +632,7 @@ const ViewProfileForm = ({ bloc }) => {
                           value={field.value.Personal?.TelephoneNo}
                           {...field}
                           InputProps={{
-                            readOnly: disabled,
+                            readOnly: true,
                           }}
                           error={Boolean(errors.Personal?.TelephoneNo)}
                           helperText={

@@ -9,6 +9,10 @@ const GoogleLoginButtonService = () => {
     const response = await client.post("/user/register/google", params);
     return response;
   };
-  return { postLogin,postRegister };
+  const getInfo = async (header) => {
+    const response = await client.get("/user", header);
+    return response;
+  };
+  return { postLogin, postRegister, getInfo };
 };
 export default GoogleLoginButtonService;

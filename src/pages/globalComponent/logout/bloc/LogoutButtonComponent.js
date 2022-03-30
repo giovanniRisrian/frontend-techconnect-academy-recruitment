@@ -10,6 +10,7 @@ const LogoutButtonBloc = () => {
 
     // // console.log("oaoae",context)
     localStorage.removeItem("token");
+    localStorage.removeItem("photo");
     context.dispatch({type:ActionType.LOGIN, name: null, token: null });
     // // console.log("ooo",context)
    
