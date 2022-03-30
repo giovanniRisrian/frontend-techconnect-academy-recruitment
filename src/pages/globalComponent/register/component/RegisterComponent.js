@@ -46,7 +46,7 @@ const RegisterComponent = ({ bloc }) => {
       }}
     >
       <Grid item md={6} justifyContent="flex-start">
-        <img src={login} alt="img-form" width="100%" height={"101%"} />
+        <img src={login} alt="img-form" width="100%" height={"102%"} />
       </Grid>
       <Grid item md={5} sm={12} xs={12} sx={{ marginLeft: "3%" }}>
         <Box

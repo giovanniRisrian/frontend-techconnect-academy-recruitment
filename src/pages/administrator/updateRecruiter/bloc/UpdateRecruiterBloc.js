@@ -23,7 +23,9 @@ const UpdateRecruiterBloc = (service, useUpdateRecruiter, navigation) => {
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
+      console.log(paramsUpdate);
       let mock = { ...paramsUpdate.values, ID: params.id };
+      console.log("hasil mock",mock);
       const response = await updateRecruiter(mock, config);
       return response;
     } catch (e) {

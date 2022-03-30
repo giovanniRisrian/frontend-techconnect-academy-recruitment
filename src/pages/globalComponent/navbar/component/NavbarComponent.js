@@ -48,14 +48,12 @@ let pagesApplicant = [
   "About Us",
   "Program / Certificate",
   "Reccomendation Program/Certificate",
-  "Status",
 ];
 let pageLinkApplicant = [
   "/",
   "/about",
   "/vacancy",
   "/applicant/reccomendation",
-  "/applicant/status",
 ];
 
 // Recruiter Configuration

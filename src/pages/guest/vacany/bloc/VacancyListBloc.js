@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const VacancyListBloc = (programService, useVacancyList) => {
   const { state } = useLocation();
@@ -10,20 +11,55 @@ const VacancyListBloc = (programService, useVacancyList) => {
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   let [pages, setPage] = useState(1);
+  const [idList, setIdlist] = useState(null);
   let navigate = useNavigate();
-  let { getInformationProgram, getProgramType} = programService();
+  let { getInformationProgram, getProgramType, getAppliedProgram } =
+    programService();
 
-  const getListJobInformation = async (page, filter, search) => {
+  const getListJobInformation = async (page, filter, search, context) => {
+    let config;
+    let userInfo;
+    let responseAppliedId;
+    let tempList;
     try {
       setLoading(true);
-      if (!state) {
-        const response = await getInformationProgram(page, filter, search);
-        setList(response.data.data);
-        // console.log("resssss",response);
-      } else {
-        setList({ ProgramList: state, LastPage: 1 });
+
+      if (context.userInfo) {
+        config = {
+          headers: { Authorization: `Bearer ${context.userInfo}` },
+        };
+        userInfo = jwt_decode(context.userInfo);
+        console.log("Informasi Token", userInfo);
+        responseAppliedId = await getAppliedProgram(userInfo.id, config);
+        responseAppliedId = responseAppliedId.data.data;
+        setIdlist(responseAppliedId);
       }
 
+      if (!state) {
+        const response = await getInformationProgram(page, filter, search);
+        tempList = response.data.data;
+      } else {
+        tempList = { ProgramList: state, LastPage: 1 };
+      }
+      console.log(context.userInfo);
+      for (let x = 0; x < tempList.ProgramList.length; x++) {
+        console.log(x + "=>", tempList.ProgramList[x].ID);
+        if (context.userInfo) {
+          if (responseAppliedId) {
+            if (responseAppliedId.includes(tempList.ProgramList[x].ID)) {
+              tempList.ProgramList[x].applied = true;
+            } else {
+              tempList.ProgramList[x].applied = false;
+            }
+          } else {
+            tempList.ProgramList[x].applied = false;
+          }
+        } else {
+          tempList.ProgramList[x].applied = false;
+        }
+      }
+      console.log("temp", tempList);
+      setList(tempList);
       setLoading(false);
       return list;
     } catch (err) {
@@ -31,13 +67,42 @@ const VacancyListBloc = (programService, useVacancyList) => {
     }
   };
 
-  const getSearchByName = async (e) => {
+  const getSearchByName = async (e, context) => {
     // console.log(e);
+    let config;
+    let userInfo;
+    let responseAppliedId;
+    let tempList;
+
     try {
       if (e.keyCode === 13) {
+        if (context.userInfo) {
+          config = {
+            headers: { Authorization: `Bearer ${context.userInfo}` },
+          };
+          userInfo = jwt_decode(context.userInfo);
+          // responseAppliedId = await getAppliedProgram(userInfo.id, config);
+          responseAppliedId = idList;
+          // setIdlist(responseAppliedId)
+        }
         setPage(1);
-        const response = await getInformationProgram(pages, types, searchValue);
-        setList(response.data.data);
+        setType("All");
+        const response = await getInformationProgram(pages, "", searchValue);
+        tempList = response.data.data;
+        for (let x = 0; x < tempList.ProgramList.length; x++) {
+          console.log(x + "=>", tempList.ProgramList[x].ID);
+          if (context.userInfo) {
+            if (responseAppliedId.includes(tempList.ProgramList[x].ID)) {
+              tempList.ProgramList[x].applied = true;
+            } else {
+              tempList.ProgramList[x].applied = false;
+            }
+          } else {
+            tempList.ProgramList[x].applied = false;
+          }
+        }
+        setList(tempList);
+        setPage(pages);
       }
     } catch (err) {
       throw err;
@@ -52,15 +117,48 @@ const VacancyListBloc = (programService, useVacancyList) => {
     }
   };
 
-  const handleType = (types) => {
-    setPage(1);
-    getListJobInformation((pages = 1), types,searchValue);
-    setPage(pages);
-    setType(types);
+  const handleType = async (types, context) => {
+    // const lowerType = types.toLowerCase();
+    let config;
+    let userInfo;
+    let responseAppliedId;
+    let tempList;
+    try {
+      if (context.userInfo) {
+        config = {
+          headers: { Authorization: `Bearer ${context.userInfo}` },
+        };
+        userInfo = jwt_decode(context.userInfo);
+        // responseAppliedId = await getAppliedProgram(userInfo.id, config);
+        responseAppliedId = idList;
+        // setIdlist(responseAppliedId)
+      }
+      setSearchValue("");
+      setPage(1);
+      const response = await getInformationProgram((pages = 1), types, "");
+      tempList = response.data.data;
+      for (let x = 0; x < tempList.ProgramList.length; x++) {
+        console.log(x + "=>", tempList.ProgramList[x].ID);
+        if (context.userInfo) {
+          if (responseAppliedId.includes(tempList.ProgramList[x].ID)) {
+            tempList.ProgramList[x].applied = true;
+          } else {
+            tempList.ProgramList[x].applied = false;
+          }
+        } else {
+          tempList.ProgramList[x].applied = false;
+        }
+      }
+      setList(tempList);
+      setPage(pages);
+      setType(types);
+    } catch (e) {
+      throw e;
+    }
   };
 
-  const handlePage = (page) => {
-    getListJobInformation(page, types, searchValue);
+  const handlePage = (page, context) => {
+    getListJobInformation(page, types, searchValue, context);
 
     setPage(page);
   };

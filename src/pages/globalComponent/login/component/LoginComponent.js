@@ -7,10 +7,10 @@ import logo from "../../../../asset/icon/logo.svg";
 import * as Yup from "yup";
 import GoogleLoginButton from "../../google/googleLogin/GoogleLoginButton";
 import login from "../../../../asset/image/loginLeft.jpg";
-
+import { LoadingButton } from "@mui/lab";
 const LoginComponent = ({ bloc }) => {
   const data = useContext(RootContext);
-  const { doLogin } = bloc();
+  const { doLogin, loading } = bloc();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -43,7 +43,7 @@ const LoginComponent = ({ bloc }) => {
       }}
     >
       <Grid item md={6} justifyContent="flex-start">
-        <img src={login} alt="img-form" width="100%" height={"101%"} />
+        <img src={login} alt="img-form" width="100%" height={"102%"} />
       </Grid>
       <Grid item md={5} sm={12} xs={12} sx={{ marginLeft: "3%" }}>
         <Box
@@ -103,7 +103,22 @@ const LoginComponent = ({ bloc }) => {
               ) : null}
             </p>
             <Box display="flex" justifyContent="center" alignItems="center">
-              <Button
+              {
+                loading ? 
+                <Box
+                display="flex"
+                flexDirection="row"
+                alignItems="center"
+                justifyContent="center"
+                >
+      
+                <LoadingButton
+                  loading={loading}
+                  loadingPosition="center"
+                >
+                  Loading
+                </LoadingButton>
+                </Box> :  <Button
                 type="submit"
                 color="primary"
                 variant="contained"
@@ -113,6 +128,8 @@ const LoginComponent = ({ bloc }) => {
               >
                 LOGIN
               </Button>
+              }
+             
             </Box>
           </form>
           <GoogleLoginButton />

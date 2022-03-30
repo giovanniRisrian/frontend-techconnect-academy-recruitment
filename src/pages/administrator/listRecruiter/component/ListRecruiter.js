@@ -10,6 +10,34 @@ import {
   GridActionsCellItem,
 } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Footer from "../../../globalComponent/footer/Footer";
+import notfound from "../../../../asset/image/no-data.png"
+
+
+function CustomNoRowsOverlay() {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+      }}
+    >
+      <img
+        width="120"
+        height="100"
+        // viewBox="0 0 184 152"
+        aria-hidden
+        focusable="false"
+        src={notfound}
+        alt={""}
+      ></img>
+      <Box sx={{ mt: -1 }}>No Data Recruiter</Box>
+    </Box>
+  );
+}
 
 export default function ListRecruiter({ bloc }) {
   const data = React.useContext(RootContext);
@@ -26,7 +54,7 @@ export default function ListRecruiter({ bloc }) {
     {
       field: "name",
       headerName: "Name",
-      minWidth: 250,
+      minWidth: 200,
       valueGetter: (params) => {
         return params?.row?.fullname;
       },
@@ -34,7 +62,7 @@ export default function ListRecruiter({ bloc }) {
     {
       field: "email",
       headerName: "Email",
-      minWidth: 250,
+      minWidth: 200,
       valueGetter: (params) => {
         return params?.row?.email;
       },
@@ -50,9 +78,9 @@ export default function ListRecruiter({ bloc }) {
     },
     {
       field: "delete",
-      headerName: "",
+      headerName: "Actions",
       type: "actions",
-      minWidth: 100,
+      minWidth: 200,
       getActions: (params) => [
         <GridActionsCellItem
           icon={<DeleteIcon />}
@@ -74,17 +102,18 @@ export default function ListRecruiter({ bloc }) {
     allRecruiter(data);
   }, []);
 
-  console.log("cobaa", listRecruiter);
+  // console.log("cobaa", listRecruiter);
   return (
     <>
       {/* Start of Header */}
-      <Grid container sx={{ marginTop: 15 }}>
+      <Grid container sx={{ marginTop: 5 }}>
         <Grid item md={3} />
         <Grid item md={6} sm={12} xs={12}>
           <Typography
             component="div"
             textAlign="center"
             gutterBottom
+            color='white'
             sx={{
               typography: { lg: "h3", sm: "h4", xs: "h4" },
               fontWeight: {
@@ -101,14 +130,14 @@ export default function ListRecruiter({ bloc }) {
               },
             }}
           >
-            <Box sx={{ letterSpacing: 6 }}>List of Recruiter</Box>
+            <Box sx={{ letterSpacing: 6, boxShadow:3, backgroundColor:'#171059', borderRadius:'15px', height:'10vh' }}>List of Recruiter</Box>
           </Typography>
           <Grid item md={3} />
         </Grid>
       </Grid>
 
       {/* Start of Table */}
-      <Box sx={{ height: 500, width: "90%", marginX: "auto", marginY: 10 }}>
+      <Box sx={{ height: 500, width: "80%", marginX: "auto", marginY: 10 }}>
         <Box sx={{ display: "flex", height: "100%" }}>
           <Box sx={{ flexGrow: 1 }}>
             <DataGrid
@@ -125,16 +154,18 @@ export default function ListRecruiter({ bloc }) {
               components={{
                 Toolbar: CustomToolbar,
                 LoadingOverlay: LinearProgress,
-                // NoRowsOverlay: CustomNoRowsOverlay,
+                NoRowsOverlay: CustomNoRowsOverlay,
               }}
             />
           </Box>
         </Box>
       </Box>
       {/* End of Table */}
+      <Footer />
     </>
   );
 }
+
 
 function CustomToolbar(props) {
   return (

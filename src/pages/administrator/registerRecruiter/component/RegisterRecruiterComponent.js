@@ -47,9 +47,13 @@ const RegisterComponent = ({ bloc }) => {
       justifyContent='center'
     >
       <Grid item md={6} sm={12} xs={12} sx={{ marginLeft: "3%", marginTop:'2%' }}>
-        <Typography textAlign="center" variant="h4">
+      
+        <Box sx={{boxShadow:3, backgroundColor:'#171059', borderRadius:'15px', height:'10vh', width:'70%', marginLeft:'15%', paddingTop:'2%' }}>
+        <Typography textAlign="center" variant="h4" color='white'>
          Add Recruiter Account
-        </Typography>
+         </Typography>
+         </Box>
+
 
         <Box
           sx={{
@@ -124,7 +128,7 @@ const RegisterComponent = ({ bloc }) => {
             <Box display="flex" justifyContent="center">
               <Button
                 // type="submit"
-                variant="contained"
+                variant="outlined"
                 sx={{ marginRight: "5%" }}
                 color="primary"
                 textAlign="center"

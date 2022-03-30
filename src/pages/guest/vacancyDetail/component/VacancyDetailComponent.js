@@ -33,18 +33,27 @@ const VacancyDetail = ({ bloc }) => {
     loading,
   } = bloc();
   const data = useContext(RootContext);
-  let userInfo;
-  let id;
-  if (data.userInfo) {
-    userInfo = jwt_decode(data.userInfo);
-    id = userInfo.id;
+  let idUser;
+  let show = true;
+  let dataFalse = { userInfo: null };
+  let decodeInfo;
+  console.log("context", data);
+  if (data?.userInfo) {
+    console.log("data", data.userInfo);
+    decodeInfo = jwt_decode(data?.userInfo);
+    idUser = decodeInfo;
+    if (decodeInfo.Role !== "user") {
+      show = false;
+    }
   }
+
   let dataApplicant = {
     ProgramId: params.id,
-    ApplicantId: id,
+    ApplicantId: idUser?.id,
   };
 
   const confirmationApply = () => {
+    console.log("apakah masuk sini?");
     swal
       .fire({
         title: "Do you want to apply this program?",
@@ -65,7 +74,11 @@ const VacancyDetail = ({ bloc }) => {
   };
 
   useEffect(() => {
-    getProgrambyId();
+    if (show === true) {
+      getProgrambyId(idUser, data);
+    } else {
+      getProgrambyId(null, dataFalse);
+    }
   }, []);
 
   return (
@@ -194,9 +207,10 @@ const VacancyDetail = ({ bloc }) => {
             >
               <Button
                 variant="outlined"
-                color="primary"
+                color="secondary"
                 sx={{
                   marginRight: "15px",
+                  color: "#8645FF",
                   backgroudColor: "#FFF",
                   fontWeight: "500",
                   borderRadius: "20px",
@@ -217,31 +231,33 @@ const VacancyDetail = ({ bloc }) => {
                   flexDirection="row"
                   alignItems="center"
                   justifyContent="center"
-                  sx={{marginRight:'2%'}}
+                  sx={{ marginRight: "2%" }}
                 >
                   <LoadingButton
                     loading={loading}
                     loadingPosition="start"
                     variant="outlined"
-                    loadingIndicator="Loading"
-                    sx={{borderRadius:'20px'}}
+                    // loadingIndicator=""
+                    sx={{ borderRadius: "20px" }}
                   >
                     Loading
                   </LoadingButton>
                 </Box>
               ) : (
                 <Box>
-                  {data.userInfo ? (
+                  {data.userInfo  ? (
                     <Button
+                      disabled={programDetail.applied}
                       variant="contained"
-                      color="primary"
+                      color="secondary"
                       sx={{
                         marginRight: "15px",
                         color: "#FFF",
-                        backgroudColor: "#8645FF",
                         fontWeight: "500",
                         borderRadius: "20px",
                         boxShadow: 3,
+
+                        backgroudColor: "#8645FF",
                       }}
                       onClick={() => confirmationApply()}
                     >
@@ -249,12 +265,12 @@ const VacancyDetail = ({ bloc }) => {
                         icon={faCirclePlus}
                         style={{ marginRight: "10px" }}
                       />
-                      Apply
+                      {programDetail.applied ? "Applied" : "Apply"}
                     </Button>
                   ) : (
                     <Button
                       variant="contained"
-                      color="primary"
+                      color="secondary"
                       sx={{
                         marginRight: "15px",
                         color: "#FFF",
