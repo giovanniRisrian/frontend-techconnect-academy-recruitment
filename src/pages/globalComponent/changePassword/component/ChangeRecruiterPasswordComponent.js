@@ -32,7 +32,14 @@ const ChangeRecruiterPasswordComponent = ({ bloc }) => {
     },
   });
 
-  console.log("data user", data);
+  const handleCancel = () => {
+    if (user.Role === "recruiter") {
+      navigateTo("/recruiter");
+    } else if (user.Role === "user") {
+      navigateTo("/vacancy");
+    }
+  };
+
   const onSubmit = () => {
     changePassword(formik, data, user);
   };
@@ -139,13 +146,18 @@ const ChangeRecruiterPasswordComponent = ({ bloc }) => {
                   </LoadingButton>
                 </Box>
               ) : ( */}
-              <Box display='flex' justifyContent='center' alignItems='center' marginBottom='5%'>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                marginBottom="5%"
+              >
                 <Button
                   variant="outlined"
                   sx={{ marginRight: "5%" }}
                   color="primary"
                   onClick={() => {
-                    navigateTo("..");
+                    handleCancel();
                   }}
                 >
                   Cancel

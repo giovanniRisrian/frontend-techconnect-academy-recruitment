@@ -17,6 +17,7 @@ const ChangeRecruiterPasswordBloc = (
           "Content-Type": "multipart/form-data",
         },
       };
+      console.log("user", user);
       let mock = { ...formik.values, id: user.id };
       const response = await postChangePassword(mock, config);
       Swal.fire({
@@ -25,14 +26,18 @@ const ChangeRecruiterPasswordBloc = (
         confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigateTo("..");
+          if (user.Role === "recruiter") {
+            navigateTo("/recruiter");
+          } else if (user.Role === "user") {
+            navigateTo("/vacancy");
+          }
         }
       });
       return response;
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: "Something wrong! I can feel it",
+        text: "Password is wrong",
       });
       throw err;
     }

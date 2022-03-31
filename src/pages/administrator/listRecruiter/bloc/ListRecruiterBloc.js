@@ -22,6 +22,8 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
     setModalUpdate,
     id,
     setId,
+    initialValueUpdate,
+    changeInitialValueUpdate,
   } = useRecruiterList();
 
   const allRecruiter = async (context) => {
@@ -68,7 +70,7 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
         confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed) {
-             window.location.reload();
+          window.location.reload();
         }
       });
       return res;
@@ -78,8 +80,6 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
       //   name: res.data.data.name,
       // });
       // setModalRegister(false);
-      
-    
     } catch (err) {
       setModalRegister(false);
       Swal.fire({
@@ -96,31 +96,42 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
       const response = await getRecruiterbyId(id, config);
+      console.log("apakah ini?", response.data.data);
+      let mock = {
+        fullname: "",
+        email: "",
+      };
+      mock.fullname = response.data.data.fullname;
+      mock.email = response.data.data.email;
+      console.log("mock", mock);
+      changeInitialValueUpdate(mock);
       return response.data.data;
     } catch (err) {
       throw err;
     }
   };
 
-  const updateRecruiterById = async (paramsUpdate, context) => {
+  const updateRecruiterById = async (val, context) => {
     try {
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
-      let mock = { ...paramsUpdate.values, ID: id };
+      let mock = { ...val, ID: id };
       const response = await updateRecruiter(mock, config);
       setModalUpdate(false);
-      window.location.reload();
+
       Swal.fire({
         title: "Success!",
         icon: "success",
         confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed) {
-          return response;
+          window.location.reload();
         }
       });
+      return response;
     } catch (err) {
+      setModalUpdate(false);
       Swal.fire({
         icon: "error",
         text: "Email has already exist",
@@ -144,6 +155,7 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
     recruiterById,
     updateRecruiterById,
     setId,
+    initialValueUpdate,
   };
 };
 

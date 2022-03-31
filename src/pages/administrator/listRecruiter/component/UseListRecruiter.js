@@ -7,6 +7,10 @@ const UseListRecruiter = () => {
   const [modalRegister, setModalRegister] = useState(false);
   const [modalUpdate, setModalUpdate] = useState(false);
   const [id, setId] = useState();
+  const [initialValueUpdate, changeInitialValueUpdate] = useState({
+    fullname: "",
+    email: "",
+  });
 
   return {
     listRecruiter,
@@ -21,6 +25,8 @@ const UseListRecruiter = () => {
     setModalUpdate,
     id,
     setId,
+    initialValueUpdate,
+    changeInitialValueUpdate,
   };
 };
 

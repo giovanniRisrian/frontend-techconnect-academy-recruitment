@@ -69,6 +69,7 @@ export default function ListRecruiter({ bloc }) {
     recruiterById,
     updateRecruiterById,
     setId,
+    initialValueUpdate,
   } = bloc();
 
   //useFormRegister
@@ -99,59 +100,35 @@ export default function ListRecruiter({ bloc }) {
     defaultValues: initialValueRegister,
   });
 
-  // Formik Register
-  // const formikRegister = useFormik({
-  //   initialValues: {
-  //     fullname: "",
-  //     email: "",
-  //     password: "",
-  //   },
-  //   validationSchema: Yup.object({
-  //     email: Yup.string()
-  //       .required("This field is required")
-  //       .email("Invalid email format"),
-  //     password: Yup.string()
-  //       .required("This field is required")
-  //       .min(5, "minimum 6 characters"),
-  //     fullname: Yup.string()
-  //       .required("This field is required")
-  //       .min(5, "minimum 6 characters"),
-  //   }),
-  //   onSubmit: () => {
-  //     handleRegisterFront();
-  //   },
-  // });
-
-  // const handleRegisterFront = () => {
-  //   console.log(val);
-  //   doRegisterRecruiter(formikRegister, data);
-  // };
   const onSubmit = (val) => {
-    // console.log(val);
     doRegisterRecruiter(val, data);
   };
-
-  // Formik Update
-  const formikUpdate = useFormik({
-    initialValues: {
-      fullname: "",
-      email: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .required("This field is required")
-        .email("Invalid email format"),
-      fullname: Yup.string()
-        .required("This field is required")
-        .min(5, "minimum 6 characters"),
-    }),
-    onSubmit: () => {
-      handleUpdateFront();
-      // navigateTo("/administrator/list/recruiter");
-    },
+  console.log("initialValueUpdate", initialValueUpdate);
+  const validationUpdate = Yup.object({
+    email: Yup.string()
+      .required("This field is required")
+      .email("Invalid email format"),
+    fullname: Yup.string()
+      .required("This field is required")
+      .min(5, "minimum 6 characters"),
   });
 
+  const {
+    control: control2,
+    handleSubmit: handleSubmit2,
+    reset,
+    formState: { errors: errors2 },
+  } = useForm({
+    defaultValues: initialValueUpdate,
+    resolver: yupResolver(validationUpdate),
+  });
+
+  const onSubmit2 = (val) => {
+    updateRecruiterById(val, data);
+  };
+
   // Columns configuration
+
   const columns = [
     {
       field: "name",
@@ -197,14 +174,7 @@ export default function ListRecruiter({ bloc }) {
     setModalUpdate(true);
     setId(id);
     const res = await recruiterById(id, data);
-    
-    formikUpdate.values.fullname = res.fullname;
-    formikUpdate.values.email = res.email;
-    formikUpdate.setFieldValue();
-  };
-
-  const handleUpdateFront = () => {
-    updateRecruiterById(formikUpdate, data);
+    return res;
   };
 
   const confirmDelete = (dataDelete) => {
@@ -218,10 +188,14 @@ export default function ListRecruiter({ bloc }) {
     allRecruiter(data);
   }, []);
 
+  React.useEffect(() => {
+    reset(initialValueUpdate);
+  }, [initialValueUpdate]);
+
   return (
     <>
       {/* Start of Header */}
-      <Grid container sx={{ marginTop: '8%' }}>
+      <Grid container sx={{ marginTop: "8%" }}>
         <Grid item md={3} />
         <Grid item md={6} sm={12} xs={12}>
           <Typography
@@ -298,7 +272,7 @@ export default function ListRecruiter({ bloc }) {
               control={control}
               render={({ field }) => (
                 <TextField
-                  sx={{marginBottom:'3%'}}
+                  sx={{ marginBottom: "3%" }}
                   fullWidth
                   color="primary"
                   id="fullname"
@@ -358,7 +332,7 @@ export default function ListRecruiter({ bloc }) {
               render={({ field }) => (
                 <TextField
                   fullWidth
-                  sx={{marginBottom:'3%'}}
+                  sx={{ marginBottom: "3%" }}
                   color="primary"
                   id="email"
                   label="Email"
@@ -398,7 +372,7 @@ export default function ListRecruiter({ bloc }) {
               render={({ field }) => (
                 <TextField
                   fullWidth
-                  sx={{marginBottom:'3%'}}
+                  sx={{ marginBottom: "3%" }}
                   type="password"
                   color="primary"
                   id="password"
@@ -406,11 +380,9 @@ export default function ListRecruiter({ bloc }) {
                   variant="outlined"
                   size="small"
                   name="password"
-
                   error={Boolean(errors.password)}
                   {...field}
                   helperText={errors.password ? errors.password?.message : ""}
-                  
                 />
               )}
             ></Controller>
@@ -455,7 +427,7 @@ export default function ListRecruiter({ bloc }) {
             ...style,
           }}
         >
-          <form onSubmit={formikUpdate.handleSubmit}>
+          <form onSubmit={handleSubmit2(onSubmit2)}>
             <Typography textAlign="center">
               <img
                 src={logo}
@@ -475,7 +447,27 @@ export default function ListRecruiter({ bloc }) {
               </Typography>
             </Box>
 
-            <TextField
+            <Controller
+              name={"fullname"}
+              control={control2}
+              render={({ field }) => (
+                <TextField
+                  sx={{ marginBottom: "3%" }}
+                  fullWidth
+                  variant="outlined"
+                  size="small"
+                  color="primary"
+                  id="fullname"
+                  name="fullname"
+                  label="Fullname"
+                  {...field}
+                  error={Boolean(errors2.fullname)}
+                  helperText={errors2.fullname ? errors2.fullname?.message : ""}
+                />
+              )}
+            ></Controller>
+
+            {/* <TextField
               variant="outlined"
               color="primary"
               className="form-control cardForm text-center"
@@ -492,9 +484,29 @@ export default function ListRecruiter({ bloc }) {
                   {formikUpdate.errors.fullname}
                 </small>
               ) : null}
-            </p>
+            </p> */}
 
-            <TextField
+            <Controller
+              name={"email"}
+              control={control2}
+              render={({ field }) => (
+                <TextField
+                  sx={{ marginBottom: "3%" }}
+                  fullWidth
+                  variant="outlined"
+                  size="small"
+                  color="primary"
+                  id="email"
+                  name="email"
+                  label="Email"
+                  {...field}
+                  error={Boolean(errors2.email)}
+                  helperText={errors2.email ? errors2.email?.message : ""}
+                />
+              )}
+            ></Controller>
+
+            {/* <TextField
               variant="outlined"
               color="primary"
               className="form-control cardForm text-center"
@@ -511,7 +523,7 @@ export default function ListRecruiter({ bloc }) {
                   {formikUpdate.errors.email}
                 </small>
               ) : null}
-            </p>
+            </p> */}
 
             <Box display="flex" justifyContent="center">
               <Button
@@ -532,7 +544,7 @@ export default function ListRecruiter({ bloc }) {
                 value="submit"
                 color="primary"
                 textAlign="center"
-                disabled={!(formikUpdate.isValid && formikUpdate.dirty)}
+                // disabled={!(formikUpdate.isValid && formikUpdate.dirty)}
                 marginLeft="20px"
               >
                 SUBMIT
