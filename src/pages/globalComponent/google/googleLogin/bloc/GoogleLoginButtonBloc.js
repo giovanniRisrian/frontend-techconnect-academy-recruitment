@@ -34,8 +34,10 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
       console.log("Login Google Berhasil");
       if (role !== "user") {
         navigate("/" + role);
+        window.location.reload();
       } else {
         navigate("/vacancy");
+        window.location.reload();
       }
     } catch (err) {
       try {

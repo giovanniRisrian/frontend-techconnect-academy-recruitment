@@ -120,7 +120,7 @@ const NavbarCompontent = () => {
   };
 
   return (
-    <AppBar position="sticky" style={{ backgroundColor: "#171059" }}>
+    <AppBar position="sticky" style={{ backgroundColor: "white" ,borderBottomLeftRadius:50,borderBottomRightRadius:50,position:"absolute"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -129,6 +129,24 @@ const NavbarCompontent = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" }, textShadow: 3 }}
           >
+             <Button
+                onClick={() => navigate('/')}
+                sx={{
+                  my: "auto",
+                  color: "#8645FF",
+                  display: "block",
+                  fontFamily:"Arial,  sans-serif",
+                  // backgroundColor: "#171059",
+                  marginLeft: "10%",
+                  borderRadius: "10px",
+                  // borderRight: "0.01em solid white",
+                  // borderTopRightRadius: "0",
+                  // borderBottomRightRadius: "0",
+                  // padding: "0.1em",
+                  // height: "120%",
+                }}
+              >
+                {/* <p>TCA Recruitment</p> */}
             <img
               src={logo}
               alt="logo-tca"
@@ -137,7 +155,7 @@ const NavbarCompontent = () => {
                 width: "80px",
                 boxShadow: 3,
               }}
-            />
+            /></Button>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -201,8 +219,11 @@ const NavbarCompontent = () => {
                 onClick={() => navigate(pageLink[index])}
                 sx={{
                   my: "auto",
-                  color: "#FFF",
+                  color: "#8645FF",
                   display: "block",
+                  fontFamily:"Arial,  sans-serif",
+                  // backgroundColor: "#F5F5F5",
+                  marginLeft: "10px",
                   // borderRight: "0.01em solid white",
                   // borderTopRightRadius: "0",
                   // borderBottomRightRadius: "0",
@@ -210,7 +231,8 @@ const NavbarCompontent = () => {
                   // height: "120%",
                 }}
               >
-                {page}
+                <strong>
+                {page}</strong>
                 {/* <Box
                     sx={{
                       my: "auto",
@@ -232,7 +254,7 @@ const NavbarCompontent = () => {
                   variant="outlined"
                   onClick={() => navigate("/login")}
                   sx={{
-                    color: "#FFF",
+                    color: "#8645FF",
                     marginRight: "10px",
                     borderColor: "#8645FF",
                     borderRadius: "15px",
