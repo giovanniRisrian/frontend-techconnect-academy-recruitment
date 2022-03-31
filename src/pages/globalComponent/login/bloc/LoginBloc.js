@@ -25,22 +25,26 @@ const LoginBloc = (LoginService) => {
         token: res.data.data.token,
         name: res.data.data.name,
       });
+      const decodeToken = jwt_decode(res.data.data.token);
+      if (decodeToken.Role === "user") {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${res.data.data.token}`,
+          },
+        };
+        const resp3 = await getInfo(config);
+        localStorage.setItem("photo", resp3.data.data.Personal.PhotoFile);
+      }
 
-      const config = {
-        headers: {
-          Authorization: `Bearer ${res.data.data.token}`,
-        },
-      };
-      // localStorage.setItem("token", res.data.data.token);
-      const resp3 = await getInfo(config);
-      localStorage.setItem("photo", resp3.data.data.Personal.PhotoFile);
       setLoading(false);
       let role = jwt_decode(res.data.data.token).Role;
 
       if (role !== "user") {
         navigate("/" + role);
+        window.location.reload();
       } else {
         navigate("/vacancy");
+        window.location.reload();
       }
     } catch (err) {
       setLoading(false);

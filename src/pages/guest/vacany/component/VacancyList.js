@@ -334,6 +334,7 @@ const VacancyList = ({ bloc }) => {
                                 )}
                               </Typography>
                             </Box>
+                            
                             <Button
                               color="secondary"
                               variant="contained"
@@ -345,7 +346,14 @@ const VacancyList = ({ bloc }) => {
                                 marginRight: "2%",
                                 backgroundColor: "#615B93",
                               }}
-                              onClick={() => navigate(`/vacancy/${value.ID}`)}
+                              onClick={() => {
+                                if(state){
+                                  navigate(`/vacancy/${value.ID}`, {state:true})
+                                }else{
+                                  navigate(`/vacancy/${value.ID}`)
+                                }
+                              }
+                              }
                             >
                               See Details
                             </Button>

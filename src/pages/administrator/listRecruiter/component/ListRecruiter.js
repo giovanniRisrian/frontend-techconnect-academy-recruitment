@@ -197,6 +197,7 @@ export default function ListRecruiter({ bloc }) {
     setModalUpdate(true);
     setId(id);
     const res = await recruiterById(id, data);
+    
     formikUpdate.values.fullname = res.fullname;
     formikUpdate.values.email = res.email;
     formikUpdate.setFieldValue();
@@ -220,7 +221,7 @@ export default function ListRecruiter({ bloc }) {
   return (
     <>
       {/* Start of Header */}
-      <Grid container sx={{ marginTop: 5 }}>
+      <Grid container sx={{ marginTop: '8%' }}>
         <Grid item md={3} />
         <Grid item md={6} sm={12} xs={12}>
           <Typography
@@ -543,7 +544,7 @@ export default function ListRecruiter({ bloc }) {
       {/* End of Update Recruiter */}
 
       {/* Start of Table */}
-      <Box sx={{ height: 500, width: "80%", marginX: "auto", marginY: 10 }}>
+      <Box sx={{ height: 500, width: "80%", marginX: "auto", marginY: 3 }}>
         <Box sx={{ display: "flex", height: "100%" }}>
           <Box sx={{ flexGrow: 1 }}>
             <Box>

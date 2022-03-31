@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 const VacancyListBloc = (programService, useVacancyList) => {
-  const { state } = useLocation();
+  const { state } = useLocation()
   let { list, setList } = useVacancyList();
   const [typeProgram, setTypeProgram] = useState([]);
   const [types, setType] = useState("");
@@ -162,7 +162,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
 
     setPage(page);
   };
-
+  console.log(state, "vacancylist");
   return {
     list,
     loading,

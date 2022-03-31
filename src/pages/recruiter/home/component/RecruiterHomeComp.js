@@ -21,7 +21,7 @@ const RecruiterHomeComp = ({ bloc }) => {
         // }}
       >
         {/* Start of Header */}
-        <Grid container sx={{ paddingTop: 5 }}>
+        <Grid container sx={{ paddingTop: '13%' }}>
           <Grid item md={3} />
           <Grid item md={6} sm={12} xs={12}>
             <Typography
