@@ -343,16 +343,18 @@ const ViewProfileForm = ({ bloc }) => {
             ) : (
               <>
                 {file ? (
-                  <Input
-                    color="primary"
-                    variant="contained"
-                    accept="image/*"
-                    id="contained-button-file"
-                    multiple
-                    type="file"
-                    disabled={disabled}
-                    onChange={handleFile}
-                  />
+                  <Box display="flex" justifyContent="center">
+                    <Input
+                      color="primary"
+                      variant="contained"
+                      accept="image/*"
+                      id="contained-button-file"
+                      multiple
+                      type="file"
+                      disabled={disabled}
+                      onChange={handleFile}
+                    />
+                  </Box>
                 ) : (
                   <div
                     style={{
@@ -418,14 +420,30 @@ const ViewProfileForm = ({ bloc }) => {
                             sx={{ height: 28, m: 0.5 }}
                             orientation="vertical"
                           />
-                          <IconButton
-                            onClick={() => handleSubmitLinkedin()}
-                            color="primary"
-                            sx={{ p: "10px" }}
-                            aria-label="directions"
-                          >
-                            <DirectionsIcon />
-                          </IconButton>
+                          {loading ? (
+                            <Box
+                              display="flex"
+                              flexDirection="row"
+                              alignItems="center"
+                              justifyContent="center"
+                            >
+                              <LoadingButton
+                                loading={loading}
+                                loadingPosition="center"
+                              >
+                                Loading
+                              </LoadingButton>
+                            </Box>
+                          ) : (
+                            <IconButton
+                              onClick={() => handleSubmitLinkedin()}
+                              color="primary"
+                              sx={{ p: "10px" }}
+                              aria-label="directions"
+                            >
+                              <DirectionsIcon />
+                            </IconButton>
+                          )}
                         </Paper>
                       </Box>
                     </Modal>
@@ -532,6 +550,7 @@ const ViewProfileForm = ({ bloc }) => {
                         <TextField
                           fullWidth
                           sx={{ marginTop: "10px" }}
+                          type="date"
                           size="small"
                           color="primary"
                           margin="dense"
@@ -542,7 +561,6 @@ const ViewProfileForm = ({ bloc }) => {
                           )}
                           // onChange={e => field.onChange(e)}
                           {...field}
-                          type="date"
                           InputLabelProps={{
                             shrink: true,
                           }}
@@ -628,12 +646,13 @@ const ViewProfileForm = ({ bloc }) => {
                           color="primary"
                           margin="dense"
                           variant="outlined"
-                          label="Phone*"
-                          value={field.value.Personal?.TelephoneNo}
+                          label="TelephoneNo*"
+                          name="Personal.TelephoneNo"
                           {...field}
                           InputProps={{
-                            readOnly: true,
+                            readOnly: disabled,
                           }}
+                          type="number"
                           error={Boolean(errors.Personal?.TelephoneNo)}
                           helperText={
                             errors.Personal?.TelephoneNo
