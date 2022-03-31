@@ -43,7 +43,7 @@ const LoginBloc = (LoginService) => {
         navigate("/" + role);
         window.location.reload();
       } else {
-        navigate("/vacancy");
+        // navigate("/vacancy");
         window.location.reload();
       }
     } catch (err) {
