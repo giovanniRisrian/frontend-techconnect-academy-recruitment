@@ -28,6 +28,7 @@ import ListProgramApply from "../../../applicant/status/component/ListProgramApp
 import ListProgramApplyBloc from "../../../applicant/status/bloc/ListProgramApplyBloc";
 import StatusService from "../../../applicant/status/service/StatusService";
 import jwt_decode from "jwt-decode";
+import { makeStyles } from "@mui/styles";
 
 const VacancyList = ({ bloc }) => {
   let data = useContext(RootContext);
@@ -42,6 +43,7 @@ const VacancyList = ({ bloc }) => {
       show = false;
     }
   }
+  const classes = useStyles();
 
   const {
     list,
@@ -104,37 +106,59 @@ const VacancyList = ({ bloc }) => {
             Vacancy List
           </Typography>
         </Box>
-
-        {data.userInfo && show ? (
-          <>
-            <ListProgramApply
-              bloc={() => ListProgramApplyBloc(StatusService)}
-            />
-          </>
+        {state === null ? (
+          <Box>
+            {data.userInfo && show ? (
+              <>
+                <ListProgramApply
+                  bloc={() => ListProgramApplyBloc(StatusService)}
+                />
+              </>
+            ) : (
+              <div></div>
+            )}
+          </Box>
         ) : (
-          <div></div>
+          <div />
         )}
 
         <Box
+          className={classes.root}
           sx={{
-            boxShadow: 3,
+            // boxShadow: 3,
             width: "30%",
-            backgroundColor: "#615B93",
-            borderRadius: "15px",
+            borderTopRightRadius: "15px",
+            borderBottomRightRadius: "15px",
             marginBottom: "2%",
             marginTop: "3%",
             height: "7vh",
           }}
         >
-          <Typography
-            variant="h5"
-            fontFamily="Montserrat"
-            textAlign="center"
-            color="white"
-            sx={{ marginLeft: "2%", paddingTop: "2%" }}
-          >
-            All Vacancy
-          </Typography>
+          {state === null ? (
+            <h5 style={{ textShadow: "0px 1px 10px black" }}>
+              <Typography
+                variant="h5"
+                fontFamily="Montserrat"
+                textAlign="center"
+                color="white"
+                sx={{ marginLeft: "2%", paddingTop: "5px" }}
+              >
+                All Vacancy
+              </Typography>
+            </h5>
+          ) : (
+            <h5 style={{ textShadow: "0px 1px 10px black" }}>
+              <Typography
+                variant="h5"
+                fontFamily="Montserrat"
+                textAlign="center"
+                color="white"
+                sx={{ marginLeft: "2%", paddingTop: "5px" }}
+              >
+                Recommendation Program
+              </Typography>
+            </h5>
+          )}
         </Box>
         {state == null ? (
           <>
@@ -256,7 +280,7 @@ const VacancyList = ({ bloc }) => {
                             backgroundColor: "#FFF",
                             width: "85%",
                             borderRadius: "15px",
-                  
+
                             // marginX: "10px",
                             boxShadow: 5,
                             marginLeft: "10px",
@@ -294,7 +318,7 @@ const VacancyList = ({ bloc }) => {
                               display="flex"
                               marginLeft="10px"
                               marginTop="5px"
-                              marginBottom='5%'
+                              marginBottom="5%"
                             >
                               <FontAwesomeIcon
                                 icon={faCalendar}
@@ -310,6 +334,7 @@ const VacancyList = ({ bloc }) => {
                                 )}
                               </Typography>
                             </Box>
+                            
                             <Button
                               color="secondary"
                               variant="contained"
@@ -321,7 +346,14 @@ const VacancyList = ({ bloc }) => {
                                 marginRight: "2%",
                                 backgroundColor: "#615B93",
                               }}
-                              onClick={() => navigate(`/vacancy/${value.ID}`)}
+                              onClick={() => {
+                                if(state){
+                                  navigate(`/vacancy/${value.ID}`, {state:true})
+                                }else{
+                                  navigate(`/vacancy/${value.ID}`)
+                                }
+                              }
+                              }
                             >
                               See Details
                             </Button>
@@ -375,10 +407,19 @@ const VacancyList = ({ bloc }) => {
                   handlePage(value, dataFalse);
                 }
               }}
-              sx={{ mt: 1, marginX: "auto", marginBottom: 10 }}
+              sx={{ mt: 1, marginX: "auto", marginBottom: 3 }}
             />
           </Stack>
         </Box>
+        {state == null ? (
+          <div />
+        ) : (
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Button color="secondary" onClick={() => navigate(`/vacancy`)}>
+              GO TO ALL VACANCY
+            </Button>
+          </Box>
+        )}
         <Footer />
       </Box>
     </div>
@@ -441,5 +482,14 @@ const StyledCard = styled(Card)`
   }
   `}
 `;
+const useStyles = makeStyles({
+  root: {
+    background: "linear-gradient(45deg, #615B93 60%, #F2F2F2 95%)",
+    border: 0,
+    color: "white",
+    height: 48,
+    width: "100%",
+  },
+});
 
 export default VacancyList;

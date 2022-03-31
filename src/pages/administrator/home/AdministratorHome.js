@@ -3,9 +3,9 @@ import admin from "../../../asset/image/Admin.png";
 
 const AdministratorHome = () => {
   return (
-    <Box sx={{backgroundColor:'#F2F2F2', height:'89vh'}}>
+    <Box sx={{backgroundColor:'#F2F2F2', height:'100vh'}}>
       
-        <Box display="flex" justifyContent="center" alignItems="center">
+        <Box display="flex" justifyContent="center" alignItems="center" paddingTop='5%'>
           <Typography variant="h2" fontFamily="Montserrat">
             Welcome Administrator
           </Typography>

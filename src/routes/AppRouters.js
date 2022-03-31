@@ -33,6 +33,8 @@ import ActivationAccount from "../activation/activation_account";
 import ListRecruiter from "../pages/administrator/listRecruiter/List";
 import UpdateRecruiter from "../pages/administrator/updateRecruiter/UpdateRecruiter";
 import Activations from "../pages/activation/Activation";
+import ChangeRecruiterPassword from "../pages/globalComponent/changePassword/ChangeRecruiterPassword";
+import Swal from "sweetalert2";
 
 const AppRouters = () => {
   const data = useContext(RootContext);
@@ -54,7 +56,11 @@ const AppRouters = () => {
       localStorage.removeItem("photo");
       data.dispatch({ type: ActionType.LOGIN, name: null, token: null });
       Role = null;
-      alert("Token Expired");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Token Expired",
+      });
       addressing = "/login";
     }
   } else {
@@ -110,7 +116,7 @@ const AppRouters = () => {
               </>
             }
           />
-
+          <Route path="change/password" element={<ChangeRecruiterPassword />} />
           <Route
             path="status"
             element={
@@ -151,6 +157,7 @@ const AppRouters = () => {
             path="applicants/:programId/:applicantId"
             element={<ApplicantList />}
           />
+          <Route path="change/password" element={<ChangeRecruiterPassword />} />
         </Route>
 
         <Route path="/administrator" element={<MiddlewareAuthAdministrator />}>

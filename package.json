@@ -16,6 +16,7 @@
     "@mui/lab": "^5.0.0-alpha.70",
     "@mui/material": "^5.5.2",
     "@mui/styled-engine-sc": "^5.4.2",
+    "@mui/styles": "^5.5.3",
     "@mui/x-data-grid": "^5.7.0",
     "@react-native-async-storage/async-storage": "^1.17.0",
     "@react-native-google-signin/google-signin": "^7.2.1",

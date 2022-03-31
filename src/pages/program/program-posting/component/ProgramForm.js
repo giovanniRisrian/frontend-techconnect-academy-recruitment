@@ -100,7 +100,7 @@ const ProgramForm = ({ bloc }) => {
       <>
         {/* Start of Header */}
 
-        <Grid container>
+        <Grid container paddingTop='9%' paddingLeft='5%' paddingRight='5%'>
           <Grid item md={4} />
           <Grid item md={4} sm={11} xs={11} justifyContent="center">
             <Typography
@@ -108,7 +108,7 @@ const ProgramForm = ({ bloc }) => {
               textAlign="center"
               gutterBottom
               sx={{
-                paddingY: "3%",
+                paddingY: "5%",
                 typography: { lg: "h3", sm: "h4", xs: "h4" },
                 fontWeight: {
                   lg: 600,
@@ -425,7 +425,7 @@ const ProgramForm = ({ bloc }) => {
                         color="secondary"
                         id="RequirementSkill"
                         label="Skill"
-                        placeholder="example Sql, Javascript, Python, C#"
+                        placeholder="separated by commas e.g. Sql, Javascript, Python, C#"
                         variant="outlined"
                         size="small"
                         name="RequirementSkill"

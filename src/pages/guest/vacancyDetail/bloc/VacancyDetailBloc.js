@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router";
+import { useParams, useNavigate, useLocation } from "react-router";
 import swal from "sweetalert2";
 import jwt_decode from "jwt-decode";
 
 const VacancyDetailBloc = (programService) => {
   let params = useParams();
   let navigate = useNavigate();
+  const { state } = useLocation();
   const [loading, setLoading] = useState(false);
   const [programDetail, setProgramDetail] = useState({});
   let {
@@ -197,6 +198,7 @@ const VacancyDetailBloc = (programService) => {
     getProgrambyId,
     doApplyProgram,
     getUserbyId,
+    state
   };
 };
 

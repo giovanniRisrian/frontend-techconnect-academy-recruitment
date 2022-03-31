@@ -25,22 +25,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Divider } from "@mui/material";
 
-let pages = [
-  "Home",
-  "About Us",
-  "Program / Certificate",
-  // "Reccomendation Program/Certificate",
-  // "Status",
+let pages = ["Home", "About Us", "Program / Certificate"];
+let pageLink = ["/", "/about", "/vacancy"];
+let settings = ["Profile", "Change Password", "Logout"];
+let settingsLink = [
+  "/applicant/profile",
+  "/applicant/change/password",
+  "/logout",
 ];
-let pageLink = [
-  "/",
-  "/about",
-  "/vacancy",
-  // "/applicant/reccomendation",
-  // "/applicant/status",
-];
-let settings = ["Profile", "Logout"];
-let settingsLink = ["/applicant/profile", "/logout"];
 
 // Applicant configuration
 let pagesApplicant = [
@@ -59,8 +51,9 @@ let pageLinkApplicant = [
 // Recruiter Configuration
 let pagesRecruiter = ["Home", "About Us", "Program / Certificate", "Dashboard"];
 let pageLinkRecruiter = ["/", "/about", "/vacancy", "/recruiter"];
-let settingsRecruiter = ["Logout"];
-let settingsLinkRecruiter = ["/logout"];
+let settingsRecruiter = ["Change Password", "Logout"];
+let settingsLinkRecruiter = ["/recruiter/change/password", "/logout"];
+
 let photo = localStorage.getItem("photo");
 let srcPhoto;
 if (photo) {
@@ -74,14 +67,12 @@ let pagesAdmin = [
   "About Us",
   "Program / Certificate",
   "List Recruiter",
-  "Register Recruiter",
 ];
 let pageLinkAdmin = [
   "/",
   "/about",
   "/vacancy",
   "/administrator/list/recruiter",
-  "/administrator/register/recruiter",
 ];
 let settingAdmin = ["Logout"];
 let settingsLinkAdmin = ["/logout"];
@@ -129,7 +120,7 @@ const NavbarCompontent = () => {
   };
 
   return (
-    <AppBar position="sticky" style={{ backgroundColor: "#171059" }}>
+    <AppBar position="sticky" style={{ backgroundColor: "#171059" ,borderBottomLeftRadius:50,borderBottomRightRadius:50,position:"absolute"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -138,6 +129,24 @@ const NavbarCompontent = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" }, textShadow: 3 }}
           >
+             <Button
+                onClick={() => navigate('/')}
+                sx={{
+                  my: "auto",
+                  color: "#8645FF",
+                  display: "block",
+                  fontFamily:"Arial,  sans-serif",
+                  // backgroundColor: "#171059",
+                  marginLeft: "10%",
+                  borderRadius: "10px",
+                  // borderRight: "0.01em solid white",
+                  // borderTopRightRadius: "0",
+                  // borderBottomRightRadius: "0",
+                  // padding: "0.1em",
+                  // height: "120%",
+                }}
+              >
+                {/* <p>TCA Recruitment</p> */}
             <img
               src={logo}
               alt="logo-tca"
@@ -146,7 +155,7 @@ const NavbarCompontent = () => {
                 width: "80px",
                 boxShadow: 3,
               }}
-            />
+            /></Button>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -210,8 +219,11 @@ const NavbarCompontent = () => {
                 onClick={() => navigate(pageLink[index])}
                 sx={{
                   my: "auto",
-                  color: "#FFF",
+                  color: "white",
                   display: "block",
+                  fontFamily:"Arial,  sans-serif",
+                  // backgroundColor: "#F5F5F5",
+                  marginLeft: "10px",
                   // borderRight: "0.01em solid white",
                   // borderTopRightRadius: "0",
                   // borderBottomRightRadius: "0",
@@ -219,7 +231,8 @@ const NavbarCompontent = () => {
                   // height: "120%",
                 }}
               >
-                {page}
+                <strong>
+                {page}</strong>
                 {/* <Box
                     sx={{
                       my: "auto",
@@ -241,7 +254,7 @@ const NavbarCompontent = () => {
                   variant="outlined"
                   onClick={() => navigate("/login")}
                   sx={{
-                    color: "#FFF",
+                    color: "#8645FF",
                     marginRight: "10px",
                     borderColor: "#8645FF",
                     borderRadius: "15px",

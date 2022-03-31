@@ -244,9 +244,9 @@ const ApplicantListComp = ({ bloc }) => {
 
   return (
     <Box>
-      <Box sx={{ mb: 20 }}>
+      <Box >
         {/* Start of Header */}
-        <Grid container sx={{ paddingTop: 5 }}>
+        <Grid container sx={{ paddingTop: '7%' }}>
           <Grid item md={3} />
           <Grid item md={6} sm={12} xs={12}>
             <Typography
@@ -339,13 +339,13 @@ const ApplicantListComp = ({ bloc }) => {
                   onPageSizeChange={(newPage) => setPageSize2(newPage)}
                 />
                 <Box display={"flex"} justifyContent={"flex-end"} mt={"5px"}>
-                  {/* <Button
+                  <Button
                     size="small"
                     variant="contained"
                     onClick={closeShowModal}
                   >
                     Close
-                  </Button> */}
+                  </Button>
                 </Box>
               </Box>
             </Box>
@@ -584,7 +584,9 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  paddingTop:'3%',
+  paddingBottom:"5%",
+  paddingX:'2%',
   borderRadius: "5px",
 
   ".MuiDataGrid-viewport": {
