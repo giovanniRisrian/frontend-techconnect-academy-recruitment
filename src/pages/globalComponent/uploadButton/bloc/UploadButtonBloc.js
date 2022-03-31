@@ -34,7 +34,7 @@ const UploadButtonBloc = (UploadService) => {
       setLoading(true);
       let res = await postUpload(formData, config);
       // setInfo(res.data.data.matchId)
-      console.log("Profile Linkin : ", res.data.data.summary.profile);
+      // console.log("Profile Linkin : ", res.data.data.summary.profile);
       let res2 = await postGetDataByListId(
         { ID: res.data.data.matchId },
         config
@@ -115,9 +115,9 @@ const UploadButtonBloc = (UploadService) => {
       const profile = res.data.data.summary.profile;
       // console.log("ketemukah : ", profile.length);
       // console.log("ketemukah : ", profile === null);
-      console.log(profile.lasttname);
+      // console.log(profile.lasttname);
       if (profile != null) {
-        console.log("terupdate");
+        // console.log("terupdate");
         mock.Personal.Name = profile.firstname + " " + profile.lasttname;
         mock.Personal.Domicile = profile.country + " " + profile.province;
         if (profile.education != null) {
@@ -132,7 +132,7 @@ const UploadButtonBloc = (UploadService) => {
             GPA: "",
           };
           for (let i = 0; i < education.length; i++) {
-            console.log(education[i].period.endDate.year);
+            // console.log(education[i].period.endDate.year);
             tempEducation.Title = education[i].degree;
             tempEducation.Institution = education[i].school;
             tempEducation.Major = education[i].field;
@@ -152,7 +152,7 @@ const UploadButtonBloc = (UploadService) => {
           mock.Education = tempEducationArr;
         }
       } else {
-        console.log("Tidak Terupdate");
+        // console.log("Tidak Terupdate");
       }
       let min = 10000000;
       let max = 0;
@@ -249,8 +249,8 @@ const UploadButtonBloc = (UploadService) => {
             Description: "",
           };
         }
-        console.log("ini Semua Tanggal Int:", tempArr);
-        console.log("ini Semua Tanggal Date:", tempArrDate);
+        // console.log("ini Semua Tanggal Int:", tempArr);
+        // console.log("ini Semua Tanggal Date:", tempArrDate);
         mock.WorkExperience = tempExperienceArr;
 
         if (!maxDate) {
@@ -261,9 +261,9 @@ const UploadButtonBloc = (UploadService) => {
         const indexMax = tempArr.indexOf(max);
         const min = Math.min(...tempArr);
         const indexMin = tempArr.indexOf(min);
-        console.log(max, min, indexMax, indexMin);
-        console.log("MINIMUM ADALAH : ", tempArr[indexMin]);
-        console.log("MAXIMUM ADALAH : ", tempArr[indexMax]);
+        // console.log(max, min, indexMax, indexMin);
+        // console.log("MINIMUM ADALAH : ", tempArr[indexMin]);
+        // console.log("MAXIMUM ADALAH : ", tempArr[indexMax]);
 
         let date1 = new Date(tempArrDate[indexMin]);
         let date2 = new Date(tempArrDate[indexMax]);
@@ -274,11 +274,11 @@ const UploadButtonBloc = (UploadService) => {
         // To calculate the no. of days between two dates
         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
         let Different_In_Year = Difference_In_Days / 365;
-        console.log("Differentnya", Difference_In_Days);
+        // console.log("Differentnya", Difference_In_Days);
         mock.Personal.TotalWorkingExperience =
           Different_In_Year.toFixed(2).toString();
       }
-      console.log("INI MOCK FINALNYA", mock);
+      // console.log("INI MOCK FINALNYA", mock);
       const jsonText = JSON.stringify(mock);
       const jsonPretendFile = new Blob([jsonText], {
         type: "application/json",

@@ -46,7 +46,7 @@ const ListProgramApply = ({ bloc }) => {
     getStatusbyId(idProgram, id, data);
     setOpen(true);
   };
-  console.log(list);
+  // console.log(list);
 
   useEffect(() => {
     getListAppliedProgram(1, id, data);

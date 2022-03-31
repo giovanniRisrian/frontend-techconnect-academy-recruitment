@@ -20,9 +20,9 @@ const ReccomendationBloc = (ReccomendationService) => {
   // console.log("apaeror");
 
   const doReccomendation = async () => {
-    console.log("masuik sini");
+    // console.log("masuik sini");
     let userInfo = jwt_decode(context.userInfo);
-    console.log(userInfo);
+    // console.log(userInfo);
     try {
       const config = {
         headers: {
@@ -30,10 +30,10 @@ const ReccomendationBloc = (ReccomendationService) => {
           // "Content-Type": "multipart/form-data",
         },
       };
-      console.log(context.userInfo);
+      // console.log(context.userInfo);
       let resp = await getJobReccomendationId(config);
-      console.log(resp.data.data);
-      console.log("OIIII");
+      // console.log(resp.data.data);
+      // console.log("OIIII");
       let resp2 = await postGetDataByListId({ ID: resp.data.data }, config);
       // console.log(resp2.data.data);
       setLoading(true);

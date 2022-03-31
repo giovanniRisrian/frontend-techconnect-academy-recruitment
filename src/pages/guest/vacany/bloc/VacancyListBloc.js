@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 const VacancyListBloc = (programService, useVacancyList) => {
-  const { state } = useLocation()
+  const { state } = useLocation();
   let { list, setList } = useVacancyList();
   const [typeProgram, setTypeProgram] = useState([]);
   const [types, setType] = useState("");
@@ -29,7 +29,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
           headers: { Authorization: `Bearer ${context.userInfo}` },
         };
         userInfo = jwt_decode(context.userInfo);
-        console.log("Informasi Token", userInfo);
+        // console.log("Informasi Token", userInfo);
         responseAppliedId = await getAppliedProgram(userInfo.id, config);
         responseAppliedId = responseAppliedId.data.data;
         setIdlist(responseAppliedId);
@@ -41,9 +41,9 @@ const VacancyListBloc = (programService, useVacancyList) => {
       } else {
         tempList = { ProgramList: state, LastPage: 1 };
       }
-      console.log(context.userInfo);
+      // console.log(context.userInfo);
       for (let x = 0; x < tempList.ProgramList.length; x++) {
-        console.log(x + "=>", tempList.ProgramList[x].ID);
+        // console.log(x + "=>", tempList.ProgramList[x].ID);
         if (context.userInfo) {
           if (responseAppliedId) {
             if (responseAppliedId.includes(tempList.ProgramList[x].ID)) {
@@ -58,7 +58,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
           tempList.ProgramList[x].applied = false;
         }
       }
-      console.log("temp", tempList);
+      // console.log("temp", tempList);
       setList(tempList);
       setLoading(false);
       return list;
@@ -90,7 +90,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
         const response = await getInformationProgram(pages, "", searchValue);
         tempList = response.data.data;
         for (let x = 0; x < tempList.ProgramList.length; x++) {
-          console.log(x + "=>", tempList.ProgramList[x].ID);
+          // console.log(x + "=>", tempList.ProgramList[x].ID);
           if (context.userInfo) {
             if (responseAppliedId.includes(tempList.ProgramList[x].ID)) {
               tempList.ProgramList[x].applied = true;
@@ -138,7 +138,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
       const response = await getInformationProgram((pages = 1), types, "");
       tempList = response.data.data;
       for (let x = 0; x < tempList.ProgramList.length; x++) {
-        console.log(x + "=>", tempList.ProgramList[x].ID);
+        // console.log(x + "=>", tempList.ProgramList[x].ID);
         if (context.userInfo) {
           if (responseAppliedId.includes(tempList.ProgramList[x].ID)) {
             tempList.ProgramList[x].applied = true;
@@ -162,7 +162,7 @@ const VacancyListBloc = (programService, useVacancyList) => {
 
     setPage(page);
   };
-  console.log(state, "vacancylist");
+  // console.log(state, "vacancylist");
   return {
     list,
     loading,

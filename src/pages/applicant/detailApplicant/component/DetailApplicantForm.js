@@ -27,7 +27,7 @@ const DetailApplicantForm = ({ bloc }) => {
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
   let [uploadPhoto, setUpload] = useState(false);
-  const [disabled, changeDisable] = useState(1);
+  const [disabled, changeDisable] = useState(true);
   const [initialValues, changeInitial] = useState({
     ID: "",
     UserAccountID: "",

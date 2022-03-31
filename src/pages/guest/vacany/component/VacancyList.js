@@ -35,9 +35,9 @@ const VacancyList = ({ bloc }) => {
   let show = true;
   let dataFalse = { userInfo: null };
   let decodeInfo;
-  console.log("context", data);
+  // console.log("context", data);
   if (data?.userInfo) {
-    console.log("data", data.userInfo);
+    // console.log("data", data.userInfo);
     decodeInfo = jwt_decode(data?.userInfo);
     if (decodeInfo.Role !== "user") {
       show = false;
@@ -183,7 +183,7 @@ const VacancyList = ({ bloc }) => {
                   value={types}
                   label="Program"
                   onChange={(e, value) => {
-                    console.log("change", e.target.value);
+                    // console.log("change", e.target.value);
                     if (show === true) {
                       handleType(e.target.value, data);
                     } else {
@@ -334,7 +334,7 @@ const VacancyList = ({ bloc }) => {
                                 )}
                               </Typography>
                             </Box>
-                            
+
                             <Button
                               color="secondary"
                               variant="contained"
@@ -347,13 +347,14 @@ const VacancyList = ({ bloc }) => {
                                 backgroundColor: "#615B93",
                               }}
                               onClick={() => {
-                                if(state){
-                                  navigate(`/vacancy/${value.ID}`, {state:true})
-                                }else{
-                                  navigate(`/vacancy/${value.ID}`)
+                                if (state) {
+                                  navigate(`/vacancy/${value.ID}`, {
+                                    state: true,
+                                  });
+                                } else {
+                                  navigate(`/vacancy/${value.ID}`);
                                 }
-                              }
-                              }
+                              }}
                             >
                               See Details
                             </Button>

@@ -99,7 +99,7 @@ const ViewProfileForm = ({ bloc }) => {
   const data = useContext(RootContext);
   let userInfo = jwt_decode(data.userInfo);
   // let [uploadPhoto, setUpload] = useState(false);
-  const [disabled, changeDisable] = useState(1);
+  const [disabled, changeDisable] = useState(true);
   const [initialValues, changeInitial] = useState({
     ID: "",
     UserAccountID: "",
@@ -362,7 +362,7 @@ const ViewProfileForm = ({ bloc }) => {
                     }}
                   >
                     <Button
-                      margin="normal"
+                      margin="dense"
                       type="button"
                       color="primary"
                       variant="outlined"
@@ -377,7 +377,7 @@ const ViewProfileForm = ({ bloc }) => {
                     </Button>
 
                     <Button
-                      margin="normal"
+                      margin="dense"
                       type="button"
                       color="primary"
                       variant="contained"
@@ -463,7 +463,7 @@ const ViewProfileForm = ({ bloc }) => {
                           fullWidth
                           size="small"
                           color="primary"
-                          margin="normal"
+                          margin="dense"
                           variant="outlined"
                           InputLabelProps={{
                             shrink: true,
@@ -490,19 +490,19 @@ const ViewProfileForm = ({ bloc }) => {
                             <InputLabel
                               id="Gender"
                               color="primary"
-                              textAlign="center"
+                              // textAlign="center"
                             >
                               Gender
                             </InputLabel>
 
                             <Select
-                              sx={{ marginTop: "15px" }}
+                              sx={{ marginTop: "9px" }}
                               {...field}
                               label={"Gender*"}
                               fullWidth
                               size="small"
                               color="primary"
-                              margin="normal"
+                              margin="dense"
                               variant="outlined"
                               InputLabelProps={{
                                 shrink: true,
@@ -531,10 +531,10 @@ const ViewProfileForm = ({ bloc }) => {
                       render={({ field }) => (
                         <TextField
                           fullWidth
-                          sx={{ marginTop: "25px" }}
+                          sx={{ marginTop: "10px" }}
                           size="small"
                           color="primary"
-                          margin="normal"
+                          margin="dense"
                           variant="outlined"
                           label="Birth Date*"
                           value={dayjs(field.value?.BirthDate).format(
@@ -566,10 +566,10 @@ const ViewProfileForm = ({ bloc }) => {
                       render={({ field }) => (
                         <TextField
                           fullWidth
-                          sx={{ marginTop: "15px" }}
+                          // sx={{ marginTop: "15px" }}
                           size="small"
                           color="primary"
-                          margin="normal"
+                          margin="dense"
                           variant="outlined"
                           label="Domicile*"
                           name="Personal.Domicile"
@@ -597,7 +597,7 @@ const ViewProfileForm = ({ bloc }) => {
                           fullWidth
                           size="small"
                           color="primary"
-                          margin="normal"
+                          margin="dense"
                           variant="outlined"
                           label="Email*"
                           name="Personal.Email"
@@ -626,7 +626,7 @@ const ViewProfileForm = ({ bloc }) => {
                           fullWidth
                           size="small"
                           color="primary"
-                          margin="normal"
+                          margin="dense"
                           variant="outlined"
                           label="Phone*"
                           value={field.value.Personal?.TelephoneNo}
@@ -648,7 +648,7 @@ const ViewProfileForm = ({ bloc }) => {
                       control={control}
                       render={({ field }) => (
                         <TextField
-                          margin="normal"
+                          margin="dense"
                           fullWidth
                           color="primary"
                           id="TotalWorkingExperience"
@@ -670,7 +670,7 @@ const ViewProfileForm = ({ bloc }) => {
                       render={({ field }) => (
                         <TextField
                           fullWidth
-                          margin="normal"
+                          margin="dense"
                           color="primary"
                           id="SalaryExpectation"
                           label="Salary Expectation"
@@ -731,7 +731,7 @@ const ViewProfileForm = ({ bloc }) => {
                             render={({ field }) => (
                               <TextField
                                 fullWidth
-                                margin="normal"
+                                margin="dense"
                                 color="primary"
                                 label="Title*"
                                 variant="outlined"
@@ -756,7 +756,7 @@ const ViewProfileForm = ({ bloc }) => {
                             render={({ field }) => (
                               <TextField
                                 fullWidth
-                                margin="normal"
+                                margin="dense"
                                 color="primary"
                                 label="Institution*"
                                 variant="outlined"
@@ -784,7 +784,7 @@ const ViewProfileForm = ({ bloc }) => {
                             render={({ field }) => (
                               <TextField
                                 fullWidth
-                                margin="normal"
+                                margin="dense"
                                 color="primary"
                                 label="Major*"
                                 variant="outlined"
@@ -811,7 +811,7 @@ const ViewProfileForm = ({ bloc }) => {
                             render={({ field }) => (
                               <TextField
                                 fullWidth
-                                margin="normal"
+                                margin="dense"
                                 color="primary"
                                 label="Year In*"
                                 variant="outlined"
@@ -839,7 +839,7 @@ const ViewProfileForm = ({ bloc }) => {
                             render={({ field }) => (
                               <TextField
                                 fullWidth
-                                margin="normal"
+                                margin="dense"
                                 color="primary"
                                 label="Year Out*"
                                 variant="outlined"
@@ -867,7 +867,7 @@ const ViewProfileForm = ({ bloc }) => {
                             render={({ field }) => (
                               <TextField
                                 fullWidth
-                                margin="normal"
+                                margin="dense"
                                 color="primary"
                                 label="GPA*"
                                 variant="outlined"
@@ -897,7 +897,7 @@ const ViewProfileForm = ({ bloc }) => {
                                 <div />
                               ) : (
                                 <Button
-                                  margin="normal"
+                                  margin="dense"
                                   type="button"
                                   color="primary"
                                   variant="outlined"
@@ -989,7 +989,7 @@ const ViewProfileForm = ({ bloc }) => {
                               render={({ field }) => (
                                 <TextField
                                   fullWidth
-                                  margin="normal"
+                                  margin="dense"
                                   color="primary"
                                   label="Organization"
                                   variant="outlined"
@@ -1008,7 +1008,7 @@ const ViewProfileForm = ({ bloc }) => {
                               render={({ field }) => (
                                 <TextField
                                   fullWidth
-                                  margin="normal"
+                                  margin="dense"
                                   color="primary"
                                   label="Scope"
                                   variant="outlined"
@@ -1029,7 +1029,7 @@ const ViewProfileForm = ({ bloc }) => {
                               render={({ field }) => (
                                 <TextField
                                   fullWidth
-                                  margin="normal"
+                                  margin="dense"
                                   color="primary"
                                   label="Duration in Year"
                                   variant="outlined"
@@ -1049,7 +1049,7 @@ const ViewProfileForm = ({ bloc }) => {
                               render={({ field }) => (
                                 <TextField
                                   fullWidth
-                                  margin="normal"
+                                  margin="dense"
                                   color="primary"
                                   label="Position"
                                   variant="outlined"
@@ -1073,7 +1073,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   <div />
                                 ) : (
                                   <Button
-                                    margin="normal"
+                                    margin="dense"
                                     type="button"
                                     color="primary"
                                     variant="outlined"
@@ -1103,7 +1103,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   multiline
                                   minRows={3}
                                   color="primary"
-                                  margin="normal"
+                                  margin="dense"
                                   variant="outlined"
                                   label="Description"
                                   InputProps={{
@@ -1189,7 +1189,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   fullWidth
                                   size="small"
                                   color="primary"
-                                  margin="normal"
+                                  margin="dense"
                                   variant="outlined"
                                   label="Company Name"
                                   InputProps={{
@@ -1208,7 +1208,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   fullWidth
                                   size="small"
                                   color="primary"
-                                  margin="normal"
+                                  margin="dense"
                                   variant="outlined"
                                   label="Position"
                                   InputProps={{
@@ -1228,7 +1228,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   fullWidth
                                   size="small"
                                   color="primary"
-                                  margin="normal"
+                                  margin="dense"
                                   variant="outlined"
                                   label="Level"
                                   InputProps={{
@@ -1249,7 +1249,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   fullWidth
                                   size="small"
                                   color="primary"
-                                  margin="normal"
+                                  margin="dense"
                                   variant="outlined"
                                   label="Industry"
                                   InputProps={{
@@ -1272,7 +1272,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   fullWidth
                                   size="small"
                                   color="primary"
-                                  margin="normal"
+                                  margin="dense"
                                   variant="outlined"
                                   label="Start Date"
                                   InputProps={{
@@ -1299,7 +1299,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   fullWidth
                                   size="small"
                                   color="primary"
-                                  margin="normal"
+                                  margin="dense"
                                   variant="outlined"
                                   label="End Date"
                                   InputProps={{
@@ -1326,7 +1326,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   <div />
                                 ) : (
                                   <Button
-                                    margin="normal"
+                                    margin="dense"
                                     type="button"
                                     color="primary"
                                     variant="outlined"
@@ -1356,7 +1356,7 @@ const ViewProfileForm = ({ bloc }) => {
                                   multiline
                                   minRows={3}
                                   color="primary"
-                                  margin="normal"
+                                  margin="dense"
                                   variant="outlined"
                                   label="Description"
                                   InputProps={{
@@ -1435,7 +1435,7 @@ const ViewProfileForm = ({ bloc }) => {
                               render={({ field }) => (
                                 <TextField
                                   fullWidth
-                                  margin="normal"
+                                  margin="dense"
                                   color="primary"
                                   label="Skill*"
                                   variant="outlined"
@@ -1462,7 +1462,7 @@ const ViewProfileForm = ({ bloc }) => {
                                 <div />
                               ) : (
                                 <Button
-                                  margin="normal"
+                                  margin="dense"
                                   type="button"
                                   color="primary"
                                   variant="outlined"

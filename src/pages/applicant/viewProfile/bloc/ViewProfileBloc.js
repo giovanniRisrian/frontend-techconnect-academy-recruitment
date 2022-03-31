@@ -27,16 +27,16 @@ const ViewProfileBloc = (viewViewProfileService) => {
       { profile_id: linkedin },
       config
     );
-    console.log(resp.data);
+    // // // console.log(resp.data);
     let mock = values;
 
     let profile = resp.data.data;
     // console.log("ketemukah : ", profile.length);
     // console.log("ketemukah : ", profile === null);
-    console.log(profile);
-    console.log("LASTNAMENYA ADALAH", profile.lasttname);
+    // console.log(profile);
+    // console.log("LASTNAMENYA ADALAH", profile.lasttname);
     if (profile != null) {
-      console.log("terupdate");
+      // console.log("terupdate");
       mock.Personal.Name = profile.firstname + " " + profile.lasttname;
       mock.Personal.Domicile = profile.country + " " + profile.province;
       if (profile.education != null) {
@@ -51,7 +51,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
           GPA: "",
         };
         for (let i = 0; i < education.length; i++) {
-          console.log(education[i].period.endDate.year);
+          // console.log(education[i].period.endDate.year);
           tempEducation.Title = education[i].degree;
           tempEducation.Institution = education[i].school;
           tempEducation.Major = education[i].field;
@@ -70,7 +70,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
         mock.Education = tempEducationArr;
       }
     } else {
-      console.log("Tidak Terupdate");
+      // console.log("Tidak Terupdate");
     }
     let min = 10000000;
     let max = 0;
@@ -167,8 +167,8 @@ const ViewProfileBloc = (viewViewProfileService) => {
           Description: "",
         };
       }
-      console.log("ini Semua Tanggal Int:", tempArr);
-      console.log("ini Semua Tanggal Date:", tempArrDate);
+      // console.log("ini Semua Tanggal Int:", tempArr);
+      // console.log("ini Semua Tanggal Date:", tempArrDate);
       mock.WorkExperience = tempExperienceArr;
 
       if (!maxDate) {
@@ -179,9 +179,9 @@ const ViewProfileBloc = (viewViewProfileService) => {
       const indexMax = tempArr.indexOf(max);
       const min = Math.min(...tempArr);
       const indexMin = tempArr.indexOf(min);
-      console.log(max, min, indexMax, indexMin);
-      console.log("MINIMUM ADALAH : ", tempArr[indexMin]);
-      console.log("MAXIMUM ADALAH : ", tempArr[indexMax]);
+      // console.log(max, min, indexMax, indexMin);
+      // console.log("MINIMUM ADALAH : ", tempArr[indexMin]);
+      // console.log("MAXIMUM ADALAH : ", tempArr[indexMax]);
 
       let date1 = new Date(tempArrDate[indexMin]);
       let date2 = new Date(tempArrDate[indexMax]);
@@ -192,11 +192,11 @@ const ViewProfileBloc = (viewViewProfileService) => {
       // To calculate the no. of days between two dates
       let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
       let Different_In_Year = Difference_In_Days / 365;
-      console.log("Differentnya", Difference_In_Days);
+      // console.log("Differentnya", Difference_In_Days);
       mock.Personal.TotalWorkingExperience =
         Different_In_Year.toFixed(2).toString();
     }
-    console.log(mock);
+    // console.log(mock);
 
     const formData = new FormData();
     let filepath =
@@ -244,7 +244,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
         ];
       values.Personal.ResumeFile = filepath;
       const jsonText = JSON.stringify(values);
-      console.log("data profile", values);
+      // console.log("data profile", values);
       const jsonPretendFile = new Blob([jsonText], {
         type: "application/json",
       });
@@ -347,7 +347,7 @@ const ViewProfileBloc = (viewViewProfileService) => {
           dataReceive.Personal.BirthDate
         ).format("YYYY-MM-DD");
       }
-      console.log("birthdate", mock.Personal);
+      // console.log("birthdate", mock.Personal);
       mock.Education = dataReceive.Education;
       mock.SkillSet = dataReceive.SkillSet;
       mock.WorkExperience = dataReceive.WorkExperience;
