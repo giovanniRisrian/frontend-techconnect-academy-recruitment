@@ -139,7 +139,7 @@ const ChangeRecruiterPasswordComponent = ({ bloc }) => {
                   </LoadingButton>
                 </Box>
               ) : ( */}
-              <Box>
+              <Box display='flex' justifyContent='center' alignItems='center' marginBottom='5%'>
                 <Button
                   variant="outlined"
                   sx={{ marginRight: "5%" }}
@@ -156,7 +156,7 @@ const ChangeRecruiterPasswordComponent = ({ bloc }) => {
                   variant="contained"
                   value="submit"
                   disabled={!(formik.isValid && formik.dirty)}
-                  sx={{ width: "60%", height: "40px" }}
+                  // sx={{ width: "60%", height: "40px" }}
                 >
                   SUBMIT
                 </Button>

@@ -43,6 +43,7 @@ const LoginBloc = (LoginService) => {
         navigate("/vacancy");
       }
     } catch (err) {
+      setLoading(false);
       if (err.response.data.code === 403) {
         Swal.fire({
           icon: "info",

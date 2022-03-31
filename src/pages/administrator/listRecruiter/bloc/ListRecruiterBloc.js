@@ -52,12 +52,12 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
     }
   };
 
-  const doRegisterRecruiter = async (formik, context) => {
+  const doRegisterRecruiter = async (val, context) => {
     try {
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
-      let res = await postRegisterRecruiter(formik.values, config);
+      let res = await postRegisterRecruiter(val, config);
       setModalRegister(false);
       window.location.reload();
       // console.log(res);

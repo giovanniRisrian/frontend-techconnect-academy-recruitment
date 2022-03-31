@@ -24,6 +24,8 @@ import notfound from "../../../../asset/image/no-data.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import logo from "../../../../asset/icon/logo.svg";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 function CustomNoRowsOverlay() {
   return (
@@ -69,28 +71,65 @@ export default function ListRecruiter({ bloc }) {
     setId,
   } = bloc();
 
-  // Formik Register
-  const formikRegister = useFormik({
-    initialValues: {
-      fullname: "",
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .required("This field is required")
-        .email("Invalid email format"),
-      password: Yup.string()
-        .required("This field is required")
-        .min(5, "minimum 6 characters"),
-      fullname: Yup.string()
-        .required("This field is required")
-        .min(5, "minimum 6 characters"),
-    }),
-    onSubmit: () => {
-      handleRegisterFront();
-    },
+  //useFormRegister
+  let initialValueRegister = {
+    fullname: "",
+    email: "",
+    password: "",
+  };
+
+  const validationRegister = Yup.object({
+    email: Yup.string()
+      .required("This field is required")
+      .email("Invalid email format"),
+    password: Yup.string()
+      .required("This field is required")
+      .min(6, "minimum 6 characters"),
+    fullname: Yup.string()
+      .required("This field is required")
+      .min(6, "minimum 6 characters"),
   });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationRegister),
+    defaultValues: initialValueRegister,
+  });
+
+  // Formik Register
+  // const formikRegister = useFormik({
+  //   initialValues: {
+  //     fullname: "",
+  //     email: "",
+  //     password: "",
+  //   },
+  //   validationSchema: Yup.object({
+  //     email: Yup.string()
+  //       .required("This field is required")
+  //       .email("Invalid email format"),
+  //     password: Yup.string()
+  //       .required("This field is required")
+  //       .min(5, "minimum 6 characters"),
+  //     fullname: Yup.string()
+  //       .required("This field is required")
+  //       .min(5, "minimum 6 characters"),
+  //   }),
+  //   onSubmit: () => {
+  //     handleRegisterFront();
+  //   },
+  // });
+
+  // const handleRegisterFront = () => {
+  //   console.log(val);
+  //   doRegisterRecruiter(formikRegister, data);
+  // };
+  const onSubmit = (val) => {
+    // console.log(val);
+    doRegisterRecruiter(val, data);
+  };
 
   // Formik Update
   const formikUpdate = useFormik({
@@ -153,10 +192,6 @@ export default function ListRecruiter({ bloc }) {
       ],
     },
   ];
-
-  const handleRegisterFront = () => {
-    doRegisterRecruiter(formikRegister, data);
-  };
 
   const getDataById = async (id) => {
     setModalUpdate(true);
@@ -237,7 +272,8 @@ export default function ListRecruiter({ bloc }) {
             ...style,
           }}
         >
-          <form onSubmit={formikRegister.handleSubmit}>
+          {/* <form onSubmit={formikRegister.handleSubmit}> */}
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Typography textAlign="center">
               <img
                 src={logo}
@@ -256,7 +292,27 @@ export default function ListRecruiter({ bloc }) {
                 Register Recruiter Account
               </Typography>
             </Box>
-            <TextField
+            <Controller
+              name={"fullname"}
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  sx={{marginBottom:'3%'}}
+                  fullWidth
+                  color="primary"
+                  id="fullname"
+                  label="Fullname"
+                  variant="outlined"
+                  size="small"
+                  name="fullname"
+                  {...field}
+                  error={Boolean(errors.fullname)}
+                  // helperText={errors.fullname}
+                  helperText={errors.fullname ? errors.fullname?.message : ""}
+                />
+              )}
+            ></Controller>
+            {/* <TextField
               variant="outlined"
               color="primary"
               className="form-control cardForm text-center"
@@ -274,9 +330,9 @@ export default function ListRecruiter({ bloc }) {
                   {formikRegister.errors.fullname}
                 </small>
               ) : null}
-            </p>
+            </p> */}
 
-            <TextField
+            {/* <TextField
               variant="outlined"
               color="primary"
               className="form-control cardForm text-center"
@@ -293,9 +349,29 @@ export default function ListRecruiter({ bloc }) {
                   {formikRegister.errors.email}
                 </small>
               ) : null}
-            </p>
+            </p> */}
 
-            <TextField
+            <Controller
+              name={"email"}
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  fullWidth
+                  sx={{marginBottom:'3%'}}
+                  color="primary"
+                  id="email"
+                  label="Email"
+                  variant="outlined"
+                  size="small"
+                  name="email"
+                  {...field}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email ? errors.email?.message : ""}
+                />
+              )}
+            ></Controller>
+
+            {/* <TextField
               variant="outlined"
               color="primary"
               className="form-control cardForm text-center"
@@ -313,7 +389,30 @@ export default function ListRecruiter({ bloc }) {
                   {formikRegister.errors.password}
                 </small>
               ) : null}
-            </p>
+            </p> */}
+
+            <Controller
+              name={"password"}
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  fullWidth
+                  sx={{marginBottom:'3%'}}
+                  type="password"
+                  color="primary"
+                  id="password"
+                  label="Password"
+                  variant="outlined"
+                  size="small"
+                  name="password"
+
+                  error={Boolean(errors.password)}
+                  {...field}
+                  helperText={errors.password ? errors.password?.message : ""}
+                  
+                />
+              )}
+            ></Controller>
             <Box display="flex" justifyContent="center">
               <Button
                 variant="outlined"
@@ -332,7 +431,7 @@ export default function ListRecruiter({ bloc }) {
                 value="submit"
                 color="primary"
                 textAlign="center"
-                disabled={!(formikRegister.isValid && formikRegister.dirty)}
+                // disabled={!(formikRegister.isValid && formikRegister.dirty)}
                 marginLeft="20px"
               >
                 SUBMIT
