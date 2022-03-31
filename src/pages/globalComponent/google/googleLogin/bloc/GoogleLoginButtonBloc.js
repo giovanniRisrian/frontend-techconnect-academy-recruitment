@@ -12,7 +12,7 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
   const doLogin = async (obj, fullname) => {
     try {
       let res = await postLogin(obj);
-      console.log(res);
+      // console.log(res);
       localStorage.setItem("token", res.data.data.token);
       context.dispatch({
         type: ActionType.LOGIN,
@@ -27,11 +27,11 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
       };
 
       const resp3 = await getInfo(config);
-      console.log("ini response 3", resp3.data.data);
+      // console.log("ini response 3", resp3.data.data);
 
       localStorage.setItem("photo", resp3.data.data.Personal.PhotoFile);
       let role = jwt_decode(res.data.data.token).Role;
-      console.log("Login Google Berhasil");
+      // console.log("Login Google Berhasil");
       if (role !== "user") {
         navigate("/" + role);
         window.location.reload();
@@ -41,7 +41,7 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
       }
     } catch (err) {
       try {
-        console.log("inifulnname :", fullname);
+        // console.log("inifulnname :", fullname);
         const newObj = {
           fullname: fullname,
           email: obj.username,
@@ -57,22 +57,22 @@ const GoogleLoginButtonBloc = (GoogleLoginButtonService) => {
         });
         navigate("/vacancy");
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
   };
   const clientId =
     "765193159209-13h77s7f6l1a1ua96nh6moge7m96merp.apps.googleusercontent.com";
   const onSuccess = (res) => {
-    console.log("[Login Success] Current Users:", res.profileObj);
-    console.log(res);
+    // console.log("[Login Success] Current Users:", res.profileObj);
+    // console.log(res);
     let username = res.profileObj.email;
     let password = md5(res.profileObj.googleId);
     const obj = { username: username, password: password };
     doLogin(obj, res.profileObj.name);
   };
   const onFailure = (res) => {
-    console.log("[Login Failed] res:", res);
+    // console.log("[Login Failed] res:", res);
   };
   return { clientId, onFailure, onSuccess };
 };

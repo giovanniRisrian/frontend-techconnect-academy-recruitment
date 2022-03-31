@@ -19,8 +19,8 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
       const response = await getProgramTypes();
       // console.log(response.data.data);
       let result = response.data.data.filter((item) => {
-        return(item?.ProgramName !== "All")
-      })
+        return item?.ProgramName !== "All";
+      });
       // console.log("program type",result);
       setProgramType(result);
     } catch (e) {
@@ -36,9 +36,9 @@ const ProgramFormBloc = (useProgramForm, programRepository, navigation) => {
           "Content-Type": "multipart/form-data",
         },
       };
-      // const formData = new FormData();
-      // formData.append("image", values.image);
-      // formData.append("data", values);
+      values.age = values.age + "";
+      values.gpa = values.gpa + "";
+
       const response = await createProgram(values, config);
       swal
         .fire({

@@ -17,7 +17,7 @@ const ChangeRecruiterPasswordBloc = (
           "Content-Type": "multipart/form-data",
         },
       };
-      console.log("user", user);
+      // console.log("user", user);
       let mock = { ...formik.values, id: user.id };
       const response = await postChangePassword(mock, config);
       Swal.fire({

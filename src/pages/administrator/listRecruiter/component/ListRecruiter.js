@@ -103,7 +103,7 @@ export default function ListRecruiter({ bloc }) {
   const onSubmit = (val) => {
     doRegisterRecruiter(val, data);
   };
-  console.log("initialValueUpdate", initialValueUpdate);
+  // console.log("initialValueUpdate", initialValueUpdate);
   const validationUpdate = Yup.object({
     email: Yup.string()
       .required("This field is required")
@@ -178,7 +178,7 @@ export default function ListRecruiter({ bloc }) {
   };
 
   const confirmDelete = (dataDelete) => {
-    console.log("data delete", dataDelete);
+    // console.log("data delete", dataDelete);
     if (window.confirm(`Are you sure to delete ${dataDelete.fullname}?`)) {
       deleteRecruiterbyId(dataDelete.ID, data);
     }
@@ -391,7 +391,7 @@ export default function ListRecruiter({ bloc }) {
                 variant="outlined"
                 sx={{ marginRight: "5%" }}
                 color="primary"
-                textAlign="center"
+                // textAlign="center"
                 onClick={() => {
                   setModalRegister(false);
                 }}
@@ -403,9 +403,9 @@ export default function ListRecruiter({ bloc }) {
                 variant="contained"
                 value="submit"
                 color="primary"
-                textAlign="center"
+                // textAlign="center"
                 // disabled={!(formikRegister.isValid && formikRegister.dirty)}
-                marginLeft="20px"
+                // sx={{ marginLeft: 1 }}
               >
                 SUBMIT
               </Button>
@@ -531,7 +531,7 @@ export default function ListRecruiter({ bloc }) {
                 variant="outlined"
                 sx={{ marginRight: "5%" }}
                 color="primary"
-                textAlign="center"
+                // textAlign="center"
                 onClick={() => {
                   setModalUpdate(false);
                 }}
@@ -543,9 +543,9 @@ export default function ListRecruiter({ bloc }) {
                 variant="contained"
                 value="submit"
                 color="primary"
-                textAlign="center"
+                // textAlign="center"
                 // disabled={!(formikUpdate.isValid && formikUpdate.dirty)}
-                marginLeft="20px"
+                // sx={{ marginLeft: "20px" }}
               >
                 SUBMIT
               </Button>

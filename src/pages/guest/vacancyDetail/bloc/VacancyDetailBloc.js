@@ -115,26 +115,26 @@ const VacancyDetailBloc = (programService) => {
 
         responseApplied = await getAppliedProgram(idProgram?.id, config);
         responseApplied = responseApplied.data.data;
-        console.log("applied", responseApplied);
+        // console.log("applied", responseApplied);
       }
       tempList = response.data.data;
-      console.log("temp", tempList);
+      // console.log("temp", tempList);
       if (context.userInfo && idProgram?.id) {
-        if(responseApplied){
+        if (responseApplied) {
           if (responseApplied.includes(tempList.ID)) {
             tempList.applied = true;
           } else {
             tempList.applied = false;
           }
-        }else{
-        tempList.applied = false;
+        } else {
+          tempList.applied = false;
         }
       } else {
         tempList.applied = false;
       }
 
       setProgramDetail(tempList);
-      console.log(" Ini response", tempList);
+      // console.log(" Ini response", tempList);
       setLoading(false);
       return programDetail;
     } catch (err) {
@@ -142,7 +142,7 @@ const VacancyDetailBloc = (programService) => {
     }
   };
   const doApplyProgram = async (values, context) => {
-    console.log("applied program",values)
+    // console.log("applied program", values);
     try {
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
@@ -150,8 +150,8 @@ const VacancyDetailBloc = (programService) => {
       setLoading(true);
       let res;
       let status = await getUserbyId(config);
-      console.log("", status);
-      console.log("masuk sini ?");
+      // console.log("", status);
+      // console.log("masuk sini ?");
       if (status === true) {
         res = await applyProgram(values, config);
         swal.fire("Saved!", "", "success").then(() => {
@@ -171,7 +171,7 @@ const VacancyDetailBloc = (programService) => {
       return res;
     } catch (err) {
       let user = jwt_decode(context.userInfo);
-      console.log("masuk sini ?");
+      // console.log("masuk sini ?");
       if (user.Role === "recruiter" || user.Role === "administrator") {
         swal.fire({
           icon: "error",
@@ -198,7 +198,7 @@ const VacancyDetailBloc = (programService) => {
     getProgrambyId,
     doApplyProgram,
     getUserbyId,
-    state
+    state,
   };
 };
 

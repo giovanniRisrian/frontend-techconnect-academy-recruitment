@@ -38,9 +38,9 @@ const VacancyDetail = ({ bloc }) => {
   let show = true;
   let dataFalse = { userInfo: null };
   let decodeInfo;
-  console.log("context", data);
+  // console.log("context", data);
   if (data?.userInfo) {
-    console.log("data", data.userInfo);
+    // console.log("data", data.userInfo);
     decodeInfo = jwt_decode(data?.userInfo);
     idUser = decodeInfo;
     if (decodeInfo.Role !== "user") {
@@ -48,8 +48,7 @@ const VacancyDetail = ({ bloc }) => {
     }
   }
 
-  console.log("recomendation",state);
-
+  // console.log("recomendation", state);
 
   let dataApplicant = {
     ProgramId: params.id,
@@ -57,7 +56,7 @@ const VacancyDetail = ({ bloc }) => {
   };
 
   const confirmationApply = () => {
-    console.log("apakah masuk sini?");
+    // console.log("apakah masuk sini?");
     swal
       .fire({
         title: "Do you want to apply this program?",
@@ -220,8 +219,9 @@ const VacancyDetail = ({ bloc }) => {
                   borderRadius: "20px",
                   boxShadow: 3,
                 }}
-                onClick={() => 
-                  navigate(state ? "/applicant/reccomendation" : "/vacancy")}
+                onClick={() =>
+                  navigate(state ? "/applicant/reccomendation" : "/vacancy")
+                }
               >
                 <FontAwesomeIcon
                   icon={faArrowLeft}
@@ -250,7 +250,7 @@ const VacancyDetail = ({ bloc }) => {
                 </Box>
               ) : (
                 <Box>
-                  {data.userInfo  ? (
+                  {data.userInfo ? (
                     <Button
                       disabled={programDetail.applied}
                       variant="contained"

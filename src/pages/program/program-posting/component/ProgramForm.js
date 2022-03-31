@@ -60,8 +60,16 @@ const ProgramForm = ({ bloc }) => {
     headline: Yup.string().required("This field is required"),
     description: Yup.string().required("This field is required"),
     requirement: Yup.string().required("This field is required"),
-    age: Yup.string().required("This field is required"),
-    gpa: Yup.string().required("This field is required"),
+    age: Yup.number()
+      .typeError("This field must be a number")
+      .required("This field is required")
+      .positive("This field must be a positive number")
+      .integer("This field must be an integer"),
+    gpa: Yup.number()
+      .typeError("This field must be a number")
+      .required("This field is required")
+      .positive("This field must be a positive number")
+      .max(4, "This field must be less than or equal to 4"),
     RequirementSkill: Yup.string().required("This field is required"),
     openDate: Yup.string().required("This field is required"),
     closeDate: Yup.string().required("This field is required"),
@@ -100,7 +108,7 @@ const ProgramForm = ({ bloc }) => {
       <>
         {/* Start of Header */}
 
-        <Grid container paddingTop='9%' paddingLeft='5%' paddingRight='5%'>
+        <Grid container paddingTop="9%" paddingLeft="5%" paddingRight="5%">
           <Grid item md={4} />
           <Grid item md={4} sm={11} xs={11} justifyContent="center">
             <Typography

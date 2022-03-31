@@ -3,22 +3,20 @@ import ActionType from "../../../../Context/ActionType";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 const ActivationBloc = (ActivationService) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   let { resendActivation } = ActivationService();
   const doResend = async (email, context) => {
     try {
       let res = await resendActivation(email);
-      console.log("RESPONSE", res);
+      // console.log("RESPONSE", res);
       context.dispatch({
         type: ActionType.LOGOUT,
-      })
-      Swal
-      .fire({
+      });
+      Swal.fire({
         title: "Success!",
         icon: "success",
         confirmButtonText: "OK",
-      })
-      .then((result) => {
+      }).then((result) => {
         if (result.isConfirmed) {
           navigate("/login");
         }
@@ -28,10 +26,10 @@ const ActivationBloc = (ActivationService) => {
         icon: "error",
         text: "Email is not registered",
       });
-      throw err
+      throw err;
     }
   };
- 
+
   return { doResend };
 };
 export default ActivationBloc;

@@ -96,14 +96,14 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
       const response = await getRecruiterbyId(id, config);
-      console.log("apakah ini?", response.data.data);
+      // console.log("apakah ini?", response.data.data);
       let mock = {
         fullname: "",
         email: "",
       };
       mock.fullname = response.data.data.fullname;
       mock.email = response.data.data.email;
-      console.log("mock", mock);
+      // console.log("mock", mock);
       changeInitialValueUpdate(mock);
       return response.data.data;
     } catch (err) {

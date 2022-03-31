@@ -61,7 +61,7 @@ const ApplicantListBloc = (
   const getListProgram = async () => {
     try {
       const response = await getPrograms();
-      console.log("array of bloc", response.data.data.ProgramList);
+      // console.log("array of bloc", response.data.data.ProgramList);
       const result = response.data.data.ProgramList.filter(
         (item) => item.ProgramTypeName !== "Certification"
       );
@@ -114,7 +114,7 @@ const ApplicantListBloc = (
         data3
       );
       // craeated at program applicant
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setLastPage(response.data.data.LastPage);
       if (response.data.data.ApplicantInfo === null) {
         setApplicantList([]);
@@ -144,7 +144,7 @@ const ApplicantListBloc = (
         config,
         data3
       );
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setLastPage(response.data.data.LastPage);
       if (response.data.data.ApplicantInfo === null) {
         setApplicantList([]);
@@ -165,7 +165,7 @@ const ApplicantListBloc = (
 
       if (e.keyCode === 13) {
         let response;
-        console.log("Udah masuk bloc", searchValue);
+        // console.log("Udah masuk bloc", searchValue);
         if (isAccepted === "true") {
           switch (searchBy) {
             case "Name":
@@ -310,7 +310,7 @@ const ApplicantListBloc = (
     setPage(1);
     setProgramId(programId);
     setIsProgram(true);
-    setProgram(program.props.children);
+    // setProgram(program.props.children);
   };
 
   const handleAccept = (header) => {

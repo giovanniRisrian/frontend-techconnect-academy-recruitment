@@ -96,7 +96,7 @@ const DetailApplicantBloc = (
         params.applicantid,
         config
       );
-      console.log("reject message", response);
+      // console.log("reject message", response);
       setApplicantStatus(response.data.data.Message);
     } catch (e) {
       throw e;
@@ -158,10 +158,12 @@ const DetailApplicantBloc = (
           },
         ],
       };
+
       mock.Personal = dataReceive.Personal;
       mock.Personal.BirthDate = dayjs(dataReceive.Personal.BirthDate).format(
         "YYYY-MM-DD"
       );
+
       // console.log(mock.Personal.BirthDate)
       mock.Education = dataReceive.Education;
       mock.SkillSet = dataReceive.SkillSet;
@@ -171,7 +173,7 @@ const DetailApplicantBloc = (
       mock.UserAccountID = dataReceive.UserAccountID;
       // let combine =
       changeInitial(mock);
-      console.log(response);
+      // console.log(response);
       return response;
     } catch (err) {
       throw err;
