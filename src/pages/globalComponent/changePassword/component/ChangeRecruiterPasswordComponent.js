@@ -42,11 +42,11 @@ const ChangeRecruiterPasswordComponent = ({ bloc }) => {
       container
       sx={{
         backgroundColor: "#F2F2F2",
-        height: "89vh",
+        height: "100vh",
       }}
     >
       <Grid item md={6} justifyContent="flex-start">
-        <img src={login} alt="img-form" width="100%" height={"102%"} />
+        <img src={login} alt="img-form" width="100%" height={"100%"} />
       </Grid>
       <Grid item md={5} sm={12} xs={12} sx={{ marginLeft: "3%" }}>
         <Box
@@ -54,7 +54,7 @@ const ChangeRecruiterPasswordComponent = ({ bloc }) => {
             marginX: "20%",
             boxShadow: 3,
             paddingX: "20px",
-            marginTop: "15%",
+            marginTop: "25%",
           }}
         >
           <form onSubmit={formik.handleSubmit}>
@@ -139,7 +139,7 @@ const ChangeRecruiterPasswordComponent = ({ bloc }) => {
                   </LoadingButton>
                 </Box>
               ) : ( */}
-              <Box>
+              <Box display='flex' justifyContent='center' alignItems='center' marginBottom='5%'>
                 <Button
                   variant="outlined"
                   sx={{ marginRight: "5%" }}
@@ -156,7 +156,7 @@ const ChangeRecruiterPasswordComponent = ({ bloc }) => {
                   variant="contained"
                   value="submit"
                   disabled={!(formik.isValid && formik.dirty)}
-                  sx={{ width: "60%", height: "40px" }}
+                  // sx={{ width: "60%", height: "40px" }}
                 >
                   SUBMIT
                 </Button>

@@ -120,7 +120,7 @@ const NavbarCompontent = () => {
   };
 
   return (
-    <AppBar position="sticky" style={{ backgroundColor: "white" ,borderBottomLeftRadius:50,borderBottomRightRadius:50,position:"absolute"}}>
+    <AppBar position="sticky" style={{ backgroundColor: "#171059" ,borderBottomLeftRadius:50,borderBottomRightRadius:50,position:"absolute"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -219,7 +219,7 @@ const NavbarCompontent = () => {
                 onClick={() => navigate(pageLink[index])}
                 sx={{
                   my: "auto",
-                  color: "#8645FF",
+                  color: "white",
                   display: "block",
                   fontFamily:"Arial,  sans-serif",
                   // backgroundColor: "#F5F5F5",

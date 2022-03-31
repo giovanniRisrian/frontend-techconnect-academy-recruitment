@@ -235,7 +235,7 @@ const ViewProfileForm = ({ bloc }) => {
         textAlign="center"
         fontFamily="Montserrat"
         fontWeight="400"
-        sx={{ paddingTop: "20px" }}
+        sx={{ paddingTop: "7%" }}
       >
         Profile
       </Typography>

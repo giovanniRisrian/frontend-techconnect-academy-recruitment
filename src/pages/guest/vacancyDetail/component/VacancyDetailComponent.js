@@ -30,6 +30,7 @@ const VacancyDetail = ({ bloc }) => {
     doApplyProgram,
     params,
     getUserbyId,
+    state,
     loading,
   } = bloc();
   const data = useContext(RootContext);
@@ -46,6 +47,9 @@ const VacancyDetail = ({ bloc }) => {
       show = false;
     }
   }
+
+  console.log("recomendation",state);
+
 
   let dataApplicant = {
     ProgramId: params.id,
@@ -85,7 +89,7 @@ const VacancyDetail = ({ bloc }) => {
     <Box
       sx={{
         backgroundImage: `url(${header})`,
-        height: "91vh",
+        height: "100vh",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}
@@ -95,13 +99,13 @@ const VacancyDetail = ({ bloc }) => {
         justifyContent="center"
         alignItems="center"
         // paddingY="25px"
-        paddingTop="1%"
+        paddingTop="7%"
       >
         {programDetail && (
           <Card
             sx={{
               width: "70%",
-              height: "auto",
+              // height: "auto",
               borderRadius: "20px",
               backgroundColor: "#FFF",
             }}
@@ -216,7 +220,8 @@ const VacancyDetail = ({ bloc }) => {
                   borderRadius: "20px",
                   boxShadow: 3,
                 }}
-                onClick={() => navigate("/vacancy")}
+                onClick={() => 
+                  navigate(state ? "/applicant/reccomendation" : "/vacancy")}
               >
                 <FontAwesomeIcon
                   icon={faArrowLeft}

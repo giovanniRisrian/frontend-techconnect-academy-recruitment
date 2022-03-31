@@ -47,7 +47,7 @@ const LoginBloc = (LoginService) => {
         window.location.reload();
       }
     } catch (err) {
-      setLoading(false);  
+      setLoading(false);
       if (err.response.data.code === 403) {
         Swal.fire({
           icon: "info",

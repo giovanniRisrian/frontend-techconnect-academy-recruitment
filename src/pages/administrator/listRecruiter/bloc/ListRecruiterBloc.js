@@ -52,29 +52,36 @@ const ListRecruiterBloc = (service, useRecruiterList, navigate) => {
     }
   };
 
-  const doRegisterRecruiter = async (formik, context) => {
+  const doRegisterRecruiter = async (val, context) => {
     try {
       const config = {
         headers: { Authorization: `Bearer ${context.userInfo}` },
       };
-      let res = await postRegisterRecruiter(formik.values, config);
-      setModalRegister(false);
-      window.location.reload();
+      let res = await postRegisterRecruiter(val, config);
+      // setModalRegister(false);
+      // window.location.reload();
       // console.log(res);
-      context.dispatch({
-        type: ActionType.Register,
-        token: res.data.data.token,
-        name: res.data.data.name,
-      });
+      setModalRegister(false);
       Swal.fire({
         title: "Success!",
         icon: "success",
         confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed) {
+             window.location.reload();
         }
       });
+      return res;
+      // context.dispatch({
+      //   type: ActionType.Register,
+      //   token: res.data.data.token,
+      //   name: res.data.data.name,
+      // });
+      // setModalRegister(false);
+      
+    
     } catch (err) {
+      setModalRegister(false);
       Swal.fire({
         icon: "error",
         text: "Email has already exist",
