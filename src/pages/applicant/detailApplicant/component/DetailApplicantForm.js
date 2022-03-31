@@ -197,56 +197,76 @@ const DetailApplicantForm = ({ bloc }) => {
               padding: "30px",
             }}
           >
-            {values.Personal.ResumeFile ? (
-              <div>
-                {values.Personal.ResumeFile.split(":")[0].split(".")[1] ===
-                "pdf" ? (
-                  <a
-                    download={values.Personal.Name}
-                    title="Download pdf document"
-                    href={`data:application/pdf;base64,${
-                      values.Personal.ResumeFile.split(":")[1]
-                    }`}
-                  >
-                    Download CV
-                  </a>
-                ) : (
-                  <a
-                    download={
-                      values.Personal.Name +
-                      "." +
-                      values.Personal.ResumeFile.split(":")[0].split(".")[1]
-                    }
-                    title="Download Image"
-                    href={`data:application/png;base64,${
-                      values.Personal.ResumeFile.split(":")[1]
-                    }`}
-                  >
-                    Download CV
-                  </a>
-                )}
-              </div>
-            ) : (
-              <div></div>
-            )}
-
             <Form>
               <Box autoComplete="off">
                 {disabled ? (
-                  <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    {values.Personal?.PhotoFile ? (
-                      <img
-                        src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
-                        style={{ height: "200px" }}
-                      />
-                    ) : (
-                      <img src={avatar} style={{ height: "200px" }} />
-                    )}
-                  </Box>
+                  <>
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      {values.Personal?.PhotoFile ? (
+                        <img
+                          src={`data:image/jpeg/png;base64,${values.Personal.PhotoFile}`}
+                          style={{ height: "200px" }}
+                        />
+                      ) : (
+                        <img src={avatar} style={{ height: "200px" }} />
+                      )}
+                    </Box>
+                    <Box display="flex" justifyContent="center">
+                      {values.Personal.ResumeFile ? (
+                        <div>
+                          {values.Personal.ResumeFile.split(":")[0].split(
+                            "."
+                          )[1] === "pdf" ? (
+                            <Button
+                              color="primary"
+                              variant="outlined"
+                              sx={{ marginTop: "6px" }}
+                            >
+                              <a
+                                style={{ textDecoration: "none" }}
+                                download={values.Personal.Name}
+                                title="Download pdf document"
+                                href={`data:application/pdf;base64,${
+                                  values.Personal.ResumeFile.split(":")[1]
+                                }`}
+                              >
+                                Download CV
+                              </a>
+                            </Button>
+                          ) : (
+                            <Button
+                              color="primary"
+                              variant="outlined"
+                              sx={{ marginTop: "6px" }}
+                            >
+                              <a
+                                style={{ textDecoration: "none" }}
+                                download={
+                                  values.Personal.Name +
+                                  "." +
+                                  values.Personal.ResumeFile.split(
+                                    ":"
+                                  )[0].split(".")[1]
+                                }
+                                title="Download Image"
+                                href={`data:application/png;base64,${
+                                  values.Personal.ResumeFile.split(":")[1]
+                                }`}
+                              >
+                                Download CV
+                              </a>
+                            </Button>
+                          )}
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                    </Box>
+                  </>
                 ) : (
                   <>
                     {file ? (
@@ -1024,7 +1044,9 @@ const DetailApplicantForm = ({ bloc }) => {
                                     variant="outlined"
                                     label="Year In"
                                     name={yearIn}
-                                    value={work.YearIn}
+                                    value={dayjs(work.YearIn).format(
+                                      "YYYY-MM-DD"
+                                    )}
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
@@ -1047,7 +1069,9 @@ const DetailApplicantForm = ({ bloc }) => {
                                     variant="outlined"
                                     label="Year Out"
                                     name={yearOut}
-                                    value={work.YearOut}
+                                    value={dayjs(work.YearOut).format(
+                                      "YYYY-MM-DD"
+                                    )}
                                     InputProps={{
                                       readOnly: disabled,
                                     }}
@@ -1118,17 +1142,17 @@ const DetailApplicantForm = ({ bloc }) => {
                   >
                     Skill
                   </Typography>
-                  <Grid item md={12}>
-                    <FieldArray name="SkillSet">
-                      <div>
-                        {values.SkillSet.map((SkillSetName, idx) => {
-                          const name = `SkillSet[${idx}].Skill`;
-                          const touchedName = getIn(touched, name);
-                          const errorName = getIn(errors, name);
-                          return (
-                            <div key={idx}>
-                              <Grid container spacing={5}>
-                                <Grid item md={5} sm={12} xs={12}>
+                  
+                  <FieldArray name="SkillSet">
+                  <Grid container sx={{padding:'1%'}}>
+                      {values.SkillSet.map((SkillSetName, idx) => {
+                        const name = `SkillSet[${idx}].Skill`;
+                        const touchedName = getIn(touched, name);
+                        const errorName = getIn(errors, name);
+                        return (
+                          <div key={idx}>
+                            <Grid container spacing={3}>
+                            <Grid item sx={{marginRight:'5%'}}>
                                   <TextField
                                     fullWidth
                                     margin="normal"
@@ -1145,15 +1169,16 @@ const DetailApplicantForm = ({ bloc }) => {
                                       readOnly: disabled,
                                     }}
                                   />
-                                </Grid>
-                                {/* <Grid item md={6} /> */}
-                              </Grid>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </FieldArray>
-                  </Grid>
+                                </Grid> 
+                            </Grid>
+
+                          
+                          </div>
+                        );
+                      })}
+                   </Grid>
+                  </FieldArray>
+                 
                 </Box>
 
                 {applicantStatus !== "" ? (

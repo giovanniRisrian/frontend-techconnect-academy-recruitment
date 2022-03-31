@@ -12,7 +12,7 @@ import { RootContext } from "../../../../App";
 const ReccomendationBloc = (ReccomendationService) => {
   const navigate = useNavigate();
   const context = useContext(RootContext);
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
   const { getJobReccomendationId, postGetDataByListId } =
     ReccomendationService();
   // console.log(getJobReccomendationId);
@@ -42,9 +42,15 @@ const ReccomendationBloc = (ReccomendationService) => {
       setLoading(true);
       Swal.fire({
         icon: "error",
-        title: "",
-        text: "No Resume Found",
+        title: "No Resume Found",
+        text: "Please upload your resume first",
+        confirmButtonText: "OK",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/applicant/profile");
+        }
       });
+   
     }
   };
   return { doReccomendation, isLoading };
